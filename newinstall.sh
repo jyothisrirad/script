@@ -126,7 +126,7 @@ sudo apt-get -y install kupfer
 #sudo dpkg -i google-chrome*.deb
 #rm google-chrome*.deb
 
-sudo apt-add-repository -y "deb http://dl.google.com/linux/deb/ stable non-free main"
+sudo apt-add-repository -y "deb http://dl.google.com/linux/chrome/deb/ stable main"
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
 ###gnome-commander
