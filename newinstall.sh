@@ -1,15 +1,16 @@
 #!/bin/bash
 
-script screen.log
+#script screen.log
 #-------------------------------------------------------------------------------------------
 
 #############
 ###CONSOLE###
 #############
+sudo apt-get install -y wget unzip python-setuptools
 ###getfastmirror
+cd /tmp
 wget https://github.com/hychen/getfastmirror/archive/master.zip
 unzip master.zip
-sudo apt-get -y install python-setuptools
 cd getfastmirror-master/
 sudo ./setup.py install
 cd ..
@@ -22,24 +23,24 @@ sudo rm /etc/apt/sources.list.d/*.*.*
 sudo apt-get update
 
 ###kernal
-sudo apt-get -y install linux-headers-generic linux-image-generic
+sudo apt-get install -y linux-headers-generic linux-image-generic
 
 ###ssh
-sudo apt-get -y install openssh-server
+sudo apt-get install -y openssh-server
 
 ###vim
-sudo apt-get -y install vim
+sudo apt-get install -y vim
 
 ###smartmontools
-sudo apt-get -y install smartmontools
+sudo apt-get install -y smartmontools
 
 read -p "Press Any Key to continue to install HTPC related Software..."
 ##########
 ###HTPC###
 ##########
 ###xbmc
-sudo apt-get -y install python-software-properties pkg-config
-sudo apt-get -y install software-properties-common
+sudo apt-get install -y python-software-properties pkg-config
+sudo apt-get install -y software-properties-common
 sudo add-apt-repository -y ppa:team-xbmc/ppa
 
 ###spotify
@@ -50,14 +51,14 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
 wget http://download.teamviewer.com/download/teamviewer_linux.deb
 sudo dpkg -i teamviewer_linux.deb
 rm teamviewer_linux.deb
-sudo apt-get -f -y install
+sudo apt-get -f install -y
 
 #####
 sudo apt-get update
-sudo apt-get -y install avahi-daemon
-sudo apt-get -y install xbmc
+sudo apt-get install -y avahi-daemon
+sudo apt-get install -y xbmc
 #sudo apt-get update -qq
-sudo apt-get -y install spotify-client
+sudo apt-get install -y spotify-client
 
 ###ubuntu-drivers
 sudo ubuntu-drivers autoinstall
@@ -88,39 +89,39 @@ sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer
 
 ###hime
 sudo apt-get -y purge ibus
-sudo apt-get -y install hime im-switch
+sudo apt-get install -y hime im-switch
 im-switch
 
 ###consola
-sudo apt-get -y install fonts-inconsolata
+sudo apt-get install -y fonts-inconsolata
 
 ###dos2unix
-sudo apt-get -y install dos2unix
+sudo apt-get install -y dos2unix
 
 ###mc
-sudo apt-get -y install mc
+sudo apt-get install -y mc
 
 ###tmux
-sudo apt-get -y install tmux
+sudo apt-get install -y tmux
 
 ###playonlinux
-sudo apt-get -y install playonlinux
+sudo apt-get install -y playonlinux
 
 ###conky
-sudo apt-get -y install conky
+sudo apt-get install -y conky
 
 ###remmina
-sudo apt-get -y install remmina
+sudo apt-get install -y remmina
 
 ###dconf-editor
-sudo apt-get -y install dconf-editor
+sudo apt-get install -y dconf-editor
 
 ###kupfer
-sudo apt-get -y install kupfer
-#sudo apt-get -y install synapse
+sudo apt-get install -y kupfer
+#sudo apt-get install -y synapse
 
 ###chrome
-#sudo apt-get -y install libxss1 libappindicator1 libindicator7
+#sudo apt-get install -y libxss1 libappindicator1 libindicator7
 #wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 #wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
 #sudo dpkg -i google-chrome*.deb
@@ -131,13 +132,13 @@ sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo a
 
 ###gnome-commander
 #sudo apt-get update
-sudo apt-get -y install gnome-commander libgnomevfs2-extra
+sudo apt-get install -y gnome-commander libgnomevfs2-extra
 
 ###gimp
-sudo apt-get -y install gimp
+sudo apt-get install -y gimp
 
 ###inkscape
-sudo apt-get -y install inkscape
+sudo apt-get install -y inkscape
 
 ###screenfetch
 wget https://raw.github.com/KittyKatt/screenFetch/master/screenfetch-dev
@@ -147,18 +148,18 @@ sudo mv screenfetch-dev /usr/bin/screenfetch
 
 #####
 sudo apt-get update
-sudo apt-get -y install plank
+sudo apt-get install -y plank
 #sudo apt-get update
-sudo apt-get -y install ubuntu-tweak
+sudo apt-get install -y ubuntu-tweak
 #sudo apt-get update
-sudo apt-get -y install terminator
+sudo apt-get install -y terminator
 #sudo apt-get update
-sudo apt-get -y install conky-manager
+sudo apt-get install -y conky-manager
 #sudo apt-get update
 sudo apt-get install google-chrome-stable
 #sudo apt-get update
-sudo apt-get -y install variety
-sudo apt-get -y install grub-customizer
+sudo apt-get install -y variety
+sudo apt-get install -y grub-customizer
 
 
 read -p "Press Any Key to continue to install Developer related Software..."
@@ -170,14 +171,14 @@ read -p "Press Any Key to continue to install Developer related Software..."
 sudo add-apt-repository -y ppa:webupd8team/sublime-text-3
 
 ###Ruby
-sudo apt-get -y install ruby
+sudo apt-get install -y ruby
 
 ###PHP
-sudo apt-get -y install php-pear
+sudo apt-get install -y php-pear
 
 ###Node.js
-sudo apt-get -y install nodejs
-sudo apt-get -y install npm
+sudo apt-get install -y nodejs
+sudo apt-get install -y npm
 
 ###android studio
 sudo apt-add-repository -y ppa:paolorotolo/android-studio
@@ -185,8 +186,8 @@ sudo apt-add-repository -y ppa:paolorotolo/android-studio
 
 #####
 sudo apt-get update
-sudo apt-get -y install sublime-text-installer
-sudo apt-get -y install android-studio
+sudo apt-get install -y sublime-text-installer
+sudo apt-get install -y android-studio
 
 
 #-------------------------------------------------------------------------------------------
