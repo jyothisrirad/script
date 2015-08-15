@@ -10,7 +10,7 @@ sudo apt-get install -y wget unzip python-setuptools
 ###getfastmirror
 cd /tmp
 wget https://github.com/hychen/getfastmirror/archive/master.zip
-unzip master.zip
+unzip -o master.zip
 cd getfastmirror-master/
 sudo ./setup.py install
 cd ..
