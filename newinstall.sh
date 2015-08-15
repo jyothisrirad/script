@@ -7,6 +7,7 @@ script screen.log
 ###CONSOLE###
 #############
 ###getfastmirror
+cd /tmp
 wget https://github.com/hychen/getfastmirror/archive/master.zip
 unzip master.zip
 sudo apt-get -y install python-setuptools
