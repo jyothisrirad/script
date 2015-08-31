@@ -3,9 +3,11 @@
 #script screen.log
 #-------------------------------------------------------------------------------------------
 
-#############
-###CONSOLE###
-#############
+###################
+###getfastmirror###
+###################
+
+#####
 sudo apt-get install -y wget unzip python-setuptools
 ###getfastmirror
 cd /tmp
@@ -22,6 +24,12 @@ sudo rm /etc/apt/sources.list.d/*.*.*
 #####
 sudo apt-get update
 
+
+read -p "Press Any Key to continue to install Console related Software..."
+#############
+###CONSOLE###
+#############
+
 ###kernal
 sudo apt-get install -y linux-headers-generic linux-image-generic
 
@@ -33,6 +41,7 @@ sudo apt-get install -y vim
 
 ###smartmontools
 sudo apt-get install -y smartmontools
+
 
 read -p "Press Any Key to continue to install HTPC related Software..."
 ##########
