@@ -9,5 +9,5 @@ sudo apt-get -y autoclean
 sudo apt-get -y clean
 
 rm -rf /home/sita/.local/share/Trash/*
-rm /home/sita/xbmc*.log
-rm /home/sita/kodi*.log
+rm /home/$USER/xbmc*.log
+rm /home/$USER/kodi*.log
