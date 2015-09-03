@@ -5,8 +5,8 @@
 sudo getfastmirror update -t
 sudo rm /etc/apt/sources.list.d/*.*.*
 sudo apt-get update
-sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
+sudo apt-get -y upgrade
 #sudo apt-get -y autoremove
 
 cd /home/$USER/script
