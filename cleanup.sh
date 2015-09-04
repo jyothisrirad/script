@@ -8,6 +8,6 @@ sudo apt-get -y autoremove
 sudo apt-get -y autoclean
 sudo apt-get -y clean
 
-rm -rf /home/sita/.local/share/Trash/*
+rm -rf /home/$USER/.local/share/Trash/*
 rm /home/$USER/xbmc*.log
 rm /home/$USER/kodi*.log
