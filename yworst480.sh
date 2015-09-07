@@ -1,3 +1,6 @@
 #!/bin/sh
 
-/usr/local/bin/youtube-dl -c -i -f 'mp4[height=480]+worst/best' -o 'video/%(title)s (%(height)sp).%(ext)s' --prefer-ffmpeg $*
+for last; do true; done
+echo $last
+
+/usr/local/bin/youtube-dl -c -i -f 'mp4[height=480]+worst/best' -o "$last%(title)s (%(height)sp).%(ext)s" --prefer-ffmpeg $*
