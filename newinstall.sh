@@ -11,6 +11,7 @@
 sudo apt-get install -y wget unzip python-setuptools
 
 ###getfastmirror
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.original
 cd /tmp
 wget https://github.com/hychen/getfastmirror/archive/master.zip
 unzip -o master.zip
