@@ -3,6 +3,13 @@
 #script screen.log
 #-------------------------------------------------------------------------------------------
 
+##########
+###misc###
+##########
+#hyper-v ubuntu vm
+echo 0 | sudo sh -c ">/proc/sys/kernel/hung_task_timeout_secs"
+
+
 ###################
 ###getfastmirror###
 ###################
