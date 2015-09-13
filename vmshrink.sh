@@ -22,4 +22,4 @@ sudo rm -rf /usr/share/locale/{af,am,ar,as,ast,az,bal,be,bg,bn,bn_IN,br,bs,byn,c
 
 sudo dd if=/dev/zero of=wipefile bs=1024x1024; sudo rm wipefile
 
-sudo poweroff
+sudo poweroff & exit
