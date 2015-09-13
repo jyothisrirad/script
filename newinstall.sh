@@ -44,6 +44,12 @@ sudo apt-get install -y openssh-server
 ###vim
 sudo apt-get install -y vim
 
+###tmux
+sudo apt-get install -y tmux
+
+###samba
+sudo apt-get install -y samba
+
 ###smartmontools
 sudo apt-get install -y smartmontools
 
@@ -114,9 +120,6 @@ sudo apt-get install -y dos2unix
 
 ###mc
 sudo apt-get install -y mc
-
-###tmux
-sudo apt-get install -y tmux
 
 ###playonlinux
 sudo apt-get install -y playonlinux
