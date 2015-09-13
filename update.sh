@@ -15,6 +15,8 @@ fi
 
 sudo getfastmirror update -t
 sudo rm /etc/apt/sources.list.d/*.*.*
+python -mplatform | grep debian && sudo sed -i 's/ubuntu/debian/' /etc/apt/sources.list
+
 sudo apt-get update
 sudo apt-get -y dist-upgrade
 sudo apt-get -y upgrade
