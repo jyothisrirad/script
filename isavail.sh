@@ -1,6 +1,11 @@
 BASEDIR=$(dirname $0)
 
-if [ "`ping -c 1 $1`" ]
+target=$1
+
+count=$( ping -c 1 $target | grep ttl | wc -l )
+
+if [ ! $count -eq 0 ]
+#if [ "`ping -c 1 $1`" ]
 then
   if [ ! -f /tmp/isonline.$1 ]
   then 
