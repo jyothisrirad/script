@@ -86,7 +86,7 @@ sudo apt-get install -y terminator
 #sudo apt-get update
 sudo apt-get install -y conky-manager
 #sudo apt-get update
-sudo apt-get install google-chrome-stable
+sudo apt-get install -y google-chrome-stable
 #sudo apt-get update
 sudo apt-get install -y variety
 sudo apt-get install -y grub-customizer

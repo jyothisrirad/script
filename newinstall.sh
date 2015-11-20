@@ -44,6 +44,11 @@ read -p "Press Any Key to continue to install Console related Software..."
 sh ${BASEDIR}/newinstall.console.sh
 
 
+read -p "Press Any Key to continue to install Desktop related Software..."
+
+sh ${BASEDIR}/newinstall.desktop.sh
+
+
 read -p "Press Any Key to continue to install HTPC related Software..."
 
 sh ${BASEDIR}/newinstall.htpc.sh
