@@ -19,3 +19,6 @@ sudo apt-get install -y samba
 
 ###smartmontools
 sudo apt-get install -y smartmontools
+
+###git
+sudo apt-get install -y git
