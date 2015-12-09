@@ -27,6 +27,7 @@ sudo youtube-dl -U
 #cd /home/$USER/script
 #sh /home/$USER/script/gitsync.sh
 cd ${BASEDIR}
+sh gitconf.sh
 sh gitsync.sh
 
 #sudo shutdown -r now

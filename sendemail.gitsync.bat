@@ -1,4 +1,20 @@
 @echo off
+
+REM =================================
+goto :main
+
+REM =================================
+REM call :COUNTLINE <linefile>
+REM call :COUNTLINE temp.txt
+REM =================================
+:COUNTLINE
+for /f %%a in ('type "%1"^|find "" /v /c') do set /a cnt=%%a
+
+exit /b
+
+
+REM =================================
+:main
 REM =================================
 set path=C:\Windows\system32;%path%;%~dp0\..\bin
 
@@ -63,7 +79,7 @@ REM =================================
 copy %0 %TXT1% >nul
 
 if defined ALARM (
-sendemail -s msa.hinet.net -f egreta.su@msa.hinet.net -t chsliu@gmail.com -u [LOG] %COMPUTERNAME% %~n0 -m %0 -a %LOG1% %TXT1%
+sendemail -s msa.hinet.net -f egreta.su@msa.hinet.net -t chsliu@gmail.com -u [LOG] %COMPUTERNAME% %~n0 ERROR -m %0 -a %LOG1% %TXT1%
 )
 
 type %LOG1%
@@ -75,16 +91,3 @@ REM =================================
 rem pause
 
 C:\Windows\System32\timeout.exe 10
-
-REM =================================
-
-goto :EOF
-
-REM =================================
-REM call :COUNTLINE <linefile>
-REM call :COUNTLINE temp.txt
-REM =================================
-:COUNTLINE
-for /f %%a in ('type "%1"^|find "" /v /c') do set /a cnt=%%a
-
-exit /b
