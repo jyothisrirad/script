@@ -22,6 +22,8 @@ sudo apt-get -y dist-upgrade
 sudo apt-get -y upgrade
 #sudo apt-get -y autoremove
 
+sudo youtube-dl -U
+
 #cd /home/$USER/script
 #sh /home/$USER/script/gitsync.sh
 cd ${BASEDIR}
