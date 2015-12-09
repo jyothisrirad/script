@@ -1,8 +1,11 @@
 #!/bin/sh
 
-for last; do true; done
-echo $last
+# for last; do true; done
+# echo $last
 
 #set -- "${@:1:$(($#-1))}"
 
-/usr/local/bin/youtube-dl -c -i -f 'bestvideo[height=720]+bestaudio/best' -o "$last%(title)s (%(height)sp).%(ext)s" --prefer-ffmpeg --verbose $*
+prefix=$1
+shift
+
+/usr/local/bin/youtube-dl -c -i -f 'bestvideo[height=720]+bestaudio/best' -o "$prefix/%(title)s (%(height)sp).%(ext)s" --prefer-ffmpeg --verbose $*
