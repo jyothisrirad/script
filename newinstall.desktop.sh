@@ -3,9 +3,12 @@
 #################
 
 ###teamviewer
-wget http://download.teamviewer.com/download/teamviewer_linux.deb
-sudo dpkg -i teamviewer_linux.deb
-rm teamviewer_linux.deb
+#wget http://download.teamviewer.com/download/teamviewer_linux.deb
+#sudo dpkg -i teamviewer_linux.deb
+#rm teamviewer_linux.deb
+wget http://download.teamviewer.com/download/teamviewer_i386.deb
+sudo dpkg -i teamviewer_i386.deb
+rm teamviewer_i386.deb
 sudo apt-get -f install -y
 
 ###rdp
