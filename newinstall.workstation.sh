@@ -98,3 +98,5 @@ sudo apt-get install -y google-chrome-stable
 #sudo apt-get update
 sudo apt-get install -y variety
 sudo apt-get install -y grub-customizer
+sudo apt-get install -y unity-control-center
+
