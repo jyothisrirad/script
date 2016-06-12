@@ -59,6 +59,8 @@ if [ -e $DP0/host-$COMPUTERNAME.sh ]
 then
 	. $DP0/host-$COMPUTERNAME.sh
 	#echo $HOST, $HOSTPATH
+else
+	. $DP0/host.sh
 fi
 
 #=================================
