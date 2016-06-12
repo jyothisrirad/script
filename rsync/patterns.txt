@@ -57,6 +57,15 @@
 - recycle/
 - 暫存區/
 - 網管區/
+- HD?_DATA
+- Logs
+- Public
+- Web
+- _.share
+- aquota.user
+- external
+- lost+found
+- snapshot
 
 # 包含檔案
 + *.*
