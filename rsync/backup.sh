@@ -38,7 +38,7 @@ COMPUTERNAME=$(hostname)
 USERNAME=$(whoami)
 TODAY=$(date +"%Y-%m-%d")
 MONTH=$(date +"%Y-%m")
-LOG=/tmp/rsync.$(basename $(dirname $DIR)).$(basename $DIR).txt
+LOG=/tmp/rsync.$(basename $DIR).txt
 #echo $LOG
 
 #=================================
