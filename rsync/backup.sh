@@ -2,13 +2,14 @@
 
 #=================================
 rsync_mkdir() {
-empty=/tmp/empty
-mkdir $empty >/dev/null
-pushd $empty >/dev/null
+empty=/tmp/empty/
+mkdir $empty &>/dev/null
+#pushd $empty >/dev/null
 
-rsync -a . rsync://$1
+#rsync -a . rsync://$1
+rsync -a $empty rsync://$1
 
-popd >/dev/null
+#popd >/dev/null
 rm -rf $empty
 }
 
@@ -66,7 +67,7 @@ fi
 #=================================
 #RPATH="mkdir -p /$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR) && rsync"
 OPTIONS="-avz --progress --chmod=a=rw,Da+x --fake-super --delete --delete-excluded --exclude-from=$PATTERNS --backup --backup-dir=/recycle/$MONTH/$TODAY/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR)"
-SRC=.
+SRC=$1/
 DST=rsync://$HOST/$HOSTPATH/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR)
 #echo $OPTIONS
 #echo $SRC $DST
@@ -74,13 +75,13 @@ DST=rsync://$HOST/$HOSTPATH/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/
 rsync_check_path $HOST/$HOSTPATH/$USERNAME $COMPUTERNAME $(basename $(dirname $DIR)) $(basename $DIR)
 
 #=================================
-pushd $1 >>$LOG
+#pushd $1 >>$LOG
 echo [ Backup $DIR ] >>$LOG
 echo rsync $OPTIONS $SRC "$DST" >>$LOG
 
 rsync $OPTIONS $SRC "$DST" &>>$LOG
 
-popd >>$LOG
+#popd >>$LOG
 
 #=================================
 cat $LOG
