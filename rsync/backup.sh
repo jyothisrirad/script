@@ -75,7 +75,7 @@ rsync_check_path $HOST/$HOSTPATH/$USERNAME $COMPUTERNAME $(basename $(dirname $D
 
 #=================================
 pushd $1 >/dev/null
-echo [Backup $DIR] >>$LOG
+echo [ Backup $DIR ] >>$LOG
 echo rsync $OPTIONS $SRC "$DST" >>$LOG
 
 rsync $OPTIONS $SRC "$DST" &>>$LOG
