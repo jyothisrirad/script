@@ -74,13 +74,13 @@ DST=rsync://$HOST/$HOSTPATH/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/
 rsync_check_path $HOST/$HOSTPATH/$USERNAME $COMPUTERNAME $(basename $(dirname $DIR)) $(basename $DIR)
 
 #=================================
-pushd $1 >/dev/null
+pushd $1 >>$LOG
 echo [ Backup $DIR ] >>$LOG
 echo rsync $OPTIONS $SRC "$DST" >>$LOG
 
 rsync $OPTIONS $SRC "$DST" &>>$LOG
 
-popd >/dev/null
+popd >>$LOG
 
 #=================================
 cat $LOG
