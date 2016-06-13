@@ -1,2 +1,2 @@
-. /home/admin/script/rsync/backup.sh /home/admin/Desktop/NAS
+. /home/admin/script/rsync/backup.sh /share2/CACHEDEV1_DATA/
 
