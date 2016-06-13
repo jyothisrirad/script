@@ -59,6 +59,7 @@
 - 網管區/
 - .@backup_config
 - .@backup_qbox
+- .@msdfs_root
 - .@qmariadb
 - .@qmonitor
 - .@qsync
