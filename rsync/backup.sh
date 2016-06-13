@@ -85,7 +85,7 @@ popd >/dev/null
 #=================================
 cat $LOG
 
-mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $0 -a $LOG chsliu@gmail.com </dev/null
+mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $0 chsliu@gmail.com </dev/null
 
 rm $LOG
 
