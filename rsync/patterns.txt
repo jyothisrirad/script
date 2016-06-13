@@ -86,6 +86,7 @@
 - external
 - lost+found
 - snapshot
+- @Recycle
 
 # 包含檔案
 + *.*
