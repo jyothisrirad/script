@@ -42,6 +42,12 @@ MONTH=$(date +"%Y-%m")
 LOG=/tmp/rsync.$(basename $DIR).txt
 #echo $LOG
 
+if [ -e $LOG ]
+then
+    mailx -s "[LOG] $COMPUTERNAME $0 ABORT" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $0 chsliu@gmail.com </dev/null
+    exit
+fi
+
 #=================================
 #echo arg2=$2
 if [[ ! -z ${2+x} && -f $2 ]] 
