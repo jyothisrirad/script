@@ -74,6 +74,7 @@
 - .samba
 - .spool
 - .swap
+- .syncing_db
 - .system
 - .tmp
 - .torrent

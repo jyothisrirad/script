@@ -48,6 +48,13 @@ then
     exit
 fi
 
+echo whoami: $(whoami) >>$LOG
+echo '$0': $0 >>$LOG
+echo '$1': $1 >>$LOG
+echo '$2': $2 >>$LOG
+
+ls -la $1 >>$LOG
+
 #=================================
 #echo arg2=$2
 if [[ ! -z ${2+x} && -f $2 ]] 
