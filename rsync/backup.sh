@@ -37,7 +37,7 @@ rm -rf $empty
 
 rsync_mkdir3() {
 dirs=( $(find ~/ -type d -empty) )
-empty=${dirs[0]}
+empty=${dirs[0]}/
 
 #echo rsync -a $empty $1
 rsync -a $empty $1 &>/dev/null
@@ -108,7 +108,7 @@ fi
 #=================================
 #RPATH="mkdir -p /$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR) && rsync"
 OPTIONS="-avz --progress --chmod=a=rw,Da+x --fake-super --delete --delete-excluded --exclude-from=$PATTERNS --backup --backup-dir=/recycle/$MONTH/$TODAY/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR)"
-SRC=$(readlink -e $1)/
+SRC=$DIR/
 DST=rsync://$HOST/$HOSTPATH/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR)
 #echo $OPTIONS
 #echo $SRC $DST
