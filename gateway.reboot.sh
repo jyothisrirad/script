@@ -69,3 +69,5 @@ expect {
 		exit
 	}
 }
+
+#spawn mailx -s "[LOG] $(hostname) $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" chsliu@gmail.com </dev/null

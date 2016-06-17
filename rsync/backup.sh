@@ -25,6 +25,26 @@ rsync_mkdir $1/$2/$3
 rsync_mkdir $1/$2/$3/$4
 }
 
+rsync_mkdir2() {
+empty=/tmp/empty/
+mkdir $empty &>/dev/null
+
+#echo rsync -a $empty $1
+rsync -a $empty $1
+
+rm -rf $empty
+}
+
+rsync_check_path2() {
+    if [[ ! -z "$1" &&  ! $1 == "rsync:" ]]
+    then
+        #echo =$1, $(dirname $1)
+        if [ $1 == $(dirname $1) ]; then return; fi
+        rsync_check_path2 $(dirname $1)
+        rsync_mkdir2 $1
+    fi
+}
+
 #=================================
 if [[ -z "$1" ]] 
 then
@@ -85,7 +105,8 @@ DST=rsync://$HOST/$HOSTPATH/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/
 #echo $OPTIONS
 #echo $SRC $DST
 
-rsync_check_path $HOST/$HOSTPATH/$USERNAME $COMPUTERNAME $(basename $(dirname $DIR)) $(basename $DIR)
+#rsync_check_path $HOST/$HOSTPATH/$USERNAME $COMPUTERNAME $(basename $(dirname $DIR)) $(basename $DIR)
+rsync_check_path2 $DST 
 
 #=================================
 #pushd $1 >>$LOG
