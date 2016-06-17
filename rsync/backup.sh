@@ -35,13 +35,21 @@ rsync -a $empty $1
 rm -rf $empty
 }
 
+rsync_mkdir3() {
+dirs=( $(find ~/ -type d -empty) )
+empty=${dirs[0]}
+
+#echo rsync -a $empty $1
+rsync -a $empty $1 &>/dev/null
+}
+
 rsync_check_path2() {
     if [[ ! -z "$1" &&  ! $1 == "rsync:" ]]
     then
         #echo =$1, $(dirname $1)
         if [ $1 == $(dirname $1) ]; then return; fi
         rsync_check_path2 $(dirname $1)
-        rsync_mkdir2 $1
+        rsync_mkdir3 $1
     fi
 }
 
@@ -100,7 +108,7 @@ fi
 #=================================
 #RPATH="mkdir -p /$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR) && rsync"
 OPTIONS="-avz --progress --chmod=a=rw,Da+x --fake-super --delete --delete-excluded --exclude-from=$PATTERNS --backup --backup-dir=/recycle/$MONTH/$TODAY/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR)"
-SRC=$1/
+SRC=$(readlink -e $1)/
 DST=rsync://$HOST/$HOSTPATH/$USERNAME/$COMPUTERNAME/$(basename $(dirname $DIR))/$(basename $DIR)
 #echo $OPTIONS
 #echo $SRC $DST
