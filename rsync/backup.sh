@@ -67,6 +67,7 @@ COMPUTERNAME=$(hostname)
 USERNAME=$(whoami)
 TODAY=$(date +"%Y-%m-%d")
 MONTH=$(date +"%Y-%m")
+TXT1=/tmp/$(basename $0).txt
 LOG=/tmp/rsync.$(basename $DIR).txt
 #echo $LOG
 
@@ -127,10 +128,11 @@ rsync $OPTIONS $SRC "$DST" &>>$LOG
 
 #=================================
 cat $LOG
+cp $0 $TXT1
 
-mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $0 chsliu@gmail.com </dev/null
+mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $TXT1 chsliu@gmail.com </dev/null
 
-rm $LOG
+rm $LOG $TXT1
 
 #=================================
 
