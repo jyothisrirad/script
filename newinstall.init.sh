@@ -17,11 +17,14 @@ sh ${BASEDIR}/install_sshkey.sh
 
 sh ${BASEDIR}/timezone.fix.sh
 
-#edit crontab 
+#	edit crontab 
+#sudo crontab -e
 # 0 6 * * 0 /usr/bin/batch < /home/vagrant/script/update.sh
 # 0 6 * * 1 /usr/bin/batch < /home/vagrant/script/cleanup.sh
 ##0 6 * * * /usr/bin/batch < /home/vagrant/script/backup.sh
-#or anacron
+#	or anacron
+#sudo apt-get install anacron
+#sudo vi /etc/anacrontab
 # 7       20      update          /usr/bin/batch < /home/sita/script/update.sh
 # 7       25      cleanup         /usr/bin/batch < /home/sita/script/cleanup.sh
 # #7      30      backup          /usr/bin/batch < /home/sita/script/backup.sh
