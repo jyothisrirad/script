@@ -68,12 +68,17 @@ USERNAME=$(whoami)
 TODAY=$(date +"%Y-%m-%d")
 MONTH=$(date +"%Y-%m")
 TXT1=/tmp/$(basename $0).txt
-LOG=/tmp/rsync.$(basename $DIR).txt
+LOG=/tmp/rsync.$(basename $DIR).$TODAY.txt
 #echo $LOG
 
 if [ -e $LOG ]
 then
-    mailx -s "[LOG] $COMPUTERNAME $0 ABORT" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $0 chsliu@gmail.com </dev/null
+    cp $0 $TXT1
+
+    MSG="Aborting because logfile already exists, probably another thread is currently running."
+    echo $MSG | mailx -s "[LOG] $COMPUTERNAME $0 ABORT" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $TXT1 chsliu@gmail.com
+
+    rm $LOG $TXT1
     exit
 fi
 
@@ -130,7 +135,7 @@ rsync $OPTIONS $SRC "$DST" &>>$LOG
 cat $LOG
 cp $0 $TXT1
 
-mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $TXT1 chsliu@gmail.com </dev/null
+echo $0 | mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $TXT1 chsliu@gmail.com
 
 rm $LOG $TXT1
 
