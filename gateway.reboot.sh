@@ -60,6 +60,7 @@ expect {
 expect {
 	"cleanup" {
 		send_user "<Complete>\n"
+		sleep 10
 		exit
 	} timeout {
 		send_user "<Timeout on Final>\n"
