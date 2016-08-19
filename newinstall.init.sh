@@ -40,6 +40,9 @@ echo sudo hostname xxxx
 
 echo sudo /etc/init.d/samba restart & exit
 
+#vi /etc/nsswitch.conf
+#hosts:          files wins dns
+
 #-------------------------------------------------
 #ssh host
 
