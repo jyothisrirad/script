@@ -64,7 +64,9 @@
 - .@qmonitor
 - .@qsync
 - .qbox
+- .qbox_view/
 - .QKVM
+- .Qsync/
 - .antivirus
 - .idmap
 - .ldapdb
