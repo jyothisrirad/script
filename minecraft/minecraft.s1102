@@ -303,8 +303,12 @@ case "$1" in
   log)
 	tail -f "$MCPATH/logs/latest.log"
 	;;
+  install)
+	sudo cp $0 /etc/init.d/
+	sudo chmod a+x /etc/init.d/$0
+	;;
   *)
-  echo "Usage: /etc/init.d/minecraft {start|stop|update|backup|restore|status|restart|save|load|do|log}"
+  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|load|do|log}"
   exit 1
   ;;
 esac
