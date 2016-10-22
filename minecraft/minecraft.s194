@@ -254,8 +254,8 @@ case "$1" in
     mc_start
     ;;
   update)
-    # mc_stop
     # mc_backup
+    # mc_stop
     # mc_update
     # mc_start
 	echo "Not Supported."
@@ -277,9 +277,9 @@ case "$1" in
     ;;
   backup)
     mc_savetodisk_online
-    mc_saveoff
+    # mc_saveoff
     mc_backup
-    mc_saveon
+    # mc_saveon
     ;;
   restore)
 	if mc_status; then
@@ -305,7 +305,7 @@ case "$1" in
 	;;
   install)
 	sudo cp $0 /etc/init.d/
-	sudo chmod a+x /etc/init.d/$0
+	sudo chmod a+x /etc/init.d/$(basename $0)
 	;;
   *)
   echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|load|do|log}"
