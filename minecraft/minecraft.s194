@@ -208,7 +208,7 @@ mc_backup() {
 
 mc_restore() {
    echo "Restoring minecraft files to disk"
-   as_user "$MCSTORE/restore.sh"
+   as_user "$MCSTORE/restore.sh $1"
    echo "Restore complete"
 }
 
@@ -284,11 +284,11 @@ case "$1" in
   restore)
 	if mc_status; then
       mc_stop
-	  mc_restore
+	  mc_restore $2
 	  mc_load
 	  mc_start
 	else
-	  mc_restore
+	  mc_restore $2
 	  mc_load
     fi
     ;;
