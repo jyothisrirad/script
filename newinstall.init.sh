@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 BASEDIR=$(dirname $0)
 
 #-------------------------------------------------
@@ -8,7 +7,7 @@ BASEDIR=$(dirname $0)
 #ssh ip
 
 #-------------------------------------------------
-sudo apt-get install -y git ntpdate samba tmux
+sudo apt-get install -y git ntpdate samba tmux at
 
 #sudo vi /etc/nsswitch.conf
 #
@@ -23,62 +22,7 @@ sh ${BASEDIR}/install_sshkey.sh
 
 sh ${BASEDIR}/timezone.fix.sh
 
-#edit crontab
-# 0 6 * * 0 /usr/bin/batch < /home/vagrant/script/update.sh
-# 0 6 * * 1 /usr/bin/batch < /home/vagrant/script/cleanup.sh
-##0 6 * * * /usr/bin/batch < /home/vagrant/script/backup.sh
-
-#-------------------------------------------------
-#change hostname
-
-sudo vi /etc/hostname
-
-sudo vi /etc/hosts
-
-echo sudo hostname xxxx
-
-echo sudo /etc/init.d/samba restart & exit
-
-#-------------------------------------------------
-# ramdisk 
-#sudo vi /etc/fstab
-tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
-tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
-tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
-
-#not for server
-tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
-
-#-------------------------------------------------
-#ssh host
-
-echo tmux
-
-echo sh ${BASEDIR}/newinstall.sh
-
-echo sh ${BASEDIR}/update.sh
-
-=======
-BASEDIR=$(dirname $0)
-
-#-------------------------------------------------
-#get ip
-# ip addr show
-
-#ssh ip
-
-#-------------------------------------------------
-sudo apt-get install -y git ntpdate samba tmux at
-
-sh ${BASEDIR}/gitconf.sh
-
-sh ${BASEDIR}/gitsync.sh
-
-sh ${BASEDIR}/install_sshkey.sh
-
-sh ${BASEDIR}/timezone.fix.sh
-
-#	edit crontab 
+#edit crontab 
 #sudo crontab -e
 # 0 6 * * 0 /usr/bin/batch < /home/vagrant/script/update.sh
 # 0 6 * * 1 /usr/bin/batch < /home/vagrant/script/cleanup.sh
@@ -105,6 +49,16 @@ echo sudo /etc/init.d/samba restart & exit
 #hosts:          files wins dns
 
 #-------------------------------------------------
+# ramdisk 
+#sudo vi /etc/fstab
+tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
+tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
+tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
+
+#not for server
+tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
+
+#-------------------------------------------------
 #ssh host
 
 echo tmux
@@ -113,4 +67,3 @@ echo sh ${BASEDIR}/newinstall.sh
 
 echo sh ${BASEDIR}/update.sh
 
->>>>>>> 85b3cb08085c3c87ac5923d80246c6dfb097d735
