@@ -9,6 +9,11 @@ BASEDIR=$(dirname $0)
 #-------------------------------------------------
 sudo apt-get install -y git ntpdate samba tmux
 
+#sudo vi /etc/nsswitch.conf
+#
+#hosts:          files dns wins mdns4_minimal 
+#
+
 sh ${BASEDIR}/gitconf.sh
 
 sh ${BASEDIR}/gitsync.sh
@@ -32,6 +37,16 @@ sudo vi /etc/hosts
 echo sudo hostname xxxx
 
 echo sudo /etc/init.d/samba restart & exit
+
+#-------------------------------------------------
+# ramdisk 
+#sudo vi /etc/fstab
+tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
+tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
+tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
+
+#not for server
+tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
 
 #-------------------------------------------------
 #ssh host
