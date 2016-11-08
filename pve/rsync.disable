@@ -7,6 +7,7 @@
 #sudo cp $DP0/init.d/rsync /etc/init.d/rsync
 #sudo cp $DP0/etc/rsyncd.conf /etc/rsyncd.conf
 
-sudo update-rc.d rsync disable
+# sudo update-rc.d rsync diable 
+sudo update-rc.d -f rsync remove
 
 sudo /etc/init.d/rsync stop
