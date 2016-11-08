@@ -16,12 +16,12 @@ fi
 
 zfs_create() {
 	if [ ! -d "/$1" ]; then 
-		echo Creating $rpool/$1
-		sudo zfs create $rpool/$1
+		echo Creating $1
+		sudo zfs create $1
 	fi
 
-	echo $rpool/$1 set compression=$2
-	sudo zfs set compression=$2 $rpool/$1
+	echo $1 set compression=$2
+	sudo zfs set compression=$2 $1
 }
 
 smb_create() {
