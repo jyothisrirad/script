@@ -9,5 +9,4 @@ sudo cp $DP0/etc/rsyncd.conf /etc/rsyncd.conf
 
 sudo update-rc.d rsync enable
 
-sudo /etc/init.d/rsync stop
-sudo /etc/init.d/rsync start
+sudo /etc/init.d/rsync restart
