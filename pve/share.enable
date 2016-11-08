@@ -7,8 +7,7 @@ if [ ! -f "/sbin/zfs" ]; then
 	exit
 fi
 
-if [ ! -z ${var+x} ] 
-then 
+if [ ! -z ${2+x} ]; then 
     compression=$2
 else 
     compression=off
