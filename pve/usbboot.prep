@@ -1,0 +1,85 @@
+#!/bin/bash
+
+rpool=tank
+
+if [ ! -f "/sbin/zfs" ]; then
+	echo ZFS not install, aborting
+	exit
+fi
+
+apt install bc
+swapsize=$(grep MemTotal /proc/meminfo | awk '{print $2 }' | xargs -I {} echo "1+{}/1024^2" | bc)
+
+addto_fstab() {
+	if ! grep -Fxq "$*" /etc/fstab; then
+		echo $* | sudo tee -a /etc/fstab
+	fi
+}
+
+delfrom_fstab() {
+	sed '/$1/d' /etc/fstab > /tmp/fstab
+	sudo mv /tmp/fstab /etc/fstab
+}
+
+addto_crontab() {
+	cronfile=/var/spool/cron/crontabs/$(whoami)
+
+	if ! grep -Fxq "$*" $cronfile; then
+		echo $* | sudo tee -a $cronfile
+	fi
+}
+
+swap_prep() {
+	if [ -d "/$1/swap" ]; then return; fi
+	
+	sudo zfs create -V $2G -b $(getconf PAGESIZE) -o compression=zle -o logbias=throughput -o sync=always -o primarycache=metadata -o secondarycache=none -o com.sun:auto-snapshot=false $1/swap
+
+	sudo mkswap -f /dev/zvol/$1/swap
+
+	# echo Manual remove original swap in /etc/fstab
+	delfrom_fstab swap
+	
+	# echo /dev/zvol/$1/swap none swap defaults 0 0 >> /etc/fstab
+	addto_fstab /dev/zvol/$1/swap none swap defaults 0 0
+	
+	sudo swapon -s	
+	sudo swapoff /dev/dm-1
+	sudo swapon -av
+}
+
+zfs_create() {
+	if [ -d "/$1" ]; then return; fi
+	
+	sudo zfs create $1
+	sudo zfs set compression=lz4 $1
+}
+
+move_path() {
+	if [ -d "/$2/$1" ]; then return; fi
+
+	echo moving /$1 to /$2/$1
+
+	# sudo zfs create $2/$1
+	# sudo zfs set compression=lz4 $2/$1
+	zfs_create $2/$1
+	
+	sudo rsync -avx /$1/* /$2/$1
+	
+	sudo service pvestatd stop
+	sudo rm -rf /$1
+	sudo service pvestatd start
+	sudo ln -s /$2/$1 /$1
+}
+
+swap_prep() tank $swapsize
+
+move_path var/log $rpool
+move_path var/cache $rpool
+move_path var/lib/vz $rpool
+
+addto_fstab tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
+addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
+addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
+
+zfs_create $rpool/USBROOT
+addto_crontab 
