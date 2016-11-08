@@ -4,7 +4,7 @@ DP0=$(dirname $0)
 
 sudo apt install -y rsync
 
-sudo cp $DP0/init.d/rsync /etc/init.d/rsync
+sudo cp $DP0/etc/init.d/rsync /etc/init.d/rsync
 sudo cp $DP0/etc/rsyncd.conf /etc/rsyncd.conf
 
 sudo update-rc.d rsync enable
