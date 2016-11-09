@@ -100,25 +100,23 @@ addto_fstab tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
-echo ===============
-echo not for server
-echo ===============
+echo ===========================================
+echo not for server, add this line to /etc/fstab
+echo ===========================================
 echo tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
 
 #-------------------------------------------------
 #ssh host
 
-echo ===============
+echo =====================================
+echo Run tmux before running scripts below
+echo =====================================
 echo tmux
-echo ===============
-
-echo ===============
+echo ---------------------------
 echo sh ${BASEDIR}/newinstall.sh
-echo ===============
-
-echo ===============
+echo ---------------------------
 echo sh ${BASEDIR}/update.sh
-echo ===============
+echo ---------------------------
 
 #-------------------------------------------------
 echo ===============
