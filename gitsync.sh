@@ -1,5 +1,9 @@
 #!/bin/sh
 
+DP0=$(dirname $0)
+
+$DP0/gitconf.sh
+
 git pull
 
 git add .

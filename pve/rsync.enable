@@ -4,6 +4,8 @@ DP0=$(dirname $0)
 
 sudo apt install -y rsync
 
+$DP0/share.enable NetBackup lz4
+
 sudo cp $DP0/etc/init.d/rsync /etc/init.d/rsync
 sudo cp $DP0/etc/rsyncd.conf /etc/rsyncd.conf
 

@@ -1,19 +1,22 @@
+#!/bin/bash
+
+#-------------------------------------------------
 BASEDIR=$(dirname $0)
 
 #-------------------------------------------------
-#get ip
-# ip addr show
-
-#ssh ip
+echo ===============
+echo Host IP for ssh
+echo ===============
+ip addr show
 
 #-------------------------------------------------
+sudo apt update
 sudo apt-get install -y git ntpdate samba tmux at
 
-#sudo vi /etc/nsswitch.conf
-#
-#hosts:          files dns wins mdns4_minimal 
-#
+#-------------------------------------------------
+sed -i 's/hosts:          files dns/hosts:          files dns wins mdns4_minimal/g' /etc/nsswitch.conf
 
+#-------------------------------------------------
 sh ${BASEDIR}/gitconf.sh
 
 sh ${BASEDIR}/gitsync.sh
@@ -22,6 +25,7 @@ sh ${BASEDIR}/install_sshkey.sh
 
 sh ${BASEDIR}/timezone.fix.sh
 
+#-------------------------------------------------
 #edit crontab 
 #sudo crontab -e
 # 0 6 * * 0 /usr/bin/batch < /home/vagrant/script/update.sh

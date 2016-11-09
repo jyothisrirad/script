@@ -7,6 +7,11 @@ if [ ! -f "/sbin/zfs" ]; then
 	exit
 fi
 
+if [ ! -d "/$rpool" ]; then
+	echo zpool $rpool not created, aborting
+	exit
+fi
+
 if [ ! -z ${2+x} ]; then 
     compression=$2
 else 
@@ -21,23 +26,26 @@ zfs_create() {
 
 	echo $1 set compression=$2
 	sudo zfs set compression=$2 $1
+
+	chgrp users /$1
+	chmod 775 /$1
 }
 
 smb_create() {
 	if ! grep -Fxq "[$1]" /etc/samba/smb.conf; then
 		echo Adding Samba Share: $1
 		
-		echo [$1] 							| sudo tee -a /etc/samba/smb.conf
-		echo path           = /$rpool/$1 	| sudo tee -a /etc/samba/smb.conf
-		echo browseable     = yes 			| sudo tee -a /etc/samba/smb.conf
-		echo writable       = yes 			| sudo tee -a /etc/samba/smb.conf
-		echo create mode    = 0664 			| sudo tee -a /etc/samba/smb.conf
-		echo directory mode = 0775 			| sudo tee -a /etc/samba/smb.conf
+		echo [$1] 			| sudo tee -a /etc/samba/smb.conf
+		echo path = /$rpool/Shares/$1	| sudo tee -a /etc/samba/smb.conf
+                echo read only = No		| sudo tee -a /etc/samba/smb.conf
+                echo create mask = 0664	       	| sudo tee -a /etc/samba/smb.conf
+                echo directory mask = 0775      | sudo tee -a /etc/samba/smb.conf
+                echo guest ok = Yes		| sudo tee -a /etc/samba/smb.conf
 		
 		sudo /etc/init.d/samba restart
 	fi	
 }
 
-zfs_create $rpool/$1 $compression
+zfs_create $rpool/Shares $compression
+zfs_create $rpool/Shares/$1 $compression
 smb_create $1
-

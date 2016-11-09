@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ ! -z ${1+x} ]; then 
+	sudo adduser $1
+	sudo addgroup $1
+	sudo adduser $1 $1 
+	sudo adduser $1 users
+
+	sudo smbpasswd -a $1
+	sudo pdbedit -w -L
+	sudo /etc/init.d/samba restart
+
+	smbclient -L //127.0.0.1 -U $1
+fi
