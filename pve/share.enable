@@ -2,6 +2,11 @@
 
 rpool=tank
 
+if [ -z ${1+x} ]; then
+	echo "new share name is needed"
+	exit
+fi
+
 if [ ! -f "/sbin/zfs" ]; then
 	echo ZFS not install, aborting
 	exit
@@ -27,8 +32,8 @@ zfs_create() {
 	echo $1 set compression=$2
 	sudo zfs set compression=$2 $1
 
-	chgrp users /$1
-	chmod 775 /$1
+	sudo chgrp users /$1
+	sudo chmod 775 /$1
 }
 
 smb_create() {
