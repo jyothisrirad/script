@@ -101,7 +101,7 @@ addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
 echo ===========================================
-echo not for server, add this line to /etc/fstab
+echo For workstation, add this line to /etc/fstab
 echo ===========================================
 echo tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
 
