@@ -29,10 +29,14 @@ delfrom_fstab() {
 
 addto_crontab() {
 	cronfile=/var/spool/cron/crontabs/$(whoami)
+	
+	sudo touch $cronfile
 
 	if ! sudo grep -Fxq "$*" $cronfile; then
-		echo $* | sudo tee -a $cronfile
+		echo "$*" | sudo tee -a $cronfile
 	fi
+	
+	sudo chown $(whoami):crontab $cronfile
 }
 
 swap_prep() {
@@ -92,4 +96,4 @@ addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
 zfs_create $rpool/USBROOT
-addto_crontab '0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup'
+addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup"
