@@ -9,15 +9,15 @@ fi
 #-------------------------------------------------
 addto_fstab() {
 	if ! sudo grep -Fxq "$*" /etc/fstab; then
-		echo $* | sudo tee -a /etc/fstab
+		echo "$*" | sudo tee -a /etc/fstab
 	fi
 }
 
 addto_crontab() {
 	cronfile=/var/spool/cron/crontabs/$(whoami)
 	
-	if ! sudo grep -Fxq '$*' $cronfile; then
-		echo $* | sudo tee -a $cronfile
+	if ! sudo grep -Fxq "$*" $cronfile; then
+		echo "$*" | sudo tee -a $cronfile
 	fi
 	
 	sudo chown $(whoami):crontab $cronfile
@@ -26,8 +26,10 @@ addto_crontab() {
 addto_anacrontab() {
 	cronfile=/etc/anacrontab
 	
+	sudo touch $cronfile
+	
 	if ! sudo grep -Fxq "$*" $cronfile; then
-		echo $* | sudo tee -a $cronfile
+		echo "$*" | sudo tee -a $cronfile
 	fi
 }
 
@@ -51,20 +53,20 @@ sh ${BASEDIR}/timezone.fix.sh
 #edit crontab 
 #sudo crontab -e
 # 0 6 * * 0 /usr/bin/batch < /home/vagrant/script/update.sh
-addto_crontab '0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/update.sh'
+addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/update.sh"
 # 0 6 * * 1 /usr/bin/batch < /home/vagrant/script/cleanup.sh
-addto_crontab '0 6 * * 1 /usr/bin/batch < /home/$(whoami)/script/cleanup.sh'
+addto_crontab "0 6 * * 1 /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
 ##0 6 * * * /usr/bin/batch < /home/vagrant/script/backup.sh
-addto_crontab '#0 6 * * * /usr/bin/batch < /home/$(whoami)/script/backup.sh'
+addto_crontab "#0 6 * * * /usr/bin/batch < /home/$(whoami)/script/backup.sh"
 #	or anacron
 #sudo apt-get install anacron
 #sudo vi /etc/anacrontab
 # 7       20      update          /usr/bin/batch < /home/sita/script/update.sh
-addto_anacrontab "7       20      update          /usr/bin/batch < /home/$(whoami)/script/update.sh"
+addto_anacrontab "7 20 update /usr/bin/batch < /home/$(whoami)/script/update.sh"
 # 7       25      cleanup         /usr/bin/batch < /home/sita/script/cleanup.sh
-addto_anacrontab "7       25      cleanup         /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
+addto_anacrontab "7 25 cleanup /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
 # #7      30      backup          /usr/bin/batch < /home/sita/script/backup.sh
-addto_anacrontab "#7      30      backup          /usr/bin/batch < /home/$(whoami)/script/backup.sh"
+addto_anacrontab "#7 30 backup /usr/bin/batch < /home/$(whoami)/script/backup.sh"
 
 #-------------------------------------------------
 #change hostname
