@@ -7,4 +7,13 @@ if [ ! -d "/$rpool" ]; then
         exit
 fi
 
+zfs_create() {
+        if [ -d "/$1" ]; then return; fi
+
+        echo Creating $1
+        sudo zfs create $1
+        sudo zfs set compression=lz4 $1
+}
+
+zfs_create $rpool/USBROOT
 sudo rsync -avx / /$rpool/USBROOT/
