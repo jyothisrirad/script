@@ -16,6 +16,8 @@ addto_fstab() {
 addto_crontab() {
 	cronfile=/var/spool/cron/crontabs/$(whoami)
 	
+	sudo touch $cronfile
+
 	if ! sudo grep -Fxq "$*" $cronfile; then
 		echo "$*" | sudo tee -a $cronfile
 	fi
@@ -83,7 +85,7 @@ sudo hostname $1
 #-------------------------------------------------
 #vi /etc/nsswitch.conf
 #hosts:          files wins dns
-sed -i 's/hosts:          files dns/hosts:          files dns wins mdns4_minimal/g' /etc/nsswitch.conf
+sudo sed -i 's/hosts:          files dns/hosts:          files dns wins mdns4_minimal/g' /etc/nsswitch.conf
 
 # echo sudo /etc/init.d/samba restart & exit
 sudo /etc/init.d/samba restart
