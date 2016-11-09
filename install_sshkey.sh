@@ -1,7 +1,5 @@
 #!/bin/bash
 
-mkdir ~/.ssh
-
 createdir() {
 	if [ -d "$1" ]; then return; fi
 	
