@@ -16,18 +16,16 @@ addto_fstab() {
 addto_crontab() {
 	cronfile=/var/spool/cron/crontabs/$(whoami)
 	
-	if ! sudo grep -Fxq "$*" $cronfile; then
+	if ! sudo grep -Fxq '$*' $cronfile; then
 		echo $* | sudo tee -a $cronfile
 	fi
 	
-	chown $(whoami):crontab $cronfile
+	sudo chown $(whoami):crontab $cronfile
 }
 
 addto_anacrontab() {
 	cronfile=/etc/anacrontab
 	
-	touch $cronfile
-
 	if ! sudo grep -Fxq "$*" $cronfile; then
 		echo $* | sudo tee -a $cronfile
 	fi
