@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rpool=tank
+
+sudo rsync -avx / /$rpool/USBROOT/
