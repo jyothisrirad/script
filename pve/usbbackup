@@ -2,4 +2,9 @@
 
 rpool=tank
 
+if [ ! -d "/$rpool" ]; then
+        echo zpool $rpool not created, aborting
+        exit
+fi
+
 sudo rsync -avx / /$rpool/USBROOT/
