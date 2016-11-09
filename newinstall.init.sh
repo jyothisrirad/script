@@ -15,14 +15,18 @@ addto_fstab() {
 
 addto_crontab() {
 	cronfile=/var/spool/cron/crontabs/$(whoami)
-
+	
 	if ! sudo grep -Fxq "$*" $cronfile; then
 		echo $* | sudo tee -a $cronfile
 	fi
+	
+	chown $(whoami):crontab $cronfile
 }
 
 addto_anacrontab() {
 	cronfile=/etc/anacrontab
+	
+	touch $cronfile
 
 	if ! sudo grep -Fxq "$*" $cronfile; then
 		echo $* | sudo tee -a $cronfile
@@ -49,11 +53,11 @@ sh ${BASEDIR}/timezone.fix.sh
 #edit crontab 
 #sudo crontab -e
 # 0 6 * * 0 /usr/bin/batch < /home/vagrant/script/update.sh
-addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/update.sh"
+addto_crontab '0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/update.sh'
 # 0 6 * * 1 /usr/bin/batch < /home/vagrant/script/cleanup.sh
-addto_crontab "0 6 * * 1 /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
+addto_crontab '0 6 * * 1 /usr/bin/batch < /home/$(whoami)/script/cleanup.sh'
 ##0 6 * * * /usr/bin/batch < /home/vagrant/script/backup.sh
-addto_crontab "#0 6 * * * /usr/bin/batch < /home/$(whoami)/script/backup.sh"
+addto_crontab '#0 6 * * * /usr/bin/batch < /home/$(whoami)/script/backup.sh'
 #	or anacron
 #sudo apt-get install anacron
 #sudo vi /etc/anacrontab

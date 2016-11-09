@@ -92,4 +92,4 @@ addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
 zfs_create $rpool/USBROOT
-addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup"
+addto_crontab '0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup'
