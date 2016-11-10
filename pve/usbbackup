@@ -10,9 +10,8 @@ fi
 zfs_create() {
         if [ -d "/$1" ]; then return; fi
 
-        echo Creating $1
-        sudo zfs create $1
-        sudo zfs set compression=lz4 $1
+        echo Creating $*
+        sudo zfs create -o xattr=sa -o compression=lz4 $*
 }
 
 zfs_create $rpool/USBROOT

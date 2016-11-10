@@ -23,10 +23,10 @@ else
     compression=off
 fi
 
-zfs_create() {
+zfs_create_share() {
 	if [ ! -d "/$1" ]; then 
 		echo Creating $1
-		sudo zfs create $1
+		sudo zfs create -o xattr=sa $1
 	fi
 
 	echo $1 set compression=$2
@@ -51,6 +51,6 @@ smb_create() {
 	fi	
 }
 
-zfs_create $rpool/Shares $compression
-zfs_create $rpool/Shares/$1 $compression
+zfs_create_share $rpool/Shares $compression
+zfs_create_share $rpool/Shares/$1 $compression
 smb_create $1

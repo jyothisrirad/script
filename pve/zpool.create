@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo zpool create -o ashift=12 $*
+zpool create -o ashift=12 $*
+
+# zdb
+# zdb -mmm $POOLNAME
+
+echo === for creating root volume
+echo zfs create -o xattr=sa -b $(getconf PAGESIZE) -o compression=lz4 tank

@@ -58,9 +58,8 @@ swap_prep() {
 zfs_create() {
 	if [ -d "/$1" ]; then return; fi
 	
-	echo Creating $1
-	sudo zfs create $1
-	sudo zfs set compression=lz4 $1
+	echo Creating $*
+	sudo zfs create -o xattr=sa -o compression=lz4 $*
 }
 
 move_path() {
@@ -68,8 +67,6 @@ move_path() {
 
 	echo moving /$1 to /$2/$1
 
-	# sudo zfs create $2/$1
-	# sudo zfs set compression=lz4 $2/$1
 	zfs_create $2/$1
 	
 	sudo rsync -avx /$1/* /$2/$1
@@ -95,3 +92,8 @@ addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
 zfs_create $rpool/USBROOT
 addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup"
+
+zfs_create $rpool/Shares
+zfs_create $rpool/Shares/VM -o recordsize=4k -o sync=disabled
+zfs_create $rpool/Shares/Download -o recordsize=16KB
+zfs set compression=off $rpool/Shares/Download
