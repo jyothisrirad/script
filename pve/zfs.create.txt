@@ -1,0 +1,51 @@
+#!/bin/bash
+
+echo zfs create -o xattr=sa -b $(getconf PAGESIZE) -o compression=lz4 $*
+zfs create -o xattr=sa -o compression=lz4 $*
+
+# cat /etc/modprobe.d/zfs.conf
+# options zfs l2arc_nocompress=1 zfs_arc_max=8589934592 zfs_arc_meta_limit=6442450944
+
+# ARC monitoring
+# cat /proc/spl/kstat/zfs/arcstats
+
+# echo for Virtual machines
+# echo Virtual machine images on ZFS should be stored using either zvols or raw files to avoid unnecessary overhead.
+# echo If raw files are used, a separate dataset should be used to make it easy to configure recordsize independently. 
+# echo set volblocksize=4KB
+# echo set recordsize=4KB
+# QEMU / KVM / Xen: AIO should be used to maximize IOPS when using files for guest storage.
+zfs create -o xattr=sa -o compression=lz4 -o recordsize=4k -o sync=disabled $*
+
+# echo for Bit Torrent
+# echo set recordsize=16KB
+zfs create -o xattr=sa -o compression=off -o recordsize=16KB $*
+
+# echo for Web Server
+# echo atime=off
+
+# echo for SSD disk
+# echo set metaslab_lba_weighting_enabled=0
+# echo zdb -mmm $POOLNAME #for checking
+
+# echo for SSD cache
+# echo To ensure maximum ZIL performance on NAND flash SSD-based SLOG devices
+# echo overprovison spare area to increase IOPS
+# echo ZFS will not benefit from more SLOG storage than the maximum ARC size. That is half of system memory on Linux and 3/4 of system memory on illumos.
+# echo 1. Run a secure erase on the NAND-flash SSD.
+# echo 2. Create a partition table on the NAND-flash SSD.
+# echo 3. Create a 4GB partition.
+# echo 4. Give the partition to ZFS to use as a log device.
+
+# echo for Database
+# echo for InnoDB data set recordsize=16K
+# echo for InnoDB data set primarycache=metadata
+# echo for InnoDB data set logbias=throughput #to avoid cache twice
+# echo for InnoDB log set recordsize=128K
+# echo for InnoDB log set primarycache=metadata
+# echo for InnoDB Set skip-innodb_doublewrite in my.cnf
+# echo for MyISAM set recordsize=8K
+# echo for PostgreSQL data set recordsize=8K
+# echo for PostgreSQL data set logbias=throughput
+# echo for PostgreSQL WAL set recordsize=8K
+
