@@ -6,5 +6,5 @@ zpool create -o ashift=12 $*
 # zdb
 # zdb -mmm $POOLNAME
 
-echo === for creating root volume
-echo zfs create -o xattr=sa -b $(getconf PAGESIZE) -o compression=lz4 tank
+echo === for creating zvol
+echo zfs create -o xattr=sa -o compression=lz4 -V $zvolsize -b $(getconf PAGESIZE) $zvol

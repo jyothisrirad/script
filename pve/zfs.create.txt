@@ -6,17 +6,20 @@ zfs create -o xattr=sa -o compression=lz4 $*
 # cat /etc/modprobe.d/zfs.conf
 # options zfs l2arc_nocompress=1 zfs_arc_max=8589934592 zfs_arc_meta_limit=6442450944
 
+# ARC monitoring
+# cat /proc/spl/kstat/zfs/arcstats
+
 # echo for Virtual machines
 # echo Virtual machine images on ZFS should be stored using either zvols or raw files to avoid unnecessary overhead.
 # echo If raw files are used, a separate dataset should be used to make it easy to configure recordsize independently. 
 # echo set volblocksize=4KB
 # echo set recordsize=4KB
 # QEMU / KVM / Xen: AIO should be used to maximize IOPS when using files for guest storage.
-zfs create -o xattr=sa -o recordsize=4k -o compression=lz4 -o sync=disabled $*
+zfs create -o xattr=sa -o compression=lz4 -o recordsize=4k -o sync=disabled $*
 
 # echo for Bit Torrent
 # echo set recordsize=16KB
-zfs create -o xattr=sa -o recordsize=16KB $*
+zfs create -o xattr=sa -o compression=off -o recordsize=16KB $*
 
 # echo for Web Server
 # echo atime=off
