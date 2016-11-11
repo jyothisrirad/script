@@ -16,8 +16,10 @@ sudo apt install bc
 swapsize=$(grep MemTotal /proc/meminfo | awk '{print $2 }' | xargs -I {} echo "1+{}/1024^2" | bc)
 
 addto_fstab() {
-	if ! sudo grep -Fxq "$*" /etc/fstab; then
-		echo $* | sudo tee -a /etc/fstab
+	fsfile=/etc/fstab
+
+	if ! sudo grep -Fxq "$*" $fsfile; then
+		echo $* | sudo tee -a $fsfile
 	fi
 }
 
@@ -77,6 +79,14 @@ move_path() {
 	sudo ln -s /$2/$1 /$1
 }
 
+addto_sources() {
+	sources=/etc/apt/sources.list
+
+	if ! sudo grep -Fxq "$*" $sources; then
+		echo $* | sudo tee -a $sources
+	fi
+}
+
 echo Create Swap of size $swapsize
 swap_prep tank $swapsize
 
@@ -97,3 +107,5 @@ zfs_create $rpool/Shares
 zfs_create $rpool/Shares/VM -o recordsize=4k -o sync=disabled
 zfs_create $rpool/Shares/Download -o recordsize=16KB
 sudo zfs set compression=off $rpool/Shares/Download
+
+addto_sources deb http://download.proxmox.com/debian jessie pve-no-subscription

@@ -42,10 +42,10 @@ smb_create() {
 		
 		echo [$1] 			| sudo tee -a /etc/samba/smb.conf
 		echo path = /$rpool/Shares/$1	| sudo tee -a /etc/samba/smb.conf
-                echo read only = No		| sudo tee -a /etc/samba/smb.conf
-                echo create mask = 0664	       	| sudo tee -a /etc/samba/smb.conf
-                echo directory mask = 0775      | sudo tee -a /etc/samba/smb.conf
-                echo guest ok = Yes		| sudo tee -a /etc/samba/smb.conf
+		echo read only = No		| sudo tee -a /etc/samba/smb.conf
+		echo create mask = 0664	       	| sudo tee -a /etc/samba/smb.conf
+		echo directory mask = 0775      | sudo tee -a /etc/samba/smb.conf
+		echo guest ok = Yes		| sudo tee -a /etc/samba/smb.conf
 		
 		sudo /etc/init.d/samba restart
 	fi	
