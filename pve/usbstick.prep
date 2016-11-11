@@ -96,4 +96,4 @@ addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup"
 zfs_create $rpool/Shares
 zfs_create $rpool/Shares/VM -o recordsize=4k -o sync=disabled
 zfs_create $rpool/Shares/Download -o recordsize=16KB
-zfs set compression=off $rpool/Shares/Download
+sudo zfs set compression=off $rpool/Shares/Download
