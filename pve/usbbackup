@@ -15,4 +15,5 @@ zfs_create() {
 }
 
 zfs_create $rpool/USBROOT
-sudo rsync -avx / /$rpool/USBROOT/
+sudo rsync -avx --delete / /$rpool/USBROOT/
+sudo rsync -avx --delete /etc/pve/ /$rpool/USBROOT/etc/pve/
