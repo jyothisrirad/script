@@ -1,8 +1,0 @@
-#minecraft 1.9.4 server
-*/5 * * * * /etc/init.d/minecraft.s194 save
-20 */6 * * * /etc/init.d/minecraft.s194 backup
-
-#minecraft 1.10.2 server
-*/5 * * * * /etc/init.d/minecraft.s1102 save
-20 */6 * * * /etc/init.d/minecraft.s1102 backup
-

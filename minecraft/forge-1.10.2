@@ -14,15 +14,17 @@
 ### END INIT INFO
 
 #Settings
-VERSION=spigot-1.10.2
-JARFILE="$VERSION.jar"
+VERSION=$(basename $0)
+# JARFILE="$VERSION.jar"
 USERNAME="vagrant"
-MCSTORE="/vagrant/$VERSION"
+MCSTORE="/vagrant/runtimes/$VERSION"
 MCPATH="/tmp/$VERSION"
+. $MCSTORE/config.sh
 CPU_COUNT=1
 INVOCATION="java -Xmx4G -Xms1G -server -jar $JARFILE -o false"
-BACKUPPATH="/vagrant/backup"
+# BACKUPPATH="/vagrant/backup"
 WORLD=world
+# LOG="$MCPATH/logs/latest.log"
 RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak"
 ME=`whoami`
 
@@ -231,6 +233,31 @@ mc_command() {
   fi
 }
 
+crontab_status() {
+	status=$(crontab -l)
+	return $?
+}
+
+addto_crontab() {
+	cronfile=/var/spool/cron/crontabs/$(whoami)
+
+	if ! crontab_status; then
+		echo "" | sudo tee -a $cronfile
+		sudo chown $(whoami):crontab $cronfile
+	fi
+	
+	if ! sudo grep -Fxq "$*" $cronfile; then
+		echo "$*" | sudo tee -a $cronfile
+	fi
+}
+
+delfrom_crontab() {
+	cronfile=/var/spool/cron/crontabs/$(whoami)
+
+	line=$*
+	line=$(echo "$line" | sed 's/\//\\\//g')
+	sudo sed -i "/$line/d" $cronfile
+}
 
 #Start-Stop here
 case "$1" in
@@ -301,11 +328,23 @@ case "$1" in
     fi
 	;;
   log)
-	tail -f "$MCPATH/logs/latest.log"
+	tail -f $LOG
 	;;
   install)
 	sudo cp $0 /etc/init.d/
 	sudo chmod a+x /etc/init.d/$(basename $0)
+	addto_crontab "#$VERSION server"
+	addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
+	addto_crontab "20 */6 * * * /etc/init.d/$(basename $0) backup"
+	;;
+  uninstall)
+  	if mc_status; then
+	  mc_stop
+	fi
+	sudo rm /etc/init.d/$(basename $0)
+	sudo rm -rf $MCPATH
+	delfrom_crontab "#$VERSION server"
+	delfrom_crontab "$(basename $0)"
 	;;
   *)
   echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|load|do|log}"

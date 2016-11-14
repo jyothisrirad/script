@@ -25,16 +25,30 @@ delfrom_fstab() {
 	sudo sed -i "/$1/d" /etc/fstab
 }
 
+crontab_status() {
+	status=$(crontab -l)
+	return $?
+}
+
 addto_crontab() {
 	cronfile=/var/spool/cron/crontabs/$(whoami)
-	
-	sudo touch $cronfile
 
+	if ! crontab_status; then
+		echo "" | sudo tee -a $cronfile
+		sudo chown $(whoami):crontab $cronfile
+	fi
+	
 	if ! sudo grep -Fxq "$*" $cronfile; then
 		echo "$*" | sudo tee -a $cronfile
 	fi
-	
-	sudo chown $(whoami):crontab $cronfile
+}
+
+delfrom_crontab() {
+	cronfile=/var/spool/cron/crontabs/$(whoami)
+
+	line=$*
+	line=$(echo "$line" | sed 's/\//\\\//g')
+	sudo sed -i "/$line/d" $cronfile
 }
 
 swap_prep() {
