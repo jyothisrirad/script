@@ -8,16 +8,33 @@ isroot() {
 }                                                              
 
 diskflush() {
-sync
 
-echo Original Setting in /proc/sys/vm/drop_caches
-cat /proc/sys/vm/drop_caches
+echo Flushing Disk Cache
+sudo sync
 
-if isroot; then 
-  echo 3 > /proc/sys/vm/drop_caches
-else 
-  echo 3 | sudo tee /proc/sys/vm/drop_caches
-fi
+# echo Original Setting in /proc/sys/vm/drop_caches
+# cat /proc/sys/vm/drop_caches
+
+# if isroot; then 
+  # echo 3 > /proc/sys/vm/drop_caches
+# else 
+  # echo 3 | sudo tee /proc/sys/vm/drop_caches
+# fi
+
+
+# And free up caches
+#
+echo Freeing the page cache:
+# echo 1 > /proc/sys/vm/drop_caches
+sudo sysctl -w vm.drop_caches=1
+
+echo Free dentries and inodes:
+# echo 2 > /proc/sys/vm/drop_caches
+sudo sysctl -w vm.drop_caches=2
+
+echo Free the page cache, dentries and the inodes:
+# echo 3 > /proc/sys/vm/drop_caches
+sudo sysctl -w vm.drop_caches=3
 
 }
 
@@ -43,8 +60,8 @@ echo Write: $speed $unit
 echo IOPS: $iops
 }
 
-echo Flushing Disk Cache
-diskflush
+# echo Flushing Disk Cache
+# diskflush
 
 echo Testing IOPS with 150GB, $loop of $blocksize writes
 echo ====================================
