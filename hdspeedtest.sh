@@ -11,6 +11,8 @@ diskflush() {
 
 echo Flushing Disk Cache
 sudo sync
+sudo sync
+sudo sync
 
 # echo Original Setting in /proc/sys/vm/drop_caches
 # cat /proc/sys/vm/drop_caches
