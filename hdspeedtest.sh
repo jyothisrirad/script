@@ -10,6 +10,9 @@ isroot() {
 diskflush() {
 sync
 
+echo Original Setting in /proc/sys/vm/drop_caches
+cat /proc/sys/vm/drop_caches
+
 if isroot; then 
   echo 3 > /proc/sys/vm/drop_caches
 else 
