@@ -9,8 +9,8 @@ createdir() {
 addto_sshkey() {
 	sshkeys=~/.ssh/authorized_keys
 
-	if ! sudo grep -Fxq "$*" $sshkeys; then
-		echo $* | sudo tee -a $sshkeys
+	if ! grep -Fxq "$*" $sshkeys; then
+		echo $* | tee -a $sshkeys
 	fi
 }
 
