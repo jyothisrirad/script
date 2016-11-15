@@ -259,6 +259,20 @@ delfrom_crontab() {
 	sudo sed -i "/$line/d" $cronfile
 }
 
+delfile() {
+	if [ -e $1 ]; then
+		echo Removing $1
+		sudo rm $1
+	fi
+}
+
+deldir() {
+	if [ -d $1 ]; then
+		echo Removing $1
+		sudo rm -rf $1
+	fi
+}
+
 #Start-Stop here
 case "$1" in
   status)
@@ -341,8 +355,8 @@ case "$1" in
   	if mc_status; then
 	  mc_stop
 	fi
-	sudo rm /etc/init.d/$(basename $0)
-	sudo rm -rf $MCPATH
+	delfile /etc/init.d/$(basename $0)
+	deldir $MCPATH
 	delfrom_crontab "#$VERSION server"
 	delfrom_crontab "$(basename $0)"
 	;;
