@@ -1,0 +1,18 @@
+#!/bin/bash
+
+rpool=tank
+
+move_path() {
+	sudo rm $2
+
+	sudo rsync -avx $1/* $2
+	
+	# sudo service pvestatd stop
+	# sudo rm -rf $1
+	# sudo service pvestatd start
+	# sudo ln -s $2 $1
+}
+ 
+move_path /$rpool/var/log /var/log
+move_path /$rpool/var/cache /var/cache
+move_path /$rpool/var/lib/vz /var/lib/vz
