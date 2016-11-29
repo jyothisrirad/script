@@ -73,15 +73,15 @@ lsusb | cut -d" " -f 6 | while read line; do
 	echo ----------------------------------
 	tempfile=/tmp/tempfile
 	sudo lsusb -v -d "$line" > $tempfile
-	cat $tempfile | grep idVendor
-	cat $tempfile | grep idProduct
-	cat $tempfile | grep iManufacturer
-	cat $tempfile | grep iProduct
-	cat $tempfile | grep MaxPower
-	cat $tempfile | grep bInterfaceClass
-	cat $tempfile | grep bInterfaceSubClass
-	cat $tempfile | grep bInterfaceProtocol
-	cat $tempfile | grep 'Device can operate'
+	cat $tempfile | grep -m 1 idVendor
+	cat $tempfile | grep -m 1 idProduct
+	cat $tempfile | grep -m 1 iManufacturer
+	cat $tempfile | grep -m 1 iProduct
+	cat $tempfile | grep -m 1 MaxPower
+	cat $tempfile | grep -m 1 bInterfaceClass
+	cat $tempfile | grep -m 1 bInterfaceSubClass
+	cat $tempfile | grep -m 1 bInterfaceProtocol
+	cat $tempfile | grep -m 1 'Device can operate'
 	rm $tempfile
 done
 }
