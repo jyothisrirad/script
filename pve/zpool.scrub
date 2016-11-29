@@ -1,1 +1,47 @@
-sudo zpool scrub tank
+crontab_status() {
+	status=$(crontab -l)
+	return $?
+}
+
+addto_crontab() {
+	cronfile=/var/spool/cron/crontabs/$(whoami)
+
+	if ! crontab_status; then
+		echo "" | sudo tee -a $cronfile
+		sudo chown $(whoami):crontab $cronfile
+	fi
+	
+	if ! sudo grep -Fxq "$*" $cronfile; then
+		echo "$*" | sudo tee -a $cronfile
+	fi
+}
+
+delfrom_crontab() {
+	cronfile=/var/spool/cron/crontabs/$(whoami)
+
+	line=$*
+	line=$(echo "$line" | sed 's/\//\\\//g')
+	sudo sed -i "/$line/d" $cronfile
+}
+
+
+#Start-Stop here
+case "$1" in
+  install)
+        addto_crontab "#zfs disk scrub"
+        addto_crontab "0 1 1 11 * $(readlink -e $0) scrub"
+        ;;
+  uninstall)
+        delfrom_crontab "#zfs disk scrub"
+        delfrom_crontab "$(basename $0)"
+        ;;
+  scrub)
+        sudo zpool scrub tank
+        ;;
+  *)
+		echo "Usage: /etc/init.d/$0 {install|uninstall|scrub}"
+		exit 1
+		;;
+esac
+
+
