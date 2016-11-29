@@ -42,7 +42,7 @@ case "$1" in
         sudo zpool scrub tank
         ;;
   *)
-		echo "Usage: /etc/init.d/$0 {install|uninstall|status|scrub}"
+		echo "Usage: $(basename $0) {install|uninstall|status|scrub}"
 		exit 1
 		;;
 esac
