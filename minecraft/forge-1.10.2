@@ -50,7 +50,7 @@ mc_start() {
       echo "last $WORLD.bak still exist, crashed warning! manual check required!!!"
       exit 1
     fi
-    cd $MCPATH
+    # cd $MCPATH
     if [ ! -f "$MCPATH/$JARFILE" ]; then 
       echo "Ram drive empty...  prepping."
       # as_user "cp -R $MCSTORE/* $MCPATH/"
@@ -349,7 +349,7 @@ case "$1" in
 	sudo chmod a+x /etc/init.d/$(basename $0)
 	addto_crontab "#$VERSION server"
 	addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
-	addto_crontab "20 */6 * * * /etc/init.d/$(basename $0) backup"
+	addto_crontab "22 */6 * * * /etc/init.d/$(basename $0) backup"
 	;;
   uninstall)
   	if mc_status; then
