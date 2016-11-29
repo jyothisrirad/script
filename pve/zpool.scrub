@@ -35,11 +35,14 @@ case "$1" in
         delfrom_crontab "#zfs disk scrub"
         delfrom_crontab "$(basename $0)"
         ;;
+  status)
+        sudo zpool status
+        ;;
   scrub)
         sudo zpool scrub tank
         ;;
   *)
-		echo "Usage: /etc/init.d/$0 {install|uninstall|scrub}"
+		echo "Usage: /etc/init.d/$0 {install|uninstall|status|scrub}"
 		exit 1
 		;;
 esac
