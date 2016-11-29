@@ -40,12 +40,12 @@ lscpu | grep op-mode
 lscpu | grep Thread
 lscpu | grep Core
 lscpu | grep Socket
-# lscpu | grep 'Model name'
-# lscpu | grep MHz
+lscpu | grep 'Model name'
+lscpu | grep MHz
 lscpu | grep BogoMIPS
 lscpu | grep Virtualization
 lscpu | grep cache
-more /proc/cpuinfo | grep -m 1 flags
+cat /proc/cpuinfo | grep -m 1 flags
 sudo dmidecode -t processor
 }
 
@@ -53,12 +53,14 @@ mb_info() {
 echo =================================
 echo MB Info
 echo =================================
+sudo lspci
+echo --- dmidecode -t baseboard
 sudo dmidecode -t 2 | grep Manufacturer
 sudo dmidecode -t 2 | grep Name
+echo --- dmidecode -t bios
 sudo dmidecode -t bios | grep Vendor
 sudo dmidecode -t bios | grep Date
 sudo dmidecode -t bios | grep UEFI
-# lspci
 echo --- dmidecode -t slot
 sudo dmidecode -t slot | grep Type
 }
@@ -90,7 +92,7 @@ network_info() {
 echo =================================
 echo NETWORK Info
 echo =================================
-lspci -v -s $(lspci | grep Ethernet | cut -d" " -f 1)
+sudo lspci -v -s $(lspci | grep Ethernet | cut -d" " -f 1)
 dmesg | grep eth0 | grep up
 sudo mii-tool -v eth0 | grep status
 sudo ethtool eth0 | grep Speed
@@ -118,7 +120,7 @@ gpu2d_info() {
 echo =================================
 echo GPU 2D Info
 echo =================================
-lspci -v -s $(lspci | grep VGA | cut -d" " -f 1)
+sudo lspci -v -s $(lspci | grep VGA | cut -d" " -f 1)
 }
 
 gpu3d_info() {
@@ -271,7 +273,7 @@ postfix_fix() {
 #Start-Stop here
 case "$1" in
   install)
-		sudo apt -y install dstat ethtool lshw lm-sensors heirloom-mailx
+		sudo apt -y install dstat ethtool lshw lm-sensors smartmontools heirloom-mailx
 
 		echo =================================
 		echo Run the following:
