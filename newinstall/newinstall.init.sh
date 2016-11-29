@@ -43,9 +43,9 @@ sudo apt update
 sudo apt-get install -y git ntpdate samba tmux at
 
 #-------------------------------------------------
-sh ${BASEDIR}/gitconf.sh
+sh ${BASEDIR}/../gitconf.sh
 
-sh ${BASEDIR}/gitsync.sh
+sh ${BASEDIR}/../gitsync.sh
 
 sh ${BASEDIR}/install_sshkey.sh
 
