@@ -271,9 +271,13 @@ postfix_fix() {
 #Start-Stop here
 case "$1" in
   install)
-		sudo apt install dstat ethtool lshw lm-sensors heirloom-mailx
+		sudo apt -y install dstat ethtool lshw lm-sensors heirloom-mailx
 
-		# postfix_fix
+		echo =================================
+		echo Run the following:
+		echo sudo sensors-detect
+		echo sudo service kmod start
+		echo =================================
 		
         addto_crontab "#disk smart info"
         addto_crontab "0 1 * * 7 $(readlink -e $0) log smart"
