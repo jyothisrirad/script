@@ -85,7 +85,7 @@ sudo hostname $1
 #-------------------------------------------------
 #vi /etc/nsswitch.conf
 #hosts:          files wins dns
-sudo sed -i 's/hosts:          files dns/hosts:          files dns wins mdns4_minimal/g' /etc/nsswitch.conf
+sudo sed -i 's/hosts:          files dns/hosts:          files wins dns mdns4_minimal/g' /etc/nsswitch.conf
 
 # echo sudo /etc/init.d/samba restart & exit
 sudo /etc/init.d/samba restart
