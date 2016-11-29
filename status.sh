@@ -236,16 +236,19 @@ uptime_info() {
 echo =================================
 echo UPTIME Info
 echo =================================
+sudo tune2fs -l $(df / | tail -1 | cut -d" " -f 1) | grep 'Filesystem created:'
 # uptime
 w
 }
 
 mailtext() {
+	# $1=subject
+	# $2=content
+	# $3=attachment
+
 	# echo $1 | mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $TXT1 chsliu@gmail.com
-	echo $1 | sudo mailx -s "[LOG] $(hostname) $0" chsliu@gmail.com
+	echo $2 | sudo mailx -s "[LOG] $(hostname) $0 $1" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $3 chsliu@gmail.com
 }
-
-
 
 postfix_fix() {
 	sudo mkdir /var/spool/postfix
@@ -264,15 +267,16 @@ postfix_fix() {
 	sudo /etc/init.d/postfix restart
 }
 
+
 #Start-Stop here
 case "$1" in
   install)
-		sudo apt install dstat ethtool lshw lm-sensors
+		sudo apt install dstat ethtool lshw lm-sensors heirloom-mailx
 
-		postfix_fix
+		# postfix_fix
 		
         addto_crontab "#disk smart info"
-        addto_crontab "0 1 1 11 * $(readlink -e $0) smart"
+        addto_crontab "0 1 * * 7 $(readlink -e $0) log smart"
         ;;
   uninstall)
         delfrom_crontab "#disk smart info"
@@ -318,8 +322,11 @@ case "$1" in
 		os_info
 		uptime_info
         ;;
-  log)		
-		mailtext "Hello World"
+  log)
+		attachment=/tmp/$2-$(hostname)-$(date +"%Y-%m-%d").txt
+		$0 $2 > $attachment
+		mailtext $2 $2 $attachment
+		rm $attachment
         ;;
   watch)
 		# dstat --cpu24 -m -s -g -d -n
