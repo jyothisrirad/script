@@ -1,10 +1,14 @@
 #!/bin/bash
 
+echo === create pool
 echo zpool create -o ashift=12 $*
-sudo zpool create -o ashift=12 $*
+#sudo zpool create -o ashift=12 $*
 
-# zdb
-# zdb -mmm $POOLNAME
+echo === zfs stat zdb
+echo zdb -mmm $POOLNAME
 
 echo === for creating zvol
 echo zfs create -o xattr=sa -o compression=lz4 -V '$zvolsize' -b $(getconf PAGESIZE) '$zvol'
+
+echo === create crontab job
+echo zpool.scrub install

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 crontab_status() {
 	status=$(crontab -l)
 	return $?

@@ -116,7 +116,7 @@ zfs_create $rpool/var/lib
 move_path_zfs var/lib/vz $rpool
 
 addto_fstab tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
-addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
+#addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
 zfs_create $rpool/USBROOT
