@@ -30,11 +30,11 @@ delfrom_crontab() {
 #Start-Stop here
 case "$1" in
   install)
-        addto_crontab "#zfs disk scrub"
+        addto_crontab "#yearly zfs disk scrub"
         addto_crontab "0 1 1 11 * $(readlink -e $0) scrub"
         ;;
   uninstall)
-        delfrom_crontab "#zfs disk scrub"
+        delfrom_crontab "#yearly zfs disk scrub"
         delfrom_crontab "$(basename $0)"
         ;;
   status)

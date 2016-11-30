@@ -1,0 +1,24 @@
+#!/bin/bash
+
+addto_mail_aliases() {
+	aliases=/etc/aliases
+	
+	if ! sudo grep -Fxq "$*" $aliases; then
+		echo "$*" | sudo tee -a $aliases
+	fi
+}
+
+delfrom_mail_aliases() {
+	aliases=/etc/aliases
+
+	line=$*
+	line=$(echo "$line" | sed 's/\//\\\//g')
+	sudo sed -i "/$line/d" $aliases
+}
+
+
+addto_mail_aliases "root: chsliu@gmail.com"
+addto_mail_aliases "$(whoami): chsliu@gmail.com"
+sudo newaliases
+sudo /etc/init.d/postfix restart
+echo test | mail -s "test message" root
