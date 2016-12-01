@@ -34,7 +34,7 @@ mailreport() {
 # sudo /etc/init.d/postfix restart
 # echo test | mail -v -s "test message postfix" root
 
-sudo apt install -y ssmtp
+sudo apt install -y ssmtp heirloom-mailx
 
 #setting for displayed name in From: field
 sudo chfn -f "root at $(hostname)" root
