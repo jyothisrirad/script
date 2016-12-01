@@ -244,13 +244,13 @@ sudo tune2fs -l $(df / | tail -1 | cut -d" " -f 1) | grep 'Filesystem created:'
 w
 }
 
-mailtext() {
+mailreport() {
 	# $1=subject
 	# $2=content
-	# $3=attachment
+	# $3=extra options
 
-	# echo $1 | mailx -s "[LOG] $COMPUTERNAME $0" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $LOG -a $TXT1 chsliu@gmail.com
-	echo $2 | sudo mailx -s "[LOG] $(hostname) $0 $1" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $3 chsliu@gmail.com
+	# echo $2 | sudo mailx -s "[LOG] $(hostname) $0 $1" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $3 chsliu@gmail.com
+	echo $2 | mailx -s "[LOG] $(hostname) $0 $1" $3 chsliu@gmail.com
 }
 
 postfix_fix() {
@@ -332,7 +332,7 @@ case "$1" in
   log)
 		attachment=/tmp/$2-$(hostname)-$(date +"%Y-%m-%d").txt
 		$0 $2 > $attachment
-		mailtext $2 $2 $attachment
+		mailreport "$2" "$2" "-a $0 -a $attachment"
 		rm $attachment
         ;;
   watch)

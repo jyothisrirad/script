@@ -1,24 +1,89 @@
 #!/bin/bash
 
-addto_mail_aliases() {
-	aliases=/etc/aliases
+add_uniq_to_file() {
+	file=$1
+	shift
 	
-	if ! sudo grep -Fxq "$*" $aliases; then
-		echo "$*" | sudo tee -a $aliases
+	if [ ! -e $file ]; then
+		sudo touch $file
+	fi
+	
+	if ! sudo grep -Fxq "$@" $file; then
+		echo "$@" | sudo tee -a $file
 	fi
 }
 
-delfrom_mail_aliases() {
-	aliases=/etc/aliases
-
-	line=$*
+del_uniq_in_file() {
+	file=$1
+	shift
+	
+	line=$@
 	line=$(echo "$line" | sed 's/\//\\\//g')
-	sudo sed -i "/$line/d" $aliases
+	sudo sed -i "/$line/d" $file
 }
 
+mailreport() {
+	# $1=subject
+	# $2=content
+	# $3=extra options
 
-addto_mail_aliases "root: chsliu@gmail.com"
-addto_mail_aliases "$(whoami): chsliu@gmail.com"
-sudo newaliases
-sudo /etc/init.d/postfix restart
-echo test | mail -s "test message" root
+	# echo $2 | sudo mailx -s "[LOG] $(hostname) $0 $1" -r "Sita Liu<egreta.su@msa.hinet.net>" -S smtp="msa.hinet.net" -a $3 chsliu@gmail.com
+	echo $2 | mailx -v -s "[LOG] $(hostname) $0 $1" $3 chsliu@gmail.com
+}
+
+# addto_mail_aliases "root: chsliu@gmail.com"
+# addto_mail_aliases "$(whoami): chsliu@gmail.com"
+# sudo newaliases
+# sudo /etc/init.d/postfix restart
+# echo test | mail -v -s "test message postfix" root
+
+sudo apt install -y ssmtp
+
+#setting for displayed name in From: field
+sudo chfn -f "root at $(hostname)" root
+sudo chfn -f "$(whoami) at $(hostname)" $(whoami)
+
+#setting for address in From: field
+del_uniq_in_file /etc/ssmtp/revaliases "root:"
+add_uniq_to_file /etc/ssmtp/revaliases "root:egreta.su@msa.hinet.net:msa.hinet.net"
+del_uniq_in_file /etc/ssmtp/revaliases "$(whoami):"
+add_uniq_to_file /etc/ssmtp/revaliases "$(whoami):egreta.su@msa.hinet.net:msa.hinet.net"
+
+#setting receiver for all system mail
+del_uniq_in_file /etc/ssmtp/ssmtp.conf "root="
+add_uniq_to_file /etc/ssmtp/ssmtp.conf "root=chsliu@gmail.com"
+# del_uniq_in_file /etc/ssmtp/ssmtp.conf "mailhub="
+# add_uniq_to_file /etc/ssmtp/ssmtp.conf "mailhub=msa.hinet.net"
+# del_uniq_in_file /etc/ssmtp/ssmtp.conf "hostname="
+# add_uniq_to_file /etc/ssmtp/ssmtp.conf "hostname=$(hostname).sitahome.ddns.org"
+# del_uniq_in_file /etc/ssmtp/ssmtp.conf "rewriteDomain="
+# add_uniq_to_file /etc/ssmtp/ssmtp.conf "rewriteDomain=$(hostname).sitahome.ddns.org"
+
+#setting for address in To: field
+del_uniq_in_file /etc/mail.rc "alias root"
+add_uniq_to_file /etc/mail.rc "alias root 'root <chsliu@gmail.com>'"
+del_uniq_in_file /etc/mail.rc "alias $(whoami)"
+add_uniq_to_file /etc/mail.rc "alias $(whoami) 'Sita Liu <chsliu@gmail.com>'"
+
+
+echo =================================
+echo Sending test mail to root
+echo =================================
+echo "root" | mail -v -s "test message ssmtp $(date +"%Y-%m-%d %H:%M")" root
+
+echo =================================
+echo Sending test mail to $(whoami)
+echo =================================
+echo "$(whoami)" | mail -v -s "test message ssmtp $(date +"%Y-%m-%d %H:%M")" $(whoami)
+
+echo =================================
+echo Sending test mail to chsliu@gmail.com
+echo =================================
+echo "chsliu@gmail.com" | mail -v -s "test message ssmtp $(date +"%Y-%m-%d %H:%M")" chsliu@gmail.com
+
+echo =================================
+echo mailx test 
+echo =================================
+mailreport "$(date +"%Y-%m-%d %H:%M")" "chsliu@gmail.com" "-a $0"
+
+
