@@ -31,9 +31,6 @@ mailreport() {
 	echo $2 | mailx -v -s "[LOG] $(hostname) $0 $1" $3 chsliu@gmail.com
 }
 
-# add_uniq_to_file /etc/aliases "root: chsliu@gmail.com"
-# add_uniq_to_file /etc/aliases "$(whoami): chsliu@gmail.com"
-# sudo newaliases
 # sudo /etc/init.d/postfix restart
 # echo test | mail -v -s "test message postfix" root
 
@@ -59,12 +56,24 @@ add_uniq_to_file /etc/ssmtp/ssmtp.conf "root=chsliu@gmail.com"
 # del_uniq_in_file /etc/ssmtp/ssmtp.conf "rewriteDomain="
 # add_uniq_to_file /etc/ssmtp/ssmtp.conf "rewriteDomain=$(hostname).sitahome.ddns.org"
 
-#setting for address in To: field
+#fix link
+sudo rm /etc/alternatives/mail
+sudo ln -s /usr/bin/bsd-mailx /etc/alternatives/mail
+sudo rm /etc/alternatives/mailx
+sudo ln -s /usr/bin/heirloom-mailx /etc/alternatives/mailx
+
+#setting for address in To: field (bsd-mailx)
 del_uniq_in_file /etc/mail.rc "alias root"
 add_uniq_to_file /etc/mail.rc "alias root 'root <chsliu@gmail.com>'"
 del_uniq_in_file /etc/mail.rc "alias $(whoami)"
 add_uniq_to_file /etc/mail.rc "alias $(whoami) 'Sita Liu <chsliu@gmail.com>'"
 
+#setting for address in To: field (heirloom-mailx)
+del_uniq_in_file /etc/aliases "root:"
+add_uniq_to_file /etc/aliases "root: chsliu@gmail.com"
+del_uniq_in_file /etc/aliases "$(whoami):"
+add_uniq_to_file /etc/aliases "$(whoami): chsliu@gmail.com"
+sudo newaliases
 
 echo =================================
 echo Sending test mail to root
