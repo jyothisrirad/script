@@ -22,6 +22,23 @@ del_uniq_in_file() {
 	sudo sed -i "/$line/d" $file
 }
 
+postfix_fix() {
+	sudo mkdir /var/spool/postfix
+	sudo chown postfix:postdrop /var/spool/postfix
+	sudo chmod 730 /var/spool/postfix
+	
+	# sudo mkdir /var/spool/postfix/maildrop
+	# sudo chown postfix:postdrop /var/spool/postfix/maildrop
+	# sudo chmod 730 /var/spool/postfix/maildrop
+	
+	# sudo mkdir /var/spool/postfix/public
+	# sudo mkdir /var/spool/postfix/public/pickup
+	# sudo chown postfix:postdrop /var/spool/postfix/public/pickup
+	# sudo chmod 730 /var/spool/postfix/public/pickup
+	
+	sudo /etc/init.d/postfix restart
+}
+
 mailreport() {
 	# $1=subject
 	# $2=content
@@ -31,6 +48,7 @@ mailreport() {
 	echo $2 | mailx -v -s "[LOG] $(hostname) $0 $1" $3 chsliu@gmail.com
 }
 
+postfix_fix
 # sudo /etc/init.d/postfix restart
 # echo test | mail -v -s "test message postfix" root
 
