@@ -25,7 +25,7 @@ del_uniq_in_file() {
 postfix_fix() {
 	sudo mkdir /var/spool/postfix
 	sudo chown postfix:postdrop /var/spool/postfix
-	sudo chmod 730 /var/spool/postfix
+	sudo chmod 755 /var/spool/postfix
 	
 	# sudo mkdir /var/spool/postfix/maildrop
 	# sudo chown postfix:postdrop /var/spool/postfix/maildrop
@@ -52,6 +52,7 @@ postfix_fix
 # sudo /etc/init.d/postfix restart
 # echo test | mail -v -s "test message postfix" root
 
+# sudo apt update
 sudo apt install -y ssmtp heirloom-mailx
 
 #setting for displayed name in From: field
