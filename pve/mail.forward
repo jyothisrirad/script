@@ -23,20 +23,24 @@ del_uniq_in_file() {
 }
 
 postfix_fix() {
-	sudo mkdir /var/spool/postfix
-	sudo chown postfix:postdrop /var/spool/postfix
-	sudo chmod 755 /var/spool/postfix
+	postfix_dir=/var/spool/postfix
 	
-	# sudo mkdir /var/spool/postfix/maildrop
-	# sudo chown postfix:postdrop /var/spool/postfix/maildrop
-	# sudo chmod 730 /var/spool/postfix/maildrop
-	
-	# sudo mkdir /var/spool/postfix/public
-	# sudo mkdir /var/spool/postfix/public/pickup
-	# sudo chown postfix:postdrop /var/spool/postfix/public/pickup
-	# sudo chmod 730 /var/spool/postfix/public/pickup
-	
-	sudo /etc/init.d/postfix restart
+	if [ ! -d $postfix_dir ]; then
+		sudo mkdir $postfix_dir
+		sudo chown postfix:postdrop $postfix_dir
+		sudo chmod 755 $postfix_dir
+		
+		# sudo mkdir /var/spool/postfix/maildrop
+		# sudo chown postfix:postdrop /var/spool/postfix/maildrop
+		# sudo chmod 755 /var/spool/postfix/maildrop
+		
+		# sudo mkdir /var/spool/postfix/public
+		# sudo mkdir /var/spool/postfix/public/pickup
+		# sudo chown postfix:postdrop /var/spool/postfix/public/pickup
+		# sudo chmod 755 /var/spool/postfix/public/pickup
+		
+		sudo /etc/init.d/postfix restart
+	fi
 }
 
 mailreport() {
