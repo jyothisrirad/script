@@ -330,10 +330,10 @@ case "$1" in
 		uptime_info
         ;;
   log)
-		attachment=/tmp/$2-$(hostname)-$(date +"%Y-%m-%d").txt
-		$0 $2 > $attachment
-		mailreport "$2" "$2" "-a $0 -a $attachment"
-		rm $attachment
+		log=/tmp/$2-$(hostname)-$(date +"%Y-%m-%d").txt
+		$0 $2 > $log
+		mailreport "$2" "$2" "-a $0 -a $log"
+		rm $log
         ;;
   watch)
 		# dstat --cpu24 -m -s -g -d -n
