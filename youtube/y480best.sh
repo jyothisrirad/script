@@ -8,4 +8,4 @@
 prefix=$1
 shift
 
-/usr/local/bin/youtube-dl -c -i -f 'bestvideo[height=480]+bestaudio/best' -o "$prefix/%(title)s (%(height)sp).%(ext)s" --prefer-ffmpeg --verbose $*
+youtube-dl -c -i -f 'bestvideo[height=480]+bestaudio/best' -o "$prefix/%(title)s (%(height)sp).%(ext)s" --prefer-ffmpeg --verbose $*

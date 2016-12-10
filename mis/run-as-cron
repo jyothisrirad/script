@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#run-as-cron <cron-environment> <command>
+
+. "$1"
+exec /usr/bin/env -i "$SHELL" -c ". $1; $2"
