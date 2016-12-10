@@ -66,6 +66,7 @@ echo $1 | sudo tee /etc/hostname
 
 # sudo vi /etc/hosts
 sudo sed -i "s/$(hostname)/$1/g" /etc/hosts
+sudo sed -i "s/sitahome.ddns.org/.$domain/g" /etc/hosts
 sudo sed -i "s/.home/.$domain/g" /etc/hosts
 
 # echo sudo hostname xxxx
