@@ -52,22 +52,16 @@ sh ${BASEDIR}/install_sshkey.sh
 sh ${BASEDIR}/timezone.fix.sh
 
 #-------------------------------------------------
-#edit crontab 
-#sudo crontab -e
-# 0 6 * * 0 /usr/bin/batch < /home/vagrant/script/update.sh
+#crontab jobs
+addto_crontab "#server maintenance"
 addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/update.sh"
-# 0 6 * * 1 /usr/bin/batch < /home/vagrant/script/cleanup.sh
 addto_crontab "0 6 * * 1 /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
-##0 6 * * * /usr/bin/batch < /home/vagrant/script/backup.sh
 addto_crontab "#0 6 * * * /usr/bin/batch < /home/$(whoami)/script/backup.sh"
-#	or anacron
-#sudo apt-get install anacron
-#sudo vi /etc/anacrontab
-# 7       20      update          /usr/bin/batch < /home/sita/script/update.sh
+
+#anacron jobs
+addto_anacrontab "#server maintenance"
 addto_anacrontab "7 20 update /usr/bin/batch < /home/$(whoami)/script/update.sh"
-# 7       25      cleanup         /usr/bin/batch < /home/sita/script/cleanup.sh
 addto_anacrontab "7 25 cleanup /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
-# #7      30      backup          /usr/bin/batch < /home/sita/script/backup.sh
 addto_anacrontab "#7 30 backup /usr/bin/batch < /home/$(whoami)/script/backup.sh"
 
 #-------------------------------------------------
@@ -97,7 +91,7 @@ sudo /etc/init.d/samba restart
 # tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 # tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
-addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
+#addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
 echo ===========================================
