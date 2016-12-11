@@ -1,3 +1,9 @@
+# -u: username
+# -p: password (**no space after**)
+# -h: host
+# last one is name of the database that you wanted to connect. 
+#mysql -u USERNAME -pPASSWORD -h HOSTNAMEORIP DATABASENAME
+
 #checking mysql config
 cat /etc/mysql/my.cnf | grep bind
 
