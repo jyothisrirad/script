@@ -52,6 +52,9 @@ su -s /bin/bash -c "apt install -y sudo ca-certificates git samba libnss-winbind
 create_sudo_cfg
 
 #-------------------------------------------------
+sudo dpkg-reconfigure tzdata
+
+#-------------------------------------------------
 clone_script
 
 #-------------------------------------------------
