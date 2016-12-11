@@ -27,7 +27,7 @@ newuser() {
 		sudo pdbedit -w -L
 		sudo /etc/init.d/samba restart
 
-		smbclient -L //127.0.0.1 -U $1
+		smbclient -L //localhost -U $1
 	fi
 }
 
