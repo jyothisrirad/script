@@ -1,0 +1,22 @@
+#!/bin/bash
+#clear
+
+# 要做快照的 pool 或 分割區
+Snapshot_pool=pool2T/DS
+
+#記錄執行時間
+datetime=`date +%Y-%m-%d-%H-%M-%S`
+Snapshot_name=$Snapshot_pool@$datetime
+
+echo 快照名稱：$Snapshot_name
+echo 開始建立快照 $Snapshot_name
+echo ~# /sbin/zfs snapshot $Snapshot_name
+
+# 最後加上 -r 表示要做快照的分割區底下的所有分割區一併做快照
+/sbin/zfs snapshot $Snapshot_name -r
+echo 快照 $Snapshot_name 建立完成
+
+echo ---------------------------------
+/sbin/zfs list -t snapshot | grep NAME
+/sbin/zfs list -t snapshot | grep $Snapshot_pool
+
