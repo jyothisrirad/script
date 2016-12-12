@@ -120,7 +120,7 @@ addto_fstab tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
 zfs_create $rpool/USBROOT
-addto_crontab "#weekly usbstick backup"
+addto_crontab "# $(basename $0): weekly usbstick backup"
 addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup"
 
 zfs_create $rpool/Shares
