@@ -282,11 +282,11 @@ case "$1" in
 		echo sudo service kmod start
 		echo =================================
 		
-        addto_crontab "#weekly disk smart info logging"
+        addto_crontab "# $(basename $0): weekly disk smart info logging"
         addto_crontab "0 1 * * 7 $(readlink -e $0) log smart"
         ;;
   uninstall)
-        delfrom_crontab "#weekly disk smart info logging"
+        delfrom_crontab "# $(basename $0): weekly disk smart info logging"
         delfrom_crontab "$(basename $0)"
         ;;
   info)
