@@ -42,5 +42,5 @@ sudo update-rc.d rsync enable
 sudo /etc/init.d/rsync restart
 
 sudo cp $DP0/cleanup.py.cmd /tank/Shares/NetBackup/recycle/
-addto_crontab "#monthly netbackup cleanup"
+addto_crontab "# $(basename $0): monthly netbackup cleanup"
 addto_crontab "0 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0"
