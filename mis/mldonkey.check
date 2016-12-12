@@ -1,0 +1,36 @@
+#allowed_ips
+cat /var/lib/mldonkey/downloads.ini | grep allowed_ips
+
+#enable_kademlia 
+cat /var/lib/mldonkey/downloads.ini | grep enable_kademlia 
+
+#max_hard_upload_rate 
+cat /var/lib/mldonkey/downloads.ini | grep max_hard_upload_rate 
+
+#max_hard_download_rate 
+cat /var/lib/mldonkey/downloads.ini | grep max_hard_download_rate 
+
+#temp_directory 
+cat /var/lib/mldonkey/downloads.ini | grep temp_directory 
+
+#create_file_mode 
+cat /var/lib/mldonkey/downloads.ini | grep create_file_mode 
+
+#create_dir_mode 
+cat /var/lib/mldonkey/downloads.ini | grep create_dir_mode 
+
+#shared_directories 
+cat /var/lib/mldonkey/downloads.ini | grep shared_directories 
+
+#dirname 
+cat /var/lib/mldonkey/downloads.ini | grep dirname 
+
+#client_name 
+cat /var/lib/mldonkey/downloads.ini | grep client_name 
+
+#MLDONKEY_GROUP
+sudo cat /etc/default/mldonkey-server | grep MLDONKEY_GROUP
+
+#MLDONKEY_UMASK
+sudo cat /etc/default/mldonkey-server | grep MLDONKEY_UMASK
+
