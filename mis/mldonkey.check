@@ -1,6 +1,12 @@
 #ed2k port
 cat /var/lib/mldonkey/donkey.ini | grep port
 
+#user id
+cat /var/lib/mldonkey/donkey.ini | grep client_private_key
+
+#user id
+cat /var/lib/mldonkey/donkey.ini | grep md4
+
 #MLDONKEY_GROUP
 sudo cat /etc/default/mldonkey-server | grep MLDONKEY_GROUP
 

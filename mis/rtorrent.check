@@ -1,0 +1,5 @@
+cat /var/lib/rtorrent/.rtorrent.rc | grep port_range
+cat /var/lib/rtorrent/.rtorrent.rc | grep dht_port
+cat /var/lib/rtorrent/.rtorrent.rc | grep directory
+cat /var/lib/rtorrent/.rtorrent.rc | grep schedule
+cat /var/lib/rtorrent/.rtorrent.rc | grep execute
