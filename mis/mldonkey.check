@@ -1,3 +1,12 @@
+#ed2k port
+cat /var/lib/mldonkey/donkey.ini | grep port
+
+#MLDONKEY_GROUP
+sudo cat /etc/default/mldonkey-server | grep MLDONKEY_GROUP
+
+#MLDONKEY_UMASK
+sudo cat /etc/default/mldonkey-server | grep MLDONKEY_UMASK
+
 #allowed_ips
 cat /var/lib/mldonkey/downloads.ini | grep allowed_ips
 
@@ -27,10 +36,4 @@ cat /var/lib/mldonkey/downloads.ini | grep dirname
 
 #client_name 
 cat /var/lib/mldonkey/downloads.ini | grep client_name 
-
-#MLDONKEY_GROUP
-sudo cat /etc/default/mldonkey-server | grep MLDONKEY_GROUP
-
-#MLDONKEY_UMASK
-sudo cat /etc/default/mldonkey-server | grep MLDONKEY_UMASK
 
