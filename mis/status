@@ -1,16 +1,20 @@
 #!/bin/sh
 
 crontab_status() {
-	status=$(crontab -l)
+	# user=$(whoami)
+	user=root
+	status=$(sudo crontab -l -u $user)
 	return $?
 }
 
-addto_crontab() {
-	cronfile=/var/spool/cron/crontabs/$(whoami)
+addto_root_crontab() {
+	# user=$(whoami)
+	user=root
+	cronfile=/var/spool/cron/crontabs/$user
 
 	if ! crontab_status; then
 		echo "" | sudo tee -a $cronfile
-		sudo chown $(whoami):crontab $cronfile
+		sudo chown $user:crontab $cronfile
 	fi
 	
 	if ! sudo grep -Fxq "$*" $cronfile; then
@@ -18,8 +22,10 @@ addto_crontab() {
 	fi
 }
 
-delfrom_crontab() {
-	cronfile=/var/spool/cron/crontabs/$(whoami)
+delfrom_root_crontab() {
+	# user=$(whoami)
+	user=root
+	cronfile=/var/spool/cron/crontabs/$user
 
 	line=$*
 	line=$(echo "$line" | sed 's/\//\\\//g')
@@ -282,12 +288,12 @@ case "$1" in
 		echo sudo service kmod start
 		echo =================================
 		
-        addto_crontab "# $(basename $0): weekly disk smart info logging"
-        addto_crontab "0 1 * * 7 $(readlink -e $0) log smart"
+        addto_root_crontab "# $(basename $0): weekly disk smart info logging"
+        addto_root_crontab "0 1 * * 7 $(readlink -e $0) log smart"
         ;;
   uninstall)
-        delfrom_crontab "# $(basename $0): weekly disk smart info logging"
-        delfrom_crontab "$(basename $0)"
+        delfrom_root_crontab "# $(basename $0): weekly disk smart info logging"
+        delfrom_root_crontab "$(basename $0)"
         ;;
   info)
         cpu_info
