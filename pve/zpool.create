@@ -12,3 +12,5 @@ echo zfs create -o xattr=sa -o compression=lz4 -V '$zvolsize' -b $(getconf PAGES
 
 echo === create crontab job
 echo zpool.scrub install
+
+cat /etc/zfs/zed.d/zed.rc | grep ZED_EMAIL_ADDR

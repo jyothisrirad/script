@@ -332,7 +332,7 @@ case "$1" in
   log)
 		log=/tmp/$2-$(hostname)-$(date +"%Y-%m-%d").txt
 		$0 $2 > $log
-		mailreport "$2" "$2" "-a $0 -a $log"
+		mailreport "$2" "$2" "-a $log -a $0"
 		rm $log
         ;;
   watch)
