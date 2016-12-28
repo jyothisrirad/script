@@ -61,11 +61,12 @@ connection_check() {
 				touch $lastonflag
 			else
 				# hour_lastonflag=$(ls -la $lastonflag | cut -d ' ' -f 8 | cut -d ':' -f 1)
-				hour_now=$(date +%H)
+				now_hour=$(date +%H)
+				now_min=$(date +%M)
 				
-				if [ "$no_reset_hour_start" -le "$hour_now" ] && [ "$hour_now" -lt "$no_reset_hour_stop" ]; then
-					echo "$no_reset_hour_start <= $hour_now < $no_reset_hour_stop", no reset
-				elif test `find "$lastonflag" -mmin +$onmin`; then
+				if [ "$no_reset_hour_start" -le "$now_hour" ] && [ "$now_hour" -lt "$no_reset_hour_stop" ]; then
+					echo "$no_reset_hour_start <= $now_hour < $no_reset_hour_stop", no reset
+				elif [ "$now_min" -eq 0 ] && test `find "$lastonflag" -mmin +$onmin`; then
 					echo lastonflag is old enough, reset gateway.
 					expect -f $BASEDIR/gateway.reboot.sh
 					rm $lastonflag				
