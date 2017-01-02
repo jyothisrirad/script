@@ -299,12 +299,12 @@ case "$1" in
         cpu_info
 		cpu_temp
 		mb_info
-		usb_info
 		ram_info
-		gpu2d_info
-		gpu3d_info
 		network_info
 		disk_info
+		usb_info
+		gpu2d_info
+		gpu3d_info
 		os_info
 		uptime_info
 		
@@ -315,8 +315,8 @@ case "$1" in
         cpu_info
 		cpu_temp
 		mb_info
-		usb_info
 		ram_info
+		usb_info
         ;;
   gpu)
 		gpu2d_info

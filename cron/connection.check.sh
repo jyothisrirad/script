@@ -5,7 +5,7 @@ gateway=$(ip r | grep default | cut -d ' ' -f 3)
 dns=8.8.8.8
 badconnflag=/tmp/$(basename $0).badconnection
 lastonflag=/tmp/$(basename $0).lastonflag
-onmin=240
+onmin=220
 no_reset_hour_start=8
 no_reset_hour_stop=14
 
@@ -41,6 +41,11 @@ testhost() {
 	fi
 }
 
+reset_gateway() {
+	expect -f $BASEDIR/gateway.reboot.sh
+	rm $lastonflag
+}
+
 connection_check() {
 	if ! testhost $gateway; then
 		echo gateway disconnected, badconnflag created.
@@ -50,8 +55,7 @@ connection_check() {
 		
 		if [ -e $badconnflag ] || ! testhost $dns; then 
 			echo badconnflag found or internet disconnected, reset gateway.
-			expect -f $BASEDIR/gateway.reboot.sh
-			rm $lastonflag
+			reset_gateway
 			rm $badconnflag
 		else 
 			echo internet connected
@@ -60,16 +64,14 @@ connection_check() {
 				echo lastonflag created.
 				touch $lastonflag
 			else
-				# hour_lastonflag=$(ls -la $lastonflag | cut -d ' ' -f 8 | cut -d ':' -f 1)
 				now_hour=$(date +%H)
 				now_min=$(date +%M)
 				
-				if [ "$no_reset_hour_start" -le "$now_hour" ] && [ "$now_hour" -lt "$no_reset_hour_stop" ]; then
-					echo "$no_reset_hour_start <= $now_hour < $no_reset_hour_stop", no reset
+				if [ "$no_reset_hour_start" -lt "$now_hour" ] && [ "$now_hour" -lt "$no_reset_hour_stop" ]; then
+					echo "$no_reset_hour_start < $now_hour < $no_reset_hour_stop", no reset
 				elif [ "$now_min" -eq 0 ] && test `find "$lastonflag" -mmin +$onmin`; then
 					echo lastonflag is old enough, reset gateway.
-					expect -f $BASEDIR/gateway.reboot.sh
-					rm $lastonflag				
+					reset_gateway				
 				fi
 			fi
 		fi
