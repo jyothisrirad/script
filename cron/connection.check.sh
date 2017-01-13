@@ -5,7 +5,7 @@ gateway=$(ip r | grep default | cut -d ' ' -f 3)
 dns=8.8.8.8
 badconnflag=/tmp/$(basename $0).badconnection
 lastonflag=/tmp/$(basename $0).lastonflag
-onmin=280
+onmin=340
 no_reset_hour_start=8
 no_reset_hour_stop=14
 

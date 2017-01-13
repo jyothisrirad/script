@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #=================================
-DIR=$(readlink -e $0)
-DP0=$(dirname $DIR)
+DIR=$(readlink -e "$0")
+DP0=$(dirname "$DIR")
 
 #=================================
 crontab_status() {
