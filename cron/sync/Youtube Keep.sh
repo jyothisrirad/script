@@ -57,9 +57,7 @@ main() {
 	
 	# echo Entering Dir "$DST"
 	cd "$DST"
-	
-	~/script/youtube/y720best.sh "$DST" --download-archive archive.txt "https://www.youtube.com/playlist?list=PLjNwYpNvYICoSFaytXX-DCoJ-sW8FGCFc" &>log.txt
-
+	~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=FLvgWgk4Sl87VT--sGRJnRMQ" &>log.txt
 }
 
 #=================================

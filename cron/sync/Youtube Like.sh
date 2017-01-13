@@ -57,9 +57,7 @@ main() {
 	
 	# echo Entering Dir "$DST"
 	cd "$DST"
-	
-	~/script/youtube/y720best.sh "$DST" --download-archive archive.txt "https://www.youtube.com/playlist?list=PLjNwYpNvYICoSFaytXX-DCoJ-sW8FGCFc" &>log.txt
-
+	~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=LLvgWgk4Sl87VT--sGRJnRMQ" &>log.txt
 }
 
 #=================================
@@ -67,7 +65,7 @@ case "$1" in
   install)
 	addto_crontab ""
 	addto_crontab "$cron_comment"
-	addto_crontab "$cron_min $cron_hour * * * /usr/bin/batch < \"$(readlink -e "$0")\""
+	addto_crontab "$cron_min * * * * /usr/bin/batch < \"$(readlink -e "$0")\""
 	;;
   uninstall)
 	delfrom_crontab "$cron_comment"
