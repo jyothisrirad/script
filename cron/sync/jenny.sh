@@ -58,9 +58,7 @@ main() {
 	# echo Entering Dir "$DST"
 	cd "$DST"
 
-	~/script/youtube/ymp3.sh "$DST" --download-archive archive.txt https://www.youtube.com/playlist?list=PLqbfraq6ndW64vwaOpzu1oCf6lyPjOdrh &>log.txt
-
-	#~/script/youtube/ymp3.sh $DSTROOT/jenny/ --max-downloads 1 https://www.youtube.com/playlist?list=PLqbfraq6ndW64vwaOpzu1oCf6lyPjOdrh 
+	~/script/youtube/ymp3.sh "$DST" --download-archive archive.txt "https://www.youtube.com/playlist?list=PLqbfraq6ndW64vwaOpzu1oCf6lyPjOdrh" &>log.txt
 }
 
 #=================================
@@ -68,7 +66,7 @@ case "$1" in
   install)
 	addto_crontab ""
 	addto_crontab "$cron_comment"
-	addto_crontab "$cron_min $cron_hour * * * /usr/bin/batch < \"$(readlink -e "$0")\""
+	addto_crontab "$cron_min $cron_hour * * * \"$(readlink -e "$0")\""
 	;;
   uninstall)
 	delfrom_crontab "$cron_comment"
