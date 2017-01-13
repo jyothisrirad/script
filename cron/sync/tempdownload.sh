@@ -60,7 +60,11 @@ main() {
 	
 	# ~/script/youtube/y720best.sh "$DST" --download-archive archive.txt "https://www.youtube.com/playlist?list=PLL7H7U6zd1f0df68ySccybaTThFdcQCaZ" &>log.txt
 	
+	# ~/script/youtube/get.web.720.sh "https://www.youtube.com/playlist?list=PLL7H7U6zd1f0df68ySccybaTThFdcQCaZ" &>log.txt
+	
 	# ~/script/youtube/y480best.sh "$DST" --download-archive archive.txt "https://www.youtube.com/playlist?list=PLL7LXvkhjsoLrNMDyhYucp8A8dP8y7VIf" &>log.txt
+	
+	# ~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLL7LXvkhjsoLrNMDyhYucp8A8dP8y7VIf" &>log.txt
 }
 
 #=================================

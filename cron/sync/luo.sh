@@ -58,8 +58,7 @@ main() {
 	# echo Entering Dir "$DST"
 	cd "$DST"
 	
-	# echo ~/script/youtube/y480best.sh $DSTROOT/luo/ --max-downloads 1 https://www.youtube.com/user/logictalkshow/videos 
-	~/script/youtube/y480best.sh "$DST" --download-archive archive.txt "https://www.youtube.com/user/logictalkshow/videos" &>log.txt
+	~/script/youtube/get.web.480.sh "https://www.youtube.com/user/logictalkshow/videos" &>log.txt
 }
 
 #=================================
