@@ -301,7 +301,7 @@ case "$1" in
     # mc_start
 	echo "Not Supported."
     ;;
-  save_offline)
+  force-save)
     mc_savetodisk_offline
     ;;
   save)
@@ -361,7 +361,7 @@ case "$1" in
 	delfrom_crontab "$(basename $0)"
 	;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|load|do|log}"
+  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|load|do|log}"
   exit 1
   ;;
 esac
