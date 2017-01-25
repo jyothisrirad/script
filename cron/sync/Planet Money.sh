@@ -57,7 +57,7 @@ main() {
 	
 	# echo Entering Dir "$DST"
 	cd "$DST"
-	~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLM6plzqo5RbSy8H-I6Xf3AJ47C5tZfpgS" &>log.txt
+	~/script/youtube/get.web.480.sh "https://www.youtube.com/channel/UCi-OCP1rx8GxPoQLTnwhaVQ/videos" &>log.txt
 }
 
 #=================================
@@ -65,7 +65,7 @@ case "$1" in
   install)
 	addto_crontab ""
 	addto_crontab "$cron_comment"
-	addto_crontab "$cron_min * * * * \"$(readlink -e "$0")\""
+	addto_crontab "$cron_min $cron_hour * * * \"$(readlink -e "$0")\""
 	;;
   uninstall)
 	delfrom_crontab "$cron_comment"
