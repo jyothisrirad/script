@@ -233,6 +233,10 @@ mc_command() {
   fi
 }
 
+mc_save_crashreport() {
+  as_user "rsync $RSYNCOPT $MCPATH/crash-reports/ $MCSTORE/crash-reports/"
+}
+
 crontab_status() {
 	status=$(crontab -l)
 	return $?
@@ -307,6 +311,9 @@ case "$1" in
   save)
     mc_savetodisk_online
     ;;
+  crashreport)
+	mc_save_crashreport
+    ;;
   load)
 	if mc_status; then
 	  mc_stop
@@ -361,7 +368,7 @@ case "$1" in
 	delfrom_crontab "$(basename $0)"
 	;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|load|do|log}"
+  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log}"
   exit 1
   ;;
 esac
