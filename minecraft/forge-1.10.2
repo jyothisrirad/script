@@ -233,6 +233,10 @@ mc_command() {
   fi
 }
 
+mc_save_crashreport() {
+  as_user "rsync $RSYNCOPT $MCPATH/crash-reports/ $MCSTORE/crash-reports/"
+}
+
 crontab_status() {
 	status=$(crontab -l)
 	return $?
@@ -306,6 +310,9 @@ case "$1" in
     ;;
   save)
     mc_savetodisk_online
+    ;;
+  crashreport)
+	mc_save_crashreport
     ;;
   load)
 	if mc_status; then
