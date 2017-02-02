@@ -35,10 +35,25 @@ delfrom_crontab() {
 	sudo sed -i "/$line/d" $cronfile
 }
 
+# testhost() {
+	# if ping -q -c 1 -W 1 $1 >/dev/null; then
+	  # echo ping $1, exitcode is $?
+	  # return $?
+	# fi
+# }
+
 testhost() {
-	if ping -q -c 1 -W 1 $1 >/dev/null; then
-	  return $?
-	fi
+	ping -q -c 1 -W 1 $1 >/dev/null; ret=$?
+	# echo ping $1, exitcode: $ret
+	return $ret
+	
+	# if [ "$ret" -eq "0" ]; then
+		# echo $ret=="0", returning 0
+		# return 0
+	# else
+		# echo $ret!="0", returning 1
+		# return 1
+	# fi
 }
 
 reset_gateway() {
@@ -47,6 +62,18 @@ reset_gateway() {
 }
 
 connection_check() {
+	# if ! testhost2 192.168.1.250; then
+		# echo false	
+	# else
+		# echo true
+	# fi
+	
+	# if ! testhost2 192.168.1.251; then
+		# echo false	
+	# else
+		# echo true
+	# fi
+
 	if ! testhost $gateway; then
 		echo gateway disconnected, badconnflag created.
 		touch $badconnflag 
