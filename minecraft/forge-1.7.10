@@ -290,9 +290,10 @@ case "$1" in
     mc_start
     ;;
   stop)
-    mc_stop
-    mc_savetodisk_offline
+    mc_savetodisk_online
     mc_backup
+    mc_stop
+    # mc_savetodisk_offline
     ;;
   restart)
     mc_stop
