@@ -292,6 +292,7 @@ case "$1" in
   stop)
     mc_stop
     mc_savetodisk_offline
+    mc_backup
     ;;
   restart)
     mc_stop
@@ -351,12 +352,26 @@ case "$1" in
   log)
 	tail -f $LOG
 	;;
+  check)
+	if ! mc_status; then
+		echo "$JARFILE is Offline."
+	else
+		tmpfile="/tmp/mc.log"
+		mc_command "list" > $tmpfile
+		if [ -s $tmpfile ]; then
+			echo "$JARFILE is Online."
+		else
+			echo "$JARFILE is Not Responding."
+		fi
+		rm $tmpfile
+	fi
+	;;	
   install)
 	sudo cp $0 /etc/init.d/
 	sudo chmod a+x /etc/init.d/$(basename $0)
 	addto_crontab "#$VERSION server"
 	addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
-	addto_crontab "22 */6 * * * /etc/init.d/$(basename $0) backup"
+	addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
 	;;
   uninstall)
   	if mc_status; then
@@ -368,7 +383,7 @@ case "$1" in
 	delfrom_crontab "$(basename $0)"
 	;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log}"
+  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log|check}"
   exit 1
   ;;
 esac
