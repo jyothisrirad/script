@@ -1,4 +1,4 @@
-if [! "root" = $(whoami) ]; then
+if [ ! "root" = $(whoami) ]; then
 	echo "only work while been root"
 	exit
 fi
