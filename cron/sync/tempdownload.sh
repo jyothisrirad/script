@@ -65,6 +65,14 @@ main() {
 	# ~/script/youtube/y480best.sh "$DST" --download-archive archive.txt "https://www.youtube.com/playlist?list=PLL7LXvkhjsoLrNMDyhYucp8A8dP8y7VIf" &>log.txt
 	
 	# ~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLL7LXvkhjsoLrNMDyhYucp8A8dP8y7VIf" &>log.txt
+	
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL9mGn4QMy3GQV94WrYfD_rubsEYT7reKJ
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLD12F35DC852803FD
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL0xzMlxZRTv_rBNmXaSOW5RaEJTGmjbcH
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL60eRp_UW37LViR0KTil0lFePrhP0qrRF
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLD_hOCJtWd4Oldt0YZCfwaynyEFflyolH
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLerUZlaD8TFznWACSVWSCOF1IKbefZ9hv
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLD12F35DC852803FD
 }
 
 #=================================
