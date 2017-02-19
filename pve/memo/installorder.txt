@@ -1,0 +1,17 @@
+###basic setup for new system
+#> newinstall.root.sh
+newinstall.init.sh <hostname>
+newuser <username>
+
+###create disk id
+Edit /etc/zfs/vdev_id.conf to prepare aliases for disk devices found in /dev/disk/by-id/ 
+--------cut here-------------------
+# run 'udevadm trigger' after updating this file
+alias a0        scsi-36848f690e856b10018cdf39854055206
+--------cut here-------------------
+
+###create zpool
+sudo mis/disksec.query.sh
+#for 4k disk use ashift=12
+sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <disk4> ...
+
