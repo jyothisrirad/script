@@ -1,0 +1,7 @@
+newinstall.root.sh
+newinstall.init.sh <hostname>
+newuser <username>
+
+zpool create tank
+#for 4k disk use ashift=12
+sudo zpool create -o ashift=12 tank
