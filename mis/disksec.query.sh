@@ -44,6 +44,6 @@ lsblk | grep -P ^sd | cut -d" " -f 1 | while read line; do
 	echo ---------------------------------
 	cat $tempfile | grep '/dev/sd'
 	echo ---------------------------------
-	cat $tempfile | egrep "Model:|Number:|Size:"
+	cat $tempfile | egrep "Model:|Number:|Capacity:|Sector Size"
 	rm $tempfile
 done
