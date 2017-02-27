@@ -23,6 +23,7 @@ sudo apt-get -y upgrade
 #sudo apt-get -y autoremove
 
 sudo youtube-dl -U
+sudo pip install -U youtube-dl
 
 #cd /home/$USER/script
 #sh /home/$USER/script/gitsync.sh

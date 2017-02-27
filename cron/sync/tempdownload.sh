@@ -65,6 +65,23 @@ main() {
 	# ~/script/youtube/y480best.sh "$DST" --download-archive archive.txt "https://www.youtube.com/playlist?list=PLL7LXvkhjsoLrNMDyhYucp8A8dP8y7VIf" &>log.txt
 	
 	# ~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLL7LXvkhjsoLrNMDyhYucp8A8dP8y7VIf" &>log.txt
+	
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLslrb_iLVxay4W4xeHu5js1FYYDOyoofH
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLepGdSz9ElR65yBqSve_PDea6hkbcKDKA
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLVDKkoOMy7h3UyhORart7_7_0hyed5sCQ
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL2hbd_KDYio1YY6-pfV-P5ANr2ukoYY6k
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL100_lBAnB-AoFdt-U2JPz7EL_utYck7z
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLTIgHk4dlelQ52tl60iLOWCGUi9znPXKb
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL68DE6C75DD0D4B2D
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLslrb_iLVxazy40cgViX0Veebvq3MCyVG
+
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL9mGn4QMy3GQV94WrYfD_rubsEYT7reKJ
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLD12F35DC852803FD
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL0xzMlxZRTv_rBNmXaSOW5RaEJTGmjbcH
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL60eRp_UW37LViR0KTil0lFePrhP0qrRF
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLD_hOCJtWd4Oldt0YZCfwaynyEFflyolH
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLerUZlaD8TFznWACSVWSCOF1IKbefZ9hv
+	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLD12F35DC852803FD
 }
 
 #=================================
