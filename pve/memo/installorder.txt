@@ -1,0 +1,48 @@
+###basic setup for new system
+#> 			newinstall.root.sh
+newinstall> newinstall.init.sh <hostname>
+$> 			newuser <username>
+
+
+###create disk id
+Edit /etc/zfs/vdev_id.conf to prepare aliases for disk devices found in /dev/disk/by-id/ 
+--------cut here-------------------
+# run 'udevadm trigger' after updating this file
+alias a0        scsi-36848f690e856b10018cdf39854055206
+--------cut here-------------------
+
+
+###create zpool
+$>			sudo mis/disksec.query.sh
+#for 4k disk use ashift=12
+$>			sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <disk4> ...
+
+usbstick.prep
+rsync.enable
+smbshare.enable
+
+
+###benchmark
+#>				smartctl -a /dev/sd?
+#>				zpool status
+#> 				zfs get compression 
+/tank#> 		/home/sita/script/benchmark/hd.speed.sh
+/tank/Shares#> 	/home/sita/script/benchmark/hd.speed.sh
+
+
+###crontab 
+mail.forward
+
+root@pve2:/home/sita/script/pve# crontab -l
+# rsync.enable: monthly netbackup cleanup
+0 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
+
+# usbstick.prep: weekly usbstick backup
+0 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
+
+# zpool.scrub: yearly zfs disk scrub
+0 1 1 11 * /home/sita/script/pve/zpool.scrub scrub
+
+# status: weekly disk smart info logging
+0 1 * * 7 /home/sita/script/mis/status log smart
+
