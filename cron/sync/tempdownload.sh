@@ -66,7 +66,6 @@ main() {
 	
 	# ~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLL7LXvkhjsoLrNMDyhYucp8A8dP8y7VIf" &>log.txt
 	
-<<<<<<< HEAD
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLslrb_iLVxay4W4xeHu5js1FYYDOyoofH
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLepGdSz9ElR65yBqSve_PDea6hkbcKDKA
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLVDKkoOMy7h3UyhORart7_7_0hyed5sCQ
@@ -76,8 +75,6 @@ main() {
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL68DE6C75DD0D4B2D
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLslrb_iLVxazy40cgViX0Veebvq3MCyVG
 
-=======
->>>>>>> 5f772093158de417f04d67294a604f59fbaf6bcd
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL9mGn4QMy3GQV94WrYfD_rubsEYT7reKJ
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PLD12F35DC852803FD
 	~/script/youtube/get.web.480.sh https://www.youtube.com/playlist?list=PL0xzMlxZRTv_rBNmXaSOW5RaEJTGmjbcH
