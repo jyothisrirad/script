@@ -35,14 +35,16 @@ mail.forward
 
 root@pve2:/home/sita/script/pve# crontab -l
 # rsync.enable: monthly netbackup cleanup
-0 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
+10 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
 
 # usbstick.prep: weekly usbstick backup
-0 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
+20 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
 
 # zpool.scrub: yearly zfs disk scrub
-0 1 1 11 * /home/sita/script/pve/zpool.scrub scrub
+30 1 1 11 * /home/sita/script/pve/zpool.scrub scrub
 
 # status: weekly disk smart info logging
-0 1 * * 7 /home/sita/script/mis/status log smart
+40 1 * * 7 /home/sita/script/mis/status log smart
 
+#cleanup.monthly.sh
+50 3 1 * * /usr/bin/batch < /home/sita/script/cron/cleanup.monthly.sh

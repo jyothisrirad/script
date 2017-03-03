@@ -40,7 +40,7 @@ delfrom_crontab() {
 
 #=================================
 main() {
-	echo $cron_period
+	rm -rf /tank/Shares/Download/DEL
 }
 
 #=================================
@@ -48,7 +48,7 @@ case "$1" in
   install)
 	addto_crontab ""
 	addto_crontab "$cron_comment"
-	addto_crontab "$cron_min $cron_hour * * * /usr/bin/batch < $(readlink -e $0)"
+	addto_crontab "$cron_min $cron_hour 1 * * /usr/bin/batch < $(readlink -e $0)"
 	;;
   uninstall)
 	delfrom_crontab "$cron_comment"
