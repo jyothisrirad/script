@@ -1,1 +1,12 @@
+ssh as root
+
+apt install git sudo
+
+adduser <user>
+
+echo "<user> ALL=(ALL) ALL" > /etc/sudoers.d/<user>
+
+ssh as <user>
+
 git clone https://github.com/chsliu/script.git
+
