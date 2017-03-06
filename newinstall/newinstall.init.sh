@@ -100,6 +100,12 @@ echo ===========================================
 echo tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
 
 #-------------------------------------------------
+# generate the missing locale
+echo choose "en_US.UTF-8"
+sudo locale-gen "en_US.UTF-8"
+sudo dpkg-reconfigure locales
+
+#-------------------------------------------------
 #ssh host
 
 echo =====================================
