@@ -15,8 +15,8 @@
 
 #Settings
 VERSION=$(basename $0)
-# JARFILE="$VERSION.jar"
-USERNAME="vagrant"
+JARFILE="$VERSION.jar"
+# USERNAME="vagrant"
 MCSTORE="/vagrant/runtimes/$VERSION"
 MCPATH="/tmp/$VERSION"
 . $MCSTORE/config.sh
