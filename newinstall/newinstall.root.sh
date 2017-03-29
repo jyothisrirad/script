@@ -5,4 +5,8 @@ fi
 
 apt-get install -y sudo
 
-echo "$(whoami) ALL=(ALL) ALL" > /etc/sudoers.d/$(whoami)
+newuser=sita
+
+adduser $newuser
+
+echo "$newuser ALL=(ALL) ALL" > /etc/sudoers.d/$newuser

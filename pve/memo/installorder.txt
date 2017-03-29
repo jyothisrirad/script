@@ -1,6 +1,8 @@
 ###basic setup for new system
+#>			adduser <username>
 #> 			newinstall.root.sh
-newinstall> newinstall.init.sh <hostname>
+$>			git clone https://github.com/chsliu/script.git
+newinstall$>newinstall.init.sh <hostname>
 $> 			newuser <username>
 
 
