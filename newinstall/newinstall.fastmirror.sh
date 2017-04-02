@@ -3,7 +3,7 @@
 ###################
 
 #####
-sudo apt-get install -y wget unzip python-setuptools
+sudo apt-get install -y wget unzip python-setuptools python-apt
 
 ###getfastmirror
 if [ ! -f /etc/apt/sources.list.original ]; then
