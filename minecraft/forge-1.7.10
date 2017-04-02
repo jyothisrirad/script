@@ -17,7 +17,7 @@
 VERSION=$(basename $0)
 JARFILE="$VERSION.jar"
 # USERNAME="vagrant"
-MCSTORE="/vagrant/runtimes/$VERSION"
+MCSTORE="/mnt/runtimes/$VERSION"
 MCPATH="/tmp/$VERSION"
 . $MCSTORE/config.sh
 CPU_COUNT=1
@@ -167,7 +167,8 @@ mc_savetodisk_online() {
       fi
     fi
   else
-    echo "Service is not running"
+    # echo "Service is not running"
+	:
  fi
 
 }
