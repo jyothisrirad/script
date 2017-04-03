@@ -19,6 +19,7 @@ JARFILE="$VERSION.jar"
 # USERNAME="vagrant"
 MCSTORE="/mnt/runtimes/$VERSION"
 MCPATH="/tmp/$VERSION"
+#MCPATH=$MCSTORE
 . $MCSTORE/config.sh
 CPU_COUNT=1
 INVOCATION="java -Xmx4G -Xms1G -server -jar $JARFILE -o false"
