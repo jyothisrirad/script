@@ -175,15 +175,8 @@ mc_savetodisk_online() {
 		echo "Service is not running"
 	 fi
   else
-<<<<<<< HEAD
 	  echo "Not on ramdrive, No need to save."
   fi
-=======
-    # echo "Service is not running"
-	:
- fi
-
->>>>>>> 8b68f1e644bb7a14c9d3504ddac114f13aeff642
 }
 
 mc_saveoff() {
