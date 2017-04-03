@@ -19,9 +19,10 @@ JARFILE="$VERSION.jar"
 # USERNAME="vagrant"
 MCSTORE="/mnt/runtimes/$VERSION"
 MCPATH="/tmp/$VERSION"
+#MCPATH=$MCSTORE
 . $MCSTORE/config.sh
 CPU_COUNT=1
-INVOCATION="java -Xmx4G -Xmx4G -server -jar $JARFILE -o false"
+INVOCATION="java -Xmx5G -Xmx5G -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
