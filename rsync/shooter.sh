@@ -1,5 +1,5 @@
 #!/bin/bash 
 
 #=================================
-~/script/ShooterSubPyDownloader/sendemail.shootersuball.sh /tank/Shares/Library
-~/script/ShooterSubPyDownloader/sendemail.shootersuball.sh /tank/Shares/Media
+~/script/ShooterSubPyDownloader/sendemail.shootersuball.sh /mnt/Library
+~/script/ShooterSubPyDownloader/sendemail.shootersuball.sh /mnt/Media
