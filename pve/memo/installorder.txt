@@ -1,7 +1,9 @@
 ###basic setup for new system
-#>			adduser <username>
-#> 			newinstall.root.sh
+#>			adduser username
+#>			apt install git sudo ca-certificates
 $>			git clone https://github.com/chsliu/script.git
+#> 			newinstall.sudo.sh
+#> 			mv /etc/sudoers.d/root to /etc/sudoers.d/<username>
 newinstall$>newinstall.init.sh <hostname>
 $> 			newuser <username>
 
