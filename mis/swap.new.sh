@@ -1,6 +1,6 @@
 #!/bin/bash
 
-swapsize=$(grep MemTotal /proc/meminfo | awk '{print $2 }' | xargs -I {} echo "sqrt({}/1024^2)" | bc)G
+swapsize=$(grep MemTotal /proc/meminfo | awk '{print $2 }' | xargs -I {} echo "1+sqrt({}/1024^2)" | bc)G
 swapfile=/swapfile
 
 addto_fstab() {
@@ -20,6 +20,7 @@ sudo swapoff -a
 #delete swap from fstab
 delfrom_fstab swap
 echo sudo fallocate -l $swapsize $swapfile
+sudo fallocate -l $swapsize $swapfile
 sudo chmod 600 $swapfile
 sudo mkswap $swapfile
 sudo swapon $swapfile
