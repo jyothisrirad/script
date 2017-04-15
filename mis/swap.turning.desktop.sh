@@ -20,3 +20,4 @@ cat /proc/sys/vm/vfs_cache_pressure
 # echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
 delfrom_sysctl vm.vfs_cache_pressure
 addto_sysctl vm.vfs_cache_pressure=50
+sudo sysctl vm.vfs_cache_pressure=50
