@@ -1,4 +1,4 @@
 #!/bin/bash
 
 #=================================
-rm -rf /tank/Shares/Download/DEL
+# rm -rf /tank/Shares/Download/DEL
