@@ -1,4 +1,4 @@
 #!/bin/bash
 
 #=================================
-rm -rf /share/暫存區/*
+rm -rf /tank/Shares/Download/DEL
