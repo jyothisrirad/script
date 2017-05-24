@@ -33,15 +33,17 @@ mc1102() {
 #=================================
 mc1710=forge-1.7.10
 mc1102=forge-1.10.2
-mcver=$mc1710
+mcver=$mc1102
 utf8
 
 #=================================
 alias a=alias
-alias aed='vi ~/.profile'
-alias are='. ~/.profile'
-alias aload='cp ~/script/minecraft/.profile ~/ && are'
-alias asave='cp ~/.profile ~/script/minecraft/'
+alias aed='vi ~/script/minecraft/alias.minecraft'
+alias are='. ~/script/minecraft/alias.minecraft'
+#alias aload='cp ~/script/minecraft/.profile ~/ && are'
+#alias asave='cp ~/.profile ~/script/minecraft/'
+
+#=================================
 alias p1='export player=chsliu && echo player=$player'
 alias p2='export player=yozliu && echo player=$player'
 alias p3='export player=angussu && echo player=$player'
