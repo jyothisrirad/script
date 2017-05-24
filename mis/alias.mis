@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#
+alias a=alias
+alias aed='vi ~/script/mis/alias.mis; are'
+alias are='. ~/script/mis/alias.mis'
+alias ph='cd ~/script/ssh'
+alias pm='cd ~/script/mis'
+alias pp='cd ~/script/pve'
