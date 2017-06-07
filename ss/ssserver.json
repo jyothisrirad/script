@@ -1,0 +1,10 @@
+{
+    "server": "192.168.1.156", // 这里输入本机的 IP 地址
+    "server_port": 8388, // 为了安全，可修改为大于 1024 的数字
+    "local_address": "127.0.0.1",
+    "local_port": 1080, // 为了安全，可修改为大于 1024 的数字
+    "password": "1234qwer", // 设置一个密码
+    "timeout": 300,
+    "method": "aes-256-cfb",
+    "fast_open": false
+}
