@@ -18,8 +18,7 @@ VERSION=$(basename $0)
 JARFILE="$VERSION.jar"
 # USERNAME="vagrant"
 MCSTORE="/mnt/runtimes/$VERSION"
-# MCPATH="/tmp/$VERSION"
-MCPATH=$MCSTORE
+MCPATH="/tmp/$VERSION"
 . $MCSTORE/config.sh
 CPU_COUNT=1
 INVOCATION="java -Xmx4G -Xmx4G -server -jar $JARFILE -o false"
@@ -120,64 +119,58 @@ mc_update() {
  }
 
 mc_savetodisk_offline() {
-  if [ ! "$MCSTORE" == "$MCPATH" ]; then
-	   echo "Saving ramdrive to disk."
-	   if [ ! -f $MCPATH/$JARFILE ]; then 
-		 echo "Error.. Minecraft not in ram"
-	   else
-		 if [ -d $MCSTORE/$WORLD.bak ]; then
-			echo "last $WORLD.bak still exist, crashed warning! manual check required!!!"
-			exit 1
-		 fi
-		 if [ -d $MCSTORE/$WORLD ]; then
-		   as_user "mv $MCSTORE/$WORLD $MCSTORE/$WORLD.bak"
-		 fi
+   echo "Saving ramdrive to disk."
+   if [ ! -f $MCPATH/$JARFILE ]; then 
+     echo "Error.. Minecraft not in ram"
+   else
+     if [ -d $MCSTORE/$WORLD.bak ]; then
+        echo "last $WORLD.bak still exist, crashed warning! manual check required!!!"
+        exit 1
+     fi
+     if [ -d $MCSTORE/$WORLD ]; then
+       as_user "mv $MCSTORE/$WORLD $MCSTORE/$WORLD.bak"
+     fi
 
-		 echo "Saving, screen session closed"
-		 # as_user "cp -R $MCPATH/* $MCSTORE/"
-		 as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
+     echo "Saving, screen session closed"
+     # as_user "cp -R $MCPATH/* $MCSTORE/"
+	 as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
 
-		 if [ -d $MCSTORE/$WORLD.bak ]; then
-		   as_user "rm -r $MCSTORE/$WORLD.bak"
-		 fi
-	   fi
-  else
-	  echo "Not on ramdrive, No need to save."
-  fi
+     if [ -d $MCSTORE/$WORLD.bak ]; then
+       as_user "rm -r $MCSTORE/$WORLD.bak"
+     fi
+   fi
 }
 
 mc_savetodisk_online() {
-  if [ ! "$MCSTORE" == "$MCPATH" ]; then
-	  if mc_status; then
-		echo "Saving ramdrive to disk."
-		if [ ! -f $MCPATH/$JARFILE ]; then
-		  echo "Error.. Minecraft not in ram"
-		else
-		  if [ -d $MCSTORE/$WORLD.bak ]; then
-			echo "last $WORLD.bak still exist, crashed warning! manual check required!!!"
-			exit 1
-		  fi
-		  if [ -d $MCSTORE/$WORLD ]; then
-			as_user "mv $MCSTORE/$WORLD $MCSTORE/$WORLD.bak"
-		  fi
+  if mc_status; then
+    echo "Saving ramdrive to disk."
+    if [ ! -f $MCPATH/$JARFILE ]; then
+      echo "Error.. Minecraft not in ram"
+    else
+      if [ -d $MCSTORE/$WORLD.bak ]; then
+        echo "last $WORLD.bak still exist, crashed warning! manual check required!!!"
+        exit 1
+      fi
+      if [ -d $MCSTORE/$WORLD ]; then
+        as_user "mv $MCSTORE/$WORLD $MCSTORE/$WORLD.bak"
+      fi
 
-		  TO_SCREEN="screen -p 0 -S minecraft -X eval 'stuff "
-		  as_user "$TO_SCREEN \"save-off\"\015'"
-		  as_user "$TO_SCREEN \"save-all\"\015'" 
-		  # as_user "cp -R $MCPATH/* $MCSTORE/"
-		  as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
-		  as_user "$TO_SCREEN \"save-on\"\015'"
+      TO_SCREEN="screen -p 0 -S minecraft -X eval 'stuff "
+      as_user "$TO_SCREEN \"save-off\"\015'"
+      as_user "$TO_SCREEN \"save-all\"\015'" 
+      # as_user "cp -R $MCPATH/* $MCSTORE/"
+	  as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
+      as_user "$TO_SCREEN \"save-on\"\015'"
 
-		  if [ -d $MCSTORE/$WORLD.bak ]; then
-			as_user "rm -r $MCSTORE/$WORLD.bak"
-		  fi
-		fi
-	  else
-		echo "Service is not running"
-	 fi
+      if [ -d $MCSTORE/$WORLD.bak ]; then
+        as_user "rm -r $MCSTORE/$WORLD.bak"
+      fi
+    fi
   else
-	  echo "Not on ramdrive, No need to save."
-  fi
+    # echo "Service is not running"
+	:
+ fi
+
 }
 
 mc_saveoff() {
@@ -223,14 +216,10 @@ mc_restore() {
 }
 
 mc_load() {
-  if [ ! "$MCSTORE" == "$MCPATH" ]; then
-	   echo "Loading minecraft files to Ramdisk"
-	   # as_user "cp -R $MCSTORE/* $MCPATH/"
-	   as_user "rsync $RSYNCOPT $MCSTORE/ $MCPATH/"
-	   echo "Load complete"
-  else
-	  echo "Not on ramdrive, No need to load."
-  fi
+   echo "Loading minecraft files to Ramdisk"
+   # as_user "cp -R $MCSTORE/* $MCPATH/"
+   as_user "rsync $RSYNCOPT $MCSTORE/ $MCPATH/"
+   echo "Load complete"
 }
 
 mc_command() {
@@ -246,11 +235,7 @@ mc_command() {
 }
 
 mc_save_crashreport() {
-  if [ ! "$MCSTORE" == "$MCPATH" ]; then
-	as_user "rsync $RSYNCOPT $MCPATH/crash-reports/ $MCSTORE/crash-reports/"
-  else
-	  echo "Not on ramdrive, No need to save report."
-  fi
+  as_user "rsync $RSYNCOPT $MCPATH/crash-reports/ $MCSTORE/crash-reports/"
 }
 
 crontab_status() {
@@ -306,10 +291,8 @@ case "$1" in
     mc_start
     ;;
   stop)
-    mc_savetodisk_online
-    mc_backup
     mc_stop
-    # mc_savetodisk_offline
+    mc_savetodisk_offline
     ;;
   restart)
     mc_stop
@@ -369,26 +352,12 @@ case "$1" in
   log)
 	tail -f $LOG
 	;;
-  check)
-	if ! mc_status; then
-		echo "$JARFILE is Offline."
-	else
-		tmpfile="/tmp/mc.log"
-		mc_command "list" > $tmpfile
-		if [ -s $tmpfile ]; then
-			echo "$JARFILE is Online."
-		else
-			echo "$JARFILE is Not Responding."
-		fi
-		rm $tmpfile
-	fi
-	;;	
   install)
 	sudo cp $0 /etc/init.d/
 	sudo chmod a+x /etc/init.d/$(basename $0)
 	addto_crontab "#$VERSION server"
 	addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
-	addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
+	addto_crontab "22 */6 * * * /etc/init.d/$(basename $0) backup"
 	;;
   uninstall)
   	if mc_status; then
@@ -399,18 +368,8 @@ case "$1" in
 	delfrom_crontab "#$VERSION server"
 	delfrom_crontab "$(basename $0)"
 	;;
-  kill)
-	tmpfile="/tmp/mc.log"
-	mc_command "list" > $tmpfile
-	if [ -s $tmpfile ]; then
-		echo "$JARFILE is Online. No kill."
-	else
-		echo "$JARFILE is Not Responding, forcing Server to Stop."
-		kill -9 $(ps aux | grep $JARFILE | awk "{print $2\}")
-	fi  
-    ;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log|check|kill}"
+  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|load|do|log}"
   exit 1
   ;;
 esac
