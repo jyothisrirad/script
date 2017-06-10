@@ -384,11 +384,14 @@ case "$1" in
 	fi
 	;;	
   install)
-	sudo cp $0 /etc/init.d/
-	sudo chmod a+x /etc/init.d/$(basename $0)
+	# sudo cp $0 /etc/init.d/
+	# sudo chmod a+x /etc/init.d/$(basename $0)
+	# addto_crontab "#$VERSION server"
+	# addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
+	# addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
 	addto_crontab "#$VERSION server"
-	addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
-	addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
+	addto_crontab "*/5 * * * * $(readlink -e $0) save"
+	addto_crontab "24 */6 * * * $(readlink -e $0) backup"
 	;;
   uninstall)
   	if mc_status; then
