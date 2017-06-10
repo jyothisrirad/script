@@ -22,7 +22,7 @@ MCSTORE="/mnt/runtimes/$VERSION"
 MCPATH=$MCSTORE
 . $MCSTORE/config.sh
 CPU_COUNT=1
-INVOCATION="java -Xmx5G -Xmx5G -server -jar $JARFILE -o false"
+INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
@@ -406,11 +406,16 @@ case "$1" in
 		echo "$JARFILE is Online. No kill."
 	else
 		echo "$JARFILE is Not Responding, forcing Server to Stop."
-		kill -9 $(ps aux | grep $JARFILE | awk "{print $2\}")
+		kill -9 $(ps aux | grep $JARFILE | awk '{print $2}')
 	fi  
     ;;
+  halt)
+	if mc_status; then
+		kill -9 $(ps aux | grep $JARFILE | awk '{print $2}')
+	fi
+    ;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log|check|kill}"
+  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log|check|kill|halt}"
   exit 1
   ;;
 esac
