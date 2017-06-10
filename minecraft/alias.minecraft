@@ -8,8 +8,8 @@ export LANGUAGE=en_US.UTF-8
 }
 
 mcserver() { 
-	echo /etc/init.d/$mcver $*
-	/etc/init.d/$mcver $*
+	echo /home/sita/script/minecraft/$mcver $*
+	/home/sita/script/minecraft/$mcver $*
 }
 
 mc1710() {
