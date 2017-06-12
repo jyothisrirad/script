@@ -1,0 +1,12 @@
+#
+wget http://apt.openattic.org/A7D3EAFA.txt -q -O - | apt-key add -
+echo  "deb     http://apt.openattic.org/ jessie   main" >> /etc/apt/sources.list
+apt update 
+apt install openattic openattic-module-zfs
+
+#
+oaconfig install
+oaconfig changepassword openattic
+
+#
+zfs list -t snapshot
