@@ -310,9 +310,6 @@ case "$1" in
     mc_backup
     mc_stop
     # mc_savetodisk_offline
-    echo -e "${GREEN}List of players joined:${NC}"
-    cat "$MCPATH/logs/latest.log" | grep joined | awk '{ print $4 }' | sort | uniq
-    cat "$MCPATH/logs/latest.log" | grep was
     ;;
   restart)
     mc_stop
