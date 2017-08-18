@@ -52,7 +52,7 @@ utf8
 
 #=================================
 alias a=alias
-alias aed='vi ~/script/minecraft/alias.minecraft'
+alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
