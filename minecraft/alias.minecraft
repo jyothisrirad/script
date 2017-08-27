@@ -12,6 +12,14 @@ mcserver() {
 	/home/sita/script/minecraft/$mcver $*
 }
 
+
+mclogdump() {
+	LASTLOGS=(`ls -at /mnt/runtimes/$mcver/logs/*.log.gz`)
+
+	if [ -f ${LASTLOGS[0]} ]; then zcat ${LASTLOGS[0]}; fi
+	cat /mnt/runtimes/$mcver/logs/latest.log
+}
+
 mc1710() {
 	export mcver=$mc1710
 	echo mcver=$mcver
@@ -42,6 +50,8 @@ mc112() {
 	echo mcver=$mcver
 }
 
+
+
 #=================================
 mc1710=forge-1.7.10
 mc1102=forge-1.10.2
@@ -52,7 +62,7 @@ utf8
 
 #=================================
 alias a=alias
-alias aed='vi ~/script/minecraft/alias.minecraft'
+alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
@@ -86,5 +96,8 @@ alias mcbackup='mcserver backup'
 alias mcrestore='mcserver restore $*'
 alias mckill='mcserver kill'
 alias mchalt='mcserver halt'
-alias mcjoin="cat /mnt/runtimes/$mcver/logs/latest.log | grep joined | awk '{ print \$4 }' | sort | uniq"
+alias mcj="mclogdump | grep joined | awk '{ print \$4 }' | sort | uniq"
+alias mcjoin="mclogdump | grep 'joined\|left'"
+alias mcslain="mclogdump | grep slain"
+alias mctele="mclogdump | grep Teleported"
 alias mced='vi /home/sita/script/minecraft/$mcver'

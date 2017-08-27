@@ -293,6 +293,44 @@ deldir() {
 	fi
 }
 
+showstat() {
+
+LASTLOGS=(`ls -at $MCPATH/logs/*.log.gz`)
+
+if [ -f ${LASTLOGS[0]} ]; then 
+	echo Using ${LASTLOGS[0]} ...
+fi
+
+echo -e "${GREEN}List of players joined/left time last time:${NC}"
+if [ -f ${LASTLOGS[0]} ]; then 
+	zcat ${LASTLOGS[0]} | grep 'joined\|left'
+	echo "-----"
+fi
+cat "$MCPATH/logs/latest.log" | grep 'joined\|left'
+
+echo -e "${GREEN}List of players joined last time:${NC}"
+if [ -f ${LASTLOGS[0]} ]; then 
+	zcat ${LASTLOGS[0]} | grep joined | awk '{ print $4 }' | sort | uniq
+	echo "-----"
+fi
+cat "$MCPATH/logs/latest.log" | grep joined | awk '{ print $4 }' | sort | uniq
+
+echo -e "${GREEN}List of players slained last time:${NC}"
+if [ -f ${LASTLOGS[0]} ]; then 
+	zcat ${LASTLOGS[0]} | grep slain
+	echo "-----"
+fi
+cat "$MCPATH/logs/latest.log" | grep slain
+
+echo -e "${GREEN}List of players teleported last time:${NC}"
+if [ -f ${LASTLOGS[0]} ]; then 
+	zcat ${LASTLOGS[0]} | grep Teleported
+	echo "-----"
+fi
+cat "$MCPATH/logs/latest.log" | grep Teleported
+
+}
+
 #Start-Stop here
 case "$1" in
   status)
@@ -303,6 +341,7 @@ case "$1" in
     fi
     ;;
   start)
+	showstat
     mc_start
     ;;
   stop)
@@ -310,9 +349,7 @@ case "$1" in
     mc_backup
     mc_stop
     # mc_savetodisk_offline
-    echo -e "${GREEN}List of players joined:${NC}"
-    cat "$MCPATH/logs/latest.log" | grep joined | awk '{ print $4 }' | sort | uniq
-    cat "$MCPATH/logs/latest.log" | grep was
+	showstat
     ;;
   restart)
     mc_stop
@@ -417,8 +454,11 @@ case "$1" in
     ;;
   halt)
 	if mc_status; then
-		kill -9 $(ps aux | grep $JARFILE | awk '{print $2}')
+		mc_savetodisk_online
+		mc_stop
+		kill -9 $(ps aux | grep $VERSION | awk '{print $2}')
 	fi
+	showstat
     ;;
   *)
   echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log|check|kill|halt}"
