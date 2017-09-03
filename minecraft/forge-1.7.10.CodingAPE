@@ -1,5 +1,7 @@
-echo Running $0 ...
+# echo [$0]
 
-filename=$(basename "$0")
-filename="${filename%.*}"
-. $filename $*
+FULL=$(readlink -e $0)
+DP0=$(dirname $FULL)
+
+echo . $DP0/minecraft.server $*
+. $DP0/minecraft.server $*

@@ -109,4 +109,5 @@ alias mcjoin="mclogdump | grep 'joined\|left'"
 alias mcslain="mclogdump | grep slain"
 alias mcslain="mclogdump | grep was"
 alias mctele="mclogdump | grep Teleported"
-alias mced='vi /home/sita/script/minecraft/$mcver'
+#alias mced='vi /home/sita/script/minecraft/$mcver'
+alias mced='vi /home/sita/script/minecraft/minecraft.server'
