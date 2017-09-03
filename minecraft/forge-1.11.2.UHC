@@ -1,0 +1,5 @@
+echo Running $0 ...
+
+filename=$(basename "$0")
+filename="${filename%.*}"
+. $filename $*

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mc1112c=forge-1.11.2.Camera
+
+fun1112c() {
+	export mcver=$mc1112c
+	echo mcver=$mcver
+}
+
+alias v11c=fun1112c
