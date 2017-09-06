@@ -1,1 +1,1 @@
-ssh sita@lxcminecraft
+ssh -i /mnt/d/Users/sita/Dropbox/SSHKey/nb19_rsa sita@lxcminecraft
