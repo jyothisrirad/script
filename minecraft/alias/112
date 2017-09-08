@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mc112=forge-1.12
+
+fun112() {
+	export mcver=$mc112
+	echo mcver=$mcver
+}
+
+alias v12=fun112

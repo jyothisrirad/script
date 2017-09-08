@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mc1112u=forge-1.11.2.UHC
+
+func1112u() {
+	export mcver=$mc1112u
+	echo mcver=$mcver
+}
+
+alias v11u=func1112u

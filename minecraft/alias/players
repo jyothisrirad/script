@@ -1,0 +1,6 @@
+#!/bin/bash
+
+alias p1='export player=chsliu && echo player=$player'
+alias p2='export player=yozliu && echo player=$player'
+alias p3='export player=angussu && echo player=$player'
+alias p4='export player=Eason && echo player=$player'
