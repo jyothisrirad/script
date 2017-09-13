@@ -4,7 +4,7 @@ addto_file() {
 
         sudo touch $file
 
-        if ! sudo grep -Fxq "$*" $file; then
+        if ! sudo grep -Fxq "$2" $file; then
                 echo "$2" | sudo tee -a $file
         fi
 
