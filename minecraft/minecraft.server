@@ -321,10 +321,10 @@ cat "$MCPATH/logs/latest.log" | grep joined | awk '{ print $4 }' | sort | uniq
 
 echo -e "${GREEN}List of players slained last time:${NC}"
 if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep slain
+	zcat ${LASTLOGS[0]} | grep 'was|burned|fell|swim|blew|suffocated|tried|hit'
 	echo "-----"
 fi
-cat "$MCPATH/logs/latest.log" | grep slain
+cat "$MCPATH/logs/latest.log" | grep 'was|burned|fell|swim|blew|suffocated|tried|hit'
 
 echo -e "${GREEN}List of players teleported last time:${NC}"
 if [ -f ${LASTLOGS[0]} ]; then 

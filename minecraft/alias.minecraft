@@ -21,9 +21,9 @@ mcserver() {
 }
 
 mclogdump() {
-	LASTLOGS=(`ls -at /mnt/runtimes/$mcver/logs/*.log.gz`)
+#	LASTLOGS=(`ls -at /mnt/runtimes/$mcver/logs/*.log.gz`)
 
-	if [ -f ${LASTLOGS[0]} ]; then zcat ${LASTLOGS[0]}; fi
+#	if [ -f ${LASTLOGS[0]} ]; then zcat ${LASTLOGS[0]}; fi
 	cat /mnt/runtimes/$mcver/logs/latest.log
 }
 
@@ -79,7 +79,10 @@ alias are='. ~/script/minecraft/alias.minecraft'
 # alias p3='export player=angussu && echo player=$player'
 # alias p4='export player=Eason && echo player=$player'
 alias diamond='export item=diamond && echo item=$item'
+alias wing='export item=elytra && echo item=$item'
+alias firework='export item=firework && echo item=$item'
 alias tp='mcserver do tp $player $pos'
+alias tpa='mcserver do tp @a $pos'
 alias ungod='mcserver do gamemode s $player'
 alias god='mcserver do gamemode c $player'
 alias rain='mcserver do toggledownfall'
@@ -106,8 +109,9 @@ alias mckill='mcserver kill'
 alias mchalt='mcserver halt'
 alias mcj="mclogdump | grep joined | awk '{ print \$4 }' | sort | uniq"
 alias mcjoin="mclogdump | grep 'joined\|left'"
-alias mcslain="mclogdump | grep slain"
-alias mcslain="mclogdump | grep was"
+alias mcslain="mclogdump | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|tried\|hit'"
 alias mctele="mclogdump | grep Teleported"
 #alias mced='vi /home/sita/script/minecraft/$mcver'
 alias mced='vi /home/sita/script/minecraft/minecraft.server'
+alias mcw='mcdo whitelist $*'
+alias mcwb='mcdo worldborder $*'
