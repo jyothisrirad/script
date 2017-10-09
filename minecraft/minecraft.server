@@ -17,14 +17,14 @@
 FULL=$(readlink -e $0)
 DP0=$(dirname $FULL)
 VERSION=$(basename $0)
-JARFILE="$VERSION.jar"
+[ $JARFILE ] || JARFILE="$VERSION.jar"
 # USERNAME="vagrant"
 MCSTORE="/mnt/runtimes/$VERSION"
 # MCPATH="/tmp/$VERSION"
 MCPATH=$MCSTORE
 . $MCSTORE/config.sh
 CPU_COUNT=1
-INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
+[ $INVOCATION ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
@@ -240,12 +240,12 @@ mc_load() {
 mc_command() {
   command="$1";
   if mc_status; then
-    pre_log_len=`wc -l "$MCPATH/logs/latest.log" | awk '{print $1}'`
-    echo "$JARFILE is running... executing command"
+    pre_log_len=`wc -l "$LOG" | awk '{print $1}'`
+    [ $mcecho_off ] || echo "$JARFILE is running... executing command"
     as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
     sleep .1 # assumes that the command will run and print to the log file in less than .1 seconds
     # print output
-    tail -n $[`wc -l "$MCPATH/logs/latest.log" | awk '{print $1}'`-$pre_log_len] "$MCPATH/logs/latest.log"
+    tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG"
   fi
 }
 
@@ -299,39 +299,35 @@ deldir() {
 
 showstat() {
 
+# [ ! -f "$MCPATH/logs/*.log.gz" ] || 
 LASTLOGS=(`ls -at $MCPATH/logs/*.log.gz`)
+[ ! $LASTLOGS ] || LOGLAST=${LASTLOGS[0]}
+[ ! $LASTLOGS ] || LOGLAST=/tmp/notexist
+LOGNOW="$MCPATH/logs/latest.log"
+# [ ! -f $LOGNOW ] || LOGNOW=$LOG
 
-if [ -f ${LASTLOGS[0]} ]; then 
-	echo Using ${LASTLOGS[0]} ...
-fi
+[ ! -f $LOGLAST ] || echo Using last $LOGLAST ...
+[ ! -f $LOGNOW ] || echo Using now $LOGNOW ...
 
 echo -e "${GREEN}List of players joined/left time last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep 'joined\|left'
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep 'joined\|left'
+[ ! -f $LOGLAST ] || zcat $LOGLAST | grep 'joined\|left' 
+echo "-----"
+[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep 'joined\|left'
 
 echo -e "${GREEN}List of players joined last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep joined | awk '{ print $4 }' | sort | uniq
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep joined | awk '{ print $4 }' | sort | uniq
+[ ! -f $LOGLAST ] || zcat $LOGLAST | grep joined | awk '{ print $4 }' | sort | uniq
+echo "-----"
+[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep joined | awk '{ print $4 }' | sort | uniq
 
 echo -e "${GREEN}List of players slained last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep 'was|burned|fell|swim|blew|suffocated|tried|hit'
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep 'was|burned|fell|swim|blew|suffocated|tried|hit'
+[ ! -f $LOGLAST ] || zcat $LOGLAST | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|ground'
+echo "-----"
+[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|ground'
 
 echo -e "${GREEN}List of players teleported last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep Teleported
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep Teleported
+[ ! -f $LOGLAST ] || zcat $LOGLAST | grep Teleported
+echo "-----"
+[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep Teleported
 
 }
 
@@ -460,7 +456,7 @@ case "$1" in
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		kill -9 $(ps aux | grep $VERSION | awk '{print $2}')
+		kill -9 $(ps aux | grep $JARFILE | awk '{print $2}')
 	fi
 	showstat
     ;;

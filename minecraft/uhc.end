@@ -1,0 +1,23 @@
+#!/bin/bash
+
+USERNAME=sita
+export mcecho_off=1 
+
+
+. /home/sita/script/minecraft/alias.minecraft
+
+
+# mc1112uc
+mcserver do say ============================
+mcserver do say ==== "$bold"UHCθ盃已經結束"$off" ====
+mcserver do say ============================
+mcserver do say 伺服器現在開放自由玩
+mcserver do say 可隨意離場
+mcserver do say ============================
+# mcserver do scoreboard teams leave @a
+# mcserver do scoreboard teams list
+# friendlyfireSet true
+mcserver do worldborder get
+mcserver do worldborder set 128
+mcserver do whitelist off
+mcserver do gamemode 1 @a

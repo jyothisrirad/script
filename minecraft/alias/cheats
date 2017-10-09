@@ -1,0 +1,16 @@
+#!/bin/bash
+
+alias tp='mcserver do tp $player $pos'
+alias tpa='mcserver do tp @a $pos'
+alias give='mcserver do give $player $item 64'
+alias ungod='mcserver do gamemode s $player'
+alias god='mcserver do gamemode c $player'
+alias day='mcserver do time set day'
+alias night='mcserver do time set night'
+alias rain='mcserver do toggledownfall'
+
+alias diamond='export item=diamond && echo item=$item'
+alias wing='export item=elytra && echo item=$item'
+alias firework='export item=firework && echo item=$item'
+
+

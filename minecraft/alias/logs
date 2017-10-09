@@ -1,0 +1,14 @@
+#!/bin/bash
+
+mclogdump() {
+#	LASTLOGS=(`ls -at /mnt/runtimes/$mcver/logs/*.log.gz`)
+
+#	if [ -f ${LASTLOGS[0]} ]; then zcat ${LASTLOGS[0]}; fi
+	cat /mnt/runtimes/$mcver/logs/latest.log
+}
+
+
+alias mcj="mclogdump | grep joined | awk '{ print \$4 }' | sort | uniq"
+alias mcjoin="mclogdump | grep 'joined\|left'"
+alias mcslain="mclogdump | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|ground'"
+alias mctele="mclogdump | grep Teleported"

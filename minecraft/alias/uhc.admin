@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# $1: default to wait for key press for each score
+#     <num> to sleep <num> sec between each score
+mcscores() {
+	# echo $1 $2
+	while : ; do
+		mcserver do scoreboard objectives setdisplay sidebar FinalKill
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEntity
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalDiamond
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalGold
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalStone
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEat
+		[[ $2 == 'forever' ]] || break
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+	done
+}
+
+
+friendlyfireSet() {
+	for t in R Y G A B P E r y g a b p e
+	do 
+		mcserver do scoreboard teams option $t friendlyfire $1
+	done
+}
+
+
+alias mcsb='mcscores 3 forever'
+alias mcsbs='mcscores $*'
+alias mcwb='mcdo worldborder $*'
+alias mcwbreset='mcdo worldborder set 60000000'
+alias mcuhcend='/home/sita/script/minecraft/uhc.end'
+alias mcff='friendlyfireSet $1'
