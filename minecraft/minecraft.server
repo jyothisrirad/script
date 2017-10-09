@@ -299,15 +299,18 @@ deldir() {
 
 showstat() {
 
-# [ ! -f "$MCPATH/logs/*.log.gz" ] || 
-LASTLOGS=(`ls -at $MCPATH/logs/*.log.gz`)
+[ ! -d "$MCPATH/logs" ] || LASTLOGS=(`ls -at $MCPATH/logs/*.log.gz`) >/dev/null
 [ ! $LASTLOGS ] || LOGLAST=${LASTLOGS[0]}
-[ ! $LASTLOGS ] || LOGLAST=/tmp/notexist
+[ $LASTLOGS ] || LOGLAST=/tmp/notexist
 LOGNOW="$MCPATH/logs/latest.log"
-# [ ! -f $LOGNOW ] || LOGNOW=$LOG
+[ -f $LOGNOW ] || LOGNOW=$LOG
 
-[ ! -f $LOGLAST ] || echo Using last $LOGLAST ...
-[ ! -f $LOGNOW ] || echo Using now $LOGNOW ...
+# echo LASTLOGS=$LASTLOGS
+# echo LOGLAST=$LOGLAST
+# echo LOGNOW=$LOGNOW
+
+[ ! -f $LOGLAST ] || echo Last: $LOGLAST ...
+[ ! -f $LOGNOW ] || echo  Now: $LOGNOW ...
 
 echo -e "${GREEN}List of players joined/left time last time:${NC}"
 [ ! -f $LOGLAST ] || zcat $LOGLAST | grep 'joined\|left' 
