@@ -6,18 +6,50 @@ export mcecho_off=1
 
 . /home/sita/script/minecraft/alias.minecraft
 
+# $1: default to wait for key press for each score
+#     <num> to sleep <num> sec between each score
+mcscores() {
+	# echo $1 $2
+	while : ; do
+		mcserver do scoreboard objectives setdisplay sidebar FinalKill
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEntity
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalDiamond
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalGold
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalStone
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEat
+		[[ $2 == 'forever' ]] || break
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+	done
+}
+
+
+friendlyfireSet() {
+	for t in R Y G A B P E r y g a b p e
+	do 
+		mcserver do scoreboard teams option $t friendlyfire $1
+	done
+}
 
 # mc1112uc
+mcserver backup
 mcserver do say ============================
 mcserver do say ==== "$bold"UHCθ盃已經結束"$off" ====
 mcserver do say ============================
 mcserver do say 伺服器現在開放自由玩
 mcserver do say 可隨意離場
 mcserver do say ============================
-# mcserver do scoreboard teams leave @a
 # mcserver do scoreboard teams list
-# friendlyfireSet true
+mcscores 3 
+mcscores 3 
+mcscores 3 
 mcserver do worldborder get
-mcserver do worldborder set 128
+mcserver do worldborder set 64
 mcserver do whitelist off
+friendlyfireSet true
+mcserver do scoreboard teams leave @a
 mcserver do gamemode 1 @a

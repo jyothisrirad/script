@@ -23,7 +23,7 @@ mcserver() {
 		echo mcver not set
 	else
 		tempsh=/tmp/$mcver
-		if [ ! -f $tempsh ]; then 
+		if [ ! -f $tempsh ]; then
 			# echo 'echo /home/sita/script/minecraft/minecraft.server $*' > $tempsh
 			echo . /home/sita/script/minecraft/minecraft.server '$*' > $tempsh
 			chmod +x $tempsh

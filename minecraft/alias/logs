@@ -4,11 +4,21 @@ mclogdump() {
 #	LASTLOGS=(`ls -at /mnt/runtimes/$mcver/logs/*.log.gz`)
 
 #	if [ -f ${LASTLOGS[0]} ]; then zcat ${LASTLOGS[0]}; fi
-	cat /mnt/runtimes/$mcver/logs/latest.log
+
+	LOG=/mnt/runtimes/$mcver/logs/latest.log
+	if [ -f $LOG ]; then 
+		cat $LOG
+	else
+		LOG=/mnt/runtimes/$mcver/server.log
+		if [ -f $LOG ]; then 
+			cat $LOG
+		fi
+	fi
 }
 
 
-alias mcj="mclogdump | grep joined | awk '{ print \$4 }' | sort | uniq"
-alias mcjoin="mclogdump | grep 'joined\|left'"
-alias mcslain="mclogdump | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|ground'"
+alias mcj="mclogdump | grep joined | awk '{ printf (\"%s %s\n\", \$4, \$5) }' | sort | uniq"
+alias mcjoin="echo $LOG && mclogdump | grep 'joined\|left'"
+alias mcj2="mclogdump | grep 'UUID of player' | awk '{ printf (\"%s %s\n\", \$7, \$8) }' | sort | uniq"
+alias mcslain="mclogdump | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|hit the ground'"
 alias mctele="mclogdump | grep Teleported"

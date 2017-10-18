@@ -1,0 +1,452 @@
+summon falling_block ~ ~1.5 ~ 
+{Time:1,Block:activator_rail,Passengers:[
+{id:commandblock_minecart,Command:tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 事件 ? "},
+{"text":"安裝成功","color":"green"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:scoreboard objectives add a dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add b dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add c dummy Control},
+{id:commandblock_minecart,Command:scoreboard objectives add d dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add e dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add f dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add g dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add h dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add i dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add j dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add k dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add l dummy},
+{id:commandblock_minecart,Command:scoreboard objectives add m stat.useItem.minecraft.milk_bucket},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ summon armor_stand ~ ~ ~ 
+{Tags:[a,d],CustomName:"漸縮模式",Team:y,NoGravity:1}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ summon armor_stand ~ ~ ~ 
+{Tags:[b,d],CustomName:"傳送模式",Team:R,NoGravity:1}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ summon armor_stand ~ ~ ~ 
+{Tags:[c,d],CustomName:"控制模式",Team:B,NoGravity:1}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ summon armor_stand ~ ~ ~ 
+{Tags:[f,h],CustomName:"永晝",Team:y,NoGravity:1}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ summon armor_stand ~ ~ ~ 
+{Tags:[g,h],CustomName:"永夜",Team:B,NoGravity:1}},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=F] a 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] b 40},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=a] c 2},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=b] c 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=L] d 208},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] e 60},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=F] f 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] g 40},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=f] h 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=F] i 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] j 40},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=F] k 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] l 40},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @p[score_A_min=24,score_A=41] ~ ~ ~ execute @e[tag=N] ~5 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @a[score_A_min=1] ~ ~ ~ playsound entity.experience_orb.pickup voice @p ~ ~ ~ .25 2 .25,Passengers:[
+{id:commandblock_minecart,Command:execute @p[score_A_min=24,score_A=24] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=T] a 1,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_a_min=2] a 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=25,score_A=25] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players remove @e[tag=N] b 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_b=-1] b 100}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=26,score_A=26] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=N] b 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_b_min=101] b 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=27,score_A=27] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=d] c 1,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_c_min=3] c 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=28,score_A=28] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players remove @e[tag=L] d 96,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_d=15] d 496}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=29,score_A=29] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=L] d 96,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_d_min=497] d 16}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=30,score_A=30] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players remove @e[tag=N] e 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_e=19] e 100}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=31,score_A=31] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=N] e 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_e_min=101] e 20}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=32,score_A=32] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=T] f 1,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_f_min=2] f 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=33,score_A=33] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players remove @e[tag=N] g 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_g=-1] g 100}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=34,score_A=34] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=N] g 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_g_min=101] g 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=35,score_A=35] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=h] h 1,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_h_min=2] h 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=36,score_A=36] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=T] i 1,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_i_min=2] i 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=37,score_A=37] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players remove @e[tag=N] j 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_j=-1] j 100}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=38,score_A=38] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=N] j 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_j_min=101] j 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=39,score_A=39] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=T] k 1,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_k_min=2] k 0}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=40,score_A=40] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players remove @e[tag=N] l 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_l=-1] l 100}]}},
+{id:commandblock_minecart,Command:execute @p[score_A_min=41,score_A=41] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players add @e[tag=N] l 20,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @e[score_l_min=101] l 0}]}},
+{id:commandblock_minecart,Command:execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:kill @e[r=0]}},
+{id:commandblock_minecart,Command:scoreboard players reset * A}]},Passengers:[
+{id:commandblock_minecart,Command:replaceitem entity @a slot.hotbar.2 written_book 1 0 
+{title:"UHC Blox 事件",author:"gerrybrano",display:
+{Lore:["by gerrybrano 翻譯by 哈記"]},HideFlags:32,pages:["
+{'text':'','color':'dark_gray','extra':[
+{'text':'\n   '},
+{'text':'','hoverEvent':
+{'action':'show_text','value':'如果 ●\n 選擇的模式將會\n 在選擇的時間到之後 被啟動.'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 24'},'extra':[
+{'selector':'@e[score_a_min=1]','color':'dark_green'},
+{'text':'特殊玩法'}]},
+{'text':' '},
+{'text':'? ','color':'red','hoverEvent':
+{'action':'show_text','value':'-20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 25'}},
+{'score':
+{'name':'00000000-0000-0000-0000-000000000001','objective':'b'},'color':'gray'},
+{'text':' ?','color':'dark_green','hoverEvent':
+{'action':'show_text','value':'+20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 26'}},
+{'text':'\n       '},
+{'text':'','hoverEvent':
+{'action':'show_text','value':'【漸縮模式】\n 邊界會在一段時間內\n 慢慢收縮至指定大小.\n\n【傳送模式】\n 邊界會直接縮小到指定範圍\n 而且會將玩家重新隨機分散在區域內.\n\n【控制模式】\n 中央會出現一個控制點\n 站在上方會快速將邊界往內縮.'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 27'},'extra':[
+{'text':'模式 : '},
+{'selector':'@e[score_c_min=2]'}]},
+{'text':'\n       '},
+{'text':'大小','hoverEvent':
+{'action':'show_text','value':'各種模式啟動後\n最後縮到最小範圍的格數大小'}},
+{'text':' '},
+{'text':'? ','color':'red','hoverEvent':
+{'action':'show_text','value':'-96 格範圍'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 28'}},
+{'score':
+{'name':'00000000-0000-0000-0000-000000000000','objective':'d'},'color':'gray'},
+{'text':' ?','color':'dark_green','hoverEvent':
+{'action':'show_text','value':'+96 格範圍'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 29'}},
+{'text':'\n       '},
+{'text':'運行時間','hoverEvent':
+{'action':'show_text','value':'漸縮模式被啟動之後\n多久會完全執行完畢.\n\n只有在【漸縮模式】才有用'}},
+{'text':' '},
+{'text':'? ','color':'red','hoverEvent':
+{'action':'show_text','value':'-20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 30'}},
+{'score':
+{'name':'00000000-0000-0000-0000-000000000001','objective':'e'},'color':'gray'},
+{'text':' ?','color':'dark_green','hoverEvent':
+{'action':'show_text','value':'+20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 31'}},
+{'text':'\n\n   '},
+{'text':'','hoverEvent':
+{'action':'show_text','value':'如果 ●\n 遊戲時間將會\n 在指定的時間之後停止.\n 呈現永晝或永夜的狀態'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 32'},'extra':[
+{'selector':'@e[score_f_min=1]','color':'dark_green'},
+{'text':'時間暫停'}]},
+{'text':' '},
+{'text':'? ','color':'red','hoverEvent':
+{'action':'show_text','value':'-20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 33'}},
+{'score':
+{'name':'00000000-0000-0000-0000-000000000001','objective':'g'},'color':'gray'},
+{'text':' ?','color':'dark_green','hoverEvent':
+{'action':'show_text','value':'+20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 34'}},
+{'text':'\n       '},
+{'text':'','hoverEvent':
+{'action':'show_text','value':'永晝\n 將會在時間到之後設定為白天.\n\n永夜\n 將會在時間到之後設定為晚上.'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 35'},'extra':[
+{'text':'模式 : '},
+{'selector':'@e[score_h_min=1]'}]},
+{'text':'\n\n   '},
+{'text':'','hoverEvent':
+{'action':'show_text','value':'如果 ●\n 在指定的時間之內\n 敵對玩家的名條將不會顯示.'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 36'},'extra':[
+{'selector':'@e[score_i_min=1]','color':'dark_green'},
+{'text':'隱藏名條'}]},
+{'text':' '},
+{'text':'? ','color':'red','hoverEvent':
+{'action':'show_text','value':'-20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 37'}},
+{'score':
+{'name':'00000000-0000-0000-0000-000000000001','objective':'j'},'color':'gray'},
+{'text':' ?','color':'dark_green','hoverEvent':
+{'action':'show_text','value':'+20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 38'}},
+{'text':'\n\n   '},
+{'text':'','hoverEvent':
+{'action':'show_text','value':'如果 ●\n 在指定的時間到之後\n 所有玩家將會發光.'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 39'},'extra':[
+{'selector':'@e[score_k_min=1]','color':'dark_green'},
+{'text':'玩家發光'}]},
+{'text':' '},
+{'text':'? ','color':'red','hoverEvent':
+{'action':'show_text','value':'-20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 40'}},
+{'score':
+{'name':'00000000-0000-0000-0000-000000000001','objective':'l'},'color':'gray'},
+{'text':' ?','color':'dark_green','hoverEvent':
+{'action':'show_text','value':'+20 分鐘'},'clickEvent':
+{'action':'run_command','value':'/trigger A set 41'}}]}"]}}]}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~13 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_a_min=1] ~5 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players operation @e[tag=N] b *= 300 X,Passengers:[
+{id:commandblock_minecart,Command:execute @e[tag=b,score_c_min=2] ~ ~ ~ scoreboard players remove @e[tag=N] b 50},
+{id:commandblock_minecart,Command:execute @e[tag=b,score_c_min=2] ~ ~ ~ scoreboard players set @e[tag=N] e 10},
+{id:commandblock_minecart,Command:execute @e[tag=a,score_c_min=2] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_b=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1,Passengers:[
+{id:commandblock_minecart,Command:tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 漸縮模式 ? "},
+{"text":"啟動","color":"green"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:execute @e[score_e=20] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_d=16] ~ ~ ~ worldborder set 16 1200,Passengers:[
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ worldborder set 112 1200},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ worldborder set 208 1200},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ worldborder set 304 1200},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ worldborder set 400 1200},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496] ~ ~ ~ worldborder set 496 1200}]}},
+{id:commandblock_minecart,Command:execute @e[score_e_min=40,score_e=40] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_d=16] ~ ~ ~ worldborder set 16 2400,Passengers:[
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ worldborder set 112 2400},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ worldborder set 208 2400},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ worldborder set 304 2400},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ worldborder set 400 2400},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496] ~ ~ ~ worldborder set 496 2400}]}},
+{id:commandblock_minecart,Command:execute @e[score_e_min=60,score_e=60] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_d=16] ~ ~ ~ worldborder set 16 3600,Passengers:[
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ worldborder set 112 3600},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ worldborder set 208 3600},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ worldborder set 304 3600},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ worldborder set 400 3600},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496] ~ ~ ~ worldborder set 496 3600}]}},
+{id:commandblock_minecart,Command:execute @e[score_e_min=80,score_e=80] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_d=16] ~ ~ ~ worldborder set 16 4800,Passengers:[
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ worldborder set 112 4800},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ worldborder set 208 4800},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ worldborder set 304 4800},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ worldborder set 400 4800},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496] ~ ~ ~ worldborder set 496 4800}]}},
+{id:commandblock_minecart,Command:execute @e[score_e_min=100,score_e=100] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_d=16] ~ ~ ~ worldborder set 16 6000,Passengers:[
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ worldborder set 112 6000},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ worldborder set 208 6000},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ worldborder set 304 6000},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ worldborder set 400 6000},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496] ~ ~ ~ worldborder set 496 6000}]}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:kill @e[r=0]}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]}}},
+{id:commandblock_minecart,Command:execute @e[tag=b,score_c_min=2] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_b_min=2950,score_b=2950] ~ ~ ~ tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 傳送模式 ? "},
+{"text":"10 分鐘","color":"red"},
+{"text":" ? "}]},Passengers:[
+{id:commandblock_minecart,Command:execute @e[score_b_min=1450,score_b=1450] ~ ~ ~ tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 傳送模式 ? "},
+{"text":"5 分鐘","color":"red"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:execute @e[score_b_min=250,score_b=250] ~ ~ ~ tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 傳送模式 ? "},
+{"text":"1 分鐘","color":"red"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:execute @e[score_b_min=250,score_b=250] ~ ~ ~ execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[score_b_min=0,score_b=0,score_e=0] b -1},
+{id:commandblock_minecart,Command:execute @e[score_b_min=0,score_b=0] ~ ~ ~ tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 傳送模式 ? "},
+{"score":
+{"name":"@e[tag=N]","objective":"e"},"color":"red"},
+{"text":"...","color":"red"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:scoreboard players remove @e[score_b_min=0,score_b=0] e 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[score_b_min=0,score_b=0] b 5},
+{id:commandblock_minecart,Command:execute @e[score_b_min=1,score_b=1,score_e=0] ~ ~ ~ scoreboard players tag @a add i 
+{Dimension:-1}},
+{id:commandblock_minecart,Command:execute @e[score_b_min=1,score_b=1,score_e=0] ~ ~ ~ execute @a[tag=i] ~ ~ ~ setblock ~ ~ ~ portal},
+{id:commandblock_minecart,Command:execute @e[score_b_min=1,score_b=1,score_e=0] ~ ~ ~ gamemode 1 @a[tag=i]}]}},
+{id:commandblock_minecart,Command:execute @e[tag=b,score_c_min=2] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_b=-1] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1,Passengers:[
+{id:commandblock_minecart,Command:tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 傳送模式 ? "},
+{"text":"啟動","color":"green"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:gamemode 0 @a[tag=i]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=16,score_d=16] ~ ~ ~ spreadplayers ~ ~ 2 8 true @a[m=0,team=!1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=16,score_d=16] ~ ~ ~ spreadplayers ~ ~ 2 8 false @a[m=0,team=1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=16,score_d=16] ~ ~ ~ worldborder set 16},
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ spreadplayers ~ ~ 14 56 true @a[m=0,team=!1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ spreadplayers ~ ~ 14 56 false @a[m=0,team=1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~ ~ ~ worldborder set 112},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ spreadplayers ~ ~ 26 104 true @a[m=0,team=!1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ spreadplayers ~ ~ 26 104 false @a[m=0,team=1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~ ~ ~ worldborder set 208},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ spreadplayers ~ ~ 38 152 true @a[m=0,team=!1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ spreadplayers ~ ~ 38 152 false @a[m=0,team=1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~ ~ ~ worldborder set 304},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ spreadplayers ~ ~ 50 200 true @a[m=0,team=!1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ spreadplayers ~ ~ 50 200 false @a[m=0,team=1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~ ~ ~ worldborder set 400},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496,score_d=496] ~ ~ ~ spreadplayers ~ ~ 62 248 true @a[m=0,team=!1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496,score_d=496] ~ ~ ~ spreadplayers ~ ~ 62 248 false @a[m=0,team=1]},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496,score_d=496] ~ ~ ~ worldborder set 496},
+{id:commandblock_minecart,Command:kill @e[r=0]}]}}},
+{id:commandblock_minecart,Command:execute @e[tag=c,score_c_min=2] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_b=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players reset * c,Passengers:[
+{id:commandblock_minecart,Command:scoreboard objectives setdisplay sidebar c},
+{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] e 6},
+{id:commandblock_minecart,Command:stats entity @e[tag=F] set QueryResult @e[tag=L] d},
+{id:commandblock_minecart,Command:entitydata @e[tag=L] 
+{CustomName:Control,CustomNameVisible:1}},
+{id:commandblock_minecart,Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1},
+{id:commandblock_minecart,Command:tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 控制模式 ? "},
+{"text":"控制點","color":"green"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:tp @e[tag=e] @e[tag=N],Passengers:[
+{id:commandblock_minecart,Command:entitydata @e[tag=e] 
+{CustomNameVisible:0}},
+{id:commandblock_minecart,Command:scoreboard players reset * c},
+{id:commandblock_minecart,Command:execute @e[tag=e] ~5 ~ ~ kill @e[r=0]},
+{id:commandblock_minecart,Command:execute @e[tag=L] ~ ~ ~ execute @p[r=16,m=0] ~ ~ ~ scoreboard players set Point c 1},
+{id:commandblock_minecart,Command:execute @p[m=0] ~ ~ ~ tp @e[tag=L,r=16] ~ ~ ~ ~6 ~},
+{id:commandblock_minecart,Command:execute @e[tag=L] ~ ~ ~ execute @p[r=16,m=0] ~ ~ ~ scoreboard players remove @e[tag=N] e 1},
+{id:commandblock_minecart,Command:execute @e[score_e=0] ~ ~ ~ worldborder add -2 1},
+{id:commandblock_minecart,Command:scoreboard players set @e[score_e=0] e 6},
+{id:commandblock_minecart,Command:execute @e[tag=F] ~ ~ ~ worldborder get}]}},
+{id:commandblock_minecart,Command:execute @e[score_d=16] ~4.5 1.1 ~.5 summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players tag @e[score_d=17] add e}},
+{id:commandblock_minecart,Command:execute @e[score_d_min=112,score_d=112] ~4.5 1.1 ~.5 summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players tag @e[score_d=113] add e}},
+{id:commandblock_minecart,Command:execute @e[score_d_min=208,score_d=208] ~4.5 1.1 ~.5 summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players tag @e[score_d=209] add e}},
+{id:commandblock_minecart,Command:execute @e[score_d_min=304,score_d=304] ~4.5 1.1 ~.5 summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players tag @e[score_d=305] add e}},
+{id:commandblock_minecart,Command:execute @e[score_d_min=400,score_d=400] ~4.5 1.1 ~.5 summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players tag @e[score_d=401] add e}},
+{id:commandblock_minecart,Command:execute @e[score_d_min=496] ~4.5 1.1 ~.5 summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players tag @e[score_d=497] add e}},
+{id:commandblock_minecart,Command:execute @e[tag=L] ~ ~ ~ spreadplayers ~ ~ 0 1 false @e[tag=L]},
+{id:commandblock_minecart,Command:kill @e[r=0]}]}}},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players remove @e[tag=N] b 1}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]},Passengers:[
+{id:commandblock_minecart,Command:execute @e[score_f_min=1] ~7 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players operation @e[tag=N] g *= 300 X,Passengers:[
+{id:commandblock_minecart,Command:execute @e[tag=f,score_h_min=1] ~ ~ ~ scoreboard players add @e[tag=N] g 558},
+{id:commandblock_minecart,Command:execute @e[tag=g,score_h_min=1] ~ ~ ~ scoreboard players add @e[tag=N] g 3865},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~7 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_g=0] ~7 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:gamerule doDaylightCycle false,Passengers:[
+{id:commandblock_minecart,Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1},
+{id:commandblock_minecart,Command:execute @e[tag=f,score_h_min=1] ~ ~ ~ tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 時間暫停 ? "},
+{"text":"永晝","color":"yellow"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:execute @e[tag=g,score_h_min=1] ~ ~ ~ tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 時間暫停 ? "},
+{"text":"永夜","color":"blue"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]},Passengers:[
+{id:commandblock_minecart,Command:scoreboard players remove @e[tag=N] g 1}]}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]}},
+{id:commandblock_minecart,Command:execute @e[score_i_min=1] ~9 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard teams option 1 nametagVisibility never,Passengers:[
+{id:commandblock_minecart,Command:scoreboard teams option R nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option Y nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option G nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option A nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option B nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option P nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option E nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option r nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option y nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option g nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option a nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option b nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option p nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard teams option e nametagVisibility hideForOtherTeams},
+{id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] j *= 300 X},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~9 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_j=0] ~9 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard teams option 1 nametagVisibility always,Passengers:[
+{id:commandblock_minecart,Command:scoreboard teams option R nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option Y nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option G nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option A nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option B nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option P nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option E nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option r nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option y nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option g nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option a nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option b nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option p nametagVisibility always},
+{id:commandblock_minecart,Command:scoreboard teams option e nametagVisibility always},
+{id:commandblock_minecart,Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1},
+{id:commandblock_minecart,Command:tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 隱藏名條 ? "},
+{"text":"現形","color":"green"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]},Passengers:[
+{id:commandblock_minecart,Command:scoreboard players remove @e[tag=N] j 1}]}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]}},
+{id:commandblock_minecart,Command:execute @e[score_k_min=1] ~11 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:scoreboard players operation @e[tag=N] l *= 300 X,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players set @a[m=0] m 1},
+{id:commandblock_minecart,Command:execute @e[tag=N] ~11 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[score_l=0] ~11 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
+{Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
+{Command:effect @a[score_m_min=1] glowing 99999 0 true,Passengers:[
+{id:commandblock_minecart,Command:scoreboard players reset @a[score_m_min=1] m}]},Passengers:[
+{id:commandblock_minecart,Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1},
+{id:commandblock_minecart,Command:tellraw @a 
+{"text":" ? ","color":"gray","extra":[
+{"text":"UHC BLOX","color":"gold"},
+{"text":" ? 玩家發光 ? "},
+{"text":"啟動","color":"green"},
+{"text":" ? "}]}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]},Passengers:[
+{id:commandblock_minecart,Command:scoreboard players remove @e[tag=N] l 1}]}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]}}]}},
+{id:commandblock_minecart,Command:setblock ~ ~1 ~ command_block 0 replace 
+{Command:fill ~ ~-3 ~ ~ ~ ~ air,auto:1}},
+{id:commandblock_minecart,Command:kill @e[r=0]}]}

@@ -30,7 +30,8 @@ mc_command() {
   command="$1";
   if mc_status; then
     [ $mcecho_off ] || echo "$JARFILE is running... executing command"
-    as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+    # as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+    as_user "screen -p 0 -X eval 'stuff \"$command\"\015'"
   fi
 }
 

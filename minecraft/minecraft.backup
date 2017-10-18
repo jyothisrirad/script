@@ -7,12 +7,12 @@ cron_hour='*/6'
 cron_day='*'
 cron_month='*'
 cron_wday='*'
-pids=(`ps aux | grep java | awk '{print $2}'`)
-MCSTORE=$(sudo cat /proc/${pids[0]}/environ | tr '\0' '\n' | grep '^PWD' | sed -r 's/PWD=//g')
+pids=(`ps aux|grep -F -v grep|grep java| awk '{print $2}'`)
+[ ! $pids ] || MCSTORE=$(sudo cat /proc/${pids[0]}/environ | tr '\0' '\n' | grep '^PWD' | sed -r 's/PWD=//g')
 
 
 . /home/sita/script/cron/template.sh
-. /home/sita/script/minecraft/alias.minecraft
+# . /home/sita/script/minecraft/alias.minecraft
 
 
 mc_status() {
@@ -32,7 +32,8 @@ mc_command() {
   command="$1";
   if mc_status; then
     [ $mcecho_off ] || echo "$JARFILE is running... executing command"
-    as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+    # as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+    as_user "screen -p 0 -X eval 'stuff \"$command\"\015'"
   fi
 }
 

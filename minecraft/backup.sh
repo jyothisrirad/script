@@ -6,6 +6,7 @@ if [ ! -d "$1" ]; then
 fi
 
 MAXBACKUP=8
+[ ! $2 ] || MAXBACKUP=$2
 
 # FULL=$(readlink -e $0)
 # DP0=$(dirname $FULL)
@@ -27,7 +28,7 @@ TEMPZIP=~/$ZIP
 echo -e "${GREEN}Creating $ZIPDIR/$ZIP${NC}"
 
 IGNORE1=crash-reports/*
-IGNORE2=logs/*
+IGNORE2=logs/*.gz
 IGNORE3=ForgeEssentials/Backups/*
 
 cd "$DP1"
