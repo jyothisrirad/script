@@ -16,6 +16,13 @@ restore() {
 BASE=$(basename $DP1)
 ZIPLIST=(`ls -at $ZIPDIR/$BASE*.zip`)
 
+cnt=0
+for zip in ${ZIPLIST[@]}
+do
+	echo $cnt: $zip
+	cnt=$((cnt + 1))
+done
+
 INDEXMAX=$(( ${#ZIPLIST[@]} - 1 ))
 
 if (( $1 > $INDEXMAX )); then index=$INDEXMAX; else index=$1; fi
@@ -27,7 +34,7 @@ echo -e "${GREEN}Restore from $ZIPFILE${NC}"
 
 IGNORE=logs*
 
-unzip -o $ZIPFILE -x "$IGNORE" -d $DP1
+unzip -o $ZIPFILE -x "$IGNORE" -d $DP1 >/dev/null
 
 }
 

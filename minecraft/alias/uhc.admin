@@ -87,6 +87,15 @@ uhclog() {
 }
 
 
+uhcinit() {
+	mcdo time set 0
+	mcdo tp @a 9475 65 3420
+	mcdo op chsliu
+	mcdo gamemode 1 @a
+	mcdo give @a command_block
+	mcdo give @a redstone_block
+}
+
 alias mcsb='mcscores 3'
 # alias mcsbs='mcscores $*'
 alias mcwb='mcdo worldborder $*'
@@ -97,3 +106,4 @@ alias uhcstart='/home/sita/script/minecraft/uhc.start'
 alias uhcend='/home/sita/script/minecraft/uhc.end'
 alias uhclog=uhclog
 alias teamadd='teamlist && mcdo scoreboard teams join $1 $2'
+alias uhcinit=uhcinit

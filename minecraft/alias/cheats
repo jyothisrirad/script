@@ -13,5 +13,6 @@ alias diamond='export item=diamond && echo item=$item'
 alias wing='export item=elytra && echo item=$item'
 alias firework='export item=firework && echo item=$item'
 alias nomob='mcdo difficulty 0 && mcdo difficulty 1'
+alias peace='mcdo difficulty 0'
 
 
