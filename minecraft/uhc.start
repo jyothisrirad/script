@@ -15,10 +15,11 @@ cron_wday='6'
 # =============================================================
 # Game Manul Start
 # =============================================================
-mcserver do deop chsliu
-mcserver do deop yozliu
-mcserver do deop angussu
-mcserver do gamemode 1 chsliu
-mcserver do gamemode 1 yozliu
-mcserver do gamemode 1 angussu
+mcserver log list
+# mcserver do deop chsliu
+# mcserver do deop yozliu
+# mcserver do deop angussu
+# mcserver do gamemode 1 chsliu
+# mcserver do gamemode 1 yozliu
+# mcserver do gamemode 1 angussu
 mcserver do whitelist off

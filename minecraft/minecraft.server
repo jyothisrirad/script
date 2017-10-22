@@ -13,6 +13,8 @@
 # Description:    Starts the minecraft server
 ### END INIT INFO
 
+. /home/sita/script/include/console.color
+
 #Settings
 # FULL=$(readlink -e $0)
 # DP0=$(dirname $FULL)
@@ -314,42 +316,7 @@ deldir() {
 	fi
 }
 
-showstat() {
-
-[ ! -d "$MCPATH/logs" ] || LASTLOGS=(`ls -at $MCPATH/logs/*.log.gz`) >/dev/null
-[ ! $LASTLOGS ] || LOGLAST=${LASTLOGS[0]}
-[ $LASTLOGS ] || LOGLAST=/tmp/notexist
-LOGNOW="$MCPATH/logs/latest.log"
-[ -f $LOGNOW ] || LOGNOW=$LOG
-
-# echo LASTLOGS=$LASTLOGS
-# echo LOGLAST=$LOGLAST
-# echo LOGNOW=$LOGNOW
-
-[ ! -f $LOGLAST ] || echo Last: $LOGLAST ...
-[ ! -f $LOGNOW ] || echo  Now: $LOGNOW ...
-
-echo -e "${GREEN}List of players joined/left time last time:${NC}"
-[ ! -f $LOGLAST ] || zcat $LOGLAST | grep 'joined\|left' 
-echo "-----"
-[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep 'joined\|left'
-
-echo -e "${GREEN}List of players joined last time:${NC}"
-[ ! -f $LOGLAST ] || zcat $LOGLAST | grep joined | awk '{ printf ("%s %s\n", $4, $5) }' | sort | uniq
-echo "-----"
-[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep joined | awk '{ printf ("%s %s\n", $4, $5) }' | sort | uniq
-
-echo -e "${GREEN}List of players slained last time:${NC}"
-[ ! -f $LOGLAST ] || zcat $LOGLAST | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|hit the ground'
-echo "-----"
-[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|hit the ground'
-
-echo -e "${GREEN}List of players teleported last time:${NC}"
-[ ! -f $LOGLAST ] || zcat $LOGLAST | grep Teleported
-echo "-----"
-[ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep Teleported
-
-}
+. $DP0/minecraft.logs
 
 #Start-Stop here
 case "$1" in
@@ -361,7 +328,7 @@ case "$1" in
     fi
     ;;
   start)
-	showstat
+	# showstat
     mc_start
     ;;
   stop)
@@ -369,7 +336,7 @@ case "$1" in
     mc_backup $2
     mc_stop
     # mc_savetodisk_offline
-	showstat
+	# showstat
     ;;
   restart)
     mc_stop
@@ -387,7 +354,13 @@ case "$1" in
     mc_savetodisk_offline
     ;;
   save)
-    mc_savetodisk_online
+	if [ "$2" = "on" ]; then
+		mc_saveon
+	elif [ "$2" = 'off' ]; then
+		mc_saveoff
+	else
+		mc_savetodisk_online
+	fi
     ;;
   crashreport)
 	mc_save_crashreport
@@ -402,10 +375,10 @@ case "$1" in
     fi
     ;;
   backup)
-    mc_savetodisk_online
-    # mc_saveoff
+    # mc_savetodisk_online
+	mc_saveoff
     mc_backup $2
-    # mc_saveon
+	mc_saveon
     ;;
   restore)
 	if mc_status; then
@@ -436,7 +409,12 @@ case "$1" in
     fi
 	;;
   log)
-	tail -f $LOG
+	if [ "$2" ]; then
+		logs.grep $2 >"$MCPATH/logs/$2.log"
+		cat "$MCPATH/logs/$2.log"
+	else
+		tail -f $LOG
+	fi
 	;;
   check)
 	if ! mc_status; then
@@ -478,19 +456,28 @@ case "$1" in
 		echo "$JARFILE is Online. No kill."
 	else
 		echo "$JARFILE is Not Responding, forcing Server to Stop."
-		kill -9 $(ps aux | grep $JARFILE | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
+		for pid in $pids
+		do
+			kill -9 $pid
+		done
 	fi  
     ;;
   halt)
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		kill -9 $(ps aux | grep $JARFILE | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
+		for pid in $pids
+		do
+			kill -9 $pid
+		done
 	fi
-	showstat
+	# showstat
     ;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|pre-restore|status|restart|save|force-save|crashreport|load|do|log|check|kill|halt}"
+  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|save|status}"
+  echo "Usage: /etc/init.d/$0 {update|restart|force-save|crashreport|load|check|kill}"
   exit 1
   ;;
 esac

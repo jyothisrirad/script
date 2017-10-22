@@ -16,25 +16,58 @@ mcscores() {
 		mcserver do scoreboard objectives setdisplay sidebar FinalStone
 		if [ -z ${1+x} ]; then pause; else sleep $1; fi
 		mcserver do scoreboard objectives setdisplay sidebar FinalEat
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar List
 		[[ $2 == 'forever' ]] || break
 		if [ -z ${1+x} ]; then pause; else sleep $1; fi
 	done
 }
 
 
-friendlyfireSet() {
-	for t in R Y G A B P E r y g a b p e
+# friendlyfireSet() {
+	# for t in R Y G A B P E r y g a b p e
+	# do 
+		# mcserver do scoreboard teams option $t friendlyfire $1
+	# done
+# }
+
+
+team_all_set() {
+	for t in R Y G A B P E r y g a b p e 0 1
 	do 
-		mcserver do scoreboard teams option $t friendlyfire $1
+		mcserver do scoreboard teams option $t $1 $2
 	done
 }
 
+# aqua() { 
+	# echo A 
+# }
 
-alias mcsb='mcscores 3 forever'
-alias mcsbs='mcscores $*'
+teamlist() {
+echo Solo=1
+echo Spectate=0
+echo Red=R
+echo Yellow=Y
+echo Green=G
+echo Aqua=A
+echo Blue=B
+echo Light Purple=P
+echo Gray=E
+echo Dark Red=r
+echo Gold=y
+echo Dark Green=g
+echo Dark Aqua=a
+echo Dark Blue=b
+echo Dark Purple=p
+echo Dark Gray=e
+}
+
+alias mcsb='mcscores 3'
+# alias mcsbs='mcscores $*'
 alias mcwb='mcdo worldborder $*'
-alias mcwbreset='mcdo worldborder set 60000000'
-alias mcff='friendlyfireSet $1'
+alias mcwb0='mcdo worldborder set 60000000'
+alias mcff='team_all_set friendlyfire true'
 alias uhcrule='/home/sita/script/minecraft/uhc.rules $*'
 alias uhcstart='/home/sita/script/minecraft/uhc.start'
 alias uhcend='/home/sita/script/minecraft/uhc.end'
+alias teamadd='teamlist && mcdo scoreboard teams join $1 $2'

@@ -1,359 +1,479 @@
-summon falling_block ~ ~1.5 ~ 
-{Time:1,Block:activator_rail,Passengers:[
-{id:commandblock_minecart,Command:tellraw @a 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? ³]©w ? "},
-{"text":"¦w¸Ë¦¨¥\","color":"green"},
-{"text":" ? "}]}},
-{id:commandblock_minecart,Command:scoreboard objectives add F dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add U dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add u dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add E dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add O dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add V dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add Q dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add K dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add W dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add M dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add N dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add L dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add B dummy},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] F 3},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=F] U 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] u 30},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] E 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] O 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] V 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] Q 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=F] K 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] W 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] M 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] N 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] L 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=F] B 1},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @p[score_A_min=10,score_A=23] ~ ~ ~ execute @e[tag=N] ~5 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @a[score_A_min=1] ~ ~ ~ playsound entity.experience_orb.pickup voice @p ~ ~ ~ .25 2 .25,Passengers:[
-{id:commandblock_minecart,Command:execute @p[score_A_min=10,score_A=10] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players remove @e[tag=N] F 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_F=-1] F 3}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=11,score_A=11] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=N] F 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_F_min=4] F 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=12,score_A=12] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] U 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_U_min=2] U 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=13,score_A=13] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players remove @e[tag=N] u 10,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_u=9] u 60}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=14,score_A=14] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=N] u 10,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_u_min=61] u 10}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=15,score_A=15] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] E 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_E_min=2] E 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=16,score_A=16] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] O 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_O_min=2] O 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=17,score_A=17] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] V 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_V_min=2] V 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=18,score_A=18] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] Q 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_Q_min=2] Q 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=19,score_A=19] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] K 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_K_min=2] K 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=20,score_A=20] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] W 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_W_min=2] W 0},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_W=0] ~7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard teams option R collisionRule pushOwnTeam,Passengers:[
-{id:commandblock_minecart,Command:scoreboard teams option Y collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option G collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option A collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option B collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option P collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option E collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option r collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option y collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option g collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option a collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option b collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option p collisionRule pushOwnTeam},
-{id:commandblock_minecart,Command:scoreboard teams option e collisionRule pushOwnTeam}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_W_min=1] ~7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard teams option R collisionRule always,Passengers:[
-{id:commandblock_minecart,Command:scoreboard teams option Y collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option G collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option A collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option B collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option P collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option E collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option r collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option y collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option g collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option a collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option b collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option p collisionRule always},
-{id:commandblock_minecart,Command:scoreboard teams option e collisionRule always}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:kill @e[r=0]}}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=21,score_A=21] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] M 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_M_min=2] M 0},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_M=0] ~7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard teams option R friendlyfire false,Passengers:[
-{id:commandblock_minecart,Command:scoreboard teams option Y friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option G friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option A friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option B friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option P friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option E friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option r friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option y friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option g friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option a friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option b friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option p friendlyfire false},
-{id:commandblock_minecart,Command:scoreboard teams option e friendlyfire false}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_M_min=1] ~7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard teams option R friendlyfire true,Passengers:[
-{id:commandblock_minecart,Command:scoreboard teams option Y friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option G friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option A friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option B friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option P friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option E friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option r friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option y friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option g friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option a friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option b friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option p friendlyfire true},
-{id:commandblock_minecart,Command:scoreboard teams option e friendlyfire true}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:kill @e[r=0]}}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=22,score_A=22] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] L 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_L_min=2] L 0},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_L=0] ~ ~ ~ scoreboard objectives setdisplay list },
-{id:commandblock_minecart,Command:execute @e[tag=N,score_L_min=1] ~ ~ ~ scoreboard objectives setdisplay list H}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=23,score_A=23] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] B 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_B_min=2] B 0},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_B=0] ~ ~ ~ scoreboard objectives setdisplay belowName },
-{id:commandblock_minecart,Command:execute @e[tag=N,score_B_min=1] ~ ~ ~ scoreboard objectives setdisplay belowName H}]}},
-{id:commandblock_minecart,Command:execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:kill @e[r=0]}},
-{id:commandblock_minecart,Command:scoreboard players reset * A}]},Passengers:[
-{id:commandblock_minecart,Command:replaceitem entity @a slot.hotbar.1 written_book 1 0 
-{title:"UHC Blox ³]©w",author:"gerrybrano",display:
-{Lore:["by gerrybrano Â½Ä¶by «¢°O"]},HideFlags:32,pages:["
-{'text':'','color':'dark_gray','extra':[
-{'text':'     '},
-{'text':'¹CÀ¸§xÃø«×','hoverEvent':
-{'action':'show_text','value':'³]©w¹CÀ¸§xÃø«×.\n\n   3 - §xÃø\n   2 - ´¶³q\n   1 - Â²³æ\n   0 - ©M¥­'}},
-{'text':' '},
-{'text':'? ','color':'red','hoverEvent':
-{'action':'show_text','value':'-1 §xÃø«×'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 10'}},
-{'score':
-{'name':'00000000-0000-0000-0000-000000000001','objective':'F'},'color':'gray'},
-{'text':' ?','color':'dark_green','hoverEvent':
-{'action':'show_text','value':'+1 §xÃø«×'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 11'}},
-{'text':'\n\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡´\n ¨C¸g¹L¤@¬q®É¶¡·|´£¥Ü\n¥Ø«e¸g¹L¤F¦h¤[ªº®É¶¡.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 12'},'extra':[
-{'selector':'@e[score_U_min=1]','color':'dark_green'},
-{'text':'´£¿ô®É¶¡'}]},
-{'text':' '},
-{'text':'? ','color':'red','hoverEvent':
-{'action':'show_text','value':'-10 ¤ÀÄÁ'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 13'}},
-{'score':
-{'name':'00000000-0000-0000-0000-000000000001','objective':'u'},'color':'gray'},
-{'text':' ?','color':'dark_green','hoverEvent':
-{'action':'show_text','value':'+10 ¤ÀÄÁ'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 14'}},
-{'text':'\n\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡³\n ª±®a±N¤£¥i¥H¶i¤J¦aº»\nªşªñªº¦aº»ªù·|¥¢®Ä.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 15'},'extra':[
-{'selector':'@e[score_E_min=1]','color':'dark_green'},
-{'text':'¦aº»ªù'}]},
-{'text':'\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡³\n «ÕÆF²´²\·|ÅÜ¦¨ª÷²É,\n ¨¾¤îª±®aÆC³y\n »s§@¥X«ì´_ÃÄ¤ô.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 16'},'extra':[
-{'selector':'@e[score_O_min=1]','color':'dark_green'},
-{'text':'«ì´_ÃÄ¤ô'}]},
-{'text':'\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡³\n ¿Ã¥ú¯»·|ÅÜ¦¨¿Ã¥ú¥Û,\n ¨¾¤îª±®aÆC³y\n »s§@¥X¤G¯ÅÃÄ¤ô.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 17'},'extra':[
-{'selector':'@e[score_V_min=1]','color':'dark_green'},
-{'text':'¤G¯ÅÃÄ¤ô'}]},
-{'text':'\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡³\n ªşÅ]ª÷Ä«ªG\n ±N·|³Q²¾°£\n ¨Ã¥B·|ª½±µµ¹¤©ª±®a8­Óª÷¿j©MÄ«ªG.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 18'},'extra':[
-{'selector':'@e[score_Q_min=1]','color':'dark_green'},
-{'text':'ªşÅ]ª÷Ä«ªG'}]},
-{'text':'\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡´\n ÅKÄq¡Bª÷Äq¡B¥¼µN­¹ª«,\n ±N·|¦b±¼¸¨ªº®É­Ôª½±µ¼ô¦¨.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 19'},'extra':[
-{'selector':'@e[score_K_min=1]','color':'dark_green'},
-{'text':'ª««~§K¿N'}]},
-{'text':'\n\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡³\n ¶¤¤Í¤§¶¡¤£·|¦³¸I¼².'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 20'},'extra':[
-{'selector':'@e[score_W_min=1]','color':'dark_green'},
-{'text':'¶¤¤Í¸I¼²'}]},
-{'text':'\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡³\n ¶¤¤Í¤§¶¡¤£·|¤¬¬Û¶Ë®`.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 21'},'extra':[
-{'selector':'@e[score_M_min=1]','color':'dark_green'},
-{'text':'¶¤¤Í¶Ë®`'}]},
-{'text':'\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡´\n ¦å¶q±N·|Åã¥Ü¦btab¦Cªí.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 22'},'extra':[
-{'selector':'@e[score_L_min=1]','color':'dark_green'},
-{'text':'? ','color':'red'},
-{'text':'Åã¥Ü¦å¶q¦bTab'}]},
-{'text':'\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¦pªG ¡´\n ¦å¶q±N·|Åã¥Ü¦b¦W±ø¤U¤è.'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 23'},'extra':[
-{'selector':'@e[score_B_min=1]','color':'dark_green'},
-{'text':'? ','color':'red'},
-{'text':'Åã¥Ü¦å¶q¦b¦W±ø¤U'}]}]}"]}}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~13 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @e[score_F=0] ~ ~ ~ difficulty 0,Passengers:[
-{id:commandblock_minecart,Command:execute @e[score_F_min=1,score_F=1] ~ ~ ~ difficulty 1},
-{id:commandblock_minecart,Command:execute @e[score_F_min=2,score_F=2] ~ ~ ~ difficulty 2},
-{id:commandblock_minecart,Command:execute @e[score_F_min=3] ~ ~ ~ difficulty 3},
-{id:commandblock_minecart,Command:execute @e[score_U_min=1] ~3 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players operation @e[tag=N] U = @e[tag=N] u,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] U *= 300 X},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players remove @e[score_U_min=1] U 1,Passengers:[
-{id:commandblock_minecart,Command:execute @e[score_U=0] ~3 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players operation @e[tag=N] U = @e[tag=N] u,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] U *= 300 X},
-{id:commandblock_minecart,Command:scoreboard players operation Mark u += @e[tag=N] u},
-{id:commandblock_minecart,Command:tellraw @a 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? ®É¶¡´£¿ô ? "},
-{"score":
-{"name":"Mark","objective":"u"},"color":"green"},
-{"text":" ¤ÀÄÁ","color":"green"},
-{"text":" ? "}]}},
-{id:commandblock_minecart,Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1},
-{id:commandblock_minecart,Command:kill @e[r=0]}]}}]}},
-{id:commandblock_minecart,Command:kill @e[r=0]}]}},
-{id:commandblock_minecart,Command:execute @e[score_E=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @a[m=0] ~-1 ~ ~-1 fill ~ ~ ~ ~2 ~ ~2 air 0 replace portal}},
-{id:commandblock_minecart,Command:execute @e[score_E_min=1,score_O=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players tag @e[type=item] add O 
-{Item:
-{id:minecraft:ghast_tear}},Passengers:[
-{id:commandblock_minecart,Command:entitydata @e[tag=O] 
-{Item:
-{id:gold_ingot},Tags:[]}}]}},
-{id:commandblock_minecart,Command:execute @e[score_E_min=1,score_V=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players tag @e[type=item] add V 
-{Item:
-{id:minecraft:glowstone_dust}},Passengers:[
-{id:commandblock_minecart,Command:execute @e[tag=V,c=1] ~ ~ ~ summon item ~ ~ ~ 
-{Item:
-{id:minecraft:glowstone,Count:1}}},
-{id:commandblock_minecart,Command:kill @e[tag=V]}]}},
-{id:commandblock_minecart,Command:execute @e[score_Q=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players tag @a add Q 
-{Inventory:[
-{id:minecraft:golden_apple,Damage:1s}]},Passengers:[
-{id:commandblock_minecart,Command:tellraw @a[tag=Q] 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? ªşÅ]ª÷Ä«ªG ? "},
-{"text":"¬O¤£³Q¤¹³\ªº","color":"red"},
-{"text":" ? "}]}},
-{id:commandblock_minecart,Command:clear @a[tag=Q] golden_apple 1 1},
-{id:commandblock_minecart,Command:execute @a[tag=Q] ~ ~ ~ summon item ~ ~ ~ 
-{Item:
-{id:minecraft:apple,Count:1}}},
-{id:commandblock_minecart,Command:execute @a[tag=Q] ~ ~ ~ summon item ~ ~ ~ 
-{Item:
-{id:minecraft:gold_block,Count:8}}},
-{id:commandblock_minecart,Command:scoreboard players tag @a[tag=Q] remove Q}]}},
-{id:commandblock_minecart,Command:execute @e[score_K_min=1] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players tag @e[type=item] add I 
-{Item:
-{id:minecraft:iron_ore}},Passengers:[
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add G 
-{Item:
-{id:minecraft:gold_ore}}},
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add K 
-{Item:
-{id:minecraft:porkchop}}},
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add S 
-{Item:
-{id:minecraft:fish}}},
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add B 
-{Item:
-{id:minecraft:beef}}},
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add C 
-{Item:
-{id:minecraft:chicken}}},
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add P 
-{Item:
-{id:minecraft:potato}}},
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add R 
-{Item:
-{id:minecraft:rabbit}}},
-{id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add M 
-{Item:
-{id:minecraft:mutton}}},
-{id:commandblock_minecart,Command:entitydata @e[tag=I] 
-{Item:
-{id:iron_ingot},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=G] 
-{Item:
-{id:gold_ingot},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=K] 
-{Item:
-{id:cooked_porkchop},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=S] 
-{Item:
-{id:cooked_fish},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=B] 
-{Item:
-{id:cooked_beef},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=C] 
-{Item:
-{id:cooked_chicken},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=P] 
-{Item:
-{id:baked_potato},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=R] 
-{Item:
-{id:cooked_rabbit},Tags:[X]}},
-{id:commandblock_minecart,Command:entitydata @e[tag=M] 
-{Item:
-{id:cooked_mutton},Tags:[X]}},
-{id:commandblock_minecart,Command:execute @e[tag=X] ~ ~ ~ summon xp_orb ~ ~ ~ 
-{Value:1}},
-{id:commandblock_minecart,Command:entitydata @e[tag=X] 
-{Tags:[]}}]}}]}},
-{id:commandblock_minecart,Command:setblock ~ ~1 ~ command_block 0 replace 
-{Command:fill ~ ~-3 ~ ~ ~ ~ air,auto:1}},
-{id:commandblock_minecart,Command:kill @e[r=0]}]}
+ï»¿summon falling_block ~ ~1.5 ~
+{   Time:1,Block:
+activator_rail,Passengers:
+    [
+    {   id:commandblock_minecart,Command:tellraw @a
+        {   "text":" â”ƒ ","color":"gray","extra":[
+            {"text":"UHC BLOX","color":"gold"},
+            {"text":" â”ƒ è¨­å®š â”ƒ "},
+            {"text":"å®‰è£æˆåŠŸ","color":"green"},
+            {"text":" â”ƒ "}]
+        }
+    },
+    {id:commandblock_minecart,Command:scoreboard objectives add F dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add U dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add u dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add E dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add O dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add V dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add Q dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add K dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add W dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add M dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add N dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add L dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add B dummy},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] F 3},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=F] U 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] u 30},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] E 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] O 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] V 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] Q 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=F] K 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] W 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] M 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] N 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] L 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=F] B 1},
+    {   id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+        {   Command:execute @p[score_A_min=10,score_A=23] ~ ~ ~ execute @e[tag=N] ~5 ~ ~ summon commandblock_minecart ~ ~ ~
+            {   Command:execute @a[score_A_min=1] ~ ~ ~ playsound entity.experience_orb.pickup voice @p ~ ~ ~ .25 2 .25,Passengers:[
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=10,score_A=10] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players remove @e[tag=N] F 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_F=-1] F 3}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=11,score_A=11] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=N] F 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_F_min=4] F 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=12,score_A=12] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] U 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_U_min=2] U 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=13,score_A=13] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players remove @e[tag=N] u 10,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_u=9] u 60}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=14,score_A=14] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=N] u 10,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_u_min=61] u 10}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=15,score_A=15] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] E 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_E_min=2] E 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=16,score_A=16] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] O 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_O_min=2] O 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=17,score_A=17] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] V 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_V_min=2] V 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=18,score_A=18] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] Q 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_Q_min=2] Q 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=19,score_A=19] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] K 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_K_min=2] K 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=20,score_A=20] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] W 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_W_min=2] W 0},
+                        {   id:commandblock_minecart,Command:execute @e[tag=N,score_W=0] ~7 ~ ~ summon commandblock_minecart ~ ~ ~
+                            {   Command:scoreboard teams option R collisionRule pushOwnTeam,Passengers:[
+                                {id:commandblock_minecart,Command:scoreboard teams option Y collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option G collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option A collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option B collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option P collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option E collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option r collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option y collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option g collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option a collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option b collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option p collisionRule pushOwnTeam},
+                                {id:commandblock_minecart,Command:scoreboard teams option e collisionRule pushOwnTeam}]
+                            }
+                        },
+                        {   id:commandblock_minecart,Command:execute @e[tag=N,score_W_min=1] ~7 ~ ~ summon commandblock_minecart ~ ~ ~
+                            {   Command:scoreboard teams option R collisionRule always,Passengers:[
+                                {id:commandblock_minecart,Command:scoreboard teams option Y collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option G collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option A collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option B collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option P collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option E collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option r collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option y collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option g collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option a collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option b collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option p collisionRule always},
+                                {id:commandblock_minecart,Command:scoreboard teams option e collisionRule always}]
+                            }
+                        },
+                        {   id:commandblock_minecart,Command:execute @e[tag=N] ~7 ~ ~ summon commandblock_minecart ~ ~ ~
+                            {Command:kill @e[r=0]}
+                        }]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=21,score_A=21] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] M 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_M_min=2] M 0},
+                        {   id:commandblock_minecart,Command:execute @e[tag=N,score_M=0] ~7 ~ ~ summon commandblock_minecart ~ ~ ~
+                            {   Command:scoreboard teams option R friendlyfire false,Passengers:[
+                                {id:commandblock_minecart,Command:scoreboard teams option Y friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option G friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option A friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option B friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option P friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option E friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option r friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option y friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option g friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option a friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option b friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option p friendlyfire false},
+                                {id:commandblock_minecart,Command:scoreboard teams option e friendlyfire false}]
+                            }
+                        },
+                        {   id:commandblock_minecart,Command:execute @e[tag=N,score_M_min=1] ~7 ~ ~ summon commandblock_minecart ~ ~ ~
+                            {   Command:scoreboard teams option R friendlyfire true,Passengers:[
+                                {id:commandblock_minecart,Command:scoreboard teams option Y friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option G friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option A friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option B friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option P friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option E friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option r friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option y friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option g friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option a friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option b friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option p friendlyfire true},
+                                {id:commandblock_minecart,Command:scoreboard teams option e friendlyfire true}]
+                            }
+                        },
+                        {   id:commandblock_minecart,Command:execute @e[tag=N] ~7 ~ ~ summon commandblock_minecart ~ ~ ~
+                            {Command:kill @e[r=0]}
+                        }]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=22,score_A=22] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] L 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_L_min=2] L 0},
+                        {id:commandblock_minecart,Command:execute @e[tag=N,score_L=0] ~ ~ ~ scoreboard objectives setdisplay list },
+                        {id:commandblock_minecart,Command:execute @e[tag=N,score_L_min=1] ~ ~ ~ scoreboard objectives setdisplay list H}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=23,score_A=23] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] B 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_B_min=2] B 0},
+                        {id:commandblock_minecart,Command:execute @e[tag=N,score_B=0] ~ ~ ~ scoreboard objectives setdisplay belowName },
+                        {id:commandblock_minecart,Command:execute @e[tag=N,score_B_min=1] ~ ~ ~ scoreboard objectives setdisplay belowName H}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {Command:kill @e[r=0]}
+                },
+                {id:commandblock_minecart,Command:scoreboard players reset * A}]
+},Passengers:[
+            {   id:commandblock_minecart,Command:replaceitem entity @a slot.hotbar.1 written_book 1 0
+                {   title:"UHC Blox è¨­å®š",author:"gerrybrano",display:
+                    {Lore:["by gerrybrano ç¿»è­¯by å“ˆè¨˜"]},HideFlags:32,pages:["
+                    {'text':'','color':'dark_gray','extra':[
+                    {'text':'     '},
+                    {'text':'éŠæˆ²å›°é›£åº¦','hoverEvent':
+                    {'action':'show_text','value':'è¨­å®šéŠæˆ²å›°é›£åº¦.\n\n   3 - å›°é›£\n   2 - æ™®é€š\n   1 - ç°¡å–®\n   0 - å’Œå¹³'}},
+                    {'text':' '},
+                    {'text':'â° ','color':'red','hoverEvent':
+                    {'action':'show_text','value':'-1 å›°é›£åº¦'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 10'}},
+                    {'score':
+                    {'name':'00000000-0000-0000-0000-000000000001','objective':'F'},'color':'gray'},
+                    {'text':' â±','color':'dark_green','hoverEvent':
+                    {'action':'show_text','value':'+1 å›°é›£åº¦'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 11'}},
+                    {'text':'\n\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—\n æ¯ç¶“éä¸€æ®µæ™‚é–“æœƒæç¤º\nç›®å‰ç¶“éäº†å¤šä¹…çš„æ™‚é–“.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 12'},'extra':[
+                    {'selector':'@e[score_U_min=1]','color':'dark_green'},
+                    {'text':'æé†’æ™‚é–“'}]},
+                    {'text':' '},
+                    {'text':'â° ','color':'red','hoverEvent':
+                    {'action':'show_text','value':'-10 åˆ†é˜'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 13'}},
+                    {'score':
+                    {'name':'00000000-0000-0000-0000-000000000001','objective':'u'},'color':'gray'},
+                    {'text':' â±','color':'dark_green','hoverEvent':
+                    {'action':'show_text','value':'+10 åˆ†é˜'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 14'}},
+                    {'text':'\n\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—‹\n ç©å®¶å°‡ä¸å¯ä»¥é€²å…¥åœ°ç„\né™„è¿‘çš„åœ°ç„é–€æœƒå¤±æ•ˆ.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 15'},'extra':[
+                    {'selector':'@e[score_E_min=1]','color':'dark_green'},
+                    {'text':'åœ°ç„é–€'}]},
+                    {'text':'\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—‹\n å¹½éˆçœ¼æ·šæœƒè®Šæˆé‡‘ç²’,\n é˜²æ­¢ç©å®¶é‡€é€ \n è£½ä½œå‡ºæ¢å¾©è—¥æ°´.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 16'},'extra':[
+                    {'selector':'@e[score_O_min=1]','color':'dark_green'},
+                    {'text':'æ¢å¾©è—¥æ°´'}]},
+                    {'text':'\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—‹\n è¢å…‰ç²‰æœƒè®Šæˆè¢å…‰çŸ³,\n é˜²æ­¢ç©å®¶é‡€é€ \n è£½ä½œå‡ºäºŒç´šè—¥æ°´.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 17'},'extra':[
+                    {'selector':'@e[score_V_min=1]','color':'dark_green'},
+                    {'text':'äºŒç´šè—¥æ°´'}]},
+                    {'text':'\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—‹\n é™„é­”é‡‘è˜‹æœ\n å°‡æœƒè¢«ç§»é™¤\n ä¸¦ä¸”æœƒç›´æ¥çµ¦äºˆç©å®¶8å€‹é‡‘ç£šå’Œè˜‹æœ.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 18'},'extra':[
+                    {'selector':'@e[score_Q_min=1]','color':'dark_green'},
+                    {'text':'é™„é­”é‡‘è˜‹æœ'}]},
+                    {'text':'\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—\n éµç¤¦ã€é‡‘ç¤¦ã€æœªç…®é£Ÿç‰©,\n å°‡æœƒåœ¨æ‰è½çš„æ™‚å€™ç›´æ¥ç†Ÿæˆ.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 19'},'extra':[
+                    {'selector':'@e[score_K_min=1]','color':'dark_green'},
+                    {'text':'ç‰©å“å…ç‡’'}]},
+                    {'text':'\n\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—‹\n éšŠå‹ä¹‹é–“ä¸æœƒæœ‰ç¢°æ’.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 20'},'extra':[
+                    {'selector':'@e[score_W_min=1]','color':'dark_green'},
+                    {'text':'éšŠå‹ç¢°æ’'}]},
+                    {'text':'\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—‹\n éšŠå‹ä¹‹é–“ä¸æœƒäº’ç›¸å‚·å®³.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 21'},'extra':[
+                    {'selector':'@e[score_M_min=1]','color':'dark_green'},
+                    {'text':'éšŠå‹å‚·å®³'}]},
+                    {'text':'\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—\n è¡€é‡å°‡æœƒé¡¯ç¤ºåœ¨tabåˆ—è¡¨.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 22'},'extra':[
+                    {'selector':'@e[score_L_min=1]','color':'dark_green'},
+                    {'text':'â¤ ','color':'red'},
+                    {'text':'é¡¯ç¤ºè¡€é‡åœ¨Tab'}]},
+                    {'text':'\n  '},
+                    {'text':'','hoverEvent':
+                    {'action':'show_text','value':'å¦‚æœ â—\n è¡€é‡å°‡æœƒé¡¯ç¤ºåœ¨åæ¢ä¸‹æ–¹.'},'clickEvent':
+                    {'action':'run_command','value':'/trigger A set 23'},'extra':[
+                    {'selector':'@e[score_B_min=1]','color':'dark_green'},
+                    {'text':'â¤ ','color':'red'},
+                    {'text':'é¡¯ç¤ºè¡€é‡åœ¨åæ¢ä¸‹'}]}]}"]
+                }
+            }]
+        }
+    },
+    {   id:commandblock_minecart,Command:execute @e[tag=N] ~13 ~ ~ summon commandblock_minecart ~ ~ ~
+        {   Command:execute @e[score_F=0] ~ ~ ~ difficulty 0,Passengers:[
+            {id:commandblock_minecart,Command:execute @e[score_F_min=1,score_F=1] ~ ~ ~ difficulty 1},
+            {id:commandblock_minecart,Command:execute @e[score_F_min=2,score_F=2] ~ ~ ~ difficulty 2},
+            {id:commandblock_minecart,Command:execute @e[score_F_min=3] ~ ~ ~ difficulty 3},
+            {   id:commandblock_minecart,Command:execute @e[score_U_min=1] ~3 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Command:scoreboard players operation @e[tag=N] U = @e[tag=N] u,Passengers:[
+                    {id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] U *= 300 X},
+                    {   id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+                        {   Command:scoreboard players remove @e[score_U_min=1] U 1,Passengers:[
+                            {   id:commandblock_minecart,Command:execute @e[score_U=0] ~3 ~ ~ summon commandblock_minecart ~ ~ ~
+                                {   Command:scoreboard players operation @e[tag=N] U = @e[tag=N] u,Passengers:[
+                                    {id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] U *= 300 X},
+                                    {id:commandblock_minecart,Command:scoreboard players operation Mark u += @e[tag=N] u},
+                                    {   id:commandblock_minecart,Command:tellraw @a
+                                        {   "text":" â”ƒ ","color":"gray","extra":[
+                                            {"text":"UHC BLOX","color":"gold"},
+                                            {"text":" â”ƒ æ™‚é–“æé†’ â”ƒ "},
+                                            {   "score":
+                                                {"name":"Mark","objective":"u"},"color":"green"
+                                            },
+                                            {"text":" åˆ†é˜","color":"green"},
+                                            {"text":" â”ƒ "}]
+                                        }
+                                    },
+                                    {id:commandblock_minecart,Command:execute @a ~ ~ ~ playsound entity.firework.launch voice @p ~ ~ ~ 1 .5 1},
+                                    {id:commandblock_minecart,Command:kill @e[r=0]}]
+                                }
+                            }]
+                        }
+                    },
+                    {id:commandblock_minecart,Command:kill @e[r=0]}]
+                }
+            },
+            {   id:commandblock_minecart,Command:execute @e[score_E=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+                {Command:execute @a[m=0] ~-1 ~ ~-1 fill ~ ~ ~ ~2 ~ ~2 air 0 replace portal}
+            },
+            {   id:commandblock_minecart,Command:execute @e[score_E_min=1,score_O=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Command:scoreboard players tag @e[type=item] add O
+                    {   Item:
+                        {id:minecraft:ghast_tear}
+},Passengers:[
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=O]
+                        {   Item:
+                            {id:gold_ingot},Tags:[]
+                        }
+                    }]
+                }
+            },
+            {   id:commandblock_minecart,Command:execute @e[score_E_min=1,score_V=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Command:scoreboard players tag @e[type=item] add V
+                    {   Item:
+                        {id:minecraft:glowstone_dust}
+},Passengers:[
+                    {   id:commandblock_minecart,Command:execute @e[tag=V,c=1] ~ ~ ~ summon item ~ ~ ~
+                        {   Item:
+                            {id:minecraft:glowstone,Count:1}
+                        }
+                    },
+                    {id:commandblock_minecart,Command:kill @e[tag=V]}]
+                }
+            },
+            {   id:commandblock_minecart,Command:execute @e[score_Q=0] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Command:scoreboard players tag @a add Q
+                    {   Inventory:[
+                        {id:minecraft:golden_apple,Damage:1s}]
+},Passengers:[
+                    {   id:commandblock_minecart,Command:tellraw @a[tag=Q]
+                        {   "text":" â”ƒ ","color":"gray","extra":[
+                            {"text":"UHC BLOX","color":"gold"},
+                            {"text":" â”ƒ é™„é­”é‡‘è˜‹æœ â”ƒ "},
+                            {"text":"æ˜¯ä¸è¢«å…è¨±çš„","color":"red"},
+                            {"text":" â”ƒ "}]
+                        }
+                    },
+                    {id:commandblock_minecart,Command:clear @a[tag=Q] golden_apple 1 1},
+                    {   id:commandblock_minecart,Command:execute @a[tag=Q] ~ ~ ~ summon item ~ ~ ~
+                        {   Item:
+                            {id:minecraft:apple,Count:1}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:execute @a[tag=Q] ~ ~ ~ summon item ~ ~ ~
+                        {   Item:
+                            {id:minecraft:gold_block,Count:8}
+                        }
+                    },
+                    {id:commandblock_minecart,Command:scoreboard players tag @a[tag=Q] remove Q}]
+                }
+            },
+            {   id:commandblock_minecart,Command:execute @e[score_K_min=1] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Command:scoreboard players tag @e[type=item] add I
+                    {   Item:
+                        {id:minecraft:iron_ore}
+},Passengers:[
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add G
+                        {   Item:
+                            {id:minecraft:gold_ore}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add K
+                        {   Item:
+                            {id:minecraft:porkchop}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add S
+                        {   Item:
+                            {id:minecraft:fish}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add B
+                        {   Item:
+                            {id:minecraft:beef}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add C
+                        {   Item:
+                            {id:minecraft:chicken}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add P
+                        {   Item:
+                            {id:minecraft:potato}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add R
+                        {   Item:
+                            {id:minecraft:rabbit}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:scoreboard players tag @e[type=item] add M
+                        {   Item:
+                            {id:minecraft:mutton}
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=I]
+                        {   Item:
+                            {id:iron_ingot},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=G]
+                        {   Item:
+                            {id:gold_ingot},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=K]
+                        {   Item:
+                            {id:cooked_porkchop},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=S]
+                        {   Item:
+                            {id:cooked_fish},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=B]
+                        {   Item:
+                            {id:cooked_beef},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=C]
+                        {   Item:
+                            {id:cooked_chicken},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=P]
+                        {   Item:
+                            {id:baked_potato},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=R]
+                        {   Item:
+                            {id:cooked_rabbit},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=M]
+                        {   Item:
+                            {id:cooked_mutton},Tags:[X]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:execute @e[tag=X] ~ ~ ~ summon xp_orb ~ ~ ~
+                        {Value:1}
+                    },
+                    {   id:commandblock_minecart,Command:entitydata @e[tag=X]
+                        {Tags:[]}
+                    }]
+                }
+            }]
+        }
+    },
+    {   id:commandblock_minecart,Command:setblock ~ ~1 ~ command_block 0 replace
+        {Command:fill ~ ~-3 ~ ~ ~ ~ air,auto:1}
+    },
+    {id:commandblock_minecart,Command:kill @e[r=0]}]
+}

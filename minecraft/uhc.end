@@ -22,21 +22,30 @@ mcscores() {
 		mcserver do scoreboard objectives setdisplay sidebar FinalStone
 		if [ -z ${1+x} ]; then pause; else sleep $1; fi
 		mcserver do scoreboard objectives setdisplay sidebar FinalEat
-		[[ $2 == 'forever' ]] || break
 		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar List
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		[[ $2 == 'forever' ]] || break
 	done
 }
 
 
-friendlyfireSet() {
-	for t in R Y G A B P E r y g a b p e
+team_all_set() {
+	for t in R Y G A B P E r y g a b p e 0 1
 	do 
-		mcserver do scoreboard teams option $t friendlyfire $1
+		mcserver do scoreboard teams option $t $1 $2
 	done
 }
 
+# =============================================================
+mcdo gamerule sendCommandFeedback false
+
+# =============================================================
 # mc1112uc
+mcserver log slain
+mcserver log winner
 mcserver backup
+mcserver save off
 mcserver do say ============================
 mcserver do say ==== "$bold"UHCθ盃已經結束"$off" ====
 mcserver do say ============================
@@ -47,9 +56,15 @@ mcserver do say ============================
 mcscores 3 
 mcscores 3 
 mcscores 3 
-mcserver do worldborder get
-mcserver do worldborder set 64
-mcserver do whitelist off
-friendlyfireSet true
-mcserver do scoreboard teams leave @a
+# mcserver do worldborder get
+# mcserver do worldborder set 64
+# mcserver do whitelist off
+# team_all_set friendlyfire true
+mcserver do scoreboard teams join 1 @a
 mcserver do gamemode 1 @a
+mcserver do gamemode 1 @a
+
+# =============================================================
+mcdo gamerule sendCommandFeedback true
+
+# =============================================================

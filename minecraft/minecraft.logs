@@ -1,0 +1,166 @@
+#!/bin/bash
+
+. /home/sita/script/include/console.color
+
+# showstat() {
+
+# [ ! -d "$MCPATH/logs" ] || LASTLOGS=(`ls -at $MCPATH/logs/*.log.gz`) >/dev/null
+# [ ! $LASTLOGS ] || LOGLAST=${LASTLOGS[0]}
+# [ $LASTLOGS ] || LOGLAST=/tmp/notexist
+# LOGNOW="$MCPATH/logs/latest.log"
+# [ -f $LOGNOW ] || LOGNOW=$LOG
+
+# echo LASTLOGS=$LASTLOGS
+# echo LOGLAST=$LOGLAST
+# echo LOGNOW=$LOGNOW
+
+# [ ! -f $LOGLAST ] || echo Last: $LOGLAST ...
+# [ ! -f $LOGNOW ] || echo  Now: $LOGNOW ...
+
+# echo -e "${GREEN}List of players joined/left time last time:${NC}"
+# [ ! -f $LOGLAST ] || zcat $LOGLAST | grep 'joined\|left' 
+# echo "-----"
+# [ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep 'joined\|left'
+
+# echo -e "${GREEN}List of players joined last time:${NC}"
+# [ ! -f $LOGLAST ] || zcat $LOGLAST | grep joined | awk '{ printf ("%s %s\n", $4, $5) }' | sort | uniq
+# echo "-----"
+# [ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep joined | awk '{ printf ("%s %s\n", $4, $5) }' | sort | uniq
+
+# echo -e "${GREEN}List of players slained last time:${NC}"
+# [ ! -f $LOGLAST ] || zcat $LOGLAST | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|hit the ground'
+# echo "-----"
+# [ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|hit the ground'
+
+# echo -e "${GREEN}List of players teleported last time:${NC}"
+# [ ! -f $LOGLAST ] || zcat $LOGLAST | grep Teleported
+# echo "-----"
+# [ ! -f "$LOGNOW" ] || cat "$LOGNOW" | grep Teleported
+
+# }
+
+showstat() {
+echo -e "${GREEN}List of players joined/left time last time:${NC}"
+logs 0 | grep.left
+echo "-----"
+logs | grep.left
+echo -e "${GREEN}List of players joined last time:${NC}"
+logs 0 | grep.logged
+echo "-----"
+logs | grep.logged
+echo -e "${GREEN}List of players slained last time:${NC}"
+logs 0 | grep.slain
+echo "-----"
+logs | grep.slain
+echo -e "${GREEN}List of players cheated last time:${NC}"
+logs 0 | grep.cheater
+echo "-----"
+logs | grep.cheater
+}
+
+get_date() {
+	echo $(stat -c %y "$1" | awk '{ printf ("[%s]\n", $1) }')
+}
+
+prefix_pipe() {
+	sed -e "s/^/$1/"
+}
+
+date_prefix_cat() {
+	prefix=$(stat -c %y $1 | awk '{ printf ("[%s]\n", $1) }')
+	sed -e "s/^/$prefix/" $1
+}
+
+logs() {
+	if [ -z ${1+x} ]; then 
+		LOG=/mnt/runtimes/$mcver/logs/latest.log
+		
+		if [ -f $LOG ]; then 
+			date_prefix_cat $LOG
+		else
+			LOG=/mnt/runtimes/$mcver/server.log
+			if [ -f $LOG ]; then 
+				cat $LOG
+			fi
+		fi
+	else
+		LASTLOGS=(`ls -at /mnt/runtimes/$mcver/logs/*.log.gz`)
+		LOG=${LASTLOGS[$1]}
+		# echo $LOG
+
+		if [ -f "$LOG" ]; then 
+			prefix=$(get_date $LOG)
+			# zcat $LOG
+			zcat $LOG | prefix_pipe $prefix
+		fi
+	fi
+}
+
+grep.player() {
+	players=$(tail -1 | sed 's/\[[^]]*\]//g' | sed 's/://g')
+	for player in $players
+	do
+		echo $player
+	done
+}
+
+grep.logged() {
+	grep logged | awk '{ printf ("%s %s\n", $4, $5) }' | sed 's/\[[^]]*\]//g' | sort | uniq
+}
+
+grep.left() {
+	grep 'logged\|left'
+}
+
+grep.slain() {
+## blew up
+## burned to death
+## fell from a high place
+## fell out of the world
+## hit the ground too hard
+## suffocated in a wall
+## tried to swim in lava
+## was burnt to a crisp
+## was killed by magic
+## was pricked to death
+## was shot by 
+## was slain by 
+	grep 'blew\|burned\|fell\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain'
+}
+
+grep.winner() {
+	slainlist=/tmp/slain.txt
+	playerlist=/tmp/players.txt
+	
+	logs | grep.slain | awk '{ printf ("%s\n", $4) }' | sed 's/§.//g' > $slainlist
+	grep.player > $playerlist
+	grep -v -x -f $slainlist $playerlist
+	
+	rm $slainlist $playerlist
+}
+
+grep.cheater() {
+	grep 'Teleported\|give'
+}
+
+logs.grep() {
+  case "$1" in
+    list)
+		mc_command list | grep.player
+		;;
+    logged)
+		logs | grep.logged
+		;;
+    slain)
+		logs | grep.slain
+		;;
+    winner)
+		mc_command list | grep.winner
+		;;
+    cheater)
+		logs | grep.cheater
+		;;
+    *)
+    ;;
+  esac
+}

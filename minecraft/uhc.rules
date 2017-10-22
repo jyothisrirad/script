@@ -47,6 +47,9 @@ echo time_beforefinal=$time_beforefinal
 # echo time_final=$time_final
 
 # =============================================================
+mcdo gamerule sendCommandFeedback false
+
+# =============================================================
 # Book 1
 # =============================================================
 mcserver do scoreboard players set @e[tag=N] T 6	#隨機隊伍
@@ -57,6 +60,7 @@ mcserver do scoreboard players set @e[tag=N] C 1	#死後亡靈觀察On
 mcserver do scoreboard players set @e[tag=L] I 496	#地圖大小
 # mcserver do scoreboard players set @e[tag=N] G 0
 # mcserver do scoreboard players set @e[tag=N] S 0
+
 # =============================================================
 # Book 2
 # =============================================================
@@ -83,6 +87,7 @@ mcserver do scoreboard players set @e[tag=F] L 0	#顯示血量在Tab Off
 mcserver do scoreboard players set @e[tag=N] L 1	#顯示血量在Tab On
 mcserver do scoreboard players set @e[tag=F] B 0	#顯示血量在名條下Off
 mcserver do scoreboard players set @e[tag=N] B 1	#顯示血量在名條下On
+
 # =============================================================
 # Book 3
 # =============================================================
@@ -105,6 +110,7 @@ mcserver do scoreboard players set @e[tag=N] j $time_shown #隱藏名條20min
 mcserver do scoreboard players set @e[tag=F] k 0	#玩家發光Off
 mcserver do scoreboard players set @e[tag=N] k 1	#玩家發光On
 mcserver do scoreboard players set @e[tag=N] l $time_beforefinal #玩家發光清除怪物60min
+
 # =============================================================
 # Book 4
 # =============================================================
@@ -121,11 +127,21 @@ mcserver do scoreboard players set @e[tag=N] ClearTime $time_beforefinal #清除
 # mcserver do scoreboard players set @e[tag=N] minute 0			#  
 # mcserver do scoreboard players set @e[tag=N] second 300			#
 # mcserver do scoreboard players set @e[tag=HG] border 0			#
+
 # =============================================================
 # Game Manul Start
 # =============================================================
+# mcserver do deop chsliu
+# mcserver do gamemode 1 chsliu
 mcserver do deop chsliu
+mcserver do deop yozliu
+mcserver do deop angussu
 mcserver do gamemode 1 chsliu
+mcserver do gamemode 1 yozliu
+mcserver do gamemode 1 angussu
+
+# =============================================================
+mcdo gamerule sendCommandFeedback true
 
 # =============================================================
 # Game Start

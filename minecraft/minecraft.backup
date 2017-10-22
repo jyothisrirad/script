@@ -51,5 +51,5 @@ mc_backup() {
 
 mc_command save-off
 mc_command save-all
-mc_command save-on
 [ ! $MCSTORE ] || mc_backup
+mc_command save-on

@@ -1,257 +1,332 @@
-summon falling_block ~ ~1.5 ~ 
-{Time:1,Block:activator_rail,Passengers:[
-{id:commandblock_minecart,Command:tellraw @a 
-{"text":" | ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" | ´¢∞O¬X•R | "},
-{"text":"¶w∏À¶®•\","color":"green"},
-{"text":" | "}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ fill ~-1 ~-1 ~-1 ~-8 ~1 ~1 bedrock},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ fill ~-1 ~ ~ ~-7 ~ ~ activator_rail},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ setblock ~-1 ~-1 ~ redstone_block},
-{id:commandblock_minecart,Command:execute @e[tag=L] ~ ~ ~ fill ~7 127 ~7 ~-8 122 ~-8 bedrock 0 hollow},
-{id:commandblock_minecart,Command:scoreboard objectives add Showlist dummy ¨Oß_≈„•‹∏Í∞T},
-{id:commandblock_minecart,Command:scoreboard objectives add List dummy πC¿∏∏Í∞T},
-{id:commandblock_minecart,Command:scoreboard objectives add ClearMonster dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add ClearTime dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalWar dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalTime dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalM dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalS dummy},
-{id:commandblock_minecart,Command:scoreboard objectives add border dummy √‰¨…},
-{id:commandblock_minecart,Command:scoreboard objectives add minute dummy §¿ƒ¡},
-{id:commandblock_minecart,Command:scoreboard objectives add second dummy ¨Ìº∆},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalKill playerKillCount ±˛§Hº∆},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalEntity totalKillCount ±˛©«º∆},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalDiamond stat.mineBlock.minecraft.diamond_ore ´ı±∏∆p•€ƒq},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalGold stat.mineBlock.minecraft.gold_ore ´ı±∏∂¿™˜ƒq},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalStone stat.mineBlock.minecraft.stone ´ı±∏•€¿Y},
-{id:commandblock_minecart,Command:scoreboard objectives add FinalEat stat.useItem.minecraft.golden_apple ¶Y™˜ƒ´™Gº∆∂q},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ summon armor_stand ~ ~ ~ 
-{Tags:[HG],Team:R,NoGravity:1,Small:1,Invisible:1,UUIDLeast:1,UUIDMost:1}},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] Showlist 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] ClearMonster 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalWar 1},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalTime 100},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalM 5},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalS 31},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] ClearTime 60},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] minute 0},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=N] second 300},
-{id:commandblock_minecart,Command:scoreboard players set @e[tag=HG] border 0},
-{id:commandblock_minecart,Command:stats entity @e[tag=HG] set QueryResult @e[tag=HG] border},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @e[score_A_min=42,score_A=48] ~ ~ ~ execute @e[tag=N] ~5 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @a[score_A_min=1] ~ ~ ~ playsound entity.experience_orb.pickup block @p ~ ~ ~ .25 2 .25,Passengers:[
-{id:commandblock_minecart,Command:execute @p[score_A_min=42,score_A=42] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] Showlist 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_Showlist_min=2] Showlist 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=43,score_A=43] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] ClearMonster 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_ClearMonster_min=2] ClearMonster 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=44,score_A=44] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players remove @e[tag=N] ClearTime 10,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_ClearTime=19] ClearTime 120}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=45,score_A=45] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=N] ClearTime 10,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_ClearTime_min=121] ClearTime 20}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=46,score_A=46] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=T] FinalWar 1,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_FinalWar_min=2] FinalWar 0}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=47,score_A=47] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players remove @e[tag=N] FinalTime 5,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_FinalTime=39] FinalTime 120}]}},
-{id:commandblock_minecart,Command:execute @p[score_A_min=48,score_A=48] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players add @e[tag=N] FinalTime 5,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set @e[score_FinalTime_min=121] FinalTime 40}]}},
-{id:commandblock_minecart,Command:execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:kill @e[r=0]}},
-{id:commandblock_minecart,Command:scoreboard players reset * A}]}}},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:replaceitem entity @a slot.hotbar.3 written_book 1 0 
-{title:"UHC Blox ´¢∞O¬X•R",author:"hageeshow",display:
-{Lore:["by hageeshow"]},HideFlags:32,pages:["
-{'text':'','color':'dark_gray','extra':[
-{'text':'  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¶p™G °¥ \nπC¿∏∂}©lÆ…\n∑|ß‚©“¶≥∏Í∞T≈„•‹¶b•k√‰∞O§¿™©'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 42'},'extra':[
-{'selector':'@e[score_Showlist_min=1]','color':'dark_green'},
-{'text':'πC¿∏∏Í∞T≈„•‹'}]},
-{'text':'\n\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¶p™G °¥ \nπC¿∏±N∑|¶bÆ…∂°®ÏÆ…\n≤M∞£©“¶≥©«™´\n§]§£∑|¶A•Õ¶®•Ù¶Û©«™´°C'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 43'},'extra':[
-{'selector':'@e[score_ClearMonster_min=1]','color':'dark_green'},
-{'text':'≤M∞£©«™´'}]},
-{'text':' ? ','color':'red','hoverEvent':
-{'action':'show_text','value':'-10 §¿ƒ¡'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 44'}},
-{'score':
-{'name':'00000000-0000-0000-0000-000000000001','objective':'ClearTime'},'color':'gray'},
-{'text':' ? ','color':'dark_green','hoverEvent':
-{'action':'show_text','value':'+10 §¿ƒ¡'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 45'}},
-{'text':'\n\n  '},
-{'text':'','hoverEvent':
-{'action':'show_text','value':'¶p™G °¥ \nπC¿∏±N∑|¶bÆ…∂°®ÏÆ…\n∂«∞e©“¶≥§H®Ï≥Ã´·æ‘≥ı\n®√•Bµπ§©©“¶≥§H©]µ¯Æƒ™G'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 46'},'extra':[
-{'selector':'@e[score_FinalWar_min=1]','color':'dark_green'},
-{'text':'≥Ã´·æ‘≥ı'}]},
-{'text':' ? ','color':'red','hoverEvent':
-{'action':'show_text','value':'-5 §¿ƒ¡'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 47'}},
-{'score':
-{'name':'00000000-0000-0000-0000-000000000001','objective':'FinalTime'},'color':'gray'},
-{'text':' ? ','color':'dark_green','hoverEvent':
-{'action':'show_text','value':'+5 §¿ƒ¡'},'clickEvent':
-{'action':'run_command','value':'/trigger A set 48'}}]}"]}}},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~13 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @e[tag=N,score_Showlist_min=1] ~-1 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:execute @e[tag=HG] ~ ~ ~ worldborder get,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players operation •ÿ´e√‰¨… List = @e[tag=HG] border},
-{id:commandblock_minecart,Command:execute @e[tag=F] ~ ~ ~ testfor @a[team=!0,m=0]},
-{id:commandblock_minecart,Command:scoreboard players operation ≥—æl§Hº∆ List = @e[tag=F] Z},
-{id:commandblock_minecart,Command:scoreboard players remove @e[tag=N] second 1},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_second=0] ~-3 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players set @e[tag=N] second 300,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players add @e[tag=N] minute 1},
-{id:commandblock_minecart,Command:kill @e[r=0]}]}},
-{id:commandblock_minecart,Command:scoreboard players operation Æ…∂° List = @e[tag=N] minute}]},Passengers:[
-{id:commandblock_minecart,Command:scoreboard players set •ÿ´e√‰¨… List 0},
-{id:commandblock_minecart,Command:scoreboard players set ≥—æl§Hº∆ List 0},
-{id:commandblock_minecart,Command:scoreboard objectives setdisplay sidebar List},
-{id:commandblock_minecart,Command:tellraw @a 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? ¶aπœ§j§p ? "},
-{"score":
-{"name":"00000000-0000-0000-0000-000000000000","objective":"I"},"color":"green"},
-{"text":" ? "}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_a_min=1] ~-5 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:scoreboard players operation @e[tag=HG] b = @e[tag=N] b ,Passengers:[
-{id:commandblock_minecart,Command:scoreboard players operation @e[tag=HG] b /= 300 X},
-{id:commandblock_minecart,Command:tellraw @a 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? πC¿∏º“¶° ? "},
-{"selector":"@e[score_c_min=2]"},
-{"text":" ? ±N∑|¶b "},
-{"score":
-{"name":"00000000-0000-0001-0000-000000000001","objective":"b"},"color":"green"},
-{"text":" §¿ƒ¡´·∂}©l ?"}]}},
-{id:commandblock_minecart,Command:execute @e[tag=a,score_c_min=2] ~ ~ ~ execute @e[tag=N] ~-5 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Command:tellraw @a 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? πC¿∏º“¶° ? ¶A "},
-{"score":
-{"name":"00000000-0000-0000-0000-000000000001","objective":"e"},"color":"green"},
-{"text":" §¿ƒ¡§ß´· ¶¨¡Y¶‹ "},
-{"score":
-{"name":"00000000-0000-0000-0000-000000000000","objective":"d"},"color":"gray"},
-{"text":"x"},
-{"score":
-{"name":"00000000-0000-0000-0000-000000000000","objective":"d"},"color":"gray"},
-{"text":" ÆÊ ? "}]}}},
-{id:commandblock_minecart,Command:execute @e[tag=N] ~-5 ~.1 ~ summon commandblock_minecart ~ ~ ~ 
-{Command:kill @e[r=0]}}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_ClearMonster_min=1] ~-7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Tags:[ClearMonster],id:commandblock_minecart,Command:say ≤M©«≠Àº∆≠pÆ…,Passengers:[
-{Tags:[ClearMonster],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] ClearMonster = @e[tag=N] ClearTime},
-{Tags:[ClearMonster],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] ClearMonster *= 300 X},
-{Tags:[ClearMonster],id:commandblock_minecart,Command:kill @e[tag=ClearMonster]},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:scoreboard players remove @e[score_ClearMonster_min=1] ClearMonster 1},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=1] ~ ~ ~ gamerule doMobSpawning false},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=1] ~ ~ ~ kill @e[type=bat]},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=1] ~ ~ ~ difficulty 0},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @e[score_F_min=1,score_F=1] ~ ~ ~ difficulty 1},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @e[score_F_min=2,score_F=2] ~ ~ ~ difficulty 2},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @e[score_F_min=2,score_F=2] ~ ~ ~ difficulty 3},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ gamerule doMobSpawning false},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ tellraw @a 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? ©«™´ ? "},
-{"text":" ≤M∞£°I","color":"green"},
-{"text":" ? "}]}},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @a ~ ~ ~ playsound entity.firework.launch block @p ~ ~ ~ 1 .5 1},
-{Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ kill @e[tag=ClearMonster2]}]}},
-{id:commandblock_minecart,Command:execute @e[tag=N,score_FinalWar_min=1] ~-7 ~ ~ summon commandblock_minecart ~ ~ ~ 
-{Tags:[FinalWar],id:commandblock_minecart,Command:say ∂«∞e≠Àº∆≠pÆ…,Passengers:[
-{Tags:[FinalWar],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] FinalWar = @e[tag=N] FinalTime},
-{Tags:[FinalWar],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] FinalWar *= 300 X},
-{Tags:[FinalWar],id:commandblock_minecart,Command:kill @e[tag=FinalWar]},
-{Tags:[FinalWar2],id:commandblock_minecart,Command:scoreboard players remove @e[score_FinalWar_min=1] FinalWar 1},
-{Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ tellraw @a 
-{"text":" ? ","color":"gray","extra":[
-{"text":"UHC BLOX","color":"gold"},
-{"text":" ? ≥Ã´·æ‘≥ı ? "},
-{"text":" ∑«≥∆∂«∞e°I","color":"green"},
-{"text":" ? "}]}},
-{Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ execute @a ~ ~ ~ playsound entity.firework.launch block @p ~ ~ ~ 1 .5 1},
-{Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ scoreboard players tag @e[tag=N] add Ready},
-{Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ kill @e[tag=FinalWar2]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS_min=1] ~ ~ ~ scoreboard players remove @e[tag=N] FinalM 1},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ scoreboard players remove @e[tag=N] FinalS 1},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ title @a title 
-{"text":""}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ title @a subtitle 
-{"text":" ∂«∞e≠Àº∆ ","color":"white","extra":[
-{"score":
-{"name":"00000000-0000-0000-0000-000000000001","objective":"FinalS"},"color":"green"},
-{"text":" ¨Ì","color":"white"}]}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0,score_FinalS_min=11] ~ ~ ~ execute @a ~ ~ ~ playsound entity.experience_orb.pickup block @p ~ ~ ~ .25 .5 .25},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0,score_FinalS=10] ~ ~ ~ execute @a ~ ~ ~ playsound entity.experience_orb.pickup block @p ~ ~ ~ .25 1 .25},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ scoreboard players set @e[tag=N] FinalM 5},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ effect @a minecraft:night_vision 999999 0 true},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~.5 124 ~.5 
-{Tags:[WTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~-2 
-{Tags:[RTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~1 
-{Tags:[BTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-1 124 ~5 
-{Tags:[gTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~2 124 ~-6 
-{Tags:[yTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~5 
-{Tags:[pTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~-6 
-{Tags:[aTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~2 124 ~1 
-{Tags:[ETT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-1 124 ~-2 
-{Tags:[rTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~-6 
-{Tags:[bTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~5 
-{Tags:[GTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~1 
-{Tags:[YTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~-2 
-{Tags:[PTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~2 124 ~5 
-{Tags:[ATT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-1 124 ~-6 
-{Tags:[eTT,TT],Invisible:1}},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=1] @e[tag=RTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=R] @e[tag=RTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=B] @e[tag=BTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=g] @e[tag=gTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=y] @e[tag=yTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=p] @e[tag=pTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=a] @e[tag=aTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=E] @e[tag=ETT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=r] @e[tag=rTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=b] @e[tag=bTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=G] @e[tag=GTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=Y] @e[tag=YTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=P] @e[tag=PTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=A] @e[tag=ATT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=e] @e[tag=eTT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ kill @e[tag=TT]},
-{Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ kill @e[tag=FinalWar3]}]}}]}},
-{id:commandblock_minecart,Command:setblock ~ ~1 ~ command_block 0 replace 
-{Command:fill ~ ~-3 ~ ~ ~ ~ air,auto:1}},
-{id:commandblock_minecart,Command:kill @e[r=0]}]}
+Ôªøsummon falling_block ~ ~1.5 ~
+{   Time:1,Block:
+activator_rail,Passengers:
+    [
+    {   id:commandblock_minecart,Command:tellraw @a
+        {   "text":" | ","color":"gray","extra":[
+            {"text":"UHC BLOX","color":"gold"},
+            {"text":" | ÂìàË®òÊì¥ÂÖÖ | "},
+            {"text":"ÂÆâË£ùÊàêÂäü","color":"green"},
+            {"text":" | "}]
+        }
+    },
+    {id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ fill ~-1 ~-1 ~-1 ~-8 ~1 ~1 bedrock},
+    {id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ fill ~-1 ~ ~ ~-7 ~ ~ activator_rail},
+    {id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ setblock ~-1 ~-1 ~ redstone_block},
+    {id:commandblock_minecart,Command:execute @e[tag=L] ~ ~ ~ fill ~7 127 ~7 ~-8 122 ~-8 bedrock 0 hollow},
+    {id:commandblock_minecart,Command:scoreboard objectives add Showlist dummy ÊòØÂê¶È°ØÁ§∫Ë≥áË®ä},
+    {id:commandblock_minecart,Command:scoreboard objectives add List dummy ÈÅäÊà≤Ë≥áË®ä},
+    {id:commandblock_minecart,Command:scoreboard objectives add ClearMonster dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add ClearTime dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalWar dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalTime dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalM dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalS dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add border dummy ÈÇäÁïå},
+    {id:commandblock_minecart,Command:scoreboard objectives add minute dummy ÂàÜÈêò},
+    {id:commandblock_minecart,Command:scoreboard objectives add second dummy ÁßíÊï∏},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalKill playerKillCount ÊÆ∫‰∫∫Êï∏},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalEntity totalKillCount ÊÆ∫ÊÄ™Êï∏},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalDiamond stat.mineBlock.minecraft.diamond_ore ÊåñÊéòÈëΩÁü≥Á§¶},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalGold stat.mineBlock.minecraft.gold_ore ÊåñÊéòÈªÉÈáëÁ§¶},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalStone stat.mineBlock.minecraft.stone ÊåñÊéòÁü≥È†≠},
+    {id:commandblock_minecart,Command:scoreboard objectives add FinalEat stat.useItem.minecraft.golden_apple ÂêÉÈáëËòãÊûúÊï∏Èáè},
+    {   id:commandblock_minecart,Command:execute @e[tag=N] ~ ~ ~ summon armor_stand ~ ~ ~
+        {Tags:[HG],Team:R,NoGravity:1,Small:1,Invisible:1,UUIDLeast:1,UUIDMost:1}
+    },
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] Showlist 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] ClearMonster 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalWar 1},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalTime 100},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalM 5},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] FinalS 31},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] ClearTime 60},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] minute 0},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] second 300},
+    {id:commandblock_minecart,Command:scoreboard players set @e[tag=HG] border 0},
+    {id:commandblock_minecart,Command:stats entity @e[tag=HG] set QueryResult @e[tag=HG] border},
+    {   id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+        {   Command:execute @e[score_A_min=42,score_A=48] ~ ~ ~ execute @e[tag=N] ~5 ~ ~ summon commandblock_minecart ~ ~ ~
+            {   Command:execute @a[score_A_min=1] ~ ~ ~ playsound entity.experience_orb.pickup block @p ~ ~ ~ .25 2 .25,Passengers:[
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=42,score_A=42] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] Showlist 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_Showlist_min=2] Showlist 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=43,score_A=43] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] ClearMonster 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_ClearMonster_min=2] ClearMonster 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=44,score_A=44] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players remove @e[tag=N] ClearTime 10,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_ClearTime=19] ClearTime 120}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=45,score_A=45] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=N] ClearTime 10,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_ClearTime_min=121] ClearTime 20}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=46,score_A=46] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=T] FinalWar 1,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_FinalWar_min=2] FinalWar 0}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=47,score_A=47] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players remove @e[tag=N] FinalTime 5,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_FinalTime=39] FinalTime 120}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @p[score_A_min=48,score_A=48] ~ ~ ~ execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players add @e[tag=N] FinalTime 5,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players set @e[score_FinalTime_min=121] FinalTime 40}]
+                    }
+                },
+                {   id:commandblock_minecart,Command:execute @e[score_S=0] ~5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                    {Command:kill @e[r=0]}
+                },
+                {id:commandblock_minecart,Command:scoreboard players reset * A}]
+            }
+        }
+    },
+    {   id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+        {   Command:replaceitem entity @a slot.hotbar.3 written_book 1 0
+            {   title:"UHC Blox ÂìàË®òÊì¥ÂÖÖ",author:"hageeshow",display:
+                {Lore:["by hageeshow"]},HideFlags:32,pages:["
+                {'text':'','color':'dark_gray','extra':[
+                {'text':'  '},
+                {'text':'','hoverEvent':
+                {'action':'show_text','value':'Â¶ÇÊûú ‚óè \nÈÅäÊà≤ÈñãÂßãÊôÇ\nÊúÉÊääÊâÄÊúâË≥áË®äÈ°ØÁ§∫Âú®Âè≥ÈÇäË®òÂàÜÁâà'},'clickEvent':
+                {'action':'run_command','value':'/trigger A set 42'},'extra':[
+                {'selector':'@e[score_Showlist_min=1]','color':'dark_green'},
+                {'text':'ÈÅäÊà≤Ë≥áË®äÈ°ØÁ§∫'}]},
+                {'text':'\n\n  '},
+                {'text':'','hoverEvent':
+                {'action':'show_text','value':'Â¶ÇÊûú ‚óè \nÈÅäÊà≤Â∞áÊúÉÂú®ÊôÇÈñìÂà∞ÊôÇ\nÊ∏ÖÈô§ÊâÄÊúâÊÄ™Áâ©\n‰πü‰∏çÊúÉÂÜçÁîüÊàê‰ªª‰ΩïÊÄ™Áâ©„ÄÇ'},'clickEvent':
+                {'action':'run_command','value':'/trigger A set 43'},'extra':[
+                {'selector':'@e[score_ClearMonster_min=1]','color':'dark_green'},
+                {'text':'Ê∏ÖÈô§ÊÄ™Áâ©'}]},
+                {'text':' ‚óÑ ','color':'red','hoverEvent':
+                {'action':'show_text','value':'-10 ÂàÜÈêò'},'clickEvent':
+                {'action':'run_command','value':'/trigger A set 44'}},
+                {'score':
+                {'name':'00000000-0000-0000-0000-000000000001','objective':'ClearTime'},'color':'gray'},
+                {'text':' ‚ñ∫ ','color':'dark_green','hoverEvent':
+                {'action':'show_text','value':'+10 ÂàÜÈêò'},'clickEvent':
+                {'action':'run_command','value':'/trigger A set 45'}},
+                {'text':'\n\n  '},
+                {'text':'','hoverEvent':
+                {'action':'show_text','value':'Â¶ÇÊûú ‚óè \nÈÅäÊà≤Â∞áÊúÉÂú®ÊôÇÈñìÂà∞ÊôÇ\nÂÇ≥ÈÄÅÊâÄÊúâ‰∫∫Âà∞ÊúÄÂæåÊà∞Â†¥\n‰∏¶‰∏îÁµ¶‰∫àÊâÄÊúâ‰∫∫Â§úË¶ñÊïàÊûú'},'clickEvent':
+                {'action':'run_command','value':'/trigger A set 46'},'extra':[
+                {'selector':'@e[score_FinalWar_min=1]','color':'dark_green'},
+                {'text':'ÊúÄÂæåÊà∞Â†¥'}]},
+                {'text':' ‚óÑ ','color':'red','hoverEvent':
+                {'action':'show_text','value':'-5 ÂàÜÈêò'},'clickEvent':
+                {'action':'run_command','value':'/trigger A set 47'}},
+                {'score':
+                {'name':'00000000-0000-0000-0000-000000000001','objective':'FinalTime'},'color':'gray'},
+                {'text':' ‚ñ∫ ','color':'dark_green','hoverEvent':
+                {'action':'show_text','value':'+5 ÂàÜÈêò'},'clickEvent':
+                {'action':'run_command','value':'/trigger A set 48'}}]}"]
+            }
+        }
+    },
+    {   id:commandblock_minecart,Command:execute @e[tag=N] ~13 ~ ~ summon commandblock_minecart ~ ~ ~
+        {   Command:execute @e[tag=N,score_Showlist_min=1] ~-1 ~ ~ summon commandblock_minecart ~ ~ ~
+            {   Command:execute @e[tag=HG] ~ ~ ~ worldborder get,Passengers:[
+                {id:commandblock_minecart,Command:scoreboard players operation ÁõÆÂâçÈÇäÁïå List = @e[tag=HG] border},
+                {id:commandblock_minecart,Command:execute @e[tag=F] ~ ~ ~ testfor @a[team=!0,m=0]},
+                {id:commandblock_minecart,Command:scoreboard players operation Ââ©È§ò‰∫∫Êï∏ List = @e[tag=F] Z},
+                {id:commandblock_minecart,Command:scoreboard players remove @e[tag=N] second 1},
+                {   id:commandblock_minecart,Command:execute @e[tag=N,score_second=0] ~-3 ~ ~ summon commandblock_minecart ~ ~ ~
+                    {   Command:scoreboard players set @e[tag=N] second 300,Passengers:[
+                        {id:commandblock_minecart,Command:scoreboard players add @e[tag=N] minute 1},
+                        {id:commandblock_minecart,Command:kill @e[r=0]}]
+                    }
+                },
+                {id:commandblock_minecart,Command:scoreboard players operation ÊôÇÈñì List = @e[tag=N] minute}]
+},Passengers:[
+            {id:commandblock_minecart,Command:scoreboard players set ÁõÆÂâçÈÇäÁïå List 0},
+            {id:commandblock_minecart,Command:scoreboard players set Ââ©È§ò‰∫∫Êï∏ List 0},
+            {id:commandblock_minecart,Command:scoreboard objectives setdisplay sidebar List},
+            {   id:commandblock_minecart,Command:tellraw @a
+                {   "text":" ‚îÉ ","color":"gray","extra":[
+                    {"text":"UHC BLOX","color":"gold"},
+                    {"text":" ‚îÉ Âú∞ÂúñÂ§ßÂ∞è ‚îÉ "},
+                    {   "score":
+                        {"name":"00000000-0000-0000-0000-000000000000","objective":"I"},"color":"green"
+                    },
+                    {"text":" ‚îÉ "}]
+                }
+            },
+            {   id:commandblock_minecart,Command:execute @e[tag=N,score_a_min=1] ~-5 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Command:scoreboard players operation @e[tag=HG] b = @e[tag=N] b ,Passengers:[
+                    {id:commandblock_minecart,Command:scoreboard players operation @e[tag=HG] b /= 300 X},
+                    {   id:commandblock_minecart,Command:tellraw @a
+                        {   "text":" ‚îÉ ","color":"gray","extra":[
+                            {"text":"UHC BLOX","color":"gold"},
+                            {"text":" ‚îÉ ÈÅäÊà≤Ê®°Âºè ‚îÉ "},
+                            {"selector":"@e[score_c_min=2]"},
+                            {"text":" ‚îÉ Â∞áÊúÉÂú® "},
+                            {   "score":
+                                {"name":"00000000-0000-0001-0000-000000000001","objective":"b"},"color":"green"
+                            },
+                            {"text":" ÂàÜÈêòÂæåÈñãÂßã ‚îÉ"}]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:execute @e[tag=a,score_c_min=2] ~ ~ ~ execute @e[tag=N] ~-5 ~ ~ summon commandblock_minecart ~ ~ ~
+                        {   Command:tellraw @a
+                            {   "text":" ‚îÉ ","color":"gray","extra":[
+                                {"text":"UHC BLOX","color":"gold"},
+                                {"text":" ‚îÉ ÈÅäÊà≤Ê®°Âºè ‚îÉ ÂÜç "},
+                                {   "score":
+                                    {"name":"00000000-0000-0000-0000-000000000001","objective":"e"},"color":"green"
+                                },
+                                {"text":" ÂàÜÈêò‰πãÂæå Êî∂Á∏ÆËá≥ "},
+                                {   "score":
+                                    {"name":"00000000-0000-0000-0000-000000000000","objective":"d"},"color":"gray"
+                                },
+                                {"text":"x"},
+                                {   "score":
+                                    {"name":"00000000-0000-0000-0000-000000000000","objective":"d"},"color":"gray"
+                                },
+                                {"text":" Ê†º ‚îÉ "}]
+                            }
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:execute @e[tag=N] ~-5 ~.1 ~ summon commandblock_minecart ~ ~ ~
+                        {Command:kill @e[r=0]}
+                    }]
+                }
+            },
+            {   id:commandblock_minecart,Command:execute @e[tag=N,score_ClearMonster_min=1] ~-7 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Tags:[ClearMonster],id:commandblock_minecart,Command:say Ê∏ÖÊÄ™ÂÄíÊï∏Ë®àÊôÇ,Passengers:[
+                    {Tags:[ClearMonster],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] ClearMonster = @e[tag=N] ClearTime},
+                    {Tags:[ClearMonster],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] ClearMonster *= 300 X},
+                    {Tags:[ClearMonster],id:commandblock_minecart,Command:kill @e[tag=ClearMonster]},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:scoreboard players remove @e[score_ClearMonster_min=1] ClearMonster 1},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=1] ~ ~ ~ gamerule doMobSpawning false},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=1] ~ ~ ~ kill @e[type=bat]},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=1] ~ ~ ~ difficulty 0},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @e[score_F_min=1,score_F=1] ~ ~ ~ difficulty 1},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @e[score_F_min=2,score_F=2] ~ ~ ~ difficulty 2},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @e[score_F_min=2,score_F=2] ~ ~ ~ difficulty 3},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ gamerule doMobSpawning false},
+                    {   Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ tellraw @a
+                        {   "text":" ‚îÉ ","color":"gray","extra":[
+                            {"text":"UHC BLOX","color":"gold"},
+                            {"text":" ‚îÉ ÊÄ™Áâ© ‚îÉ "},
+                            {"text":" Ê∏ÖÈô§ÔºÅ","color":"green"},
+                            {"text":" ‚îÉ "}]
+                        }
+                    },
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ execute @a ~ ~ ~ playsound entity.firework.launch block @p ~ ~ ~ 1 .5 1},
+                    {Tags:[ClearMonster2],id:commandblock_minecart,Command:execute @e[score_ClearMonster=0] ~ ~ ~ kill @e[tag=ClearMonster2]}]
+                }
+            },
+            {   id:commandblock_minecart,Command:execute @e[tag=N,score_FinalWar_min=1] ~-7 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Tags:[FinalWar],id:commandblock_minecart,Command:say ÂÇ≥ÈÄÅÂÄíÊï∏Ë®àÊôÇ,Passengers:[
+                    {Tags:[FinalWar],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] FinalWar = @e[tag=N] FinalTime},
+                    {Tags:[FinalWar],id:commandblock_minecart,Command:scoreboard players operation @e[tag=N] FinalWar *= 300 X},
+                    {Tags:[FinalWar],id:commandblock_minecart,Command:kill @e[tag=FinalWar]},
+                    {Tags:[FinalWar2],id:commandblock_minecart,Command:scoreboard players remove @e[score_FinalWar_min=1] FinalWar 1},
+                    {   Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ tellraw @a
+                        {   "text":" ‚îÉ ","color":"gray","extra":[
+                            {"text":"UHC BLOX","color":"gold"},
+                            {"text":" ‚îÉ ÊúÄÂæåÊà∞Â†¥ ‚îÉ "},
+                            {"text":" Ê∫ñÂÇôÂÇ≥ÈÄÅÔºÅ","color":"green"},
+                            {"text":" ‚îÉ "}]
+                        }
+                    },
+                    {Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ execute @a ~ ~ ~ playsound entity.firework.launch block @p ~ ~ ~ 1 .5 1},
+                    {Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ scoreboard players tag @e[tag=N] add Ready},
+                    {Tags:[FinalWar2],id:commandblock_minecart,Command:execute @e[score_FinalWar=0] ~ ~ ~ kill @e[tag=FinalWar2]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS_min=1] ~ ~ ~ scoreboard players remove @e[tag=N] FinalM 1},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ scoreboard players remove @e[tag=N] FinalS 1},
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ title @a title
+                        {"text":""}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ title @a subtitle
+                        {   "text":" ÂÇ≥ÈÄÅÂÄíÊï∏ ","color":"white","extra":[
+                            {   "score":
+                                {"name":"00000000-0000-0000-0000-000000000001","objective":"FinalS"},"color":"green"
+                            },
+                            {"text":" Áßí","color":"white"}]
+                        }
+                    },
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0,score_FinalS_min=11] ~ ~ ~ execute @a ~ ~ ~ playsound entity.experience_orb.pickup block @p ~ ~ ~ .25 .5 .25},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0,score_FinalS=10] ~ ~ ~ execute @a ~ ~ ~ playsound entity.experience_orb.pickup block @p ~ ~ ~ .25 1 .25},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalM=0] ~ ~ ~ scoreboard players set @e[tag=N] FinalM 5},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ effect @a minecraft:night_vision 999999 0 true},
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~.5 124 ~.5
+                        {Tags:[WTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~-2
+                        {Tags:[RTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~1
+                        {Tags:[BTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-1 124 ~5
+                        {Tags:[gTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~2 124 ~-6
+                        {Tags:[yTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~5
+                        {Tags:[pTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~-6
+                        {Tags:[aTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~2 124 ~1
+                        {Tags:[ETT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-1 124 ~-2
+                        {Tags:[rTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~-6
+                        {Tags:[bTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~5
+                        {Tags:[GTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~6 124 ~1
+                        {Tags:[YTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-5 124 ~-2
+                        {Tags:[PTT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~2 124 ~5
+                        {Tags:[ATT,TT],Invisible:1}
+                    },
+                    {   Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ summon armor_stand ~-1 124 ~-6
+                        {Tags:[eTT,TT],Invisible:1}
+                    },
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=1] @e[tag=RTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=R] @e[tag=RTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=B] @e[tag=BTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=g] @e[tag=gTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=y] @e[tag=yTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=p] @e[tag=pTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=a] @e[tag=aTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=E] @e[tag=ETT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=r] @e[tag=rTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=b] @e[tag=bTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=G] @e[tag=GTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=Y] @e[tag=YTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=P] @e[tag=PTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=A] @e[tag=ATT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ tp @a[team=e] @e[tag=eTT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ kill @e[tag=TT]},
+                    {Tags:[FinalWar3],id:commandblock_minecart,Command:execute @e[tag=Ready] ~ ~ ~ execute @e[score_FinalS=0] ~ ~ ~ kill @e[tag=FinalWar3]}]
+                }
+            }]
+        }
+    },
+    {   id:commandblock_minecart,Command:setblock ~ ~1 ~ command_block 0 replace
+        {Command:fill ~ ~-3 ~ ~ ~ ~ air,auto:1}
+    },
+    {id:commandblock_minecart,Command:kill @e[r=0]}]
+}

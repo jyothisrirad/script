@@ -33,6 +33,10 @@ mcserver() {
 	fi
 }
 
+mcdo() {
+	mcserver do $*
+}
+
 filehas() {
 	cat $1 | grep -F --quiet "$2"
 	return $?
@@ -78,10 +82,10 @@ alias are='. ~/script/minecraft/alias.minecraft'
 alias mcstart='mcserver start'
 alias mcss='mcserver start && mcw on && mclog'
 alias mcstop='mcserver stop'
-alias mclog='mcserver log'
+alias mclog='mcserver log $*'
 alias mcload='mcserver load'
 alias mcsave='mcserver force-save'
-alias mcdo='mcserver do'
+# alias mcdo='mcserver do'
 alias mcstat='mcserver status'
 alias mcreport='mcserver crashreport'
 alias mcbackup='mcserver backup'
