@@ -33,6 +33,7 @@ alias left=grep.left
 alias joined="grep joined | awk '{ printf (\"%s %s\n\", \$4, \$5) }' | sort | uniq"
 # forge
 alias uuid="grep 'UUID of player' | awk '{ printf (\"%s\n\", \$8) }' | sort | uniq"
+alias teams=grep.teams
 
 #############
 # kill record
@@ -51,6 +52,11 @@ alias uuid="grep 'UUID of player' | awk '{ printf (\"%s\n\", \$8) }' | sort | un
 ## was slain by 
 # pe, forge?, craftbukkit
 alias slain=grep.slain
+
+#############
+# winner
+#############
+alias winner=grep.winner
 
 #############
 # cheater

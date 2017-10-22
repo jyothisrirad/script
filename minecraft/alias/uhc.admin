@@ -62,6 +62,31 @@ echo Dark Purple=p
 echo Dark Gray=e
 }
 
+
+uhclog() {
+	LOG=/mnt/runtimes/$mcver/logs/list.log
+	if [ -f "$LOG" ]; then 
+		echo 上線名單:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/teams.log
+	if [ -f "$LOG" ]; then 
+		echo 參賽名單:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/slain.log
+	if [ -f "$LOG" ]; then 
+		echo 戰敗順序:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/winner.log
+	if [ -f "$LOG" ]; then 
+		echo 最後贏家:
+		cat $LOG
+	fi
+}
+
+
 alias mcsb='mcscores 3'
 # alias mcsbs='mcscores $*'
 alias mcwb='mcdo worldborder $*'
@@ -70,4 +95,5 @@ alias mcff='team_all_set friendlyfire true'
 alias uhcrule='/home/sita/script/minecraft/uhc.rules $*'
 alias uhcstart='/home/sita/script/minecraft/uhc.start'
 alias uhcend='/home/sita/script/minecraft/uhc.end'
+alias uhclog=uhclog
 alias teamadd='teamlist && mcdo scoreboard teams join $1 $2'
