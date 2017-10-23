@@ -179,8 +179,7 @@ grep.winner() {
 		# echo "${inputlog[*]}" | grep $winner | grep.left
 	# done
 	
-	# rm $slainlist $playerlist
-	# rm $left $slainlist $playerlist
+	rm $slainlist $teamlist
 }
 
 grep.cheater() {
