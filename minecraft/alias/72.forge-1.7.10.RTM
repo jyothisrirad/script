@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mc1710=forge-1.7.10.RTM
+mc1710=forge-1.7.10.RTM-72
 
 mc1710() {
 	export mcver=$mc1710 && echo mcver=$mcver
