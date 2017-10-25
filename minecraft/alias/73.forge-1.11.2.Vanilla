@@ -15,3 +15,4 @@ forge11vanilla() {
 }
 
 alias v11=forge11vanilla
+alias 73=forge11vanilla
