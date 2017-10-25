@@ -35,7 +35,7 @@ listfile() {
 
 restore() {
 
-	ZIPLIST=(`ls -at $ZIPDIR/$BASE*.zip`)
+	ZIPLIST=(`ls -at $ZIPDIR/${BASE:0:5}*.zip`)
 
 	INDEXMAX=$(( ${#ZIPLIST[@]} - 1 ))
 
