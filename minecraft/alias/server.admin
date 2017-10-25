@@ -1,0 +1,15 @@
+#!/bin/bash
+
+server.prep() {
+	config=/mnt/runtimes/$mcver/config.sh
+	[ ! -f $config ] || . $config
+
+	properties=/mnt/runtimes/$mcver/server.properties
+	[ ! $onlinemode ] || echo online-mode=$onlinemode >> $properties
+	[ ! $serverport ] || echo server-port=$serverport >> $properties
+}
+
+
+
+alias mcprep=server.prep
+

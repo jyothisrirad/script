@@ -37,6 +37,7 @@ cd "$DP1"
 
 echo zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./*
 zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./*
+# zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./* >/dev/null
 
 if [ ! -d $ZIPDIR ]; then mkdir $ZIPDIR; fi
 mv $TEMPZIP $ZIPDIR

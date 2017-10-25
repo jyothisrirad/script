@@ -25,12 +25,10 @@ VERSION=$(basename $0)
 MCSTORE="/mnt/runtimes/$VERSION"
 # MCPATH="/tmp/$VERSION"
 MCPATH=$MCSTORE
-. $MCSTORE/config.sh
-
-# echo $MCSTORE
-
+USERNAME=$(whoami)
+[ ! -f $MCSTORE/config.sh ] || . $MCSTORE/config.sh
 CPU_COUNT=1
-[ $INVOCATION ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
+[ "$INVOCATION" ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
@@ -46,7 +44,8 @@ as_user() {
 }
 
 mc_status() {
-  ps aux |grep -F -v grep|grep -F -v SCREEN|grep -F --quiet $JARFILE
+  # ps aux |grep -F -v grep|grep -F -v SCREEN|grep -F --quiet $JARFILE
+  ps aux |grep -F -v grep|grep -F --quiet $VERSION
   return $?
 }
 
@@ -258,13 +257,13 @@ mc_load() {
 mc_command() {
   command="$1";
   if mc_status; then
-    pre_log_len=`wc -l "$LOG" | awk '{print $1}'`
+    [ ! -f "$LOG" ] || pre_log_len=`wc -l "$LOG" | awk '{print $1}'`
     [ $mcecho_off ] || echo "$JARFILE is running... executing command"
     # echo as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
     as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
     sleep .1 # assumes that the command will run and print to the log file in less than .1 seconds
     # print output
-    tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG"
+    [ ! -f "$LOG" ] || tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG"
   fi
 }
 
@@ -381,15 +380,19 @@ case "$1" in
 	mc_saveon
     ;;
   restore)
-	if mc_status; then
-      mc_stop
-	  mc_restore $2
-	  mc_load
-	  mc_start
+	if [ ! "$2" = '?' ]; then
+		if mc_status; then
+		  mc_stop
+		  mc_restore $2
+		  mc_load
+		  mc_start
+		else
+		  mc_restore $2
+		  mc_load
+		fi
 	else
-	  mc_restore $2
-	  mc_load
-    fi
+		mc_restore $2
+	fi
     ;;
   pre-restore)
 	if mc_status; then
@@ -413,7 +416,7 @@ case "$1" in
 		logs.grep $2 >"$MCPATH/logs/$2.log"
 		cat "$MCPATH/logs/$2.log"
 	else
-		tail -f $LOG
+		[ ! -f "$LOG" ] || tail -f $LOG
 	fi
 	;;
   check)
@@ -456,9 +459,10 @@ case "$1" in
 		echo "$JARFILE is Online. No kill."
 	else
 		echo "$JARFILE is Not Responding, forcing Server to Stop."
-		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
 		for pid in $pids
 		do
+			echo kill -9 $pid
 			kill -9 $pid
 		done
 	fi  
@@ -467,9 +471,10 @@ case "$1" in
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
 		for pid in $pids
 		do
+			echo kill -9 $pid
 			kill -9 $pid
 		done
 	fi

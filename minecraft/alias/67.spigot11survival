@@ -1,0 +1,9 @@
+#!/bin/bash
+
+spigot11survival=spigot-1.11.2-survival-67
+
+spigot11survival() {
+	export mcver=$spigot11survival && echo mcver=$mcver
+}
+
+alias 67=spigot11survival

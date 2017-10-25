@@ -1,0 +1,9 @@
+#!/bin/bash
+
+forge10forgeessentials=forge-1.10.2-forgeessentials-70
+
+forge10forgeessentials() {
+	export mcver=$forge10forgeessentials && echo mcver=$mcver
+}
+
+alias 70=forge10forgeessentials

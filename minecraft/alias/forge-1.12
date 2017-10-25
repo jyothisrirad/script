@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mc112=forge-1.12
+mc112=forge-1.12-Survival
 
 mc112() {
 	export mcver=$mc112 && echo mcver=$mcver
