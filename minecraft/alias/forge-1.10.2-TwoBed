@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mc1102=forge-1.10.2
+mc1102=forge-1.10.2-TwoBed
 
 mc1102() {
 	export mcver=$mc1102 && echo mcver=$mcver

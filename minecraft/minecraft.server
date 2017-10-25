@@ -25,12 +25,10 @@ VERSION=$(basename $0)
 MCSTORE="/mnt/runtimes/$VERSION"
 # MCPATH="/tmp/$VERSION"
 MCPATH=$MCSTORE
-. $MCSTORE/config.sh
-
-# echo $MCSTORE
-
+USERNAME=$(whoami)
+[ ! -f $MCSTORE/config.sh ] || . $MCSTORE/config.sh
 CPU_COUNT=1
-[ $INVOCATION ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
+[ "$INVOCATION" ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
@@ -46,7 +44,8 @@ as_user() {
 }
 
 mc_status() {
-  ps aux |grep -F -v grep|grep -F -v SCREEN|grep -F --quiet $JARFILE
+  # ps aux |grep -F -v grep|grep -F -v SCREEN|grep -F --quiet $JARFILE
+  ps aux |grep -F -v grep|grep -F --quiet $VERSION
   return $?
 }
 
@@ -218,12 +217,22 @@ mc_backup() {
     echo "Backing up minecraft files"
 	# as_user "tar zcf $BACKUPPATH/MCBKUP_`date "+%Y.%m.%d-%H"`.tar.gz $MCSTORE"
 	# as_user "$MCSTORE/backup.sh"
-	echo as_user "$DP0/backup.sh $MCSTORE $1"
 	as_user "$DP0/backup.sh $MCSTORE $1"
 	echo "Backup complete"
   else
     echo "$JARFILE was not running. No need to backup."
   fi
+}
+
+mc_backup_ex() {
+  echo "Backing up minecraft files"
+  
+  if mc_status; then mc_saveoff; fi
+  
+  as_user "$DP0/backup.sh $MCSTORE $1"
+  echo "Backup complete"
+  
+  if mc_status; then mc_saveon; fi
 }
 
 mc_restore() {
@@ -258,13 +267,13 @@ mc_load() {
 mc_command() {
   command="$1";
   if mc_status; then
-    pre_log_len=`wc -l "$LOG" | awk '{print $1}'`
+    [ ! -f "$LOG" ] || pre_log_len=`wc -l "$LOG" | awk '{print $1}'`
     [ $mcecho_off ] || echo "$JARFILE is running... executing command"
     # echo as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
     as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
     sleep .1 # assumes that the command will run and print to the log file in less than .1 seconds
     # print output
-    tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG"
+    [ ! -f "$LOG" ] || tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG"
   fi
 }
 
@@ -362,9 +371,24 @@ case "$1" in
 		mc_savetodisk_online
 	fi
     ;;
-  crashreport)
-	mc_save_crashreport
+  seal)
+	if [ -d $MCSTORE ]; then
+		echo -e "${RED}Sealing $MCSTORE${NC}"
+		mc_backup_ex $2
+		if mc_status; then mc_stop; fi
+		
+		tempdir=/tmp/del
+		echo Moving $MCSTORE to $tempdir
+		[ ! -d $tempdir/$MCSTORE ] || rm -rf $tempdir/$MCSTORE
+		[ -d $tempdir ] || mkdir $tempdir
+		[ ! -d $MCSTORE ] || mv $MCSTORE $tempdir
+	else
+		echo $MCSTORE is not existed.
+	fi
     ;;
+  # crashreport)
+	# mc_save_crashreport
+    # ;;
   load)
 	if mc_status; then
 	  mc_stop
@@ -381,15 +405,19 @@ case "$1" in
 	mc_saveon
     ;;
   restore)
-	if mc_status; then
-      mc_stop
-	  mc_restore $2
-	  mc_load
-	  mc_start
+	if [ ! "$2" = '?' ]; then
+		if mc_status; then
+		  mc_stop
+		  mc_restore $2
+		  mc_load
+		  mc_start
+		else
+		  mc_restore $2
+		  mc_load
+		fi
 	else
-	  mc_restore $2
-	  mc_load
-    fi
+		mc_restore $2
+	fi
     ;;
   pre-restore)
 	if mc_status; then
@@ -413,7 +441,7 @@ case "$1" in
 		logs.grep $2 >"$MCPATH/logs/$2.log"
 		cat "$MCPATH/logs/$2.log"
 	else
-		tail -f $LOG
+		[ ! -f "$LOG" ] || tail -f $LOG
 	fi
 	;;
   check)
@@ -449,35 +477,38 @@ case "$1" in
 	delfrom_crontab "#$VERSION server"
 	delfrom_crontab "$(basename $0)"
 	;;
-  kill)
-	tmpfile="/tmp/mc.log"
-	mc_command "list" > $tmpfile
-	if [ -s $tmpfile ]; then
-		echo "$JARFILE is Online. No kill."
-	else
-		echo "$JARFILE is Not Responding, forcing Server to Stop."
-		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
-		for pid in $pids
-		do
-			kill -9 $pid
-		done
-	fi  
-    ;;
+  # kill)
+	# tmpfile="/tmp/mc.log"
+	# mc_command "list" > $tmpfile
+	# if [ -s $tmpfile ]; then
+		# echo "$JARFILE is Online. No kill."
+	# else
+		# echo "$JARFILE is Not Responding, forcing Server to Stop."
+		# pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
+		# for pid in $pids
+		# do
+			# echo kill -9 $pid
+			# kill -9 $pid
+		# done
+	# fi  
+    # ;;
   halt)
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
 		for pid in $pids
 		do
+			echo kill -9 $pid
 			kill -9 $pid
 		done
 	fi
 	# showstat
     ;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|save|status}"
-  echo "Usage: /etc/init.d/$0 {update|restart|force-save|crashreport|load|check|kill}"
+  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|seal|status}"
+  # echo "Usage: /etc/init.d/$0 {crashreport|kill|update}"
+  # echo "Usage: /etc/init.d/$0 {restart|force-save|load|check|save}"
   exit 1
   ;;
 esac

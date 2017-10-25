@@ -1,15 +1,17 @@
 #!/bin/bash
 
 if [ ! -d "$1" ]; then
-	echo $1 is not a directory
-	exit
+	echo $1 is not a directory, mkdir it.
+	# exit
+	mkdir "$1"
 fi
 
 FULL=$(readlink -e $0)
 DP0=$(dirname $FULL)
 DP1="$1"
 
-. $DP1/config.sh
+ZIPDIR=/mnt/backup
+[ ! -f $DP1/config.sh ] || . $DP1/config.sh
 . /home/sita/script/include/console.color
 
 BASE=$(basename $DP1)
@@ -46,7 +48,8 @@ restore() {
 
 	IGNORE=logs*
 
-	unzip -o $ZIPFILE -x "$IGNORE" -d $DP1 >/dev/null
+	unzip -o $ZIPFILE -x "$IGNORE" -d $DP1
+	# unzip -o $ZIPFILE -x "$IGNORE" -d $DP1 >/dev/null
 
 }
 

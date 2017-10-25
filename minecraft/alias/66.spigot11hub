@@ -1,0 +1,9 @@
+#!/bin/bash
+
+spigot11hub=spigot-1.11.2-hub-66
+
+spigot11hub() {
+	export mcver=$spigot11hub && echo mcver=$mcver
+}
+
+alias 66=spigot11hub
