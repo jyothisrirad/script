@@ -19,7 +19,7 @@ ZIPDIR=$(echo $ZIPDIR/$BASE)
 
 
 listfile() {
-	ZIPLIST=(`ls -at $ZIPDIR/$BASE*.zip`)
+	ZIPLIST=(`ls -at $ZIPDIR/${BASE:0:5}*.zip`)
 
 	echo -e "${GREEN}===== Content of $ZIPDIR =====${NC}"
 
