@@ -1,0 +1,68 @@
+#!/bin/bash
+
+
+export mcecho_off=1 
+console_color=$white
+
+
+. /home/sita/script/minecraft/alias.minecraft
+
+
+# mcannounce() {
+	# mcserver do say 伺服器現在開放自由進場離場
+	# mcserver do whitelist off
+	# sleep 10
+# }
+
+countdown() {
+	for ((i=$1;i>0;i--)); 
+	do
+		mcserver do say "$console_color"$i"$off"
+		sleep 1
+	done
+
+}
+
+
+mcpregame() {
+	mcserver do say 現在準備開始θ盃賽後賽
+	countdown 8
+}
+
+mcpvp() {
+	mcserver do whitelist on
+	while : ; 
+	do
+		mcserver do say ============================
+		mcserver do say ========== $yellowθ盃PvP$off =========
+		mcserver do say ============================
+		mcserver do say 規則：
+		mcserver do say 每3分鐘創造模式，每7分鐘生存模式
+		mcserver do say ============================
+		mcserver do say === 創造模式 
+		mcserver do say ============================
+		mcserver do gamemode 1 @a
+		sleep $(echo 2*60|bc)
+		mcserver do say ============================
+		mcserver do say === 還有1分鐘進入生存模式 
+		mcserver do say ============================
+		countdown 60
+		mcserver do say ============================
+		mcserver do say === 生存模式 
+		mcserver do say ============================
+		mcserver do gamemode 0 @a
+		sleep $(echo 6*60|bc)
+		mcserver do say ============================
+		mcserver do say === 還有1分鐘進入創造模式 
+		mcserver do say ============================
+		console_color=$red
+		countdown 60
+		console_color=$white
+		# break
+	done
+}
+
+
+# alias mcpvp='mcpregame && mcpvp'
+mcpregame
+mcpvp

@@ -13,18 +13,24 @@
 # Description:    Starts the minecraft server
 ### END INIT INFO
 
+. /home/sita/script/include/console.color
+
 #Settings
-FULL=$(readlink -e $0)
-DP0=$(dirname $FULL)
+# FULL=$(readlink -e $0)
+# DP0=$(dirname $FULL)
+DP0=/home/sita/script/minecraft
 VERSION=$(basename $0)
-JARFILE="$VERSION.jar"
+[ $JARFILE ] || JARFILE="$VERSION.jar"
 # USERNAME="vagrant"
 MCSTORE="/mnt/runtimes/$VERSION"
 # MCPATH="/tmp/$VERSION"
 MCPATH=$MCSTORE
 . $MCSTORE/config.sh
+
+# echo $MCSTORE
+
 CPU_COUNT=1
-INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
+[ $INVOCATION ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
@@ -59,7 +65,7 @@ mc_start() {
       # as_user "cp -R $MCSTORE/* $MCPATH/"
 	  as_user "rsync $RSYNCOPT $MCSTORE/ $MCPATH/"
     fi
-    as_user "cd $MCPATH && screen -dmS minecraft $INVOCATION"
+    as_user "cd $MCPATH && screen -dmS $VERSION $INVOCATION"
     sleep 7
     if mc_status; then
       echo "$JARFILE is now running."
@@ -72,7 +78,7 @@ mc_start() {
 mc_stop() {
   if mc_status; then
     echo "$JARFILE is running... stopping."
-    TO_SCREEN="screen -p 0 -S minecraft -X eval 'stuff "
+    TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
     as_user "$TO_SCREEN \"say SERVER SHUTTING DOWN IN 5 SECONDS. Saving map...\"\015'"
     as_user "$TO_SCREEN \"save-all\"\015'"
     sleep 5
@@ -163,7 +169,7 @@ mc_savetodisk_online() {
 			as_user "mv $MCSTORE/$WORLD $MCSTORE/$WORLD.bak"
 		  fi
 
-		  TO_SCREEN="screen -p 0 -S minecraft -X eval 'stuff "
+		  TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
 		  as_user "$TO_SCREEN \"save-off\"\015'"
 		  as_user "$TO_SCREEN \"save-all\"\015'" 
 		  # as_user "cp -R $MCPATH/* $MCSTORE/"
@@ -185,7 +191,7 @@ mc_savetodisk_online() {
 mc_saveoff() {
   if mc_status; then
     echo "$JARFILE is running... suspending saves"
-    TO_SCREEN="screen -p 0 -S minecraft -X eval 'stuff "
+    TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
     as_user "$TO_SCREEN \"say SERVER BACKUP STARTING. Server going readonly...\"\015'"
     as_user "$TO_SCREEN \"save-off\"\015'"
     as_user "$TO_SCREEN \"save-all\"\015'"
@@ -199,7 +205,7 @@ mc_saveoff() {
 mc_saveon() {
   if mc_status; then
     echo "$JARFILE is running... re-enabling saves"
-    TO_SCREEN="screen -p 0 -S minecraft -X eval 'stuff "
+    TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
     as_user "$TO_SCREEN \"save-on\"\015'"
     as_user "$TO_SCREEN \"say SERVER BACKUP ENDED. Server going read-write...\"\015'"
   else
@@ -212,7 +218,8 @@ mc_backup() {
     echo "Backing up minecraft files"
 	# as_user "tar zcf $BACKUPPATH/MCBKUP_`date "+%Y.%m.%d-%H"`.tar.gz $MCSTORE"
 	# as_user "$MCSTORE/backup.sh"
-	as_user "$DP0/backup.sh $MCSTORE"
+	echo as_user "$DP0/backup.sh $MCSTORE $1"
+	as_user "$DP0/backup.sh $MCSTORE $1"
 	echo "Backup complete"
   else
     echo "$JARFILE was not running. No need to backup."
@@ -224,6 +231,17 @@ mc_restore() {
    # as_user "$MCSTORE/restore.sh $1"
    as_user "$DP0/restore.sh $MCSTORE $1"
    echo "Restore complete"
+}
+
+mc_pre-restore() {
+   if [ ! -z ${MCSTORE+x} ]; then 
+	   echo "Prepare minecraft files in $MCSTORE before restore"
+	   mkdir $MCSTORE/temp >/dev/null
+	   mv $MCSTORE/* $MCSTORE/temp >/dev/null
+	   mv $MCSTORE/temp/config.sh $MCSTORE/  >/dev/null
+	   rm -rf $MCSTORE/temp
+	   echo "Prepare complete"
+   fi
 }
 
 mc_load() {
@@ -240,12 +258,13 @@ mc_load() {
 mc_command() {
   command="$1";
   if mc_status; then
-    pre_log_len=`wc -l "$MCPATH/logs/latest.log" | awk '{print $1}'`
-    echo "$JARFILE is running... executing command"
-    as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+    pre_log_len=`wc -l "$LOG" | awk '{print $1}'`
+    [ $mcecho_off ] || echo "$JARFILE is running... executing command"
+    # echo as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
+    as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
     sleep .1 # assumes that the command will run and print to the log file in less than .1 seconds
     # print output
-    tail -n $[`wc -l "$MCPATH/logs/latest.log" | awk '{print $1}'`-$pre_log_len] "$MCPATH/logs/latest.log"
+    tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG"
   fi
 }
 
@@ -297,43 +316,7 @@ deldir() {
 	fi
 }
 
-showstat() {
-
-LASTLOGS=(`ls -at $MCPATH/logs/*.log.gz`)
-
-if [ -f ${LASTLOGS[0]} ]; then 
-	echo Using ${LASTLOGS[0]} ...
-fi
-
-echo -e "${GREEN}List of players joined/left time last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep 'joined\|left'
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep 'joined\|left'
-
-echo -e "${GREEN}List of players joined last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep joined | awk '{ print $4 }' | sort | uniq
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep joined | awk '{ print $4 }' | sort | uniq
-
-echo -e "${GREEN}List of players slained last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep slain
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep slain
-
-echo -e "${GREEN}List of players teleported last time:${NC}"
-if [ -f ${LASTLOGS[0]} ]; then 
-	zcat ${LASTLOGS[0]} | grep Teleported
-	echo "-----"
-fi
-cat "$MCPATH/logs/latest.log" | grep Teleported
-
-}
+. $DP0/minecraft.logs
 
 #Start-Stop here
 case "$1" in
@@ -345,15 +328,15 @@ case "$1" in
     fi
     ;;
   start)
-	showstat
+	# showstat
     mc_start
     ;;
   stop)
     mc_savetodisk_online
-    mc_backup
+    mc_backup $2
     mc_stop
     # mc_savetodisk_offline
-	showstat
+	# showstat
     ;;
   restart)
     mc_stop
@@ -361,7 +344,7 @@ case "$1" in
     mc_start
     ;;
   update)
-    # mc_backup
+    # mc_backup $2
     # mc_stop
     # mc_update
     # mc_start
@@ -371,7 +354,13 @@ case "$1" in
     mc_savetodisk_offline
     ;;
   save)
-    mc_savetodisk_online
+	if [ "$2" = "on" ]; then
+		mc_saveon
+	elif [ "$2" = 'off' ]; then
+		mc_saveoff
+	else
+		mc_savetodisk_online
+	fi
     ;;
   crashreport)
 	mc_save_crashreport
@@ -386,10 +375,10 @@ case "$1" in
     fi
     ;;
   backup)
-    mc_savetodisk_online
-    # mc_saveoff
-    mc_backup
-    # mc_saveon
+    # mc_savetodisk_online
+	mc_saveoff
+    mc_backup $2
+	mc_saveon
     ;;
   restore)
 	if mc_status; then
@@ -402,6 +391,15 @@ case "$1" in
 	  mc_load
     fi
     ;;
+  pre-restore)
+	if mc_status; then
+      mc_stop
+	  mc_pre-restore
+	  mc_start
+	else
+	  mc_pre-restore
+    fi
+    ;;
   do)
     if [ $# -gt 1 ]; then
       shift
@@ -411,7 +409,12 @@ case "$1" in
     fi
 	;;
   log)
-	tail -f $LOG
+	if [ "$2" ]; then
+		logs.grep $2 >"$MCPATH/logs/$2.log"
+		cat "$MCPATH/logs/$2.log"
+	else
+		tail -f $LOG
+	fi
 	;;
   check)
 	if ! mc_status; then
@@ -453,19 +456,28 @@ case "$1" in
 		echo "$JARFILE is Online. No kill."
 	else
 		echo "$JARFILE is Not Responding, forcing Server to Stop."
-		kill -9 $(ps aux | grep $JARFILE | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
+		for pid in $pids
+		do
+			kill -9 $pid
+		done
 	fi  
     ;;
   halt)
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		kill -9 $(ps aux | grep $VERSION | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $JARFILE | awk '{print $2}')
+		for pid in $pids
+		do
+			kill -9 $pid
+		done
 	fi
-	showstat
+	# showstat
     ;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log|check|kill|halt}"
+  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|save|status}"
+  echo "Usage: /etc/init.d/$0 {update|restart|force-save|crashreport|load|check|kill}"
   exit 1
   ;;
 esac

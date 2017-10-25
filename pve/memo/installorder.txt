@@ -4,7 +4,7 @@ root#>	apt install git sudo ca-certificates
 user$>	git clone https://github.com/chsliu/script.git
 root#> 	newinstall.sudo.sh
 user$>	newinstall.init.sh <hostname>
-user$>	newuser <username>
+user$>	pve/newuser <username>
 
 
 ###create disk id

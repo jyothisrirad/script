@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ ! -z ${1+x} ]; then 
+	sudo adduser $1
+	sudo addgroup $1
+	sudo adduser $1 $1 
+	sudo adduser $1 users
+
+	sudo sed -i '0,/read only/s/read only = yes/read only = no/' /etc/samba/smb.conf
+	
+	sudo smbpasswd -a $1
+	sudo pdbedit -w -L
+	sudo /etc/init.d/samba restart
+
+	smbclient -L //localhost -U $1
+fi

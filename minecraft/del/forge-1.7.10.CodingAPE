@@ -1,0 +1,7 @@
+# echo [$0]
+
+FULL=$(readlink -e $0)
+DP0=$(dirname $FULL)
+
+echo . $DP0/minecraft.server $*
+. $DP0/minecraft.server $*

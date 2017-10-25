@@ -2,9 +2,9 @@
 
 #=================================
 utf8() {
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+	export LC_ALL=en_US.UTF-8
+	export LANG=en_US.UTF-8
+	export LANGUAGE=en_US.UTF-8
 }
 
 load_alias() {
@@ -16,57 +16,61 @@ load_alias() {
 
 #=================================
 mcserver() { 
-	echo /home/sita/script/minecraft/$mcver $*
-	/home/sita/script/minecraft/$mcver $*
+#	echo /home/sita/script/minecraft/$mcver $*
+#	/home/sita/script/minecraft/$mcver $*
+
+	if [ -z ${mcver+x} ]; then
+		echo mcver not set
+	else
+		tempsh=/tmp/$mcver
+		if [ ! -f $tempsh ]; then
+			# echo 'echo /home/sita/script/minecraft/minecraft.server $*' > $tempsh
+			echo . /home/sita/script/minecraft/minecraft.server '$*' > $tempsh
+			chmod +x $tempsh
+		fi
+		[ $mcecho_off ] || echo === $mcver $*
+		$tempsh $*
+	fi
 }
 
-mclogdump() {
-	LASTLOGS=(`ls -at /mnt/runtimes/$mcver/logs/*.log.gz`)
-
-	if [ -f ${LASTLOGS[0]} ]; then zcat ${LASTLOGS[0]}; fi
-	cat /mnt/runtimes/$mcver/logs/latest.log
+mcdo() {
+	mcserver do $*
 }
 
-#=================================
-# mc1710() {
-	# export mcver=$mc1710
-	# echo mcver=$mcver
-# }
+filehas() {
+	cat $1 | grep -F --quiet "$2"
+	return $?
+}
 
-# mc1102() {
-	# export mcver=$mc1102
-	# echo mcver=$mcver
-	
-	# alias  s1='export pos="-242 74 291"   && echo pos=蚊子車站'
-	# alias  s2='export pos="986 103 291"   && echo pos=山丘車站'
-	# alias  s3='export pos="986 103 -738"  && echo pos=陸湖車站'
-	# alias  s4='export pos="-242 103 -738" && echo pos=水下車站'
-	# alias tnt='export pos="540 82 310"    && echo pos=TNT礦車轟炸點'
-	# alias cr1='export pos="-242 93 -256" && echo pos=田字東西起點'
-	# alias cr2='export pos="256 103 291" && echo pos=田字南北起點'
-# }
+mcwaituntilready() {
+	mcresult=/tmp/mcwaituntilready
+	# echo ================
+	mcserver status > $mcresult
+	if ! filehas $mcresult 'not running'; then
+		# echo 'running'
+		for i in $(seq 1 100)       
+		do
+			mcserver do list > $mcresult
+			if filehas $mcresult 'players'; then
+				break
+			fi
+		done
+	fi
+	# cat $mcresult
+	# echo ================
+}
 
-# mc1112() {
-	# export mcver=$mc1112
-	# echo mcver=$mcver
-	# alias  s1='export pos="250 70 250"    && echo pos=家'
-	# alias  s2='export pos="10455 80 4400" && echo pos=林地'
-# }
+pause() {
+	read -p "Press any key to continue... " -n1 -s
+	echo 
+}
 
-# mc112() {
-	# export mcver=$mc112
-	# echo mcver=$mcver
-# }
 
 #=================================
-# mc1710=forge-1.7.10
-# mc1102=forge-1.10.2
-# mc1112=forge-1.11.2
-# mc112=forge-1.12
-# mcver=$mc1112
 utf8
 load_alias
-func1112
+# func1112
+[ $mcver ] || mc1112uc
 
 #=================================
 alias a=alias
@@ -74,6 +78,7 @@ alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
+<<<<<<< HEAD
 # alias p1='export player=chsliu && echo player=$player'
 # alias p2='export player=yozliu && echo player=$player'
 # alias p3='export player=angussu && echo player=$player'
@@ -94,19 +99,23 @@ alias night='mcserver do time set night'
 # alias v10=mc1102
 # alias v11=mc1112
 # alias v12=mc112
+=======
+# alias gamestop='mcserver backup && mcserver stop'
+>>>>>>> 4c336b4b8e796b7e0da5138990821a9d1d57d96b
 alias mcstart='mcserver start'
+alias mcss='mcserver start && mcw on && mclog'
 alias mcstop='mcserver stop'
-alias mclog='mcserver log'
+alias mclog='mcserver log $*'
 alias mcload='mcserver load'
 alias mcsave='mcserver force-save'
-alias mcdo='mcserver do'
-alias mcsweep='mcserver do mcte $player minesweeper'
+# alias mcdo='mcserver do'
 alias mcstat='mcserver status'
 alias mcreport='mcserver crashreport'
 alias mcbackup='mcserver backup'
 alias mcrestore='mcserver restore $*'
 alias mckill='mcserver kill'
 alias mchalt='mcserver halt'
+<<<<<<< HEAD
 alias mcj="mclogdump | grep joined | awk '{ print \$4 }' | sort | uniq"
 alias mcjoin="mclogdump | grep 'joined\|left'"
 alias mcslain="mclogdump | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|tried'"
@@ -115,3 +124,10 @@ alias mctele="mclogdump | grep Teleported"
 alias mced='vi /home/sita/script/minecraft/minecraft.server'
 alias mcw='mcdo whitelist $*'
 alias mcwb='mcdo worldborder $*'
+=======
+#alias mced='vi /home/sita/script/minecraft/$mcver'
+alias mced='vi /home/sita/script/minecraft/minecraft.server'
+alias mcw='mcdo whitelist $*'
+# alias mctest='mcwaituntilready'
+
+>>>>>>> 4c336b4b8e796b7e0da5138990821a9d1d57d96b
