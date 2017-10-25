@@ -81,6 +81,7 @@ mc_stop() {
     as_user "$TO_SCREEN \"say SERVER SHUTTING DOWN IN 5 SECONDS. Saving map...\"\015'"
     as_user "$TO_SCREEN \"save-all\"\015'"
     sleep 5
+    as_user "$TO_SCREEN \"end\"\015'"
     as_user "$TO_SCREEN \"stop\"\015'"
     sleep 5
   else
