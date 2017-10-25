@@ -325,6 +325,11 @@ deldir() {
 	fi
 }
 
+mc_playeronline() {
+	mc_command list | tail -1 | awk '{print $4}' | grep -E --quiet '.'
+	return $?
+}
+
 . $DP0/minecraft.logs
 
 #Start-Stop here
@@ -339,11 +344,13 @@ case "$1" in
   start)
 	# showstat
     mc_start
+	[ ! $archives ] || $0 install
     ;;
   stop)
     mc_savetodisk_online
     mc_backup $2
     mc_stop
+	[ ! $archives ] || $0 remove_cron
     # mc_savetodisk_offline
 	# showstat
     ;;
@@ -466,16 +473,22 @@ case "$1" in
 	# addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
 	addto_crontab "#$VERSION server"
 	addto_crontab "*/5 * * * * $(readlink -e $0) save"
-	addto_crontab "24 */6 * * * $(readlink -e $0) backup"
+	# addto_crontab "24 */6 * * * $(readlink -e $0) backup"
+	addto_crontab "$(shuf -i 1-60 -n 1) * * * * $(readlink -e $0) archive"
+	crontab -l
 	;;
+  remove_cron)
+	delfrom_crontab "#$VERSION server"
+	delfrom_crontab "$(basename $0)"
+	crontab -l
+    ;;
   uninstall)
   	if mc_status; then
 	  mc_stop
 	fi
 	delfile /etc/init.d/$(basename $0)
 	deldir $MCPATH
-	delfrom_crontab "#$VERSION server"
-	delfrom_crontab "$(basename $0)"
+	$0 remove_cron
 	;;
   # kill)
 	# tmpfile="/tmp/mc.log"
@@ -503,7 +516,16 @@ case "$1" in
 			kill -9 $pid
 		done
 	fi
+	[ ! $archives ] || $0 remove_cron
 	# showstat
+    ;;
+  archive)
+	if mc_status; then
+		if mc_playeronline; then
+			# echo player online
+			$0 backup $archives
+		fi
+	fi
     ;;
   *)
   echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|seal|status}"
