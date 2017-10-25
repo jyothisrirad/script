@@ -217,12 +217,22 @@ mc_backup() {
     echo "Backing up minecraft files"
 	# as_user "tar zcf $BACKUPPATH/MCBKUP_`date "+%Y.%m.%d-%H"`.tar.gz $MCSTORE"
 	# as_user "$MCSTORE/backup.sh"
-	echo as_user "$DP0/backup.sh $MCSTORE $1"
 	as_user "$DP0/backup.sh $MCSTORE $1"
 	echo "Backup complete"
   else
     echo "$JARFILE was not running. No need to backup."
   fi
+}
+
+mc_backup_ex() {
+  echo "Backing up minecraft files"
+  
+  if mc_status; then mc_saveoff; fi
+  
+  as_user "$DP0/backup.sh $MCSTORE $1"
+  echo "Backup complete"
+  
+  if mc_status; then mc_saveon; fi
 }
 
 mc_restore() {
@@ -361,9 +371,24 @@ case "$1" in
 		mc_savetodisk_online
 	fi
     ;;
-  crashreport)
-	mc_save_crashreport
+  seal)
+	if [ -d $MCSTORE ]; then
+		echo -e "$RED""Sealing $MCSTORE""$NC"
+		mc_backup_ex $2
+		if mc_status; then mc_stop; fi
+		
+		tempdir=/tmp/del
+		echo Moving $MCSTORE to $tempdir
+		[ ! -d $tempdir/$MCSTORE ] || rm -rf $tempdir/$MCSTORE
+		[ -d $tempdir ] || mkdir $tempdir
+		[ ! -d $MCSTORE ] || mv $MCSTORE $tempdir
+	else
+		echo $MCSTORE is not existed.
+	fi
     ;;
+  # crashreport)
+	# mc_save_crashreport
+    # ;;
   load)
 	if mc_status; then
 	  mc_stop
@@ -452,21 +477,21 @@ case "$1" in
 	delfrom_crontab "#$VERSION server"
 	delfrom_crontab "$(basename $0)"
 	;;
-  kill)
-	tmpfile="/tmp/mc.log"
-	mc_command "list" > $tmpfile
-	if [ -s $tmpfile ]; then
-		echo "$JARFILE is Online. No kill."
-	else
-		echo "$JARFILE is Not Responding, forcing Server to Stop."
-		pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
-		for pid in $pids
-		do
-			echo kill -9 $pid
-			kill -9 $pid
-		done
-	fi  
-    ;;
+  # kill)
+	# tmpfile="/tmp/mc.log"
+	# mc_command "list" > $tmpfile
+	# if [ -s $tmpfile ]; then
+		# echo "$JARFILE is Online. No kill."
+	# else
+		# echo "$JARFILE is Not Responding, forcing Server to Stop."
+		# pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
+		# for pid in $pids
+		# do
+			# echo kill -9 $pid
+			# kill -9 $pid
+		# done
+	# fi  
+    # ;;
   halt)
 	if mc_status; then
 		mc_savetodisk_online
@@ -481,8 +506,9 @@ case "$1" in
 	# showstat
     ;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|save|status}"
-  echo "Usage: /etc/init.d/$0 {update|restart|force-save|crashreport|load|check|kill}"
+  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|seal|status}"
+  # echo "Usage: /etc/init.d/$0 {crashreport|kill|update}"
+  # echo "Usage: /etc/init.d/$0 {restart|force-save|load|check|save}"
   exit 1
   ;;
 esac
