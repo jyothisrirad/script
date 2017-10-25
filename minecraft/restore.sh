@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -d "$1" ]; then
-	# echo $1 is not a directory
+	echo $1 is not a directory, mkdir it.
 	# exit
 	mkdir "$1"
 fi

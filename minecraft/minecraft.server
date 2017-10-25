@@ -373,7 +373,7 @@ case "$1" in
     ;;
   seal)
 	if [ -d $MCSTORE ]; then
-		echo -e "$RED""Sealing $MCSTORE""$NC"
+		echo -e "${RED}Sealing $MCSTORE${NC}"
 		mc_backup_ex $2
 		if mc_status; then mc_stop; fi
 		
