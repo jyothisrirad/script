@@ -6,6 +6,7 @@ mc1112() {
 	export mcver=$mc1112 && echo mcver=$mcver
 	
 	alias  s1='export pos="250 70 250"    && echo pos=家'
+	alias  s1a='export pos="207 139 249" && echo pos=船電梯頂端'
 	alias  s2='export pos="10455 80 4400" && echo pos=林地'
 	alias  s3='export pos="1262 71 1814" && echo pos=終界要塞'
 	alias  s4='export pos="-4 62 4" && echo pos=終界返回傳送門'

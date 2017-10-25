@@ -1,9 +1,0 @@
-#!/bin/bash
-
-spigot11lobby=spigot-1.11.2-lobby-66
-
-spigot11lobby() {
-	export mcver=$spigot11lobby && echo mcver=$mcver
-}
-
-alias 66=spigot11lobby
