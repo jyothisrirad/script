@@ -78,37 +78,11 @@ alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
-<<<<<<< HEAD
-# alias p1='export player=chsliu && echo player=$player'
-# alias p2='export player=yozliu && echo player=$player'
-# alias p3='export player=angussu && echo player=$player'
-# alias p4='export player=Eason && echo player=$player'
-alias diamond='export item=diamond && echo item=$item'
-alias wing='export item=elytra && echo item=$item'
-alias firework='export item=firework && echo item=$item'
-alias tp='mcserver do tp $player $pos'
-alias tpa='mcserver do tp @a $pos'
-alias ungod='mcserver do gamemode s $player'
-alias god='mcserver do gamemode c $player'
-alias rain='mcserver do toggledownfall'
-alias gamestop='mcserver backup && mcserver stop'
-alias give='mcserver do give $player $item 64'
-alias day='mcserver do time set day'
-alias night='mcserver do time set night'
-# alias v7=mc1710
-# alias v10=mc1102
-# alias v11=mc1112
-# alias v12=mc112
-alias mcstart='mcserver start'
-alias mcstop='mcserver stop'
-alias mclog='mcserver log'
-=======
 # alias gamestop='mcserver backup && mcserver stop'
 # alias mcstart='mcserver start'
 alias mcss='mcserver start && mcw on && mclog'
 alias mcstop='mcdo end && mcserver stop'
 alias mclog='mcserver log $*'
->>>>>>> a648a6f8f3230fef6caa37196b8dbc4854da7134
 alias mcload='mcserver load'
 alias mcsave='mcserver force-save'
 # alias mcdo='mcserver do'
@@ -116,18 +90,6 @@ alias mcstat='mcserver status'
 # alias mcreport='mcserver crashreport'
 alias mcbackup='mcserver backup'
 alias mcrestore='mcserver restore $*'
-<<<<<<< HEAD
-alias mckill='mcserver kill'
-alias mchalt='mcserver halt'
-alias mcj="mclogdump | grep joined | awk '{ print \$4 }' | sort | uniq"
-alias mcjoin="mclogdump | grep 'joined\|left'"
-alias mcslain="mclogdump | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|tried'"
-alias mctele="mclogdump | grep Teleported"
-#alias mced='vi /home/sita/script/minecraft/$mcver'
-alias mced='vi /home/sita/script/minecraft/minecraft.server'
-alias mcw='mcdo whitelist $*'
-alias mcwb='mcdo worldborder $*'
-=======
 # alias mckill='mcserver kill'
 alias mchalt='mcdo end && mcserver halt'
 alias mcreload='mchalt && mcss'
@@ -139,4 +101,3 @@ alias mcseal='mcserver seal'
 # alias mctest='mcwaituntilready'
 alias sls='screen -ls'
 alias swp='screen -wipe'
->>>>>>> a648a6f8f3230fef6caa37196b8dbc4854da7134
