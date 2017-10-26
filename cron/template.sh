@@ -24,25 +24,33 @@ define_time() {
 	cron_wday='*'
 }
 
-addto_crontab() {
-	cronfile=/var/spool/cron/crontabs/$(whoami)
+# addto_crontab() {
+	# cronfile=/var/spool/cron/crontabs/$(whoami)
 
-	if ! crontab_status; then
-		echo "" | sudo tee -a $cronfile
-		sudo chown $(whoami):crontab $cronfile
-	fi
+	# if ! crontab_status; then
+		# echo "" | sudo tee -a $cronfile
+		# sudo chown $(whoami):crontab $cronfile
+	# fi
 	
-	if ! sudo grep -Fxq "$*" $cronfile; then
-		echo "$*" | sudo tee -a $cronfile
-	fi
+	# if ! sudo grep -Fxq "$*" $cronfile; then
+		# echo "$*" | sudo tee -a $cronfile
+	# fi
+# }
+addto_crontab() {
+	(crontab -l; echo "$*") | crontab -
 }
 
-delfrom_crontab() {
-	cronfile=/var/spool/cron/crontabs/$(whoami)
+# delfrom_crontab() {
+	# cronfile=/var/spool/cron/crontabs/$(whoami)
 
+	# line=$*
+	# line=$(echo "$line" | sed 's/\//\\\//g')
+	# sudo sed -i "/$line/d" $cronfile
+# }
+delfrom_crontab() {
 	line=$*
 	line=$(echo "$line" | sed 's/\//\\\//g')
-	sudo sed -i "/$line/d" $cronfile
+	crontab -l | sed "/$line/d" | crontab -
 }
 
 #=================================

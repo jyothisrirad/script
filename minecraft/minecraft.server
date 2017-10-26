@@ -291,40 +291,14 @@ crontab_status() {
 	return $?
 }
 
-# addto_crontab() {
-	# cronfile=/var/spool/cron/crontabs/$(whoami)
-
-	# if ! crontab_status; then
-		# echo "" | sudo tee -a $cronfile
-		# sudo chown $(whoami):crontab $cronfile
-	# fi
-	
-	# if ! sudo grep -Fxq "$*" $cronfile; then
-		# echo "$*" | sudo tee -a $cronfile
-	# fi
-# }
 addto_crontab() {
 	(crontab -l; echo "$*") | crontab -
 }
 
-# delfrom_crontab() {
-	# cronfile=/var/spool/cron/crontabs/$(whoami)
-
-	# line=$*
-	# line=$(echo "$line" | sed 's/\//\\\//g')
-	# sudo sed -i "/$line/d" $cronfile
-# }
 delfrom_crontab() {
-	cronfile=/tmp/cronfile
-	
-	crontab -l >$cronfile
-
 	line=$*
 	line=$(echo "$line" | sed 's/\//\\\//g')
-	sudo sed -i "/$line/d" $cronfile
-	
-	crontab $cronfile
-	rm $cronfile
+	crontab -l | sed "/$line/d" | crontab -
 }
 
 delfile() {
@@ -496,7 +470,7 @@ case "$1" in
   remove_cron)
 	delfrom_crontab "#$VERSION server"
 	delfrom_crontab "$(basename $0)"
-	crontab -l
+	# crontab -l
     ;;
   uninstall)
   	if mc_status; then
