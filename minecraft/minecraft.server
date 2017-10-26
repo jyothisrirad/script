@@ -291,25 +291,40 @@ crontab_status() {
 	return $?
 }
 
-addto_crontab() {
-	cronfile=/var/spool/cron/crontabs/$(whoami)
+# addto_crontab() {
+	# cronfile=/var/spool/cron/crontabs/$(whoami)
 
-	if ! crontab_status; then
-		echo "" | sudo tee -a $cronfile
-		sudo chown $(whoami):crontab $cronfile
-	fi
+	# if ! crontab_status; then
+		# echo "" | sudo tee -a $cronfile
+		# sudo chown $(whoami):crontab $cronfile
+	# fi
 	
-	if ! sudo grep -Fxq "$*" $cronfile; then
-		echo "$*" | sudo tee -a $cronfile
-	fi
+	# if ! sudo grep -Fxq "$*" $cronfile; then
+		# echo "$*" | sudo tee -a $cronfile
+	# fi
+# }
+addto_crontab() {
+	(crontab -l; echo "$*") | crontab -
 }
 
+# delfrom_crontab() {
+	# cronfile=/var/spool/cron/crontabs/$(whoami)
+
+	# line=$*
+	# line=$(echo "$line" | sed 's/\//\\\//g')
+	# sudo sed -i "/$line/d" $cronfile
+# }
 delfrom_crontab() {
-	cronfile=/var/spool/cron/crontabs/$(whoami)
+	cronfile=/tmp/cronfile
+	
+	crontab -l >$cronfile
 
 	line=$*
 	line=$(echo "$line" | sed 's/\//\\\//g')
 	sudo sed -i "/$line/d" $cronfile
+	
+	crontab $cronfile
+	rm $cronfile
 }
 
 delfile() {
@@ -476,7 +491,7 @@ case "$1" in
 	addto_crontab "*/5 * * * * $(readlink -e $0) save"
 	# addto_crontab "24 */6 * * * $(readlink -e $0) backup"
 	addto_crontab "$(shuf -i 1-60 -n 1) * * * * $(readlink -e $0) archive"
-	crontab -l
+	# crontab -l
 	;;
   remove_cron)
 	delfrom_crontab "#$VERSION server"
