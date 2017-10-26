@@ -1,0 +1,9 @@
+#!/bin/bash
+
+bungee=BungeeCord
+
+bungee() {
+	export mcver=$bungee && echo mcver=$mcver
+}
+
+alias 65=bungee

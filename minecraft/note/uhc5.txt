@@ -1,0 +1,454 @@
+﻿summon falling_block ~ ~1.5 ~
+{   Time:1,Block:
+activator_rail,Passengers:
+    [
+    {   id:commandblock_minecart,Command:tellraw @a
+        {   "text":" ┃ ","color":"gray","extra":[
+            {"text":"UHC BLOX","color":"gold"},
+            {"text":" ┃ Buff Get! ┃ "},
+            {"text":"Installed","color":"green"},
+            {"text":" ┃ "}]
+        }
+    },
+    {id:commandblock_minecart,Command:scoreboard objectives add oI achievement.openInventory},
+    {id:commandblock_minecart,Command:scoreboard objectives add mW achievement.mineWood},
+    {id:commandblock_minecart,Command:scoreboard objectives add bWB achievement.buildWorkBench},
+    {id:commandblock_minecart,Command:scoreboard objectives add bH achievement.buildHoe},
+    {id:commandblock_minecart,Command:scoreboard objectives add bS achievement.buildSword},
+    {id:commandblock_minecart,Command:scoreboard objectives add bP achievement.buildPickaxe},
+    {id:commandblock_minecart,Command:scoreboard objectives add mB achievement.makeBread},
+    {id:commandblock_minecart,Command:scoreboard objectives add baC achievement.bakeCake},
+    {id:commandblock_minecart,Command:scoreboard objectives add kC achievement.killCow},
+    {id:commandblock_minecart,Command:scoreboard objectives add kE achievement.killEnemy},
+    {id:commandblock_minecart,Command:scoreboard objectives add bBP achievement.buildBetterPickaxe},
+    {id:commandblock_minecart,Command:scoreboard objectives add bF achievement.buildFurnace},
+    {id:commandblock_minecart,Command:scoreboard objectives add brC achievement.breedCow},
+    {id:commandblock_minecart,Command:scoreboard objectives add fP achievement.flyPig},
+    {id:commandblock_minecart,Command:scoreboard objectives add sS achievement.snipeSkeleton},
+    {id:commandblock_minecart,Command:scoreboard objectives add op achievement.overpowered},
+    {id:commandblock_minecart,Command:scoreboard objectives add cF achievement.cookFish},
+    {id:commandblock_minecart,Command:scoreboard objectives add aI achievement.acquireIron},
+    {id:commandblock_minecart,Command:scoreboard objectives add di achievement.diamonds},
+    {id:commandblock_minecart,Command:scoreboard objectives add dTY achievement.diamondsToYou},
+    {id:commandblock_minecart,Command:scoreboard objectives add en achievement.enchantments},
+    {id:commandblock_minecart,Command:scoreboard objectives add por achievement.portal},
+    {id:commandblock_minecart,Command:scoreboard objectives add bo achievement.bookcase},
+    {id:commandblock_minecart,Command:scoreboard objectives add ok achievement.overkill},
+    {id:commandblock_minecart,Command:scoreboard objectives add gh achievement.ghast},
+    {id:commandblock_minecart,Command:scoreboard objectives add bR achievement.blazeRod},
+    {id:commandblock_minecart,Command:scoreboard objectives add pot achievement.potion},
+    {id:commandblock_minecart,Command:scoreboard objectives add TL dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add HL dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add H2 dummy},
+    {id:commandblock_minecart,Command:scoreboard objectives add LG stat.leaveGame},
+    {   id:commandblock_minecart,Command:execute @e[tag=N] ~13 ~ ~ summon commandblock_minecart ~ ~ ~
+        {   Command:scoreboard players reset @a oI,Passengers:[
+            {id:commandblock_minecart,Command:scoreboard players set @a HL 0},
+            {id:commandblock_minecart,Command:scoreboard players set @a LG 0},
+            {   id:commandblock_minecart,Command:execute @e[tag=N] ~1 ~ ~ summon commandblock_minecart ~ ~ ~
+                {   Command:execute @p[score_oI_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1,Passengers:[
+                    {id:commandblock_minecart,Command:execute @p[score_mW_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bWB_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bH_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bS_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bP_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_mB_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_baC_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_kC_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_kE_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bBP_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bF_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_brC_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_fP_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_sS_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_op_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_cF_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_aI_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_di_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_dTY_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_en_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_por_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bo_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_ok_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_gh_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_bR_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @p[score_pot_min=1] ~ ~ ~ scoreboard players set @e[tag=N] TL 1},
+                    {id:commandblock_minecart,Command:execute @a[m=0,score_LG=0] ~ ~ ~ scoreboard players operation @p H2 = @p H},
+                    {   id:commandblock_minecart,Command:execute @e[tag=N,score_TL_min=1] ~13 ~ ~ summon commandblock_minecart ~ ~ ~
+                        {   Command:scoreboard players add @a[score_oI_min=1] TL 1,Passengers:[
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_mW_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bWB_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bH_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bS_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bP_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_mB_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_baC_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_kC_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_kE_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bBP_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bF_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_brC_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_fP_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_sS_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_op_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_cF_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_aI_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_di_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_dTY_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_en_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_por_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bo_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_ok_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_gh_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_bR_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players add @a[score_pot_min=1] TL 1},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_oI_min=1] oI -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_mW_min=1] mW -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bWB_min=1] bWB -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bH_min=1] bH -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bS_min=1] bS -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bP_min=1] bP -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_mB_min=1] mB -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_baC_min=1] baC -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_kC_min=1] kC -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_kE_min=1] kE -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bBP_min=1] bBP -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bF_min=1] bF -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_brC_min=1] brC -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_fP_min=1] fP -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_sS_min=1] sS -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_op_min=1] op -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_cF_min=1] cF -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_aI_min=1] aI -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_di_min=1] di -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_dTY_min=1] dTY -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_en_min=1] en -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_por_min=1] por -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bo_min=1] bo -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_ok_min=1] ok -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_gh_min=1] gh -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_bR_min=1] bR -2147483648},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_pot_min=1] pot -2147483648},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=1,score_TL=1] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.02,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=2,score_TL=2] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.02,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.05,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=3,score_TL=3] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.1,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.02,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.05,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=3,score_TL=3,score_HL=0] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=3,score_TL=3] HL 1},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=4,score_TL=4] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.1,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.04,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.05,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=5,score_TL=5] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.1,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.04,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.1,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=6,score_TL=6] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.2,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.04,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.1,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=6,score_TL=6,score_HL=1] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=6,score_TL=6] HL 2},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=7,score_TL=7] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.2,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.06,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.1,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=8,score_TL=8] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.2,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.06,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.15,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=9,score_TL=9] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.3,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.06,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.15,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=9,score_TL=9,score_HL=2] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=9,score_TL=9] HL 3},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=10,score_TL=10] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.3,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.08,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.15,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=11,score_TL=11] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.3,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.08,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.2,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=12,score_TL=12] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.4,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.08,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.2,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=12,score_TL=12,score_HL=3] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=12,score_TL=12] HL 4},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=13,score_TL=13] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.4,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.1,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.2,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=14,score_TL=14] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.4,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.1,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.25,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=15,score_TL=15] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.5,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.1,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.25,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=15,score_TL=15,score_HL=4] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=15,score_TL=15] HL 5},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=16,score_TL=16] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.5,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.12,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.25,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=17,score_TL=17] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.5,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.12,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.3,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=18,score_TL=18] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.6,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.12,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.3,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=18,score_TL=18,score_HL=5] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=18,score_TL=18] HL 6},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=19,score_TL=19] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.6,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.14,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.3,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=20,score_TL=20] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.6,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.14,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.35,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=21,score_TL=21] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.7,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.14,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.35,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=21,score_TL=21,score_HL=6] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=21,score_TL=21] HL 7},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=22,score_TL=22] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.7,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.16,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.35,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=23,score_TL=23] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.7,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.16,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.4,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=24,score_TL=24] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.8,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.16,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.4,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=24,score_TL=24,score_HL=7] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=24,score_TL=24] HL 8},
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=25,score_TL=25] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.8,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.18,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.4,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=26,score_TL=26] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.8,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.18,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.45,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {   id:commandblock_minecart,Command:replaceitem entity @a[score_TL_min=27,score_TL=27] slot.armor.feet minecraft:iron_boots 1 0
+                                {   HideFlags:5,AttributeModifiers:[
+                                    {AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:.9,Operation:1,UUIDLeast:388947,UUIDMost:456839,Slot:feet},
+                                    {AttributeName:generic.movementSpeed,Name:generic.movementSpeed,Amount:.18,Operation:1,UUIDLeast:182226,UUIDMost:779076,Slot:feet},
+                                    {AttributeName:generic.attackDamage,Name:generic.attackDamage,Amount:.45,Operation:1,UUIDLeast:249218,UUIDMost:783305,Slot:feet}],Unbreakable:1,display:
+                                    {Name:Buff Get! Boots},ench:[
+                                    {id:10,lvl:1},
+                                    {id:71,lvl:1}]
+                                }
+                            },
+                            {id:commandblock_minecart,Command:effect @a[score_TL_min=27,score_TL=27,score_HL=8] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_TL_min=27,score_TL=27] HL 9},
+                            {id:commandblock_minecart,Command:scoreboard players set @e[tag=N] TL 0}]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:execute @p[m=0,score_LG_min=1] ~ ~ ~ execute @e[tag=N] ~13 ~ ~ summon commandblock_minecart ~ ~ ~
+                        {   Command:effect @a[score_H2_min=21,score_H2=21,score_LG_min=1] regeneration 1 2 true,Passengers:[
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=22,score_H2=22,score_LG_min=1] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=23,score_H2=23,score_LG_min=1] regeneration 1 3 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=24,score_H2=27,score_LG_min=1] instant_health 1 0 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=25,score_H2=25,score_LG_min=1] regeneration 1 2 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=26,score_H2=26,score_LG_min=1] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=27,score_H2=27,score_LG_min=1] regeneration 1 3 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=28,score_H2=31,score_LG_min=1] instant_health 1 1 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=29,score_H2=29,score_LG_min=1] regeneration 1 2 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=30,score_H2=30,score_LG_min=1] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=31,score_H2=31,score_LG_min=1] regeneration 1 3 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=32,score_H2=35,score_LG_min=1] instant_health 3 0 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=33,score_H2=33,score_LG_min=1] regeneration 1 2 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=34,score_H2=34,score_LG_min=1] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=35,score_H2=35,score_LG_min=1] regeneration 1 3 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=36,score_H2=38,score_LG_min=1] instant_health 2 1 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=37,score_H2=37,score_LG_min=1] regeneration 1 2 true},
+                            {id:commandblock_minecart,Command:effect @a[score_H2_min=38,score_H2=38,score_LG_min=1] regeneration 3 1 true},
+                            {id:commandblock_minecart,Command:scoreboard players set @a[score_LG_min=1] LG 0},
+                            {id:commandblock_minecart,Command:kill @e[r=0]}]
+                        }
+                    },
+                    {   id:commandblock_minecart,Command:execute @e[tag=N,score_TL_min=1] ~13 ~ ~ summon commandblock_minecart ~ ~ ~
+                        {Command:kill @e[r=0]}
+                    }]
+                }
+            }]
+        }
+    },
+    {   id:commandblock_minecart,Command:setblock ~ ~1 ~ command_block 0 replace
+        {Command:fill ~ ~-3 ~ ~ ~ ~ air,auto:1}
+    },
+    {id:commandblock_minecart,Command:kill @e[r=0]}]
+}

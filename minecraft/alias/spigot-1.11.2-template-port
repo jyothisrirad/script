@@ -1,0 +1,9 @@
+#!/bin/bash
+
+spigot11=spigot-1.11.2-template-port
+
+spigot11() {
+	export mcver=$spigot11 && echo mcver=$mcver
+}
+
+alias v11ts=spigot11

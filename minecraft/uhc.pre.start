@@ -1,0 +1,19 @@
+#!/bin/bash
+
+export mcecho_off=1 
+cron_min='00'
+cron_hour='20'
+cron_day='*'
+cron_month='*'
+cron_wday='6'
+
+
+. /home/sita/script/cron/template.sh
+. /home/sita/script/minecraft/alias.minecraft
+
+# mc1112uc
+mcserver do say ============================
+mcserver do say 即將進行分隊
+mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
+mcserver do say ============================
+mcserver do whitelist on

@@ -1,0 +1,109 @@
+#!/bin/bash
+
+# $1: default to wait for key press for each score
+#     <num> to sleep <num> sec between each score
+mcscores() {
+	# echo $1 $2
+	while : ; do
+		mcserver do scoreboard objectives setdisplay sidebar FinalKill
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEntity
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalDiamond
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalGold
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalStone
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEat
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar List
+		[[ $2 == 'forever' ]] || break
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+	done
+}
+
+
+# friendlyfireSet() {
+	# for t in R Y G A B P E r y g a b p e
+	# do 
+		# mcserver do scoreboard teams option $t friendlyfire $1
+	# done
+# }
+
+
+team_all_set() {
+	for t in R Y G A B P E r y g a b p e 0 1
+	do 
+		mcserver do scoreboard teams option $t $1 $2
+	done
+}
+
+# aqua() { 
+	# echo A 
+# }
+
+teamlist() {
+echo Solo=1
+echo Spectate=0
+echo Red=R
+echo Yellow=Y
+echo Green=G
+echo Aqua=A
+echo Blue=B
+echo Light Purple=P
+echo Gray=E
+echo Dark Red=r
+echo Gold=y
+echo Dark Green=g
+echo Dark Aqua=a
+echo Dark Blue=b
+echo Dark Purple=p
+echo Dark Gray=e
+}
+
+
+uhclog() {
+	LOG=/mnt/runtimes/$mcver/logs/list.log
+	if [ -f "$LOG" ]; then 
+		echo 上線名單:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/teams.log
+	if [ -f "$LOG" ]; then 
+		echo 參賽名單:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/slain.log
+	if [ -f "$LOG" ]; then 
+		echo 戰敗順序:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/winner.log
+	if [ -f "$LOG" ]; then 
+		echo 最後贏家:
+		cat $LOG
+	fi
+}
+
+
+uhcinit() {
+	mcdo time set 0
+	mcdo tp @a 9475 65 3420
+	mcdo op chsliu
+	mcdo gamemode 1 @a
+	mcdo give @a command_block
+	mcdo give @a redstone_block
+}
+
+alias mcsb='mcscores 3'
+# alias mcsbs='mcscores $*'
+alias mcwb='mcdo worldborder $*'
+alias mcwb0='mcdo worldborder set 60000000'
+alias mcff='team_all_set friendlyfire true'
+alias uhcrule='/home/sita/script/minecraft/uhc.rules $*'
+alias uhcstart='/home/sita/script/minecraft/uhc.start'
+alias uhcend='/home/sita/script/minecraft/uhc.end'
+alias uhclog=uhclog
+alias teamadd='teamlist && mcdo scoreboard teams join $1 $2'
+alias uhcinit=uhcinit
