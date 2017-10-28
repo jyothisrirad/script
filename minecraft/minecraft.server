@@ -243,7 +243,7 @@ mc_restore() {
    echo "Restore complete"
 }
 
-mc_pre-restore() {
+mc_pre_restore() {
    if [ ! -z ${MCSTORE+x} ]; then 
 	   echo "Prepare minecraft files in $MCSTORE before restore"
 	   mkdir $MCSTORE/temp >/dev/null
@@ -416,13 +416,13 @@ case "$1" in
 		mc_restore $2
 	fi
     ;;
-  pre-restore)
+  pre_restore)
 	if mc_status; then
       mc_stop
-	  mc_pre-restore
+	  mc_pre_restore
 	  mc_start
 	else
-	  mc_pre-restore
+	  mc_pre_restore
     fi
     ;;
   do)
@@ -518,7 +518,7 @@ case "$1" in
 	fi
     ;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre-restore|seal|status}"
+  echo "Usage: /etc/init.d/$0 {start|stop|backup|do|halt|log|restore|pre_restore|seal|status}"
   # echo "Usage: /etc/init.d/$0 {crashreport|kill|update}"
   # echo "Usage: /etc/init.d/$0 {restart|force-save|load|check|save}"
   exit 1

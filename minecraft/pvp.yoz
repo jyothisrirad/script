@@ -104,7 +104,7 @@ mcreset() {
 	mcserver do say ============================	
 	countdown 10
 	
-	mcserver pre-restore
+	mcserver pre_restore
 	mcserver restore
 	mcserver start
 	
