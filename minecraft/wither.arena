@@ -39,9 +39,15 @@ get_first_user() {
 	done
 }
 
+witherArenaInit() {
+	mcdo scoreboard players set @a FinalEat 0
+}
 
 witherArenaStart() {
+
 	mcdo gamerule sendCommandFeedback false
+	
+	[ ! $1 ] || witherArenaInit
 
 	mcdo kill @e[type=wither]
 	
@@ -130,4 +136,4 @@ witherArenaTemp() {
 # mcreset
 # witherArenaTest
 # witherArenaTemp
-witherArenaStart
+witherArenaStart $1

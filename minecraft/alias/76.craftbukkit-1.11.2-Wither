@@ -9,4 +9,4 @@ mc1112w() {
 alias v11w=mc1112w
 alias 76=mc1112w
 alias wither=mc1112w
-alias wrun='/home/sita/script/minecraft/wither.arena'
+alias wrun='/home/sita/script/minecraft/wither.arena $*'
