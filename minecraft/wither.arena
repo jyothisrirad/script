@@ -30,8 +30,21 @@ team_all_set() {
 	done
 }
 
+get_first_user() {
+	users=$(mcdo list | tail -1 | awk '{ printf ("%s\n", $4) }')
+	for user in $users
+	do
+		echo $user
+		return
+	done
+}
+
 
 witherArenaStart() {
+	mcdo gamerule sendCommandFeedback false
+
+	mcdo kill @e[type=wither]
+	
 	mcserver do whitelist off #關閉白名單
 	# mcserver do scoreboard teams leave @a #解散所有隊伍
 	mcserver do scoreboard teams join 1 @a #所有人變成Solo
@@ -40,14 +53,9 @@ witherArenaStart() {
 	team_all_set seeFriendlyInvisibles false #可看到隱身隊友: false
 	
 	mcserver do worldborder set 64
-	mcserver do say ============================
-	mcserver do say ========== $yellow對抗凋零怪$off =========
-	mcserver do say ============================
-	mcserver do say 規則：
-	mcserver do say 請每人同心協力一起打倒凋零怪
-	mcserver do say ============================
+	
 	# mcserver do tp @a yozliu
-	mcserver do tp 8578 64 6449
+	mcserver do tp @a 8577 64 6448
     mcserver do clear @a
 	mcserver do effect @a clear
 
@@ -84,11 +92,42 @@ witherArenaStart() {
 	
 	mcserver do scoreboard objectives setdisplay sidebar FinalEat #吃金蘋果數
 	
-    mcserver do 'execute yozliu ~5 ~5 ~5 summon wither ~ ~ ~' #呼叫凋零怪
+    # mcserver do 'execute yozliu ~5 ~5 ~5 summon wither ~ ~ ~' #呼叫凋零怪
+	firstuser=$(get_first_user)
+	if [[ ! -z "${firstuser// }" ]]; then
+		# echo $firstuser
+		# mcdo "execute $firstuser" '~ ~10 ~ summon wither ~ ~ ~' #呼叫凋零怪
+		mcdo 'summon wither 8578 76 6425' #呼叫凋零怪
+	else
+		echo nobody online, no wither summoned
+	fi
+		
+	mcdo gamerule sendCommandFeedback true		
+	mcserver do say ============================
+	mcserver do say ========== $yellow對抗凋零怪$off =========
+	mcserver do say ============================
+	mcserver do say 規則：
+	mcserver do say 請每人同心協力一起打倒凋零怪
+	mcserver do say ============================
+}
+
+witherArenaTest() {
+	firstuser=$(get_first_user)
+	if [[ ! -z "${firstuser// }" ]]; then
+		echo $firstuser
+	else
+		echo nobody online
+	fi
+}
+
+witherArenaTemp() {
+	mcserver do scoreboard teams join 1 @a #所有人變成Solo
 }
 
 # alias mcpvp='mcpregame && mcpvp'
 # mcpregame
 # mcpvp
 # mcreset
+# witherArenaTest
+# witherArenaTemp
 witherArenaStart
