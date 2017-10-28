@@ -7,3 +7,4 @@ bungee() {
 }
 
 alias 65=bungee
+alias ghub='65 && mcdo send all hub'

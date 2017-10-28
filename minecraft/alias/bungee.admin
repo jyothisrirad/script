@@ -1,3 +1,0 @@
-#!/bin/bash
-
-alias alltohub='mcdo send all hub'
