@@ -31,22 +31,23 @@ team_all_set() {
 }
 
 
-mctest() {
-	mcserver do tp 8578 64 6449
+witherArenaStart() {
 	mcserver do whitelist off #關閉白名單
-	mcserver do scoreboard teams leave @a #解散所有隊伍
+	# mcserver do scoreboard teams leave @a #解散所有隊伍
+	mcserver do scoreboard teams join 1 @a #所有人變成Solo
 	
 	team_all_set friendlyfire true  #隊友傷害: true
 	team_all_set seeFriendlyInvisibles false #可看到隱身隊友: false
 	
-	mcserver do worldborder set 50
+	mcserver do worldborder set 64
 	mcserver do say ============================
 	mcserver do say ========== $yellow對抗凋零怪$off =========
 	mcserver do say ============================
 	mcserver do say 規則：
 	mcserver do say 請每人同心協力一起打倒凋零怪
 	mcserver do say ============================
-	mcserver do tp @a yozliu
+	# mcserver do tp @a yozliu
+	mcserver do tp 8578 64 6449
     mcserver do clear @a
 	mcserver do effect @a clear
 
@@ -90,4 +91,4 @@ mctest() {
 # mcpregame
 # mcpvp
 # mcreset
-mctest
+witherArenaStart
