@@ -78,7 +78,7 @@ mc_stop() {
   if mc_status; then
     echo "$JARFILE is running... stopping."
     TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
-    as_user "$TO_SCREEN \"say SERVER SHUTTING DOWN IN 5 SECONDS. Saving map...\"\015'"
+    as_user "$TO_SCREEN \"say 伺服器將在5秒內關閉. 儲存世界中...\"\015'"
     as_user "$TO_SCREEN \"save-all\"\015'"
     sleep 5
     as_user "$TO_SCREEN \"end\"\015'"
@@ -192,7 +192,7 @@ mc_saveoff() {
   if mc_status; then
     echo "$JARFILE is running... suspending saves"
     TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
-    as_user "$TO_SCREEN \"say SERVER BACKUP STARTING. Server going readonly...\"\015'"
+    as_user "$TO_SCREEN \"say 伺服器開始備份. 暫時進入唯讀狀態...\"\015'"
     as_user "$TO_SCREEN \"save-off\"\015'"
     as_user "$TO_SCREEN \"save-all\"\015'"
     sync
@@ -207,7 +207,7 @@ mc_saveon() {
     echo "$JARFILE is running... re-enabling saves"
     TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
     as_user "$TO_SCREEN \"save-on\"\015'"
-    as_user "$TO_SCREEN \"say SERVER BACKUP ENDED. Server going read-write...\"\015'"
+    as_user "$TO_SCREEN \"say 伺服器備份完成. 回復正常狀態.\"\015'"
   else
     echo "$JARFILE was not running. Not resuming saves."
   fi

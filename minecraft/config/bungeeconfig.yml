@@ -1,6 +1,15 @@
 ip_forward: false
 network_compression_threshold: 256
 stats: 71caa302-444f-46b7-b878-a6bc3f703080
+permissions:
+  default:
+  - bungeecord.command.list
+  admin:
+  - bungeecord.command.server
+  - bungeecord.command.alert
+  - bungeecord.command.end
+  - bungeecord.command.ip
+  - bungeecord.command.reload
 groups:
   chsliu:
   - admin
@@ -39,14 +48,13 @@ servers:
     restricted: false
   uhc:
     motd: Creeper Arena UHC with NCP
-    address: lxcminecraft:25574
+    address: lxcminecraft:25565
     restricted: false
   uhc2:
     motd: Creeper Arena UHC
     address: lxcminecraft:25575
     restricted: false
 timeout: 30000
-player_limit: -1
 listeners:
 - query_port: 25577
   motd: |-
@@ -61,20 +69,12 @@ listeners:
   priorities:
   - hub
   bind_local_address: true
-  host: 0.0.0.0:25577
+  host: 0.0.0.0:25565
   max_players: 1
   tab_size: 60
   force_default_server: true
 prevent_proxy_connections: false
-permissions:
-  default:
-  - bungeecord.command.server
-  - bungeecord.command.list
-  admin:
-  - bungeecord.command.alert
-  - bungeecord.command.end
-  - bungeecord.command.ip
-  - bungeecord.command.reload
+player_limit: -1
 online_mode: true
 log_commands: false
 disabled_commands:
