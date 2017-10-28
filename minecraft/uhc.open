@@ -41,7 +41,12 @@ mchalt() {
 
 mchalt #unknown server version, so closing java instead
 # mc1112uc
+
 mcserver start
+# =============================================================
+mcdo gamerule sendCommandFeedback false
+
+# =============================================================
 mcserver do whitelist off
 mcserver do say ============================
 mcserver do say ==== "$bold"歡迎來到UHCθ盃"$off" ====
@@ -49,3 +54,6 @@ mcserver do say ============================
 mcserver do say 規則設定說明: "$yellow"http://sitahome.ddns.net/uhc規則設定"$off"
 mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
 mcserver do say ============================
+
+# =============================================================
+mcdo gamerule sendCommandFeedback true

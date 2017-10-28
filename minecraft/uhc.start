@@ -11,6 +11,9 @@ cron_wday='6'
 . /home/sita/script/cron/template.sh
 . /home/sita/script/minecraft/alias.minecraft
 
+# =============================================================
+mcdo gamerule sendCommandFeedback false
+
 # mc1112uc
 # =============================================================
 # Game Manul Start
@@ -23,3 +26,7 @@ mcserver log list
 # mcserver do gamemode 1 yozliu
 # mcserver do gamemode 1 angussu
 mcserver do whitelist off
+mcdo time set 0
+
+# =============================================================
+mcdo gamerule sendCommandFeedback true

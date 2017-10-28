@@ -247,9 +247,9 @@ mc_restore() {
 
 mc_pre_restore() {
    if [ ! -z ${MCSTORE+x} ]; then 
-	   echo "Prepare minecraft files in $MCSTORE before restore"
+	   echo "Prepare minecraft files before restore in $MCSTORE "
 	   mkdir $MCSTORE/temp >/dev/null
-	   mv $MCSTORE/* $MCSTORE/temp >/dev/null
+	   mv $MCSTORE/* $MCSTORE/temp &>/dev/null
 	   mv $MCSTORE/temp/config.sh $MCSTORE/  >/dev/null
 	   rm -rf $MCSTORE/temp
 	   echo "Prepare complete"

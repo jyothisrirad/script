@@ -131,9 +131,10 @@ mcserver do scoreboard players set @e[tag=N] ClearTime $time_beforefinal #清除
 # =============================================================
 # Game Manul Start
 # =============================================================
+mcdo time set 0
 # mcserver do deop chsliu
 # mcserver do gamemode 1 chsliu
-mcserver do deop chsliu
+# mcserver do deop chsliu
 mcserver do deop yozliu
 mcserver do deop angussu
 mcserver do gamemode 1 chsliu

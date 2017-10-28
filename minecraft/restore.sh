@@ -48,8 +48,7 @@ restore() {
 
 	IGNORE=logs*
 
-	unzip -o $ZIPFILE -x "$IGNORE" -d $DP1
-	# unzip -o $ZIPFILE -x "$IGNORE" -d $DP1 >/dev/null
+	unzip -o $ZIPFILE -x "$IGNORE" -d $DP1 >/dev/null
 
 }
 

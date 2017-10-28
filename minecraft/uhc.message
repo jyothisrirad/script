@@ -34,7 +34,7 @@ mcserver do say ============================
 # mcserver do say 本次比賽將不限定使用RC
 # mcserver do say 所以為了公平起見，這次分組方式為每個人自己1個人1隊
 # mcserver do say 請玩家不要使用任何"$red"外掛"$off"破壞UHC遊戲的樂趣 
-mcserver do say UHC規則: "$yellow"http://sitahome.ddns.net/uhc規則設定"$off"
+mcserver do say UHC規則網址: "$yellow"http://sitahome.ddns.net/uhc規則設定"$off"
 mcserver do say 特殊裝備: 附魔鐵靴，每個成就升級速度、力量和回血。
 mcserver do say 時間: 20分顯名,40分漸縮、永晝,55分縮至64、無怪、發光,60分傳送。
 mcserver do say ============================
