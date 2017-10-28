@@ -4,6 +4,7 @@ mc1102=forge-1.10.2.TwoBed-71
 
 mc1102() {
 	export mcver=$mc1102 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
 	
 	alias  s1='export pos="-242 74 291"   && echo pos=蚊子車站'
 	alias  s2='export pos="986 103 291"   && echo pos=山丘車站'

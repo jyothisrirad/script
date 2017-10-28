@@ -4,6 +4,7 @@ mc1112u=forge-1.11.2.UHC-75
 
 mc1112u() {
 	export mcver=$mc1112u && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
 }
 
 alias v11u=mc1112u

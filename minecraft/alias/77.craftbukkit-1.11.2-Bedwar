@@ -1,9 +1,11 @@
 #!/bin/bash
 
-mc1112b=craftbukkit-1.11.2-Bedwar
+mc1112b=craftbukkit-1.11.2-Bedwar-77
 
 mc1112b() {
 	export mcver=$mc1112b && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
 }
 
 alias v11b=mc1112b
+alias 77=mc1112b

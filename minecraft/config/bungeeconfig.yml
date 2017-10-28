@@ -45,7 +45,7 @@ servers:
     motd: UHC
     address: lxcminecraft:25575
     restricted: false
-  pvp:
+  wither:
     motd: Wither Arena
     address: lxcminecraft:25576
     restricted: false
@@ -61,7 +61,7 @@ listeners:
   proxy_protocol: false
   forced_hosts:
     sitahome.ddns.net: hub
-  ping_passthrough: false
+  ping_passthrough: true
   priorities:
   - hub
   bind_local_address: true
@@ -83,4 +83,4 @@ online_mode: true
 log_commands: false
 disabled_commands:
 - disabledcommandhere
-connection_throttle: 4000
+connection_throttle: 1000

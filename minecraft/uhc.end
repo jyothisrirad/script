@@ -47,23 +47,23 @@ mcserver log slain
 mcserver log winner
 mcserver backup
 mcserver save off
+mcscores 3 
+mcscores 3 
+mcscores 3 
+# mcserver do scoreboard teams list
+# mcserver do worldborder get
+# mcserver do worldborder set 64
+# mcserver do whitelist off
+# team_all_set friendlyfire true
+# mcserver do scoreboard teams join 1 @a
+# mcserver do gamemode 1 @a
+# mcserver do gamemode 1 @a
 mcserver do say ============================
 mcserver do say ==== "$bold"UHCθ盃已經結束"$off" ====
 mcserver do say ============================
 mcserver do say 伺服器現在開放自由玩
 mcserver do say 可隨意離場
 mcserver do say ============================
-# mcserver do scoreboard teams list
-mcscores 3 
-mcscores 3 
-mcscores 3 
-# mcserver do worldborder get
-# mcserver do worldborder set 64
-# mcserver do whitelist off
-# team_all_set friendlyfire true
-mcserver do scoreboard teams join 1 @a
-mcserver do gamemode 1 @a
-mcserver do gamemode 1 @a
 
 # =============================================================
 mcdo gamerule sendCommandFeedback true

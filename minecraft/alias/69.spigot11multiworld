@@ -4,6 +4,7 @@ spigot11multiworld=spigot-1.11.2-multiworld-69
 
 spigot11multiworld() {
 	export mcver=$spigot11multiworld && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
 }
 
 alias 69=spigot11multiworld

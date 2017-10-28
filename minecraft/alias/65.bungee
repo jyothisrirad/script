@@ -4,6 +4,7 @@ bungee=BungeeCord
 
 bungee() {
 	export mcver=$bungee && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
 }
 
 alias 65=bungee

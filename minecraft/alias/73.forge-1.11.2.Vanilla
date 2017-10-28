@@ -4,6 +4,7 @@ forge11vanilla=forge-1.11.2.Vanilla-73
 
 forge11vanilla() {
 	export mcver=$forge11vanilla && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
 	
 	alias  s1='export pos="250 70 250"    && echo pos=家'
 	alias  s1a='export pos="207 139 249" && echo pos=船電梯頂端'
