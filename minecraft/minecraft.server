@@ -78,7 +78,7 @@ mc_stop() {
   if mc_status; then
     echo "$JARFILE is running... stopping."
     TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
-    as_user "$TO_SCREEN \"say ¦øªA¾¹±N¦b5¬í¤ºÃö³¬. Àx¦s¥@¬É¤¤...\"\015'"
+    as_user "$TO_SCREEN \"say ä¼ºæœå™¨å°‡åœ¨5ç§’å…§é—œé–‰. å„²å­˜ä¸–ç•Œä¸­...\"\015'"
     as_user "$TO_SCREEN \"save-all\"\015'"
     sleep 5
     as_user "$TO_SCREEN \"end\"\015'"
@@ -192,7 +192,7 @@ mc_saveoff() {
   if mc_status; then
     echo "$JARFILE is running... suspending saves"
     TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
-    as_user "$TO_SCREEN \"say ¦øªA¾¹¶}©l³Æ¥÷. ¼È®É¶i¤J°ßÅªª¬ºA...\"\015'"
+    as_user "$TO_SCREEN \"say ä¼ºæœå™¨é–‹å§‹å‚™ä»½. æš«æ™‚é€²å…¥å”¯è®€ç‹€æ…‹...\"\015'"
     as_user "$TO_SCREEN \"save-off\"\015'"
     as_user "$TO_SCREEN \"save-all\"\015'"
     sync
@@ -207,7 +207,7 @@ mc_saveon() {
     echo "$JARFILE is running... re-enabling saves"
     TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
     as_user "$TO_SCREEN \"save-on\"\015'"
-    as_user "$TO_SCREEN \"say ¦øªA¾¹³Æ¥÷§¹¦¨. ¦^´_¥¿±`ª¬ºA.\"\015'"
+    as_user "$TO_SCREEN \"say ä¼ºæœå™¨å‚™ä»½å®Œæˆ. å›å¾©æ­£å¸¸ç‹€æ…‹.\"\015'"
   else
     echo "$JARFILE was not running. Not resuming saves."
   fi
