@@ -1,15 +1,6 @@
 ip_forward: false
 network_compression_threshold: 256
 stats: 71caa302-444f-46b7-b878-a6bc3f703080
-permissions:
-  default:
-  - bungeecord.command.list
-  admin:
-  - bungeecord.command.server
-  - bungeecord.command.alert
-  - bungeecord.command.end
-  - bungeecord.command.ip
-  - bungeecord.command.reload
 groups:
   chsliu:
   - admin
@@ -19,19 +10,19 @@ servers:
     address: lxcmc203:25566
     restricted: false
   sv:
-    motd: Creeper Arena Survival
+    motd: Survival
     address: lxcminecraft:25567
     restricted: false
   mv:
-    motd: Creeper Arena MultiVerse
+    motd: MultiVerse
     address: lxcminecraft:25568
     restricted: false
   mw:
-    motd: Creeper Arena MultiWorld
+    motd: MultiWorld
     address: lxcminecraft:25569
     restricted: false
   fe:
-    motd: Creeper Arena ForgeEssentials
+    motd: ForgeEssentials
     address: lxcminecraft:25570
     restricted: false
   v10:
@@ -47,14 +38,19 @@ servers:
     address: lxcmc203:25573
     restricted: false
   uhc:
-    motd: Creeper Arena UHC with NCP
+    motd: UHC with NCP
     address: lxcminecraft:25565
     restricted: false
   uhc2:
-    motd: Creeper Arena UHC
+    motd: UHC
     address: lxcminecraft:25575
     restricted: false
+  pvp:
+    motd: Wither Arena
+    address: lxcminecraft:25576
+    restricted: false
 timeout: 30000
+player_limit: -1
 listeners:
 - query_port: 25577
   motd: |-
@@ -74,7 +70,15 @@ listeners:
   tab_size: 60
   force_default_server: true
 prevent_proxy_connections: false
-player_limit: -1
+permissions:
+  default:
+  - bungeecord.command.list
+  admin:
+  - bungeecord.command.server
+  - bungeecord.command.alert
+  - bungeecord.command.end
+  - bungeecord.command.ip
+  - bungeecord.command.reload
 online_mode: true
 log_commands: false
 disabled_commands:

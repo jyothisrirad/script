@@ -32,6 +32,7 @@ team_all_set() {
 
 
 mctest() {
+	mcserver do tp 8578 64 6449
 	mcserver do whitelist off #關閉白名單
 	mcserver do scoreboard teams leave @a #解散所有隊伍
 	

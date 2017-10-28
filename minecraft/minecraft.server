@@ -430,7 +430,7 @@ case "$1" in
       shift
       mc_command "$*"
     else
-      echo "Must specify server command (try 'help'?)"
+      echo "請指定伺服器命令，比如help."
     fi
 	;;
   log)
