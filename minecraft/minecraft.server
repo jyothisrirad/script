@@ -53,7 +53,7 @@ mc_start() {
   if mc_status; then
     echo "Tried to start but $JARFILE was already running!"
   else
-	[ -d $MCSTORE ] || echo $MCSTORE not exited.; return
+	# [ -d $MCSTORE ] || echo $MCSTORE not exited. && return
 	
     echo "$JARFILE was not running... starting."
     if [ -d $MCSTORE/$WORLD.bak ]; then
