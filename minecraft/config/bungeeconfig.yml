@@ -39,7 +39,7 @@ servers:
     restricted: false
   uhc:
     motd: UHC with NCP
-    address: lxcminecraft:25565
+    address: lxcminecraft:25574
     restricted: false
   uhc2:
     motd: UHC
@@ -48,6 +48,14 @@ servers:
   wither:
     motd: Wither Arena
     address: lxcminecraft:25576
+    restricted: false
+  bed:
+    motd: Bedwar PvP
+    address: lxcminecraft:25577
+    restricted: false
+  bed1:
+    motd: Kingdoms - Bedwar
+    address: lxcminecraft:25581
     restricted: false
 timeout: 30000
 player_limit: -1

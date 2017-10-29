@@ -122,20 +122,20 @@ grep.teams() {
 	list=$(grep achievement | grep § | grep -v -x $black | awk '{ printf ("%s\n", $4) }' | sort | uniq | grep -v $black)
 	list=$(echo $list | sed "s/$off//g")
 	list=$(echo $list | sed "s/$black/[黑隊]/g")
-	list=$(echo $list | sed "s/$dark_blue/[深藍隊]/g")
-	list=$(echo $list | sed "s/$dark_green/[深綠隊]/g")
-	list=$(echo $list | sed "s/$dark_aqua/[湖藍隊]/g")
-	list=$(echo $list | sed "s/$dark_red/[深紅隊]/g")
-	list=$(echo $list | sed "s/$dark_purple/[紫隊]/g")
-	list=$(echo $list | sed "s/$gold/[金隊]/g")
-	list=$(echo $list | sed "s/$gray/[灰隊]/g")
-	list=$(echo $list | sed "s/$dark_gray/[深灰隊]/g")
-	list=$(echo $list | sed "s/$blue/[藍隊]/g")
-	list=$(echo $list | sed "s/$green/[綠隊]/g")
-	list=$(echo $list | sed "s/$aqua/[天藍隊]/g")
-	list=$(echo $list | sed "s/$red/[紅隊]/g")
-	list=$(echo $list | sed "s/$light_purple/[粉隊]/g")
-	list=$(echo $list | sed "s/$yellow/[黃隊]/g")
+	list=$(echo $list | sed "s/$dark_blue/[B5深藍隊]/g")
+	list=$(echo $list | sed "s/$dark_green/[B3深綠隊]/g")
+	list=$(echo $list | sed "s/$dark_aqua/[B4深青隊]/g")
+	list=$(echo $list | sed "s/$dark_red/[B1深紅隊]/g")
+	list=$(echo $list | sed "s/$dark_purple/[B6深紫隊]/g")
+	list=$(echo $list | sed "s/$gold/[B2橘隊]/g")
+	list=$(echo $list | sed "s/$gray/[A7灰隊]/g")
+	list=$(echo $list | sed "s/$dark_gray/[B7深灰隊]/g")
+	list=$(echo $list | sed "s/$blue/[A5藍隊]/g")
+	list=$(echo $list | sed "s/$green/[A3綠隊]/g")
+	list=$(echo $list | sed "s/$aqua/[A4青隊]/g")
+	list=$(echo $list | sed "s/$red/[A1紅隊]/g")
+	list=$(echo $list | sed "s/$light_purple/[A6亮紫隊]/g")
+	list=$(echo $list | sed "s/$yellow/[A2黃隊]/g")
 	list=$(echo $list | sed "s/$white/[白隊]/g")
 	for item in $list
 	do
@@ -195,7 +195,7 @@ logs.grep() {
 		logs | grep.logged
 		;;
     teams)
-		logs | grep.teams
+		logs | grep.teams | sort
 		;;
     slain)
 		logs | grep.slain
