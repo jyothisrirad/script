@@ -11,3 +11,4 @@ alias 65=bungee
 alias bun=bungee
 alias ghub='65 && mcdo send all hub'
 alias guhc='65 && mcdo send all uhc'
+alias glist='65 && mcdo glist'
