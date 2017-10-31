@@ -39,5 +39,6 @@ mcserver do say 特殊裝備: "$yellow"附魔鐵靴"$off"，每個成就升級�
 mcserver do say 時間: 20分顯名,40分漸縮、永晝,55分縮至64、無怪、發光,60分傳送。
 mcserver do say ============================
 mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
+mcserver do say "$red"密碼"$off"請看大廳留言板
 mcserver do say ============================
 # tellraw abc

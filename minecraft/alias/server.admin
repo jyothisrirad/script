@@ -5,8 +5,10 @@ server.prep() {
 	[ ! -f $config ] || . $config
 
 	properties=/mnt/runtimes/$mcver/server.properties
-	[ ! $onlinemode ] || echo online-mode=$onlinemode >> $properties
-	[ ! $serverport ] || echo server-port=$serverport >> $properties
+	[ ! $onlinemode ] 			|| echo online-mode=$onlinemode >> $properties
+	[ ! $serverport ] 			|| echo server-port=$serverport >> $properties
+	
+	echo "$server_properties" >> $properties
 }
 
 
