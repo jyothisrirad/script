@@ -96,6 +96,15 @@ uhcinit() {
 	mcdo give @a redstone_block
 }
 
+uhcteamcreate() {
+	tmpscrpit=/tmp/teamcreate
+	echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
+	mcdo list | grep.player | team.select >>$tmpscrpit
+	chmod +x $tmpscrpit
+	bash $tmpscrpit
+	rm $tmpscrpit
+}
+
 alias mcsb='mcscores 3'
 # alias mcsbs='mcscores $*'
 alias mcwb='mcdo worldborder $*'
@@ -108,3 +117,4 @@ alias uhclog=uhclog
 alias teamadd='teamlist && mcdo scoreboard teams join $1 $2'
 alias uhcinit=uhcinit
 alias team.select='/home/sita/script/minecraft/uhc.team.select'
+alias team.create=uhcteamcreate

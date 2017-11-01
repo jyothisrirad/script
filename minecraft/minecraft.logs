@@ -99,10 +99,11 @@ logs() {
 
 grep.player() {
 	inputlog=`cat`
-	linecnt=$(echo ${inputlog[*]} | wc -l)
+	linecnt=$(echo "${inputlog[*]}" | wc -l)
+	# echo $linecnt, "${inputlog[*]}"
 	if [ $linecnt -lt 2 ]; then return; fi
 
-	players=$(echo ${inputlog[*]} | tail -1 | sed 's/\[[^]]*\]//g' | sed 's/://g')
+	players=$(echo "${inputlog[*]}" | tail -1 | sed 's/\[[^]]*\]//g' | sed 's/://g')
 	for player in $players
 	do
 		echo $player
