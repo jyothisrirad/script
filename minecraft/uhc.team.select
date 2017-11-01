@@ -3,6 +3,7 @@
 from __future__ import print_function
 import sys
 from random import shuffle
+from subprocess import call
 
 
 max_team_players=3
@@ -67,8 +68,11 @@ def parse(f):
 def team_print(teams):
 	for team in teams:
 		for player in teams[team]:
-			print("mcdo scoreboard teams join",team,player)
-	
+			# if player.strip() != None:
+				cmd="mcdo scoreboard teams join",team,player
+				print(' '.join(cmd))
+				# call(["ls", "-l"])
+			
 
 def main():
 	f = sys.stdin

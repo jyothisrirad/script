@@ -98,7 +98,11 @@ logs() {
 }
 
 grep.player() {
-	players=$(tail -1 | sed 's/\[[^]]*\]//g' | sed 's/://g')
+	inputlog=`cat`
+	linecnt=$(echo ${inputlog[*]} | wc -l)
+	if [ $linecnt -lt 2 ]; then return; fi
+
+	players=$(echo ${inputlog[*]} | tail -1 | sed 's/\[[^]]*\]//g' | sed 's/://g')
 	for player in $players
 	do
 		echo $player
