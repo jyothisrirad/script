@@ -71,12 +71,8 @@ def team_print(teams):
 			# if player.strip() != None:
 				cmd="mcdo scoreboard teams join",team,player
 				print(' '.join(cmd))
-<<<<<<< HEAD
-				call(["ls", "-l"])
-=======
 				# call(["ls", "-l"])
 				# call([cmd,""])
->>>>>>> 63bf19386178e867cb2959610027d155d0875687
 			
 
 def main():
