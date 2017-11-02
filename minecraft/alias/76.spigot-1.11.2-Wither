@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mc1112w=craftbukkit-1.11.2-Wither-76
+mc1112w=spigot-1.11.2-Wither-76
 
 mc1112w() {
 	export mcver=$mc1112w && echo mcver=$mcver

@@ -11,7 +11,7 @@ teamnames = 'R','Y','G','A','B','P','E','r','y','g','a','b','p','e'
 
 preset_teams = {
 	'R': ('WillWill01', 'YT_JefferLeung', 'ShenYan87_tw'),
-	'Y': (),
+	'Y': ('choco_brown', 'SinGuang', 'fish1021'),
 	'G': (),
 	'A': (),
 	'B': (),

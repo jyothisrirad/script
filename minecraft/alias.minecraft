@@ -69,8 +69,8 @@ pause() {
 #=================================
 utf8
 load_alias
-# func1112
-[ $mcver ] || mc1112uc
+#[ $mcver ] || mc1112uc
+[ $mcver ] || c74
 
 #=================================
 alias a=alias
