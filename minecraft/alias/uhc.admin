@@ -101,8 +101,7 @@ uhcteamcreate() {
 	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
 	mcdo list | grep.player | team.select >>$tmpscrpit
 	cat $tmpscrpit
-	chmod +x $tmpscrpit
-	bash $tmpscrpit
+	. $tmpscrpit
 	rm $tmpscrpit
 }
 
