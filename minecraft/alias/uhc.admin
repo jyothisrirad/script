@@ -105,6 +105,8 @@ uhcteamcreate() {
 	rm $tmpscrpit
 }
 
+
+
 alias mcsb='mcscores 3'
 # alias mcsbs='mcscores $*'
 alias mcwb='mcdo worldborder $*'
@@ -118,3 +120,4 @@ alias teamadd='teamlist && mcdo scoreboard teams join $1 $2'
 alias uhcinit=uhcinit
 alias team.select='/home/sita/script/minecraft/uhc.team.select'
 alias team.create=uhcteamcreate
+alias team.solo='mcserver do scoreboard teams join 1 @a'
