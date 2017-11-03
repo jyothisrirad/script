@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ $mcver ] || mcver=$(basename $0)
+
 . /home/sita/script/include/console.color
 . /home/sita/script/minecraft/alias/minecraft.color
 
@@ -121,7 +123,7 @@ grep.left() {
 # grep.teams() {
 	# grep 'lost the achievement' | awk '{ printf ("%s\n", $4) }' | sort | uniq
 # }
-	
+
 grep.teams() {
 	# list=$(grep 'lost the achievement' | awk '{ printf ("%s\n", $4) }' | sort | uniq)
 	list=$(grep achievement | grep § | grep -v -x $black | awk '{ printf ("%s\n", $4) }' | sort | uniq | grep -v $black)

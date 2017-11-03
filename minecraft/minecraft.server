@@ -318,7 +318,11 @@ deldir() {
 }
 
 mc_playeronline() {
-	mc_command list | tail -1 | awk '{print $4}' | grep -E --quiet '.'
+	# mc_command list | tail -1 | awk '{print $4}' | grep -E --quiet '.'
+	# echo $(mc_command list | tail -1)
+	# echo ___$(mc_command list | tail -1 | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | wc -l )___
+	# echo ___$(mc_command list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g')___
+	mc_command list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | grep -E --quiet '[A-Za-z0-9\-\_]+' 
 	return $?
 }
 
@@ -464,9 +468,9 @@ case "$1" in
 	# addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
 	# addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
 	addto_crontab "#$VERSION server"
-	addto_crontab "*/5 * * * * $(readlink -e $0) save"
+	addto_crontab "*/5 * * * * /bin/bash $(readlink -e $0) save"
 	# addto_crontab "24 */6 * * * $(readlink -e $0) backup"
-	addto_crontab "$(shuf -i 1-60 -n 1) * * * * $(readlink -e $0) archive"
+	addto_crontab "$(shuf -i 1-60 -n 1) * * * * /bin/bash $(readlink -e $0) archive"
 	# crontab -l
 	;;
   remove_cron)
