@@ -10,8 +10,8 @@ max_team_players=3
 teamnames = 'R','Y','G','A','B','P','E','r','y','g','a','b','p','e'
 
 preset_teams = {
-	'R': ('WillWill01', 'YT_JefferLeung', 'ShenYan87_tw'),
-	'Y': ('choco_brown', 'SinGuang', 'fish1021'),
+	'R': (),
+	'Y': (),
 	'G': (),
 	'A': (),
 	'B': (),
@@ -22,8 +22,8 @@ preset_teams = {
 	'g': (),
 	'a': (),
 	'b': (),
-	'p': (),
-	'e': (),
+	'p': ('choco_brown', 'SinGuang', 'fish1021'),
+	'e': ('WillWill01', 'YT_JefferLeung', 'ShenYan87_tw'),
 }
 
 

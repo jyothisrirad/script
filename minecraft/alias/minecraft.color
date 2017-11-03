@@ -17,6 +17,9 @@ light_purple=§d
 yellow=§e
 white=§f
 
-off=§r
-
+scramble=§k
 bold=§l
+strike=§m
+underline=§n
+italian=§o
+off=§r

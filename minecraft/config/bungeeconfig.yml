@@ -9,6 +9,10 @@ servers:
     motd: §aCreeper Arena Hub §e1.9/1.10/1.11/1.12 §cUHC and other PvP Games
     address: lxcmc203:25566
     restricted: false
+  h2:
+    motd: §aCreeper Arena Hub §e1.8/1.9/1.10/1.11/1.12 §cUHC and other PvP Games
+    address: lxcmc203:25580
+    restricted: false
   sv:
     motd: Survival
     address: lxcminecraft:25567

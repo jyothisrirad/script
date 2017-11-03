@@ -98,8 +98,9 @@ uhcinit() {
 
 uhcteamcreate() {
 	tmpscrpit=/tmp/teamcreate
-	echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
+	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
 	mcdo list | grep.player | team.select >>$tmpscrpit
+	cat $tmpscrpit
 	chmod +x $tmpscrpit
 	bash $tmpscrpit
 	rm $tmpscrpit
