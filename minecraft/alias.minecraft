@@ -69,8 +69,8 @@ pause() {
 #=================================
 utf8
 load_alias
-#[ $mcver ] || mc1112uc
-[ $mcver ] || c74
+[ $mcver ] || mc1112uc
+[ $mcver ] || 74
 
 #=================================
 alias a=alias
@@ -80,7 +80,7 @@ alias are='. ~/script/minecraft/alias.minecraft'
 #=================================
 # alias gamestop='mcserver backup && mcserver stop'
 # alias mcstart='mcserver start'
-alias mcss='mcprep && mcserver start && mcw on && mclog'
+alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog'
 alias mcww='mcprep && mcserver start && mcw off'
 alias mcstop='mcdo end && mcserver stop'
 alias mclog='mcserver log $*'
@@ -91,7 +91,7 @@ alias mcstat='mcserver status'
 # alias mcreport='mcserver crashreport'
 alias mcbackup='mcserver backup'
 alias mcrestore='mcserver restore $*'
-alias mcrematch='mcserver pre_restore && mcserver restore $*'
+alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog'
 # alias mckill='mcserver kill'
 # alias mchalt='mcdo end && mcserver halt && swp'
 alias mchalt='mcdo end && mcserver halt'

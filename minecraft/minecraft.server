@@ -248,9 +248,11 @@ mc_restore() {
 mc_pre_restore() {
    if [ ! -z ${MCSTORE+x} ]; then 
 	   echo "Prepare minecraft files before restore in $MCSTORE "
+	   tempdir=/tmp/del
 	   mkdir $MCSTORE/temp >/dev/null
-	   mv $MCSTORE/* $MCSTORE/temp &>/dev/null
-	   mv $MCSTORE/temp/config.sh $MCSTORE/  >/dev/null
+	   mv -f $MCSTORE/* $MCSTORE/temp &>/dev/null
+	   mv -f $MCSTORE/temp/config.sh $MCSTORE/  >/dev/null
+	   mv -f $MCSTORE/temp $tempdir
 	   rm -rf $MCSTORE/temp
 	   echo "Prepare complete"
    fi
@@ -384,7 +386,7 @@ case "$1" in
 		echo Moving $MCSTORE to $tempdir
 		[ ! -d $tempdir/$MCSTORE ] || rm -rf $tempdir/$MCSTORE
 		[ -d $tempdir ] || mkdir $tempdir
-		[ ! -d $MCSTORE ] || mv $MCSTORE $tempdir
+		[ ! -d $MCSTORE ] || mv -f $MCSTORE $tempdir
 	else
 		echo $MCSTORE is not existed.
 	fi

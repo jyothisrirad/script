@@ -63,7 +63,7 @@ echo Dark Gray=e
 }
 
 
-uhclog() {
+uhcstat() {
 	LOG=/mnt/runtimes/$mcver/logs/list.log
 	if [ -f "$LOG" ]; then 
 		echo 上線名單:
@@ -89,7 +89,7 @@ uhclog() {
 
 uhcinit() {
 	mcdo time set 0
-	mcdo tp @a 9475 65 3420
+	# mcdo tp @a 9475 65 3420
 	mcdo op chsliu
 	mcdo gamemode 1 @a
 	mcdo give @a command_block
@@ -112,12 +112,13 @@ alias mcsb='mcscores 3'
 alias mcwb='mcdo worldborder $*'
 alias mcwb0='mcdo worldborder set 60000000'
 alias mcff='team_all_set friendlyfire true'
-alias uhcrule='/home/sita/script/minecraft/uhc.rules $*'
+alias rule.init=uhcinit
+alias rule.set='/home/sita/script/minecraft/uhc.rules $*'
 alias uhcstart='/home/sita/script/minecraft/uhc.start'
 alias uhcend='/home/sita/script/minecraft/uhc.end'
-alias uhclog=uhclog
-alias teamadd='teamlist && mcdo scoreboard teams join $1 $2'
-alias uhcinit=uhcinit
+alias uhcstat=uhcstat
+alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
 alias team.select='/home/sita/script/minecraft/uhc.team.select'
 alias team.create=uhcteamcreate
+alias team.add='teamlist && mcdo scoreboard teams join $1 $2'
 alias team.solo='mcserver do scoreboard teams join 1 @a'
