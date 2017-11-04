@@ -22,8 +22,8 @@ preset_teams = {
 	'g': (),
 	'a': (),
 	'b': (),
-	'p': (),
-	'e': ('WillWill01', 'YT_JefferLeung', 'ShenYan87_tw'),
+	'p': ('angussu', 'yozliu', 'chsliu'),
+	'e': ('WillWill01', 'YT_JefferyLeung', 'ShenYan87_tw'),
 }
 
 

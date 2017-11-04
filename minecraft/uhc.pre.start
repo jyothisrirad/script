@@ -19,7 +19,7 @@ mcdo gamerule sendCommandFeedback false
 mcserver do say ============================
 mcserver do say 即將進行分隊
 mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
-mcserver do say "$red"密碼"$off"請看大廳留言板
+mcserver do say "$red"聊天室密碼"$off"請看大廳留言板
 mcserver do say ============================
 mcserver do whitelist on
 mcdo time set 0

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ $mcver ] || mcver=$(basename $0)
+[ $mcver ] || [ "$0" == "-bash" ] || mcver=$(basename $0)
 
 . /home/sita/script/include/console.color
 . /home/sita/script/minecraft/alias/minecraft.color
