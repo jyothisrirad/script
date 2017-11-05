@@ -112,6 +112,7 @@ alias mcsb='mcscores 3'
 alias mcwb='mcdo worldborder $*'
 alias mcwb0='mcdo worldborder set 60000000'
 alias mcff='team_all_set friendlyfire true'
+alias mcfff='team_all_set friendlyfire false'
 alias rule.init=uhcinit
 alias rule.set='/home/sita/script/minecraft/uhc.rules $*'
 alias uhcstart='/home/sita/script/minecraft/uhc.start'

@@ -27,6 +27,7 @@ mcserver log list
 # mcserver do gamemode 1 angussu
 mcserver do whitelist off
 mcdo time set 0
+# team_all_set friendlyfire false
 
 # =============================================================
 mcdo gamerule sendCommandFeedback true
