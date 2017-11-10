@@ -40,12 +40,7 @@ benchmark> 	hd.speed.sh
 ###crontab 
 mail.forward
 
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
 >>>>>>> fb5938744a77656ba45a577b90a94649b152ead5
 >>>>>>> f5d34a31d8589aca8fac6344ef9b6837bb8c9840
 root@pve2:/home/sita/script/pve# crontab -l
