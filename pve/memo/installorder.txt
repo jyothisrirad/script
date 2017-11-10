@@ -3,6 +3,7 @@
 newinstall> newinstall.init.sh <hostname>
 $> 			newuser <username>
 
+
 ###create disk id
 Edit /etc/zfs/vdev_id.conf to prepare aliases for disk devices found in /dev/disk/by-id/ 
 --------cut here-------------------
@@ -15,10 +16,13 @@ $>			sudo mis/disksec.query.sh
 #for 4k disk use ashift=12
 $>			sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <disk4> ...
 
+###disable usbstick swap and create zfs shares
 usbstick.prep
 rsync.enable
 smbshare.enable
 
+###zfs benchmark
+benchmark> 	hd.speed.sh
 
 ###crontab 
 mail.forward
@@ -28,11 +32,10 @@ zpool.scrub
 mis/status
 
 
-sita@pve2:~/script/pve$ crontab -l
+root@pve2:/home/sita/script/pve# crontab -l
 # rsync.enable: monthly netbackup cleanup
 0 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
 
-root@pve2:/home/sita/script/pve# crontab -l
 # usbstick.prep: weekly usbstick backup
 0 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
 
