@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pe12081=pocketmine-mp-1.2.0.81
+
+pe12081() {
+	export mcver=$pe12081 && echo mcver=$mcver
+}
+
+alias pe12=pe12081

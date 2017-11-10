@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo === config /etc/default/zfs
+echo add ZPOOL_IMPORT_PATH="/dev/disk/by-id"
+
 echo === create pool
 echo zpool create -o ashift=12 $*
 #sudo zpool create -o ashift=12 $*

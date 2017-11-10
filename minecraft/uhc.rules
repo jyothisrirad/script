@@ -1,0 +1,215 @@
+#!/bin/bash
+
+export mcecho_off=1 
+cron_min='51-59'
+cron_hour='19'
+cron_day='*'
+cron_month='*'
+cron_wday='6'
+
+
+. /home/sita/script/cron/template.sh
+. /home/sita/script/minecraft/alias.minecraft
+
+
+as_user() {
+	if [ "$(whoami)" == "$USERNAME" ] ; then
+		bash -c "$1"
+	else
+		su - $USERNAME -c "$1"
+	fi
+}
+
+tellraw() {
+	echo "screen -p 0 -S minecraft -X eval 'stuff \"tellraw @p [\"\",{\"text\":\"test\",\"color\":\"yellow\"}]'"
+	su - $(whoami) -c "screen -p 0 -S minecraft -X eval 'stuff \"tellraw @p [\"\",{\"text\":\"test\",\"color\":\"yellow\"}]'"
+}
+
+time_total=60
+[ ! $1 ] || time_total=$1
+
+# echo $time_total*.67 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}'
+# echo $time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}'
+# echo $time_total*.08 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}'
+
+time_reminder=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+time_shown=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+time_game=$(echo $time_total*.67 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+time_shrink=$(echo $time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+time_beforefinal=$(($time_game+$time_shrink))
+# time_final=$(echo $time_total*.08 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+
+echo time_reminder=$time_reminder
+echo time_shown=$time_shown
+echo time_game=$time_game
+echo time_shrink=$time_shrink
+echo time_beforefinal=$time_beforefinal
+# echo time_final=$time_final
+
+# =============================================================
+mcdo gamerule sendCommandFeedback false
+
+# =============================================================
+# Book 1
+# =============================================================
+mcserver do scoreboard players set @e[tag=N] T 6	#隨機隊伍
+mcserver do scoreboard players set @e[tag=F] J 1	#加入隊伍權限Off
+mcserver do scoreboard players set @e[tag=N] J 0	#加入隊伍權限On
+mcserver do scoreboard players set @e[tag=F] C 0	#死後亡靈觀察Off
+mcserver do scoreboard players set @e[tag=N] C 1	#死後亡靈觀察On
+mcserver do scoreboard players set @e[tag=L] I 496	#地圖大小
+# mcserver do scoreboard players set @e[tag=N] G 0
+# mcserver do scoreboard players set @e[tag=N] S 0
+
+# =============================================================
+# Book 2
+# =============================================================
+mcserver do scoreboard players set @e[tag=N] F 1	#遊戲困難度
+mcserver do scoreboard players set @e[tag=F] U 0	#提醒時間Off
+mcserver do scoreboard players set @e[tag=N] U 1	#提醒時間On
+mcserver do scoreboard players set @e[tag=N] u $time_reminder #提醒時間20min
+mcserver do scoreboard players set @e[tag=F] E 1	#地獄門Off
+mcserver do scoreboard players set @e[tag=N] E 0	#地獄門On
+mcserver do scoreboard players set @e[tag=F] O 1	#恢復藥Off
+mcserver do scoreboard players set @e[tag=N] O 0	#恢復藥On
+mcserver do scoreboard players set @e[tag=F] V 1	#二級藥水Off
+mcserver do scoreboard players set @e[tag=N] V 0	#二級藥水On
+mcserver do scoreboard players set @e[tag=F] Q 1	#附魔金蘋果Off
+mcserver do scoreboard players set @e[tag=N] Q 0	#附魔金蘋果On
+mcserver do scoreboard players set @e[tag=F] K 0	#物品免燒Off
+mcserver do scoreboard players set @e[tag=N] K 1	#物品免燒On
+mcserver do scoreboard players set @e[tag=F] W 0	#隊友碰撞Off
+mcserver do scoreboard players set @e[tag=N] W 1	#隊友碰撞On
+mcserver do scoreboard players set @e[tag=N] M 0	#隊友傷害On/Off
+team_all_set friendlyfire false
+# mcserver do scoreboard players set @e[tag=N] N 1	#
+mcserver do scoreboard players set @e[tag=F] L 0	#顯示血量在Tab Off
+mcserver do scoreboard players set @e[tag=N] L 1	#顯示血量在Tab On
+mcserver do scoreboard players set @e[tag=F] B 0	#顯示血量在名條下Off
+mcserver do scoreboard players set @e[tag=N] B 1	#顯示血量在名條下On
+
+# =============================================================
+# Book 3
+# =============================================================
+mcserver do scoreboard players set @e[tag=F] a 0	#特殊玩法Off
+mcserver do scoreboard players set @e[tag=N] a 1	#特殊玩法On
+mcserver do scoreboard players set @e[tag=N] b $time_game #特殊玩法40min
+mcserver do scoreboard players set @e[tag=a] c 2	#模式:漸縮模式
+mcserver do scoreboard players set @e[tag=b] c 1	#模式:傳送模式
+mcserver do scoreboard players set @e[tag=c] c 0	#模式:控制模式
+mcserver do scoreboard players set @e[tag=L] d 112	#大小
+mcserver do scoreboard players set @e[tag=N] e $time_shrink	#運行時間20min
+mcserver do scoreboard players set @e[tag=F] f 0	#時間暫停Off
+mcserver do scoreboard players set @e[tag=N] f 1	#時間暫停On
+mcserver do scoreboard players set @e[tag=N] g $time_game #時間暫停40min
+mcserver do scoreboard players set @e[tag=f] h 1	#模式:永晝
+mcserver do scoreboard players set @e[tag=g] h 0	#模式:永夜
+mcserver do scoreboard players set @e[tag=F] i 0	#隱藏名條Off
+mcserver do scoreboard players set @e[tag=N] i 1	#隱藏名條On
+mcserver do scoreboard players set @e[tag=N] j $time_shown #隱藏名條20min
+mcserver do scoreboard players set @e[tag=F] k 0	#玩家發光Off
+mcserver do scoreboard players set @e[tag=N] k 1	#玩家發光On
+mcserver do scoreboard players set @e[tag=N] l $time_beforefinal #玩家發光清除怪物60min
+
+# =============================================================
+# Book 4
+# =============================================================
+mcserver do scoreboard players set @e[tag=F] Showlist 0			#遊戲資訊顯示Off
+mcserver do scoreboard players set @e[tag=N] Showlist 1			#遊戲資訊顯示On
+mcserver do scoreboard players set @e[tag=F] ClearMonster 0		#清除怪物Off
+mcserver do scoreboard players set @e[tag=N] ClearMonster 1		#清除怪物On
+mcserver do scoreboard players set @e[tag=F] FinalWar 0			#最後戰場Off
+mcserver do scoreboard players set @e[tag=N] FinalWar 1			#最後戰場On
+mcserver do scoreboard players set @e[tag=N] FinalTime $time_total #最後戰場65min
+# mcserver do scoreboard players set @e[tag=N] FinalM 5			# 
+# mcserver do scoreboard players set @e[tag=N] FinalS 31			#
+mcserver do scoreboard players set @e[tag=N] ClearTime $time_beforefinal #清除怪物60min
+# mcserver do scoreboard players set @e[tag=N] minute 0			#  
+# mcserver do scoreboard players set @e[tag=N] second 300			#
+# mcserver do scoreboard players set @e[tag=HG] border 0			#
+
+# =============================================================
+# Game Manul Start
+# =============================================================
+mcdo time set 0
+# mcserver do deop chsliu
+# mcserver do gamemode 1 chsliu
+# mcserver do deop chsliu
+mcserver do deop yozliu
+mcserver do deop angussu
+mcserver do gamemode 1 chsliu
+mcserver do gamemode 1 yozliu
+mcserver do gamemode 1 angussu
+
+# =============================================================
+mcdo gamerule sendCommandFeedback true
+
+# =============================================================
+# Game Start
+# =============================================================
+# mcserver do execute @e[tag=L] ~-12 ~-1 ~-12 kill @e[type=Item,dx=23,dy=5,dz=23]
+# mcserver do execute @e[tag=L] ~ ~ ~ particle endRod ~ ~ ~ 7 1 7 0 4 force
+# mcserver do tp @e[tag=L] ~ ~ ~ ~6 ~execute @e[tag=N] ~1 ~ ~ kill @e[r=0]
+# mcserver do scoreboard players reset @e[tag=F]
+# mcserver do stats entity @e[tag=F] set SuccessCount @e[tag=F] Z
+# mcserver do scoreboard players set @e[tag=F] Z 1
+# mcserver do gamemode 0 @a[team=!0]
+# mcserver do gamemode 3 @a[team=0]
+# mcserver do scoreboard players set @a[m=0] D 0
+# mcserver do achievement take achievement.openInventory @a
+# mcserver do execute @e[score_I=496] ~ ~ ~ spreadplayers ~ ~ 224 232 true @a[m=0,team=!1]
+# mcserver do execute @e[score_I=496] ~ ~ ~ spreadplayers ~ ~ 224 232 false @a[m=0,team=1]
+# mcserver do execute @e[score_I=496] ~ ~ ~ worldborder set 496
+# mcserver do execute @e[score_I_min=1008,score_I=1008] ~ ~ ~ spreadplayers ~ ~ 224 488 true @a[m=0,team=!1]
+# mcserver do execute @e[score_I_min=1008,score_I=1008] ~ ~ ~ spreadplayers ~ ~ 224 488 false @a[m=0,team=1]
+# mcserver do execute @e[score_I_min=1008,score_I=1008] ~ ~ ~ worldborder set 1008
+# mcserver do execute @e[score_I_min=1520,score_I=1520] ~ ~ ~ spreadplayers ~ ~ 224 744 true @a[m=0,team=!1]
+# mcserver do execute @e[score_I_min=1520,score_I=1520] ~ ~ ~ spreadplayers ~ ~ 224 744 false @a[m=0,team=1]
+# mcserver do execute @e[score_I_min=1520,score_I=1520] ~ ~ ~ worldborder set 1520
+# mcserver do execute @e[score_I_min=2032,score_I=2032] ~ ~ ~ spreadplayers ~ ~ 224 1000 true @a[m=0,team=!1]
+# mcserver do execute @e[score_I_min=2032,score_I=2032] ~ ~ ~ spreadplayers ~ ~ 224 1000 false @a[m=0,team=1]
+# mcserver do execute @e[score_I_min=2032,score_I=2032] ~ ~ ~ worldborder set 2032
+# mcserver do execute @e[score_I_min=2544,score_I=2544] ~ ~ ~ spreadplayers ~ ~ 224 1256 true @a[m=0,team=!1]
+# mcserver do execute @e[score_I_min=2544,score_I=2544] ~ ~ ~ spreadplayers ~ ~ 224 1256 false @a[m=0,team=1]
+# mcserver do execute @e[score_I_min=2544,score_I=2544] ~ ~ ~ worldborder set 2544
+# mcserver do execute @e[score_I_min=3056] ~ ~ ~ spreadplayers ~ ~ 224 1512 true @a[m=0,team=!1]
+# mcserver do execute @e[score_I_min=3056] ~ ~ ~ spreadplayers ~ ~ 224 1512 false @a[m=0,team=1]
+# mcserver do execute @e[score_I_min=3056] ~ ~ ~ worldborder set 3056
+# mcserver do gamerule sendCommandFeedback true
+# mcserver do gamerule naturalRegeneration false
+# mcserver do gamerule randomTickSpeed 3
+# mcserver do gamerule doFireTick true
+# mcserver do gamerule doDaylightCycle true
+# mcserver do time set 0
+# mcserver do weather thunder 1
+# mcserver do clear @a
+# mcserver do xp -999L @a[m=0]
+# mcserver do effect @a[m=0] hunger 11 10 true
+# mcserver do title @a title {"text":"遊戲開始!!!","color":"green","bold":"true","italic":"true"}
+# mcserver do execute @a ~ ~ ~ playsound block.note.pling voice @p ~ ~ ~ 1 2 1
+# mcserver do execute @e[tag=N] ~-11 250 ~-12 fill ~ ~ ~ ~23 ~3 ~23 air
+# mcserver do tp @e[tag=L] ~ 0 ~ -90 90
+# mcserver do tp @e[tag=F] ~ -2 ~
+# mcserver do entitydata @e[tag=L] {CustomNameVisible:0}
+# mcserver do scoreboard objectives setdisplay sidebar
+# mcserver do tp @a[m=3,l=99] @e[tag=F]
+# mcserver do execute @e[score_C_min=1] ~1 ~ ~ 
+# mcserver do execute @a[score_D_min=1,m=0] ~ ~ ~ spawnpoint @a[score_D_min=1,m=0] ~ ~ ~
+# mcserver do execute @a[score_D_min=1,score_D=1,m=0] ~ ~ ~ playsound entity.zombie_villager.cure voice @a ~ ~ ~ .5 2 .5
+# mcserver do scoreboard players set @a[team=] D 2
+# mcserver do gamemode 3 @a[score_D_min=1]
+# mcserver do scoreboard teams join 0 @a[score_D_min=2]
+# mcserver do scoreboard players set @a[score_D_min=1] D 0
+# mcserver do effect @a[m=3] night_vision 15 0 true
+# mcserver do execute @e[tag=F] ~ ~ ~ testfor @p[rm=0]
+# mcserver do scoreboard players add @e[score_Z=0] X 1
+# mcserver do scoreboard players set @e[tag=F,score_X_min=75] X 0
+# mcserver do setblock ~ ~1 ~ command_block 0 replace 
+# mcserver do fill ~ ~-3 ~ ~ ~ ~ air,auto:1
+# mcserver do kill @e[r=0]
+
+
+
+
+
+

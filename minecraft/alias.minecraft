@@ -1,0 +1,108 @@
+#!/bin/bash
+
+#=================================
+utf8() {
+	export LC_ALL=en_US.UTF-8
+	export LANG=en_US.UTF-8
+	export LANGUAGE=en_US.UTF-8
+}
+
+load_alias() {
+
+	for f in /home/sita/script/minecraft/alias/*; do  # or wget-*.sh instead of *.sh
+		. "$f" -H || break # if needed 
+	done
+}
+
+#=================================
+mcserver() { 
+#	echo /home/sita/script/minecraft/$mcver $*
+#	/home/sita/script/minecraft/$mcver $*
+
+	if [ -z ${mcver+x} ]; then
+		echo mcver not set
+	else
+		tempsh=/tmp/$mcver
+		if [ ! -f $tempsh ]; then
+			# echo 'echo /home/sita/script/minecraft/minecraft.server $*' > $tempsh
+			echo . /home/sita/script/minecraft/minecraft.server '$*' > $tempsh
+			chmod +x $tempsh
+		fi
+		[ $mcecho_off ] || echo === $mcver $*
+		$tempsh $*
+	fi
+}
+
+mcdo() {
+	mcserver do $*
+}
+
+filehas() {
+	cat $1 | grep -F --quiet "$2"
+	return $?
+}
+
+mcwaituntilready() {
+	mcresult=/tmp/mcwaituntilready
+	# echo ================
+	mcserver status > $mcresult
+	if ! filehas $mcresult 'not running'; then
+		# echo 'running'
+		for i in $(seq 1 100)       
+		do
+			mcserver do list > $mcresult
+			if filehas $mcresult 'players'; then
+				break
+			fi
+		done
+	fi
+	# cat $mcresult
+	# echo ================
+}
+
+pause() {
+	read -p "Press any key to continue... " -n1 -s
+	echo 
+}
+
+
+#=================================
+utf8
+load_alias
+[ $mcver ] || mc1112uc
+[ $mcver ] || 74
+
+#=================================
+alias a=alias
+alias aed='vi ~/script/minecraft/alias.minecraft; are'
+alias are='. ~/script/minecraft/alias.minecraft'
+
+#=================================
+# alias gamestop='mcserver backup && mcserver stop'
+# alias mcstart='mcserver start'
+alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog'
+alias mcww='mcprep && mcserver start && mcw off'
+alias mcstop='mcdo end && mcserver stop'
+alias mclog='mcserver log $*'
+alias mcload='mcserver load'
+alias mcsave='mcserver force-save'
+# alias mcdo='mcserver do'
+alias mcstat='mcserver status'
+# alias mcreport='mcserver crashreport'
+alias mcbackup='mcserver backup'
+alias mcrestore='mcserver restore $*'
+alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog'
+# alias mckill='mcserver kill'
+# alias mchalt='mcdo end && mcserver halt && swp'
+alias mchalt='mcdo end && mcserver halt'
+alias mcreload='mchalt && mcprep && mcserver start'
+#alias mced='vi /home/sita/script/minecraft/$mcver'
+alias mced='vi /home/sita/script/minecraft/minecraft.server'
+alias mcw='mcdo whitelist $*'
+alias mcwa='mcdo whitelist add $*'
+alias mcwo='mcdo whitelist on'
+alias mcwf='mcdo whitelist off'
+alias mcseal='mcserver seal'
+# alias mctest='mcwaituntilready'
+alias sls='screen -ls'
+alias swp='screen -wipe'

@@ -1,7 +1,11 @@
 ###basic setup for new system
-#> 			newinstall.root.sh
-newinstall> newinstall.init.sh <hostname>
-$> 			newuser <username>
+root#>	adduser username
+root#>	apt install git sudo ca-certificates
+user$>	git clone https://github.com/chsliu/script.git
+root#> 	newinstall.sudo.sh
+user$>	newinstall.init.sh <hostname>
+user$>	pve/newuser <username>
+
 
 
 ###create disk id
@@ -10,6 +14,7 @@ Edit /etc/zfs/vdev_id.conf to prepare aliases for disk devices found in /dev/dis
 # run 'udevadm trigger' after updating this file
 alias a0        scsi-36848f690e856b10018cdf39854055206
 --------cut here-------------------
+
 
 ###create zpool
 $>			sudo mis/disksec.query.sh
@@ -24,24 +29,33 @@ smbshare.enable
 ###zfs benchmark
 benchmark> 	hd.speed.sh
 
+###benchmark
+#>				smartctl -a /dev/sd?
+#>				zpool status
+#> 				zfs get compression 
+/tank#> 		/home/sita/script/benchmark/hd.speed.sh
+/tank/Shares#> 	/home/sita/script/benchmark/hd.speed.sh
+
+
 ###crontab 
 mail.forward
-cleanup.py.cmd
-usbbackup
-zpool.scrub
-mis/status
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fb5938744a77656ba45a577b90a94649b152ead5
 root@pve2:/home/sita/script/pve# crontab -l
 # rsync.enable: monthly netbackup cleanup
-0 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
+10 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
 
 # usbstick.prep: weekly usbstick backup
-0 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
+20 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
 
 # zpool.scrub: yearly zfs disk scrub
-0 1 1 11 * /home/sita/script/pve/zpool.scrub scrub
+30 1 1 11 * /home/sita/script/pve/zpool.scrub scrub
 
 # status: weekly disk smart info logging
-0 1 * * 7 /home/sita/script/mis/status log smart
+40 1 * * 7 /home/sita/script/mis/status log smart
 
+#cleanup.monthly.sh
+50 3 1 * * /usr/bin/batch < /home/sita/script/cron/cleanup.monthly.sh

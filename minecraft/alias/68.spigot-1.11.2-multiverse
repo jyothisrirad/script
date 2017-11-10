@@ -1,0 +1,10 @@
+#!/bin/bash
+
+spigot11multiverse=spigot-1.11.2-multiverse-68
+
+spigot11multiverse() {
+	export mcver=$spigot11multiverse && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias 68=spigot11multiverse

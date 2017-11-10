@@ -57,7 +57,10 @@ main() {
 	
 	# echo Entering Dir "$DST"
 	cd "$DST"
-	~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLykg0pKV9j6UVW869s_CYriOFL6omSizi" &>log.txt
+	# ~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLykg0pKV9j6UVW869s_CYriOFL6omSizi" &>log.txt
+	~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLV5wcUxh-yXt3gmuXHQRIVWx83cthNSRG"
+	~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLFn2LY0LweW2KdiSakWxzwh_FbROjiBs7"
+	~/script/youtube/get.web.480.sh "https://www.youtube.com/playlist?list=PLATwx1z00HsfFNqPKhQ1UHw7AI40FTkiL"
 }
 
 #=================================

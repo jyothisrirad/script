@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mc1710c=forge-1.7.10.CodingAPE
+
+mc1710c() {
+	export mcver=$mc1710c && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias v7c=mc1710c

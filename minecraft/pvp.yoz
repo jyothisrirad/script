@@ -1,0 +1,119 @@
+#!/bin/bash
+
+
+export mcecho_off=1 
+console_color=$white
+
+
+. /home/sita/script/minecraft/alias.minecraft
+
+
+# mcannounce() {
+	# mcserver do say 伺服器現在開放自由進場離場
+	# mcserver do whitelist off
+	# sleep 10
+# }
+
+countdown() {
+	for ((i=$1;i>0;i--)); 
+	do
+		mcserver do say "$console_color"$i"$off"
+		sleep 1
+	done
+
+}
+
+team_all_set() {
+	for t in R Y G A B P E r y g a b p e 0 1
+	do 
+		mcserver do scoreboard teams option $t $1 $2
+	done
+}
+
+
+mctest() {
+	mcserver do whitelist off #關閉白名單
+	mcserver do scoreboard teams leave @a #解散所有隊伍
+	
+	team_all_set friendlyfire true  #隊友傷害: true
+	team_all_set seeFriendlyInvisibles false #可看到隱身隊友: false
+	
+	mcserver do worldborder set 64
+	mcserver do say ============================
+	mcserver do say ========== $yellowθ盃PvP$off =========
+	mcserver do say ============================
+	mcserver do say 規則：
+	mcserver do say 每局7分鐘
+	mcserver do say ============================
+	mcserver do tp @a yozliu
+    mcserver do clear @a
+	mcserver do effect @a clear
+	mcserver do replaceitem entity @a slot.hotbar.0 diamond_sword 1
+	mcserver do replaceitem entity @a slot.hotbar.1 diamond_axe 1
+	mcserver do replaceitem entity @a slot.hotbar.2 bow 1
+	mcserver do replaceitem entity @a slot.hotbar.3 golden_apple 64
+	mcserver do replaceitem entity @a slot.hotbar.4 lava_bucket 1
+	mcserver do replaceitem entity @a slot.hotbar.5 tnt 64
+	mcserver do replaceitem entity @a slot.hotbar.6 flint_and_steel 1
+	mcserver do replaceitem entity @a slot.hotbar.7 stone 64 
+	mcserver do replaceitem entity @a slot.hotbar.8 totem_of_undying 1
+    # mcserver do give @a diamond_sword 1
+    # mcserver do give @a diamond_sword 1
+	# mcserver do give @a diamond_axe 1
+	# mcserver do give @a bow 1
+	# mcserver do give @a golden_apple 64
+	# mcserver do give @a lava_bucket 1
+	mcserver do give @a water_bucket 1
+    # mcserver do give @a tnt 64
+    # mcserver do give @a flint_and_steel 1
+	# mcserver do give @a totem_of_undying 1
+    # mcserver do give @a stone 64
+	mcserver do give @a arrow 64
+	mcserver do give @a diamond_helmet 1
+	mcserver do give @a diamond_chestplate 1
+	mcserver do give @a diamond_leggings 1	
+	mcserver do give @a diamond_boots 1
+	mcserver do give @a shield 1
+    
+	mcserver do effect @a 14 300 50
+	
+	mcserver do gamemode 0 @a
+	
+	mcserver do scoreboard objectives setdisplay sidebar FinalEat #吃金蘋果數
+	
+	# mcserver do 'execute yozliu ~ ~ ~ summon wither ~ ~ ~' #呼叫凋零怪
+	
+	sleep $(echo 6*60|bc)
+	# sleep $(echo 60|bc)
+
+	mcserver do say ============================
+	mcserver do say === 還有1分鐘結束
+	mcserver do say ============================	
+	countdown 60
+	
+	mcserver do say ============================
+	mcserver do say === θ盃PvP結束
+	mcserver do say ============================
+	mcserver do scoreboard objectives setdisplay sidebar FinalKill #殺人數
+	mcserver do gamemode 1 @a
+}
+
+mcreset() {	
+	mcserver do say ============================
+	mcserver do say === 10秒後世界重置，請重新登入
+	mcserver do say ============================	
+	countdown 10
+	
+	mcserver pre_restore
+	mcserver restore
+	mcserver start
+	
+	mcserver do whitelist off
+}
+
+# alias mcpvp='mcpregame && mcpvp'
+# mcpregame
+# mcpvp
+mctest
+# mcreset
+

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+export mcecho_off=1 
+cron_min='00'
+cron_hour='20'
+cron_day='*'
+cron_month='*'
+cron_wday='6'
+
+
+. /home/sita/script/cron/template.sh
+. /home/sita/script/minecraft/alias.minecraft
+
+# =============================================================
+mcdo gamerule sendCommandFeedback false
+
+# =============================================================
+# mc1112uc
+mcserver do say ============================
+mcserver do say 即將進行分隊
+mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
+mcserver do say 近來有玩家投訴，RC聊天室常有雜音，罵人等令人不舒服的聲音。
+mcserver do say 所以從本次開始，如果有人投訴，犯者將會在本次比賽中被禁言。
+mcserver do say ============================
+mcserver do whitelist on
+mcdo time set 0
+
+# =============================================================
+mcdo gamerule sendCommandFeedback true

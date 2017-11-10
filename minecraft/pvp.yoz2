@@ -1,0 +1,131 @@
+#!/bin/bash
+
+
+export mcecho_off=1 
+console_color=$white
+
+
+. /home/sita/script/minecraft/alias.minecraft
+
+
+# mcannounce() {
+	# mcserver do say 伺服器現在開放自由進場離場
+	# mcserver do whitelist off
+	# sleep 10
+# }
+
+countdown() {
+	for ((i=$1;i>0;i--)); 
+	do
+		mcserver do say "$console_color"$i"$off"
+		sleep 1
+	done
+
+}
+
+
+# mcpregame() {
+	# mcserver do say 現在準備開始θ盃賽後賽
+	# countdown 8
+# }
+
+# mcpvp() {
+	# mcserver do whitelist on
+	# while : ; 
+	# do
+	    # give @a diamond_chestplate 1  311
+		# mcserver do say ============================
+		# mcserver do say ========== $yellowθ盃PvP$off =========
+		# mcserver do say ============================
+		# mcserver do say 規則：
+		# mcserver do say 每3分鐘創造模式，每7分鐘生存模式
+		# mcserver do say ============================
+		# mcserver do say === 創造模式 
+		# mcserver do say ============================
+		# mcserver do gamemode 1 @a
+		# sleep $(echo 2*60|bc)
+		# mcserver do say ============================
+		# mcserver do say === 還有1分鐘進入生存模式 
+		# mcserver do say ============================
+		# countdown 60
+		# mcserver do say ============================
+		# mcserver do say === 生存模式 
+		# mcserver do say ============================
+		# mcserver do gamemode 0 @a
+		# sleep $(echo 6*60|bc)
+		# mcserver do say ============================
+		# mcserver do say === 還有1分鐘進入創造模式 
+		# mcserver do say ============================
+		# console_color=$red
+		# countdown 60
+		# console_color=$off
+		# break
+	# done
+# }
+
+mctest() {
+	# mcserver do co restore r:100m t:100m
+	# mcserver do worldborder get
+	mcserver do worldborder set 64
+	mcserver do say ============================
+	mcserver do say ========== $yellowθ盃PvP$off =========
+	mcserver do say ============================
+	mcserver do say 規則：
+	mcserver do say 每局7分鐘
+	mcserver do say ============================
+    mcserver do clear @a
+	mcserver do give @a diamond_helmet 1
+	mcserver do give @a diamond_chestplate 1
+	mcserver do give @a diamond_leggings 1	
+	mcserver do give @a diamond_boots 1
+	mcserver do give @a shield 1
+	mcserver do give @a diamond_sword 1
+	mcserver do give @a diamond_axe 1
+	mcserver do give @a bow 1
+	mcserver do give @a golden_apple 64
+	mcserver do give @a lava_bucket 1
+	mcserver do give @a water_bucket 1
+    mcserver do give @a tnt 64
+    mcserver do give @a flint_and_steel 1
+	mcserver do give @a totem_of_undying 1
+	mcserver do give @a invisibility_potion 1
+    mcserver do give @a stone 64
+	mcserver do give @a arrow 64
+    
+	mcserver do effect @a 14 300 50
+	
+	mcserver do gamemode 0 @a
+	
+	sleep $(echo 6*60|bc)
+	# sleep $(echo 60|bc)
+
+	mcserver do say ============================
+	mcserver do say === 還有1分鐘結束
+	mcserver do say ============================	
+	countdown 60
+	
+	mcserver do say ============================
+	mcserver do say === θ盃PvP結束
+	mcserver do say ============================
+	mcserver do gamemode 1 @a
+}
+
+mcreset() {	
+	mcserver do say ============================
+	mcserver do say === 10秒後世界重置，請重新登入
+	mcserver do say ============================	
+	countdown 10
+	
+	mcserver pre_restore
+	mcserver restore
+	mcserver start
+	
+	mcserver do whitelist off
+}
+
+# alias mcpvp='mcpregame && mcpvp'
+# mcpregame
+# mcpvp
+# mctest
+mcreset
+

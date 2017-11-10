@@ -21,7 +21,7 @@ MCSTORE="/vagrant/runtimes/$VERSION"
 MCPATH="/tmp/$VERSION"
 . $MCSTORE/config.sh
 CPU_COUNT=1
-INVOCATION="java -Xmx4G -Xms1G -server -jar $JARFILE -o false"
+INVOCATION="java -Xmx4G -Xmx4G -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
@@ -233,10 +233,6 @@ mc_command() {
   fi
 }
 
-mc_save_crashreport() {
-  as_user "rsync $RSYNCOPT $MCPATH/crash-reports/ $MCSTORE/crash-reports/"
-}
-
 crontab_status() {
 	status=$(crontab -l)
 	return $?
@@ -290,10 +286,8 @@ case "$1" in
     mc_start
     ;;
   stop)
-    mc_savetodisk_online
-    mc_backup
     mc_stop
-    # mc_savetodisk_offline
+    mc_savetodisk_offline
     ;;
   restart)
     mc_stop
@@ -307,14 +301,11 @@ case "$1" in
     # mc_start
 	echo "Not Supported."
     ;;
-  force-save)
+  save_offline)
     mc_savetodisk_offline
     ;;
   save)
     mc_savetodisk_online
-    ;;
-  crashreport)
-	mc_save_crashreport
     ;;
   load)
 	if mc_status; then
@@ -353,26 +344,12 @@ case "$1" in
   log)
 	tail -f $LOG
 	;;
-  check)
-	if ! mc_status; then
-		echo "$JARFILE is Offline."
-	else
-		tmpfile="/tmp/mc.log"
-		mc_command "list" > $tmpfile
-		if [ -s $tmpfile ]; then
-			echo "$JARFILE is Online."
-		else
-			echo "$JARFILE is Not Responding."
-		fi
-		rm $tmpfile
-	fi
-	;;	
   install)
 	sudo cp $0 /etc/init.d/
 	sudo chmod a+x /etc/init.d/$(basename $0)
 	addto_crontab "#$VERSION server"
 	addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
-	addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
+	addto_crontab "22 */6 * * * /etc/init.d/$(basename $0) backup"
 	;;
   uninstall)
   	if mc_status; then
@@ -384,7 +361,7 @@ case "$1" in
 	delfrom_crontab "$(basename $0)"
 	;;
   *)
-  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|force-save|crashreport|load|do|log|check}"
+  echo "Usage: /etc/init.d/$0 {start|stop|update|backup|restore|status|restart|save|load|do|log}"
   exit 1
   ;;
 esac

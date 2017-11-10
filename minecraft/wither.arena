@@ -1,0 +1,139 @@
+#!/bin/bash
+
+
+# export mcecho_off=1 
+# console_color=$white
+
+
+. /home/sita/script/minecraft/alias.minecraft
+
+
+# mcannounce() {
+	# mcserver do say 伺服器現在開放自由進場離場
+	# mcserver do whitelist off
+	# sleep 10
+# }
+
+countdown() {
+	for ((i=$1;i>0;i--)); 
+	do
+		mcserver do say "$console_color"$i"$off"
+		sleep 1
+	done
+
+}
+
+team_all_set() {
+	for t in R Y G A B P E r y g a b p e 0 1
+	do 
+		mcserver do scoreboard teams option $t $1 $2
+	done
+}
+
+get_first_user() {
+	users=$(mcdo list | tail -1 | awk '{ printf ("%s\n", $4) }')
+	for user in $users
+	do
+		echo $user
+		return
+	done
+}
+
+witherArenaInit() {
+	mcdo scoreboard players set @a FinalEat 0
+}
+
+witherArenaStart() {
+
+	mcdo gamerule sendCommandFeedback false
+	
+	[ ! $1 ] || witherArenaInit
+
+	mcdo kill @e[type=wither]
+	
+	mcserver do whitelist off #關閉白名單
+	# mcserver do scoreboard teams leave @a #解散所有隊伍
+	mcserver do scoreboard teams join 1 @a #所有人變成Solo
+	
+	team_all_set friendlyfire true  #隊友傷害: true
+	team_all_set seeFriendlyInvisibles false #可看到隱身隊友: false
+	
+	mcserver do worldborder set 64
+	
+	# mcserver do tp @a yozliu
+	mcserver do tp @a 8577 64 6448
+    mcserver do clear @a
+	mcserver do effect @a clear
+
+	mcserver do replaceitem entity @a slot.hotbar.0 diamond_sword 1
+	mcserver do replaceitem entity @a slot.hotbar.1 bow 1
+	mcserver do replaceitem entity @a slot.hotbar.2 diamond_axe 1
+	mcserver do replaceitem entity @a slot.hotbar.3 golden_apple 64
+	mcserver do replaceitem entity @a slot.hotbar.4 form_obsidian 64
+	mcserver do replaceitem entity @a slot.hotbar.5 lava_bucket 1
+	mcserver do replaceitem entity @a slot.hotbar.6 water_bucket 1
+	mcserver do replaceitem entity @a slot.hotbar.7 tnt 64
+	mcserver do replaceitem entity @a slot.hotbar.8 flint_and_steel 1
+	# mcserver do replaceitem entity @a slot.hotbar.8 stone 64 
+	mcserver do replaceitem entity @a slot.hotbar totem_of_undying 1
+    # mcserver do give @a diamond_sword 1
+    # mcserver do give @a diamond_sword 1
+	# mcserver do give @a diamond_axe 1
+	# mcserver do give @a bow 1
+	# mcserver do give @a golden_apple 64
+	# mcserver do give @a lava_bucket 1
+	# mcserver do give @a water_bucket 1
+    # mcserver do give @a tnt 64
+    # mcserver do give @a flint_and_steel 1
+	# mcserver do give @a totem_of_undying 1
+    # mcserver do give @a stone 64
+	mcserver do give @a arrow 64
+	mcserver do give @a diamond_helmet 1
+	mcserver do give @a diamond_chestplate 1
+	mcserver do give @a diamond_leggings 1	
+	mcserver do give @a diamond_boots 1
+	mcserver do give @a shield 1
+	
+	mcserver do gamemode 0 @a
+	
+	mcserver do scoreboard objectives setdisplay sidebar FinalEat #吃金蘋果數
+	
+    # mcserver do 'execute yozliu ~5 ~5 ~5 summon wither ~ ~ ~' #呼叫凋零怪
+	firstuser=$(get_first_user)
+	if [[ ! -z "${firstuser// }" ]]; then
+		# echo $firstuser
+		# mcdo "execute $firstuser" '~ ~10 ~ summon wither ~ ~ ~' #呼叫凋零怪
+		mcdo 'summon wither 8578 76 6425' #呼叫凋零怪
+	else
+		echo nobody online, no wither summoned
+	fi
+		
+	mcdo gamerule sendCommandFeedback true		
+	mcserver do say ============================
+	mcserver do say ========== $yellow對抗凋零怪$off =========
+	mcserver do say ============================
+	mcserver do say 規則：
+	mcserver do say 請每人同心協力一起打倒凋零怪
+	mcserver do say ============================
+}
+
+witherArenaTest() {
+	firstuser=$(get_first_user)
+	if [[ ! -z "${firstuser// }" ]]; then
+		echo $firstuser
+	else
+		echo nobody online
+	fi
+}
+
+witherArenaTemp() {
+	mcdo scoreboard teams join 1 @a #所有人變成Solo
+}
+
+# alias mcpvp='mcpregame && mcpvp'
+# mcpregame
+# mcpvp
+# mcreset
+# witherArenaTest
+# witherArenaTemp
+witherArenaStart $1
