@@ -11,6 +11,7 @@ alias tpa='mcserver do tp @a $pos'
 alias ungod='mcserver do gamemode s $player'
 alias god='mcserver do gamemode c $player'
 alias invi='mcdo effect $player invisibility 9999'
+alias levi='mcdo effect $player Levitation 9999'
 alias eclr='mcdo effect $player clear'
 
 alias give='mcserver do give $player $item 64'
