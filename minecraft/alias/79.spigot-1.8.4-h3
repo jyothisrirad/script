@@ -1,0 +1,11 @@
+#!/bin/bash
+
+s79=spigot-1.8.4-h3-79
+
+s79() {
+	export mcver=$s79 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias 79=s79
+alias h3=s79
