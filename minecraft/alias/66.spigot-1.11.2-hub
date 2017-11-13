@@ -1,11 +1,11 @@
 #!/bin/bash
 
-f66=spigot-1.11.2-hub-66
+s66=spigot-1.11.2-hub-66
 
-f66() {
-	export mcver=$f66 && echo mcver=$mcver
+s66() {
+	export mcver=$s66 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias 66=f66
-alias hub=f66
+alias 66=s66
+alias hub=s66

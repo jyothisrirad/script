@@ -1,11 +1,11 @@
 #!/bin/bash
 
-f72=forge-1.7.10.RTM-72
+s72=forge-1.7.10.RTM-72
 
-f72() {
-	export mcver=$f72 && echo mcver=$mcver
+s72() {
+	export mcver=$s72 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias v7=f72
-alias 72=f72
+alias v7=s72
+alias 72=s72

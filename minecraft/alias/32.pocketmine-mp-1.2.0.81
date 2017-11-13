@@ -1,9 +1,9 @@
 #!/bin/bash
 
-f32=pocketmine-mp-1.2.0.81
+s32=pocketmine-mp-1.2.0.81
 
-f32() {
-	export mcver=$f32 && echo mcver=$mcver
+s32() {
+	export mcver=$s32 && echo mcver=$mcver
 }
 
-alias pe12=f32
+alias pe12=s32

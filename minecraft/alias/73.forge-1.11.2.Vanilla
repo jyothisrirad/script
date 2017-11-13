@@ -1,9 +1,9 @@
 #!/bin/bash
 
-f73=forge-1.11.2.Vanilla-73
+s73=forge-1.11.2.Vanilla-73
 
-f73() {
-	export mcver=$f73 && echo mcver=$mcver
+s73() {
+	export mcver=$s73 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 	
 	alias  s1='export pos="250 70 250"    && echo pos=家'
@@ -15,5 +15,5 @@ f73() {
 	alias  s6='export pos="2032 65 1696" && echo pos=蘑菇島'
 }
 
-alias v11=f73
-alias 73=f73
+alias v11=s73
+alias 73=s73
