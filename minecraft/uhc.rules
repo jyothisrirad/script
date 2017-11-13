@@ -80,7 +80,8 @@ mcserver do scoreboard players set @e[tag=F] K 0	#物品免燒Off
 mcserver do scoreboard players set @e[tag=N] K 1	#物品免燒On
 mcserver do scoreboard players set @e[tag=F] W 0	#隊友碰撞Off
 mcserver do scoreboard players set @e[tag=N] W 1	#隊友碰撞On
-mcserver do scoreboard players set @e[tag=N] M 0	#隊友傷害On/Off
+mcserver do scoreboard players set @e[tag=F] M 1	#隊友傷害Off
+mcserver do scoreboard players set @e[tag=N] M 0	#隊友傷害On
 team_all_set friendlyfire false
 # mcserver do scoreboard players set @e[tag=N] N 1	#
 mcserver do scoreboard players set @e[tag=F] L 0	#顯示血量在Tab Off
