@@ -1,13 +1,13 @@
 #!/bin/bash
 
-mc1112w=spigot-1.11.2-Wither-76
+f76=spigot-1.11.2-Wither-76
 
-mc1112w() {
-	export mcver=$mc1112w && echo mcver=$mcver
+f76() {
+	export mcver=$f76 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias v11w=mc1112w
-alias 76=mc1112w
-alias wither=mc1112w
+alias v11w=f76
+alias 76=f76
+alias wither=f76
 alias wrun='76 && /home/sita/script/minecraft/wither.arena $*'

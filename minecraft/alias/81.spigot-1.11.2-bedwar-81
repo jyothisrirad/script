@@ -1,11 +1,11 @@
 #!/bin/bash
 
-bedwar1=spigot-1.11.2-bedwar-81
+f81=spigot-1.11.2-bedwar-81
 
-bedwar1() {
-	export mcver=$bedwar1 && echo mcver=$mcver
+f81() {
+	export mcver=$f81 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias 81=bedwar1
-alias bed1=bedwar1
+alias 81=f81
+alias bed1=f81

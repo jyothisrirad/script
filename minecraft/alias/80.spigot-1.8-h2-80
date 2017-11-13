@@ -1,11 +1,11 @@
 #!/bin/bash
 
-s80=spigot-1.8-h2-80
+f80=spigot-1.8-h2-80
 
-s80() {
-	export mcver=$s80 && echo mcver=$mcver
+f80() {
+	export mcver=$f80 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias 80=s80
-alias h2=s80
+alias 80=f80
+alias h2=f80

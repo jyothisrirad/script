@@ -1,14 +1,14 @@
 #!/bin/bash
 
-bungee=BungeeCord
+f65=BungeeCord
 
-bungee() {
-	export mcver=$bungee && echo mcver=$mcver
+f65() {
+	export mcver=$f65 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias 65=bungee
-alias bun=bungee
+alias 65=f65
+alias bun=f65
 alias ghub='65 && mcdo send all hub'
 alias guhc='65 && mcdo send all uhc'
 alias glist='65 && mcdo glist'

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-mc1102=forge-1.10.2.TwoBed-71
+f71=forge-1.10.2.TwoBed-71
 
-mc1102() {
-	export mcver=$mc1102 && echo mcver=$mcver
+f71() {
+	export mcver=$f71 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 	
 	alias  s1='export pos="-242 74 291"   && echo pos=蚊子車站'
@@ -15,5 +15,5 @@ mc1102() {
 	alias cr2='export pos="256 103 291" && echo pos=田字南北起點'
 }
 
-alias v10=mc1102
-alias 71=mc1102
+alias v10=f71
+alias 71=f71

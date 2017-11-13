@@ -1,13 +1,13 @@
 #!/bin/bash
 
-ParkourSpiral2=spigot-1.12.2.ParkourSpiral2-78
+f78=spigot-1.12.2.ParkourSpiral2-78
 
-ParkourSpiral2() {
-	export mcver=$ParkourSpiral2 && echo mcver=$mcver
+f78() {
+	export mcver=$f78 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 	
 	alias  s1='export pos="-10 205 15"    && echo pos=繞過關卡的蟲'
 }
 
-alias 78=ParkourSpiral2
-alias pk2=ParkourSpiral2
+alias 78=f78
+alias pk2=f78

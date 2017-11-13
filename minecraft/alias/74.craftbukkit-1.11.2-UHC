@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mc1112uc=craftbukkit-1.11.2-UHC-74
+f74=craftbukkit-1.11.2-UHC-74
 
-mc1112uc() {
-	export mcver=$mc1112uc && echo mcver=$mcver
+f74() {
+	export mcver=$f74 && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias v11uc=mc1112uc
-alias 74=mc1112uc
-alias uhc=mc1112uc
+alias v11uc=f74
+alias 74=f74
+alias uhc=f74

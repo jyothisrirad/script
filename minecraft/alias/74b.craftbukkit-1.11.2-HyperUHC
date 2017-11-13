@@ -1,10 +1,10 @@
 #!/bin/bash
 
-c74=craftbukkit-1.11.2-HyperUHC-74b
+f74b=craftbukkit-1.11.2-HyperUHC-74b
 
-c74() {
-	export mcver=$c74 && echo mcver=$mcver
+f74b() {
+	export mcver=$f74b && echo mcver=$mcver
 	cd /mnt/runtimes/$mcver
 }
 
-alias 74b=c74
+alias 74b=f74b
