@@ -7,7 +7,6 @@ user$>	newinstall.init.sh <hostname>
 user$>	pve/newuser <username>
 
 
-
 ###create disk id
 echo === config /etc/default/zfs
 echo add ZPOOL_IMPORT_PATH="/dev/disk/by-id"
@@ -24,14 +23,17 @@ $>			sudo mis/disksec.query.sh
 #for 4k disk use ashift=12
 $>			sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <disk4> ...
 
+
 ###disable usbstick swap and create zfs shares
 usbstick.prep
 rsync.enable
 smbshare.enable
 cat /etc/zfs/zed.d/zed.rc | grep ZED_EMAIL_ADDR
 
+
 ###zfs benchmark
 benchmark> 	hd.speed.sh
+
 
 ###benchmark
 #>				smartctl -a /dev/sd?
@@ -45,14 +47,12 @@ benchmark> 	hd.speed.sh
 mail.forward
 
 
->>>>>>> fb5938744a77656ba45a577b90a94649b152ead5
->>>>>>> f5d34a31d8589aca8fac6344ef9b6837bb8c9840
 root@pve2:/home/sita/script/pve# crontab -l
 # rsync.enable: monthly netbackup cleanup
 10 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
 
 # usbstick.prep: weekly usbstick backup
-20 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
+20 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup >/dev/null 2>&1 
 
 # zpool.scrub: yearly zfs disk scrub
 30 1 1 11 * /home/sita/script/pve/zpool.scrub scrub
@@ -61,4 +61,4 @@ root@pve2:/home/sita/script/pve# crontab -l
 40 1 * * 7 /home/sita/script/mis/status log smart
 
 #cleanup.monthly.sh
-50 3 1 * * /usr/bin/batch < /home/sita/script/cron/cleanup.monthly.sh
+50 3 1 * * /usr/bin/batch < /home/sita/script/cron/cleanup.monthly.sh >/dev/null 2>&1
