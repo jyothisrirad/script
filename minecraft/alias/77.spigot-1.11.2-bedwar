@@ -1,0 +1,12 @@
+#!/bin/bash
+
+s77=spigot-1.11.2-bedwar-77
+
+s77() {
+	export mcver=$s77 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias v11b=s77
+alias 77=s77
+alias bed=s77

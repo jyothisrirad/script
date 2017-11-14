@@ -5,13 +5,15 @@ if [ ! -d "$1" ]; then
 	exit
 fi
 
-MAXBACKUP=8
+# MAXBACKUP=8
+[ ! $2 ] || MAXBACKUP=$2
 
 # FULL=$(readlink -e $0)
 # DP0=$(dirname $FULL)
 DP1="$1"
 
 . "$DP1"/config.sh
+. /home/sita/script/include/console.color
 
 BASE=$(basename "$DP1")
 
@@ -20,6 +22,7 @@ backup() {
 
 TODAY=$(date +"%Y-%m-%d_%H%M")
 HOST=$(hostname)
+ZIPDIR=$(echo $ZIPDIR/$BASE)
 ZIP=$BASE.$TODAY.$HOST.zip
 # TEMPZIP=/tmp/$ZIP
 TEMPZIP=~/$ZIP
@@ -27,13 +30,15 @@ TEMPZIP=~/$ZIP
 echo -e "${GREEN}Creating $ZIPDIR/$ZIP${NC}"
 
 IGNORE1=crash-reports/*
-IGNORE2=logs/*
+IGNORE2=logs/*.gz
 IGNORE3=ForgeEssentials/Backups/*
 
 cd "$DP1"
 
 echo zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./*
-zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./*
+zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./* >/dev/null
+
+if [ ! -d $ZIPDIR ]; then mkdir $ZIPDIR; fi
 mv $TEMPZIP $ZIPDIR
 
 }
@@ -57,5 +62,6 @@ done
 
 backup
 
-purge $MAXBACKUP
+# echo MAXBACKUP=$MAXBACKUP
+[ ! $MAXBACKUP ] || purge $MAXBACKUP
 

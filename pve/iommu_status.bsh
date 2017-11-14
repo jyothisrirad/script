@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "iommu boot kernel flag"
+cat /etc/default/grub |grep iommu
+echo " "
+echo "dmesg | grep -e DMAR -e IOMMU"
+dmesg | grep -e DMAR -e IOMMU
+echo " "
+echo "lspci -vnn|grep Ethernet"
+lspci -vnn|grep Ethernet
+echo " "
+echo "ls -al /sys/kernel/iommu_groups"
+ls -al /sys/kernel/iommu_groups
+echo " "
+echo "find /sys/kernel/iommu_groups/ -type l"
+find /sys/kernel/iommu_groups/ -type l

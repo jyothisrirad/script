@@ -1,0 +1,13 @@
+#!/bin/bash
+
+s78=spigot-1.12.2.ParkourSpiral2-78
+
+s78() {
+	export mcver=$s78 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+	
+	alias  s1='export pos="-10 205 15"    && echo pos=繞過關卡的蟲'
+}
+
+alias 78=s78
+alias pk2=s78

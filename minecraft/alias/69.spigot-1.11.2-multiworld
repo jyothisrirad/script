@@ -1,0 +1,10 @@
+#!/bin/bash
+
+s69=spigot-1.11.2-multiworld-69
+
+s69() {
+	export mcver=$s69 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias 69=s69

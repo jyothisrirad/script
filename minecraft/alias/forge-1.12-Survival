@@ -1,0 +1,10 @@
+#!/bin/bash
+
+mc112=forge-1.12-Survival
+
+mc112() {
+	export mcver=$mc112 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias v12=mc112

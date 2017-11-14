@@ -1,0 +1,10 @@
+#!/bin/bash
+
+s70=forge-1.10.2-forgeessentials-70
+
+s70() {
+	export mcver=$s70 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias 70=s70

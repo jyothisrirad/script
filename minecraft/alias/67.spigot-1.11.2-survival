@@ -1,0 +1,11 @@
+#!/bin/bash
+
+s67=spigot-1.11.2-survival-67
+
+s67() {
+	export mcver=$s67 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias 67=s67
+alias sv=s67

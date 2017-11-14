@@ -1,0 +1,11 @@
+#!/bin/bash
+
+s82=spigot-1.11.2-UHC-82
+
+s82() {
+	export mcver=$s82 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias 82=s82
+alias uhc2=s82

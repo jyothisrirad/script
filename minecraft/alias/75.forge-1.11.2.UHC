@@ -1,0 +1,12 @@
+#!/bin/bash
+
+s75=forge-1.11.2.UHC-75
+
+s75() {
+	export mcver=$s75 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias v11u=s75
+alias 75=s75
+alias uhc2=s75

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+s65=BungeeCord
+
+s65() {
+	export mcver=$s65 && echo mcver=$mcver
+	cd /mnt/runtimes/$mcver
+}
+
+alias 65=s65
+alias bun=s65
+alias ghub='65 && mcdo send all hub'
+alias guhc='65 && mcdo send all uhc'
+alias glist='65 && mcdo glist'
