@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s75=forge-1.11.2.UHC-75
+s75=forge-1.11.2.UHC2-75
 
 s75() {
 	export mcver=$s75 && echo mcver=$mcver
