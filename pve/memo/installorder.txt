@@ -8,6 +8,9 @@ user$>	pve/newuser <username>
 
 
 ###create disk id
+echo === config /etc/default/zfs
+echo add ZPOOL_IMPORT_PATH="/dev/disk/by-id"
+
 Edit /etc/zfs/vdev_id.conf to prepare aliases for disk devices found in /dev/disk/by-id/ 
 --------cut here-------------------
 # run 'udevadm trigger' after updating this file
@@ -23,6 +26,7 @@ $>			sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <
 usbstick.prep
 rsync.enable
 smbshare.enable
+cat /etc/zfs/zed.d/zed.rc | grep ZED_EMAIL_ADDR
 
 
 ###benchmark
