@@ -320,11 +320,8 @@ deldir() {
 }
 
 mc_playeronline() {
-	# mc_command list | tail -1 | awk '{print $4}' | grep -E --quiet '.'
-	# echo $(mc_command list | tail -1)
-	# echo ___$(mc_command list | tail -1 | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | wc -l )___
-	# echo ___$(mc_command list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g')___
-	mc_command list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | grep -E --quiet '[A-Za-z0-9\-\_]+' 
+	# mcdo list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | grep -n '[A-Za-z0-9\-\_]+'
+	mc_command list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | grep -E --quiet '[A-Za-z0-9\-\_]+'
 	return $?
 }
 
