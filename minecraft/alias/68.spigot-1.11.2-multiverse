@@ -3,8 +3,12 @@
 s68=spigot-1.11.2-multiverse-68
 
 s68() {
-	export mcver=$s68 && echo mcver=$mcver
-	cd /mnt/runtimes/$mcver
+	oldmcvar=$mcver
+	export mcver=$s68 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 }
 
 alias 68=s68

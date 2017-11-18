@@ -3,8 +3,12 @@
 s66=spigot-1.11.2-hub-66
 
 s66() {
-	export mcver=$s66 && echo mcver=$mcver
-	cd /mnt/runtimes/$mcver
+	oldmcvar=$mcver
+	export mcver=$s66 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 }
 
 alias 66=s66

@@ -3,8 +3,12 @@
 s71=forge-1.10.2.TwoBed-71
 
 s71() {
-	export mcver=$s71 && echo mcver=$mcver
-	cd /mnt/runtimes/$mcver
+	oldmcvar=$mcver
+	export mcver=$s71 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 	
 	alias  s1='export pos="-242 74 291"   && echo pos=蚊子車站'
 	alias  s2='export pos="986 103 291"   && echo pos=山丘車站'

@@ -253,6 +253,13 @@ sudo tune2fs -l $(df / | tail -1 | cut -d" " -f 1) | grep 'Filesystem created:'
 w
 }
 
+benchmark_info() {
+echo =================================
+echo BENCHMARK Info
+echo =================================
+sudo pveperf
+}
+
 mailreport() {
 	# $1=subject
 	# $2=content
@@ -310,7 +317,7 @@ case "$1" in
 		gpu3d_info
 		os_info
 		uptime_info
-		
+		benchmark_info
 		# sudo lshw
 		# sudo lshw -businfo
         ;;
@@ -347,8 +354,11 @@ case "$1" in
   watch)
 		# dstat --cpu24 -m -s -g -d -n
         ;;
+  benchmark)
+		benchmark_info
+		;;
   *)
-		echo "Usage: /etc/init.d/$0 {install|uninstall|info|mb|gpu|net|disk|smart|os|maillog|watch}"
+		echo "Usage: /etc/init.d/$0 {install|uninstall|info|mb|gpu|net|disk|smart|os|maillog|watch|benchmark}"
 		exit 1
 		;;
 esac

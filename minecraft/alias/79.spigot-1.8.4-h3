@@ -3,8 +3,12 @@
 s79=spigot-1.8.4-h3-79
 
 s79() {
-	export mcver=$s79 && echo mcver=$mcver
-	cd /mnt/runtimes/$mcver
+	oldmcvar=$mcver
+	export mcver=$s79 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 }
 
 alias 79=s79

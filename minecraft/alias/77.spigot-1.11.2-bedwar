@@ -3,8 +3,12 @@
 s77=spigot-1.11.2-bedwar-77
 
 s77() {
-	export mcver=$s77 && echo mcver=$mcver
-	cd /mnt/runtimes/$mcver
+	oldmcvar=$mcver
+	export mcver=$s77 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 }
 
 alias v11b=s77

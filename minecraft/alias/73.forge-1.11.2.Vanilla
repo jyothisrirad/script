@@ -3,8 +3,12 @@
 s73=forge-1.11.2.Vanilla-73
 
 s73() {
-	export mcver=$s73 && echo mcver=$mcver
-	cd /mnt/runtimes/$mcver
+	oldmcvar=$mcver
+	export mcver=$s73 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 	
 	alias  s1='export pos="250 70 250"    && echo pos=家'
 	alias  s1a='export pos="207 139 249" && echo pos=船電梯頂端'

@@ -3,7 +3,12 @@
 s32=pocketmine-mp-1.2.0.81
 
 s32() {
-	export mcver=$s32 && echo mcver=$mcver
+	oldmcvar=$mcver
+	export mcver=$s32 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 }
 
 alias pe12=s32

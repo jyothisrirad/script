@@ -3,8 +3,12 @@
 s78=spigot-1.12.2.ParkourSpiral2-78
 
 s78() {
-	export mcver=$s78 && echo mcver=$mcver
-	cd /mnt/runtimes/$mcver
+	oldmcvar=$mcver
+	export mcver=$s78 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 	
 	alias  s1='export pos="-10 205 15"    && echo pos=繞過關卡的蟲'
 }
