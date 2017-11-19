@@ -7,7 +7,7 @@ s72() {
 	export mcver=$s72 
 	
 	mcpath=/mnt/runtimes/$mcver
-	[ ! -d "$mcpath" ] && { echo -e "${RED}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 }
 
