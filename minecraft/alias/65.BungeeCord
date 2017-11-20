@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s65=BungeeCord
+s65=bungeecord-65
 
 s65() {
 	oldmcvar=$mcver
