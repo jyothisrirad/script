@@ -1,0 +1,4 @@
+crash-reports/*
+logs/*.gz
+ForgeEssentials/Backups/*
+timings/*

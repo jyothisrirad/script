@@ -220,6 +220,7 @@ mc_backup() {
     echo "Backing up minecraft files"
 	# as_user "tar zcf $BACKUPPATH/MCBKUP_`date "+%Y.%m.%d-%H"`.tar.gz $MCSTORE"
 	# as_user "$MCSTORE/backup.sh"
+	ZIPOPT="-x@$DP0/minecraft.exclude.txt"; export ZIPOPT
 	as_user "$DP0/backup.sh $MCSTORE $1"
 	echo "Backup complete"
   else

@@ -29,14 +29,19 @@ TEMPZIP=~/$ZIP
 
 echo -e "${GREEN}Creating $ZIPDIR/$ZIP${NC}"
 
-IGNORE1=crash-reports/*
-IGNORE2=logs/*.gz
-IGNORE3=ForgeEssentials/Backups/*
-
 cd "$DP1"
 
-echo zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./*
-zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" -r $TEMPZIP ./* >/dev/null
+# IGNORE1=crash-reports/*
+# IGNORE2=logs/*.gz
+# IGNORE3=ForgeEssentials/Backups/*
+# IGNORE4=timings/*
+
+# echo zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" "$IGNORE4" -r $TEMPZIP ./*
+# zip -x "$IGNORE1" "$IGNORE2" "$IGNORE3" "$IGNORE4" -r $TEMPZIP ./* >/dev/null
+# echo zip -x@/home/sita/script/minecraft/minecraft.exclude.txt -r $TEMPZIP ./*
+# zip -x@/home/sita/script/minecraft/minecraft.exclude.txt -r $TEMPZIP ./* >/dev/null
+echo zip -r $TEMPZIP ./*
+zip -r $TEMPZIP ./* >/dev/null
 
 if [ ! -d $ZIPDIR ]; then mkdir $ZIPDIR; fi
 mv $TEMPZIP $ZIPDIR
