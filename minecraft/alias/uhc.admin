@@ -33,7 +33,8 @@ mcscores() {
 
 
 team_all_set() {
-	for t in R Y G A B P E r y g a b p e 0 1
+	# for t in R Y G A B P E r y g a b p e 0 1
+	for t in R Y G A B P E r y g a b p e
 	do 
 		mcserver do scoreboard teams option $t $1 $2
 	done
