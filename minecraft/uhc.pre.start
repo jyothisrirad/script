@@ -19,8 +19,8 @@ mcdo gamerule sendCommandFeedback false
 mcserver do say ============================
 mcserver do say 即將進行分隊
 mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
-mcserver do say 近來有玩家投訴，RC聊天室常有雜音，罵人等令人不舒服的聲音。
-mcserver do say 所以從本次開始，如果有人投訴，犯者將會在本次比賽中被禁言。
+mcserver do say 有玩家投訴，RC聊天室有雜音，罵人等令人不舒服的聲音。
+mcserver do say 如果有人投訴，犯者將會在本次比賽中被禁言。
 mcserver do say ============================
 mcserver do whitelist on
 mcdo time set 0

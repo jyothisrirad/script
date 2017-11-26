@@ -32,11 +32,11 @@ mcserver do say ============================
 mcserver do say ==== "$bold"歡迎來到UHCθ盃"$off" ====
 mcserver do say ============================
 mcserver do say UHC規則網址: "$yellow"https://goo.gl/CSKGbK"$off"
-mcserver do say 特殊裝備: "$yellow"附魔鐵靴"$off"，每個成就升級速度、力量和回血。
-mcserver do say 時間: 20分顯名,40分漸縮、永晝,55分縮至112、無怪、發光,60分傳送。
+mcserver do say 特殊裝備: "$yellow"附魔鐵靴"$off"，每個成就升級速度力量血量。
+mcserver do say 20分顯名,40分漸縮永晝,55分縮至112無怪發光,60分傳送。
 mcserver do say ============================
 mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
-mcserver do say 近來有玩家投訴，RC聊天室常有雜音，罵人等令人不舒服的聲音。
-mcserver do say 所以從本次開始，如果有人投訴，犯者將會在本次比賽中被禁言。
+mcserver do say 有玩家投訴，RC聊天室有雜音，罵人等令人不舒服的聲音。
+mcserver do say 如果有人投訴，犯者將會在本次比賽中被禁言。
 mcserver do say ============================
 # tellraw abc
