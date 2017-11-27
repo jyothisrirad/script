@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s68=spigot-1.11.2-multiverse-68
+s68=spigot-1.12.2-multiverse-68
 
 # s68() {
 	# oldmcvar=$mcver
