@@ -15,4 +15,5 @@ s32() {
 	chmc $s32
 }
 
+alias 32=s32
 alias pe12=s32
