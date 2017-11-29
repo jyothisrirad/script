@@ -1,0 +1,3 @@
+mkdir /mnt/pve5
+mount -t nfs -o nosuid,noexec,nodev,soft pve5:/tank/Shares /mnt/pve5
+
