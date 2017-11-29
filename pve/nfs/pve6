@@ -3,8 +3,15 @@
 BASENAME=$(basename $0)
 
 [ -d /mnt/$BASENAME ] || sudo mkdir /mnt/$BASENAME
-
 sudo umount /mnt/$BASENAME &>/dev/null
 sudo mount -t nfs -o nosuid,noexec,nodev,soft $BASENAME:/tank/Shares /mnt/$BASENAME
+
+[ -d /mnt/$BASENAME/Download2 ] || sudo mkdir /mnt/$BASENAME/Download2
+sudo umount /mnt/$BASENAME/Download2 &>/dev/null
+sudo mount -t nfs -o nosuid,noexec,nodev,soft $BASENAME:/tank2/Shares/Download2 /mnt/$BASENAME/Download2
+
+[ -d /mnt/$BASENAME/Download3 ] || sudo mkdir /mnt/$BASENAME/Download3
+sudo umount /mnt/$BASENAME/Download3 &>/dev/null
+sudo mount -t nfs -o nosuid,noexec,nodev,soft $BASENAME:/tank3/Shares/Download3 /mnt/$BASENAME/Download3
 
 echo alias $BASENAME="\"cd /mnt/$BASENAME\""
