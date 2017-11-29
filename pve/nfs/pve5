@@ -4,7 +4,7 @@ BASENAME=$(basename $0)
 
 [ -d /mnt/$BASENAME ] || sudo mkdir /mnt/$BASENAME
 
-sudo umount /mnt/$BASENAME >/dev/null
+sudo umount /mnt/$BASENAME &>/dev/null
 sudo mount -t nfs -o nosuid,noexec,nodev,bg,soft $BASENAME:/tank/Shares /mnt/$BASENAME
 
 echo alias $BASENAME="\"cd /mnt/$BASENAME\""
