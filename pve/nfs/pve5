@@ -1,10 +1,14 @@
 #!/bin/bash
 
-BASENAME=$(basename $0)
+HOST=$(basename $0)
 
-[ -d /mnt/$BASENAME ] || sudo mkdir /mnt/$BASENAME
+nfs_enable() {
+	[ -d $3 ] || sudo mkdir $3
 
-sudo umount /mnt/$BASENAME &>/dev/null
-sudo mount -t nfs -o nosuid,noexec,nodev,bg,soft $BASENAME:/tank/Shares /mnt/$BASENAME
+	sudo umount $3 &>/dev/null
+	sudo mount -t nfs -o nosuid,noexec,nodev,bg,soft $1:$2 $3
+	
+	echo alias $1="\"cd /mnt/$1\""
+}
 
-echo alias $BASENAME="\"cd /mnt/$BASENAME\""
+nfs_enable $HOST /tank/Shares /mnt/$HOST
