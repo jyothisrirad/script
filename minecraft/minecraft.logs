@@ -126,7 +126,8 @@ grep.left() {
 
 grep.teams() {
 	# list=$(grep 'lost the achievement' | awk '{ printf ("%s\n", $4) }' | sort | uniq)
-	list=$(grep achievement | grep § | grep -v -x $black | awk '{ printf ("%s\n", $4) }' | sort | uniq | grep -v $black)
+	# list=$(grep achievement | grep § | grep -v -x $black | awk '{ printf ("%s\n", $4) }' | sort | uniq | grep -v $black)
+	list=$(grep § | grep -v -x $black | awk '{ printf ("%s\n", $4) }' | sort | uniq | grep -v $black)
 	list=$(echo $list | sed "s/$off//g")
 	list=$(echo $list | sed "s/$black/[黑隊]/g")
 	list=$(echo $list | sed "s/$dark_blue/[B5深藍隊]/g")

@@ -65,6 +65,15 @@ pause() {
 	echo 
 }
 
+chmc() {
+	if [ ! -z ${1+x} ]; then
+		export mcver=$1
+		
+		mcpath=/mnt/runtimes/$mcver
+		[ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; }
+		[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+	fi
+}
 
 #=================================
 utf8

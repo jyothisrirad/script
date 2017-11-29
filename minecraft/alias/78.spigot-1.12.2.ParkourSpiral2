@@ -13,5 +13,11 @@ s78() {
 	alias  s1='export pos="-10 205 15"    && echo pos=繞過關卡的蟲'
 }
 
+s78() {
+	chmc $s78
+	
+	alias  s1='export pos="-10 205 15"    && echo pos=繞過關卡的蟲'
+}
+
 alias 78=s78
 alias pk2=s78

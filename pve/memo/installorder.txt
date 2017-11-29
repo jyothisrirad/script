@@ -36,10 +36,8 @@ cat /etc/zfs/zed.d/zed.rc | grep ZED_EMAIL_ADDR
 
 ###zfs benchmark
 benchmark> 	hd.speed.sh
-
-
 ###benchmark
-#>				smartctl -a /dev/sd?
+#>				smartctl -i /dev/sd?
 #>				zpool status
 #> 				zfs get compression 
 /tank#> 		/home/sita/script/benchmark/hd.speed.sh

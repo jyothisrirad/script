@@ -1,0 +1,16 @@
+#!/bin/bash
+
+HOST=$(basename $0)
+
+nfs_enable() {
+	[ -d $3 ] || sudo mkdir $3
+
+	sudo umount $3 &>/dev/null
+	sudo mount -t nfs -o nosuid,noexec,nodev,bg,soft $1:$2 $3
+	
+	echo alias $1="\"cd /mnt/$1\""
+}
+
+nfs_enable $HOST /tank/Shares /mnt/$HOST
+nfs_enable $HOST /tank2/Shares/Download2 /mnt/$HOST/Download2
+nfs_enable $HOST /tank3/Shares/Download3 /mnt/$HOST/Download3
