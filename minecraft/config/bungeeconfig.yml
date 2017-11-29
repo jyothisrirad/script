@@ -7,7 +7,7 @@ groups:
 servers:
   hub:
     motd: 大廳
-    address: lxcmc203:25566
+    address: lxcmc204:25566
     restricted: false
   hh:
     motd: 大廳測試版
@@ -22,8 +22,8 @@ servers:
     address: lxcminecraft:25567
     restricted: false
   mv:
-    motd: MultiVerse
-    address: lxcmc203:25568
+    motd: RPG生存世界
+    address: lxcmc204:25568
     restricted: false
   mw:
     motd: MultiWorld
@@ -39,7 +39,7 @@ servers:
     restricted: false
   v7:
     motd: RTM世界
-    address: lxcmc203:25572
+    address: lxcmc204:25572
     restricted: false
   v11:
     motd: 原味生存世界
@@ -63,15 +63,19 @@ servers:
     restricted: false
   bed1:
     motd: 床戰Kingdoms
-    address: lxcmc203:25581
+    address: lxcmc204:25581
     restricted: false
   pk2:
     motd: 跑酷螺旋塔2
-    address: lxcmc203:25578
+    address: lxcmc204:25578
     restricted: false
   battle:
     motd: 亡國之戰
-    address: lxcmc203:25584
+    address: lxcmc204:25584
+    restricted: false
+  dropper:
+    motd: 逆墜落
+    address: lxcmc204:25585
     restricted: false
 timeout: 30000
 player_limit: -1
