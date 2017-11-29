@@ -1,3 +1,10 @@
-mkdir /mnt/pve5
-mount -t nfs -o nosuid,noexec,nodev,soft pve5:/tank/Shares /mnt/pve5
+#!/bin/bash
 
+BASENAME=$(basename $0)
+
+[ -d /mnt/$BASENAME ] || sudo mkdir /mnt/$BASENAME
+
+sudo umount /mnt/$BASENAME >/dev/null
+sudo mount -t nfs -o nosuid,noexec,nodev,soft $BASENAME:/tank/Shares /mnt/$BASENAME
+
+#cd /mnt/$BASENAME
