@@ -1,3 +1,6 @@
+###fix grub
+(initramfs) vgchange -ay
+
 ###basic setup for new system
 root#>	adduser username
 root#>	apt install git sudo ca-certificates
