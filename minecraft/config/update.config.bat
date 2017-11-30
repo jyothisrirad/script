@@ -1,3 +1,3 @@
 @echo off
 
-copy /y "\\lxcminecraft\sita\script\minecraft\config\bungeeconfig.yml" "%~dp0"
+copy /y "\\lxcmc204\sita\script\minecraft\config\bungeeconfig.yml" "%~dp0"
