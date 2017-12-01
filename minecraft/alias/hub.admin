@@ -46,10 +46,10 @@ npcrides0() {
 }
 
 npcrides() {
-	npclist=(10 12 18 20 19 21)
+	npc_ids=(10 12 18 20 19 21)
 	cnt=0
 	loc=hub
-	for i in "${npclist[@]}"; do
+	for i in "${npc_ids[@]}"; do
 		if [ $cnt == "$1" ]; then loc=hide; fi
 		# echo "$i is in $loc"
 		mcdo npc select $i
