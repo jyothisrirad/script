@@ -108,11 +108,11 @@ uhcteamcreate() {
 
 uhcteamchoice() {
 	if [ ! -z ${1+x} ]; then 
-		echo team choice on
+		echo -e "${GREEN}加入隊伍權限On${NC}"
 		mcdo scoreboard players set @e[tag=F] J 0	#加入隊伍權限Off
 		mcdo scoreboard players set @e[tag=N] J 1	#加入隊伍權限On
 	else
-		echo team choice off
+		echo -e "${YELLOW}加入隊伍權限Off${NC}"
 		mcdo scoreboard players set @e[tag=F] J 1	#加入隊伍權限Off
 		mcdo scoreboard players set @e[tag=N] J 0	#加入隊伍權限On
 	fi
