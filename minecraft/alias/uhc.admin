@@ -106,7 +106,17 @@ uhcteamcreate() {
 	rm $tmpscrpit
 }
 
-
+uhcteamchoice() {
+	if [ ! -z ${1+x} ]; then 
+		echo team choice on
+		mcdo scoreboard players set @e[tag=F] J 0	#加入隊伍權限Off
+		mcdo scoreboard players set @e[tag=N] J 1	#加入隊伍權限On
+	else
+		echo team choice off
+		mcdo scoreboard players set @e[tag=F] J 1	#加入隊伍權限Off
+		mcdo scoreboard players set @e[tag=N] J 0	#加入隊伍權限On
+	fi
+}
 
 alias mcsb='mcscores 3'
 # alias mcsbs='mcscores $*'
@@ -124,3 +134,4 @@ alias team.select='/home/sita/script/minecraft/uhc.team.select'
 alias team.create=uhcteamcreate
 alias team.add='teamlist && mcdo scoreboard teams join $1 $2'
 alias team.solo='mcserver do scoreboard teams join 1 @a'
+alias team.choice='uhcteamchoice $*'
