@@ -1,0 +1,61 @@
+#!/bin/bash
+
+npcrides0() {
+	case "$1" in
+		2)  # reset to 2 rides ready
+			# 來騎我吧y1
+			mcdo npc select 10
+			mcdo npc anchor --assume hub
+			# 來騎我吧y2
+			mcdo npc select 18
+			mcdo npc anchor --assume hide
+			# 來騎我吧y3
+			mcdo npc select 19
+			mcdo npc anchor --assume hide
+			# 來騎我吧c1
+			mcdo npc select 12
+			mcdo npc anchor --assume hub
+			# 來騎我吧c2
+			mcdo npc select 20
+			mcdo npc anchor --assume hide
+			# 來騎我吧c3
+			mcdo npc select 21
+			mcdo npc anchor --assume hide
+		;;
+		*)  # reset to all rides ready
+			# 來騎我吧y1
+			mcdo npc select 10
+			mcdo npc anchor --assume hub
+			# 來騎我吧y1
+			mcdo npc select 18
+			mcdo npc anchor --assume hub
+			# 來騎我吧y2
+			mcdo npc select 19
+			mcdo npc anchor --assume hub
+			# 來騎我吧y3
+			mcdo npc select 12
+			mcdo npc anchor --assume hub
+			# 來騎我吧c1
+			mcdo npc select 20
+			mcdo npc anchor --assume hub
+			# 來騎我吧c2
+			mcdo npc select 21
+			mcdo npc anchor --assume hub
+		;;
+	esac  
+}
+
+npcrides() {
+	npclist=(10 12 18 20 19 21)
+	cnt=0
+	loc=hub
+	for i in "${npclist[@]}"; do
+		if [ $cnt == "$1" ]; then loc=hide; fi
+		# echo "$i is in $loc"
+		mcdo npc select $i
+		mcdo npc anchor --assume $loc
+		let cnt=cnt+1 
+	done
+}
+
+alias npc.rides='npcrides $*'
