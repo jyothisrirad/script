@@ -2,17 +2,11 @@
 
 s68=spigot-1.12.2-multiverse-68
 
-# s68() {
-	# oldmcvar=$mcver
-	# export mcver=$s68 
-	
-	# mcpath=/mnt/runtimes/$mcver
-	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
-	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
-# }
-
 s68() {
 	chmc $s68
+	
+	alias  s1='export pos="-83 80 247"    && echo pos=sita出生點'
+	alias  s1='export pos="-71 87 216"    && echo pos=qq家'
 }
 
 alias 68=s68

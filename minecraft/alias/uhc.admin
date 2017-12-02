@@ -93,8 +93,8 @@ uhcinit() {
 	# mcdo tp @a 9475 65 3420
 	mcdo op chsliu
 	mcdo gamemode 1 @a
-	mcdo give @a command_block
-	mcdo give @a redstone_block
+	mcdo replaceitem entity @a slot.hotbar.7 command_block
+	mcdo replaceitem entity @a slot.hotbar.8 redstone_block
 }
 
 uhcteamcreate() {
