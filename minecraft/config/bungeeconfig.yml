@@ -86,6 +86,14 @@ servers:
     motd: 逆墜落
     address: lxcmc204:25585
     restricted: false
+  class:
+    motd: 職階戰爭1.1
+    address: lxcmc204:25586
+    restricted: false
+  class2:
+    motd: 職階戰爭II 5.1
+    address: lxcmc204:25587
+    restricted: false
 timeout: 30000
 listeners:
 - query_port: 25577
