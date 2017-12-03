@@ -44,8 +44,7 @@ as_user() {
 }
 
 mc_status() {
-  # ps aux|grep -F -v grep|grep -F -v SCREEN|grep -F --quiet $JARFILE
-  ps aux|grep -F -v grep|grep -F --quiet $VERSION
+  ps aux|grep -F -v grep|grep -F $VERSION|grep -F --quiet $JARFILE
   return $?
 }
 
@@ -334,10 +333,6 @@ mc_playeronline() {
 #Start-Stop here
 case "$1" in
   status)
-    # echo "ps aux|grep -F -v grep|grep -F --quiet $VERSION"
-    # echo 'echo $?'
-    # ps aux|grep -F -v grep|grep -F --quiet $VERSION
-    # echo $?
     if mc_status; then
       echo "$VERSION/$JARFILE is running."
     else
@@ -512,7 +507,7 @@ case "$1" in
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $VERSION | grep $JARFILE | awk '{print $2}')
 		for pid in $pids
 		do
 			echo kill -9 $pid
