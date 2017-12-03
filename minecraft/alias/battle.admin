@@ -2,10 +2,12 @@
 
 for_each_player_do() {
 	players=$(mcdo list | grep.player)
+	export mcecho_off=1
 	for player in $players
 	do
 		mcdo $1 $player
 	done
+	export mcecho_off=
 }
 
 alias each.do='for_each_player_do $1'

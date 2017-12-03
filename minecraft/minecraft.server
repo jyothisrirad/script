@@ -44,8 +44,8 @@ as_user() {
 }
 
 mc_status() {
-  # ps aux |grep -F -v grep|grep -F -v SCREEN|grep -F --quiet $JARFILE
-  ps aux |grep -F -v grep|grep -F --quiet $VERSION
+  # ps aux|grep -F -v grep|grep -F -v SCREEN|grep -F --quiet $JARFILE
+  ps aux|grep -F -v grep|grep -F --quiet $VERSION
   return $?
 }
 
@@ -249,12 +249,15 @@ mc_restore() {
 mc_pre_restore() {
    if [ ! -z ${MCSTORE+x} ]; then 
 	   echo "Prepare minecraft files before restore in $MCSTORE "
-	   tempdir=/tmp/del
+	   tempdir=/tmp/$RANDOM
+	   tempsh=/tmp/test.sh
 	   mkdir $MCSTORE/temp >/dev/null
-	   mv -f $MCSTORE/* $MCSTORE/temp &>/dev/null
-	   mv -f $MCSTORE/temp/config.sh $MCSTORE/  >/dev/null
+	   pushd $MCSTORE
+	   echo "shopt -s extglob" >$tempsh
+	   echo "mv !(config.sh|logs|temp) temp" >>$tempsh
+	   echo "shopt -u extglob" >>$tempsh
+	   . $tempsh
 	   mv -f $MCSTORE/temp $tempdir
-	   rm -rf $MCSTORE/temp
 	   echo "Prepare complete"
    fi
 }
@@ -331,10 +334,14 @@ mc_playeronline() {
 #Start-Stop here
 case "$1" in
   status)
+    # echo "ps aux|grep -F -v grep|grep -F --quiet $VERSION"
+    # echo 'echo $?'
+    # ps aux|grep -F -v grep|grep -F --quiet $VERSION
+    # echo $?
     if mc_status; then
-      echo "$JARFILE is running."
+      echo "$VERSION/$JARFILE is running."
     else
-      echo "$JARFILE is not running."
+      echo "$VERSION/$JARFILE is not running."
     fi
     ;;
   start)
@@ -380,7 +387,7 @@ case "$1" in
 		mc_backup_ex $2
 		if mc_status; then mc_stop; fi
 		
-		tempdir=/tmp/del
+		tempdir=/tmp/$RANDOM
 		echo Moving $MCSTORE to $tempdir
 		[ ! -d $tempdir/$MCSTORE ] || rm -rf $tempdir/$MCSTORE
 		[ -d $tempdir ] || mkdir $tempdir

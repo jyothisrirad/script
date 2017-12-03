@@ -25,10 +25,11 @@ mcserver() {
 		tempsh=/tmp/$mcver
 		if [ ! -f $tempsh ]; then
 			# echo 'echo /home/sita/script/minecraft/minecraft.server $*' > $tempsh
-			echo . /home/sita/script/minecraft/minecraft.server '$*' > $tempsh
+			echo "#!/bin/bash" > $tempsh
+			echo . /home/sita/script/minecraft/minecraft.server '$*' >> $tempsh
 			chmod +x $tempsh
 		fi
-		[ $mcecho_off ] || echo === $mcver $*
+		[ $mcecho_off ] || echo -e "${GREEN}=== $mcver $*${NC}"
 		$tempsh $*
 	fi
 }
