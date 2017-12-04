@@ -58,4 +58,11 @@ npcrides() {
 	done
 }
 
+server_yell() {
+	mcdo title @a title '{"text":"'$*'","color":"green","bold":"true","italic":"true"}'
+	# title @a subtitle {"text":"$1","color":"green","bold":"true","italic":"true"}
+	# title @a actionbar {"text":"$1","color":"green","bold":"true","italic":"true"}	
+}
+
 alias npc.rides='npcrides $*'
+alias yell='server_yell $*'

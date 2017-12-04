@@ -44,7 +44,8 @@ as_user() {
 }
 
 mc_status() {
-  ps aux|grep -F -v grep|grep -F $VERSION|grep -F --quiet $JARFILE
+  # ps aux|grep -F -v grep|grep -F $VERSION|grep -F --quiet $JARFILE
+  ps aux|grep -F -v grep|grep -F -v bash|grep -F --quiet $VERSION
   return $?
 }
 
@@ -507,7 +508,8 @@ case "$1" in
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		pids=$(ps aux | grep -F -v grep | grep $VERSION | grep $JARFILE | awk '{print $2}')
+		# pids=$(ps aux | grep -F -v grep | grep $VERSION | grep $JARFILE | awk '{print $2}')
+		pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
 		for pid in $pids
 		do
 			echo kill -9 $pid

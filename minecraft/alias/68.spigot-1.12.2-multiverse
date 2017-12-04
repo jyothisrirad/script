@@ -5,8 +5,9 @@ s68=spigot-1.12.2-multiverse-68
 s68() {
 	chmc $s68
 	
-	alias  s1='export pos="-83 80 247"    && echo pos=sita¥X¥ÍÂI'
-	alias  s1='export pos="-71 87 216"    && echo pos=qq®a'
+	alias  s0='export pos="-90 75 274"    && echo pos=sitaå‡ºç”Ÿé»ž0'
+	alias  s1='export pos="-83 80 247"    && echo pos=sitaå‡ºç”Ÿé»žsandstone'
+	alias  s2='export pos="-71 87 216"    && echo pos=qqå®¶'
 }
 
 alias 68=s68
