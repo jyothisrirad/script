@@ -39,7 +39,7 @@ pre_start_message() {
 }
 
 pre_start_message2() {
-	subtitle "$bold"請進入RC聊天室:"$yellow"27685743
+	subtitle "$bold"請進入RC聊天室:"$green"27685743
 	title "$aqua""$bold""$italian"即將進行分隊
 }
 
