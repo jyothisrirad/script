@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s75c=craftbukkit-1.11.2-UHC-75c
+s75c=75c-UHC
 
 s75c() {
 	chmc $s75c

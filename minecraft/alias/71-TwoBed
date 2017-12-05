@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s71=forge-1.10.2.TwoBed-71
+s71=71-TwoBed
 
 # s71() {
 	# oldmcvar=$mcver

@@ -1,19 +1,19 @@
 #!/bin/bash
 
-s67=spigot-1.11.2-survival-67
+s72=72-RTM
 
-# s67() {
+# s72() {
 	# oldmcvar=$mcver
-	# export mcver=$s67 
+	# export mcver=$s72 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s67() {
-	chmc $s67
+s72() {
+	chmc $s72
 }
 
-alias 67=s67
-alias sv=s67
+alias v7=s72
+alias 72=s72

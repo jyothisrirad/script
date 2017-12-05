@@ -1,19 +1,21 @@
 #!/bin/bash
 
-s66=spigot-1.11.2-hub-66
+s76=76-Wither
 
-# s66() {
+# s76() {
 	# oldmcvar=$mcver
-	# export mcver=$s66 
+	# export mcver=$s76 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s66() {
-	chmc $s66
+s76() {
+	chmc $s76
 }
 
-alias 66=s66
-alias hub=s66
+alias v11w=s76
+alias 76=s76
+alias wither=s76
+alias wrun='76 && /home/sita/script/minecraft/wither.arena $*'

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s84=spigot-1.12.2-battle-84
+s84=84-battle
 
 s84() {
 	chmc $s84

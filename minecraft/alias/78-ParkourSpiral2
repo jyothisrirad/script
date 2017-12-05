@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s78=spigot-1.12.2.ParkourSpiral2-78
+s78=78-ParkourSpiral2
 
 s78() {
 	oldmcvar=$mcver

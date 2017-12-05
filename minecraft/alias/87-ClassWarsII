@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s87=spigot-1.12.2-Class.Wars.II-87
+s87=87-ClassWarsII
 
 s87() {
 	chmc $s87

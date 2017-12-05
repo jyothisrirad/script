@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s85=spigot-1.11.2-Anti.Dropp3r-85
+s85=85-AntiDropp3r
 
 s85() {
 	chmc $s85

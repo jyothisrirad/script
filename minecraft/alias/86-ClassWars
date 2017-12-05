@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s86=spigot-1.9.4-Class.Wars-86
+s86=86-ClassWars
 
 s86() {
 	chmc $s86

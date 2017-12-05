@@ -1,20 +1,19 @@
 #!/bin/bash
 
-s77=spigot-1.11.2-bedwar-77
+s67=67-survival
 
-# s77() {
+# s67() {
 	# oldmcvar=$mcver
-	# export mcver=$s77 
+	# export mcver=$s67 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s77() {
-	chmc $s77
+s67() {
+	chmc $s67
 }
 
-alias v11b=s77
-alias 77=s77
-alias bed=s77
+alias 67=s67
+alias sv=s67

@@ -1,19 +1,18 @@
 #!/bin/bash
 
-s32=pocketmine-mp-1.2.0.81
+s69=69-multiworld
 
-# s32() {
+# s69() {
 	# oldmcvar=$mcver
-	# export mcver=$s32 
+	# export mcver=$s69 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s32() {
-	chmc $s32
+s69() {
+	chmc $s69
 }
 
-alias 32=s32
-alias pe12=s32
+alias 69=s69

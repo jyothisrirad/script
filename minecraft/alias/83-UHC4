@@ -1,19 +1,19 @@
 #!/bin/bash
 
-s79=spigot-1.8.4-h3-79
+s83=83-UHC4
 
-# s79() {
+# s83() {
 	# oldmcvar=$mcver
-	# export mcver=$s79 
+	# export mcver=$s83 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s79() {
-	chmc $s79
+s83() {
+	chmc $s83
 }
 
-alias 79=s79
-alias h3=s79
+alias 83=s83
+alias uhc4=s83

@@ -1,18 +1,19 @@
 #!/bin/bash
 
-s74b=craftbukkit-1.11.2-HyperUHC-74b
+s81=81-bedwar
 
-# s74b() {
+# s81() {
 	# oldmcvar=$mcver
-	# export mcver=$s74b 
+	# export mcver=$s81 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s74b() {
-	chmc $s74b
+s81() {
+	chmc $s81
 }
 
-alias 74b=s74b
+alias 81=s81
+alias bed1=s81

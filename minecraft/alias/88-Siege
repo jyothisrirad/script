@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s88=spigot-1.9-Siege-88
+s88=88-Siege
 
 s88() {
 	chmc $s88

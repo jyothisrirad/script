@@ -1,22 +1,19 @@
 #!/bin/bash
 
-s65=bungeecord-65
+s32=32-pocketmine-mp-1.2.0.81
 
-# s65() {
+# s32() {
 	# oldmcvar=$mcver
-	# export mcver=$s65 
+	# export mcver=$s32 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s65() {
-	chmc $s65
+s32() {
+	chmc $s32
 }
 
-alias 65=s65
-alias bun=s65
-alias ghub='65 && mcdo send all hub'
-alias guhc='65 && mcdo send all uhc'
-alias glist='65 && mcdo glist'
+alias 32=s32
+alias pe12=s32

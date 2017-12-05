@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s73=forge-1.11.2.Vanilla-73
+s73=73-Vanilla
 
 s73() {
 	chmc $s73

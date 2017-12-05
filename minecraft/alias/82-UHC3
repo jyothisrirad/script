@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s82=spigot-1.11.2-UHC3-82
+s82=82-UHC3
 
 # s82() {
 	## oldmcvar=$mcver
