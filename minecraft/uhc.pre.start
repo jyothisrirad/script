@@ -24,11 +24,6 @@ quiet_run() {
 	# mcecho_off=
 }
 
-pre_start_rule() {
-	mcserver do whitelist on
-	mcdo time set 0
-}
-
 pre_start_message() {
 	mcserver do say ============================
 	mcserver do say 即將進行分隊
@@ -41,6 +36,11 @@ pre_start_message() {
 pre_start_message2() {
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
 	title "$aqua""$bold""$italian"即將進行分隊
+}
+
+pre_start_rule() {
+	mcserver do whitelist on
+	mcdo time set 0
 }
 
 # mc1112uc

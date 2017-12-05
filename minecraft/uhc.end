@@ -37,35 +37,82 @@ team_all_set() {
 	done
 }
 
-# =============================================================
-mcdo gamerule sendCommandFeedback false
+quiet_run() {
+	# =============================================================
+	# mcecho_off=1
+	mcdo gamerule sendCommandFeedback false
+	# =============================================================
+	$1
+	$2
+	# =============================================================
+	mcdo gamerule sendCommandFeedback true
+	# mcecho_off=
+}
 
-# =============================================================
-# mc1112uc
-mcserver log teams
-mcserver log slain
-mcserver log winner
-mcserver backup
-mcserver save off
-mcscores 3 
-mcscores 3 
-mcscores 3 
-# mcserver do scoreboard teams list
-# mcserver do worldborder get
-# mcserver do worldborder set 64
-# mcserver do whitelist off
-# team_all_set friendlyfire true
-# mcserver do scoreboard teams join 1 @a
-# mcserver do gamemode 1 @a
-# mcserver do gamemode 1 @a
-mcserver do say ============================
-mcserver do say ==== "$bold"UHCθ盃已經結束"$off" ====
-mcserver do say ============================
-mcserver do say 伺服器現在開放自由玩
-mcserver do say 可隨意離場
-mcserver do say ============================
+end_rule() {
+	mcserver log teams
+	mcserver log slain
+	mcserver log winner
+	mcserver backup
+	mcserver save off
+	mcscores 3
+	mcscores 3
+	mcscores 3
+}
 
-# =============================================================
-mcdo gamerule sendCommandFeedback true
+end_message() {
+	# =============================================================
+	mcdo gamerule sendCommandFeedback false
 
-# =============================================================
+	# =============================================================
+	# mc1112uc
+	mcserver log teams
+	mcserver log slain
+	mcserver log winner
+	mcserver backup
+	mcserver save off
+	mcscores 3 
+	mcscores 3 
+	mcscores 3 
+	# mcserver do scoreboard teams list
+	# mcserver do worldborder get
+	# mcserver do worldborder set 64
+	# mcserver do whitelist off
+	# team_all_set friendlyfire true
+	# mcserver do scoreboard teams join 1 @a
+	# mcserver do gamemode 1 @a
+	# mcserver do gamemode 1 @a
+	mcserver do say ============================
+	mcserver do say ==== "$bold"UHCθ盃已經結束"$off" ====
+	mcserver do say ============================
+	mcserver do say 伺服器現在開放自由玩
+	mcserver do say 可隨意離場
+	mcserver do say ============================
+
+	# =============================================================
+	mcdo gamerule sendCommandFeedback true
+
+	# =============================================================
+}
+
+end_message2() {
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	subtitle "$bold"想參加賽後賽的玩家，請回到伺服器大廳
+	title "$aqua""$bold""$italian"UHCθ盃已經結束
+	sleep 5
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	subtitle "$bold"想參加賽後賽的玩家，請回到伺服器大廳
+	title "$aqua""$bold""$italian"UHCθ盃已經結束
+	sleep 5
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	subtitle "$bold"想參加賽後賽的玩家，請回到伺服器大廳
+	title "$aqua""$bold""$italian"UHCθ盃已經結束
+	sleep 5
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉
+	sleep 5
+	mcdo stop
+}
+
+# end_message
+# quiet_run end_rule end_message2
+quiet_run  end_message2
