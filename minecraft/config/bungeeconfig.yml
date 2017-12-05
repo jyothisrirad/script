@@ -1,15 +1,6 @@
 ip_forward: false
 network_compression_threshold: 256
 stats: 71caa302-444f-46b7-b878-a6bc3f703080
-permissions:
-  default:
-  - bungeecord.command.list
-  admin:
-  - bungeecord.command.server
-  - bungeecord.command.alert
-  - bungeecord.command.end
-  - bungeecord.command.ip
-  - bungeecord.command.reload
 groups:
   chsliu:
   - admin
@@ -94,7 +85,12 @@ servers:
     motd: 職階戰爭II 5.1
     address: lxcmc204:25587
     restricted: false
+  siege:
+    motd: 殲滅攻城戰Ver4.3
+    address: lxcmc204:25588
+    restricted: false
 timeout: 30000
+player_limit: -1
 listeners:
 - query_port: 25577
   motd: bungee
@@ -112,7 +108,15 @@ listeners:
   forced_hosts:
     sitahome.ddns.net: hub
 prevent_proxy_connections: false
-player_limit: -1
+permissions:
+  default:
+  - bungeecord.command.list
+  admin:
+  - bungeecord.command.server
+  - bungeecord.command.alert
+  - bungeecord.command.end
+  - bungeecord.command.ip
+  - bungeecord.command.reload
 online_mode: true
 log_commands: false
 disabled_commands:

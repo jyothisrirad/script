@@ -58,11 +58,35 @@ npcrides() {
 	done
 }
 
-server_yell() {
-	mcdo title @a title '{"text":"'$*'","color":"green","bold":"true","italic":"true"}'
-	# title @a subtitle {"text":"$1","color":"green","bold":"true","italic":"true"}
-	# title @a actionbar {"text":"$1","color":"green","bold":"true","italic":"true"}	
+say() {
+	# echo screen -p 0 -S $mcver -X eval 'stuff "say '"$*"'"\015'
+	screen -p 0 -S $mcver -X eval 'stuff "say '"$*"'"\015'
+}
+
+tellraw() {
+	# echo screen -p 0 -S $mcver -X eval "stuff 'tellraw @a [\"\",{\"text\":\""$*"\",\"color\":\"yellow\"}]'\015"
+	screen -p 0 -S $mcver -X eval "stuff 'tellraw @a [\"\",{\"text\":\""$*"\"}]'\015"
+}
+
+title() {
+	# echo screen -p 0 -S $mcver -X eval "stuff 'title @a title {\"text\":\""$*"\",\"color\":\"green\",\"bold\":\"true\",\"italic\":\"true\"}'\015"
+	screen -p 0 -S $mcver -X eval "stuff 'title @a title {\"text\":\""$*"\"}'\015"
+}
+
+subtitle() {
+	# echo screen -p 0 -S $mcver -X eval "stuff 'title @a subtitle {\"text\":\""$*"\",\"color\":\"green\",\"bold\":\"true\",\"italic\":\"true\"}'\015"
+	screen -p 0 -S $mcver -X eval "stuff 'title @a subtitle {\"text\":\""$*"\"}'\015"
+}
+
+actionbar() {
+	# echo screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\",\"color\":\"green\",\"bold\":\"true\",\"italic\":\"true\"}'\015"
+	screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\"}'\015"
+}
+
+titles() {
+	[ ! $2 ] || subtitle $2
+	[ ! $1 ] || title $1
 }
 
 alias npc.rides='npcrides $*'
-alias yell='server_yell $*'
+alias yell='titles $*'

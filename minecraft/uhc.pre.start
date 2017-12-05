@@ -11,19 +11,39 @@ cron_wday='6'
 . /home/sita/script/cron/template.sh
 . /home/sita/script/minecraft/alias.minecraft
 
-# =============================================================
-mcdo gamerule sendCommandFeedback false
 
-# =============================================================
+quiet_run() {
+	# =============================================================
+	# mcecho_off=1
+	mcdo gamerule sendCommandFeedback false
+	# =============================================================
+	$1
+	$2
+	# =============================================================
+	mcdo gamerule sendCommandFeedback true
+	# mcecho_off=
+}
+
+pre_start_rule() {
+	mcserver do whitelist on
+	mcdo time set 0
+}
+
+pre_start_message() {
+	mcserver do say ============================
+	mcserver do say 即將進行分隊
+	mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
+	# mcserver do say 有玩家投訴，RC聊天室有雜音，罵人等令人不舒服的聲音。
+	# mcserver do say 如果有人投訴，犯者將會在本次比賽中被禁言。
+	mcserver do say ============================
+}
+
+pre_start_message2() {
+	subtitle "$bold"請進入RC聊天室:"$yellow"27685743
+	title "$aqua""$bold""$italian"即將進行分隊
+}
+
 # mc1112uc
-mcserver do say ============================
-mcserver do say 即將進行分隊
-mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
-mcserver do say 有玩家投訴，RC聊天室有雜音，罵人等令人不舒服的聲音。
-mcserver do say 如果有人投訴，犯者將會在本次比賽中被禁言。
-mcserver do say ============================
-mcserver do whitelist on
-mcdo time set 0
+# quiet_run pre_start_message pre_start_rule
+quiet_run pre_start_message2 pre_start_rule
 
-# =============================================================
-mcdo gamerule sendCommandFeedback true
