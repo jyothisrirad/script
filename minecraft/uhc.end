@@ -110,9 +110,13 @@ end_message2() {
 	sleep 5
 	title "$aqua""$bold""$italian"UHC伺服器即將關閉
 	sleep 5
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉
+	sleep 5
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉
+	sleep 5
 	mcdo stop
 }
 
 # end_message
-# quiet_run end_rule end_message2
-quiet_run  end_message2
+# quiet_run end_message2
+quiet_run end_rule end_message2
