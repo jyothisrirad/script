@@ -51,11 +51,6 @@ quiet_run() {
 	# mcecho_off=
 }
 
-pre_open_rule() {
-	mcserver start
-	mcserver do whitelist off
-}
-
 open_message() {
 	# mchalt #unknown server version, so closing java instead
 	# mc1112uc
@@ -78,11 +73,15 @@ open_message() {
 	mcdo gamerule sendCommandFeedback true
 }
 
-open_message2() {
-	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
-	title "$aqua""$bold""$italian"歡迎來到UHCθ盃
+pre_open_rule() {
+	mcserver start
+	mcserver do whitelist off
 }
 
+open_message2() {
+	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
+}
 
 # open_message
 quiet_run pre_open_rule open_message2

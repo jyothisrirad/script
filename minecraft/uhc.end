@@ -49,17 +49,6 @@ quiet_run() {
 	# mcecho_off=
 }
 
-end_rule() {
-	mcserver log teams
-	mcserver log slain
-	mcserver log winner
-	mcserver backup
-	mcserver save off
-	mcscores 3
-	mcscores 3
-	mcscores 3
-}
-
 end_message() {
 	# =============================================================
 	mcdo gamerule sendCommandFeedback false
@@ -93,6 +82,17 @@ end_message() {
 	mcdo gamerule sendCommandFeedback true
 
 	# =============================================================
+}
+
+end_rule() {
+	mcserver log teams
+	mcserver log slain
+	mcserver log winner
+	mcserver backup
+	mcserver save off
+	mcscores 3
+	mcscores 3
+	mcscores 3
 }
 
 end_message2() {
