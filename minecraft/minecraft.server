@@ -508,11 +508,14 @@ case "$1" in
 	if mc_status; then
 		mc_savetodisk_online
 		mc_stop
-		# pids=$(ps aux | grep -F -v grep | grep $VERSION | grep $JARFILE | awk '{print $2}')
-		pids=$(ps aux | grep -F -v grep | grep $VERSION | awk '{print $2}')
+		# pids=$(ps aux|grep -F -v grep|grep $VERSION|grep $JARFILE|awk '{print $2}')
+		pids=$(ps aux|grep -F -v grep|grep -F -v bash|grep $VERSION|awk '{print $2}')
 		for pid in $pids
 		do
-			echo kill -9 $pid
+			# sudo cat /proc/$pid/cmdline
+			cmdline=\'$(cat /proc/$pid/cmdline)\'
+			# echo kill -9 $pid
+			echo kill -9 $cmdline
 			kill -9 $pid
 		done
 	fi

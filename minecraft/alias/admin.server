@@ -1,6 +1,7 @@
 #!/bin/bash
 
 server.prep() {
+	# echo server.prep
 	config=/mnt/runtimes/$mcver/config.sh
 	[ ! -f $config ] || . $config
 
