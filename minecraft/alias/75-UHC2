@@ -1,20 +1,20 @@
 #!/bin/bash
 
-s74=craftbukkit-1.11.2-UHC-74
+s75=75-UHC2
 
-# s74() {
+# s75() {
 	# oldmcvar=$mcver
-	# export mcver=$s74 
+	# export mcver=$s75 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s74() {
-	chmc $s74
+s75() {
+	chmc $s75
 }
 
-alias v11uc=s74
-alias 74=s74
-alias uhc=s74
+alias v11u=s75
+alias 75=s75
+alias uhc2=s75

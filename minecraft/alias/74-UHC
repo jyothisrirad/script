@@ -1,20 +1,20 @@
 #!/bin/bash
 
-s75=forge-1.11.2.UHC2-75
+s74=74-UHC
 
-# s75() {
+# s74() {
 	# oldmcvar=$mcver
-	# export mcver=$s75 
+	# export mcver=$s74 
 	
 	# mcpath=/mnt/runtimes/$mcver
 	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s75() {
-	chmc $s75
+s74() {
+	chmc $s74
 }
 
-alias v11u=s75
-alias 75=s75
-alias uhc2=s75
+alias v11uc=s74
+alias 74=s74
+alias uhc=s74

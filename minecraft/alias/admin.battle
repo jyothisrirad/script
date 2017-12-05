@@ -5,6 +5,7 @@ for_each_player_do() {
 	export mcecho_off=1
 	for player in $players
 	do
+		# echo mcdo $1 $player
 		mcdo $1 $player
 	done
 	export mcecho_off=
