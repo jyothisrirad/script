@@ -19,7 +19,8 @@ ZIPDIR=$(echo $ZIPDIR/$BASE)
 
 
 listfile() {
-	ZIPLIST=(`ls -at $ZIPDIR/${BASE:0:5}*.zip`)
+	# ZIPLIST=(`ls -at $ZIPDIR/${BASE:0:5}*.zip`)
+	ZIPLIST=(`ls -at $ZIPDIR/*.zip`)
 
 	echo -e "${GREEN}===== Content of $ZIPDIR =====${NC}"
 
@@ -35,7 +36,8 @@ listfile() {
 
 restore() {
 
-	ZIPLIST=(`ls -at $ZIPDIR/${BASE:0:5}*.zip`)
+	# ZIPLIST=(`ls -at $ZIPDIR/${BASE:0:5}*.zip`)
+	ZIPLIST=(`ls -at $ZIPDIR/*.zip`)
 
 	INDEXMAX=$(( ${#ZIPLIST[@]} - 1 ))
 
