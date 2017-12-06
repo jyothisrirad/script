@@ -80,7 +80,7 @@ chmc() {
 utf8
 load_alias
 # [ $mcver ] || mc1112uc
-[ $mcver ] || s74
+# [ $mcver ] || s74
 
 #=================================
 alias a=alias

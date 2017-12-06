@@ -10,6 +10,7 @@ cron_wday='6'
 
 . /home/sita/script/cron/template.sh
 . /home/sita/script/minecraft/alias.minecraft
+. /home/sita/script/minecraft/include/uhc
 
 
 # as_user() {
@@ -19,18 +20,6 @@ cron_wday='6'
 		# su - $USERNAME -c "$1"
 	# fi
 # }
-
-quiet_run() {
-	# =============================================================
-	# mcecho_off=1
-	mcdo gamerule sendCommandFeedback false
-	# =============================================================
-	$1
-	$2
-	# =============================================================
-	mcdo gamerule sendCommandFeedback true
-	# mcecho_off=
-}
 
 message() {
 	mcserver do say §3§6§3§6§3§6§e§3§6§3§6§3§6§d
@@ -70,6 +59,9 @@ message2() {
 	sleep 5
 }
 
-# mc1112uc
+# s74
 # quiet_run message
 quiet_run message2
+
+# echo $0 >> /tmp/debug
+# echo $mcver >> /tmp/debug

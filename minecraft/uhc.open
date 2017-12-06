@@ -11,6 +11,7 @@ cron_wday='6'
 
 . /home/sita/script/cron/template.sh
 . /home/sita/script/minecraft/alias.minecraft
+. /home/sita/script/minecraft/include/uhc
 
 
 # mc_status() {
@@ -38,18 +39,6 @@ cron_wday='6'
 		# kill -9 $(ps aux | grep java | awk '{print $2}')
 	# fi
 # }
-
-quiet_run() {
-	# =============================================================
-	# mcecho_off=1
-	mcdo gamerule sendCommandFeedback false
-	# =============================================================
-	$1
-	$2
-	# =============================================================
-	mcdo gamerule sendCommandFeedback true
-	# mcecho_off=
-}
 
 open_message() {
 	# mchalt #unknown server version, so closing java instead
@@ -83,5 +72,6 @@ open_message2() {
 	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
 }
 
+# s74
 # open_message
 quiet_run pre_open_rule open_message2

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+quiet_run() {
+	# =============================================================
+	# mcecho_off=1
+	mcdo gamerule sendCommandFeedback false
+	# =============================================================
+	$1
+	$2
+	$3
+	# =============================================================
+	mcdo gamerule sendCommandFeedback true
+	# mcecho_off=
+}
+
+
+s74
+# s66

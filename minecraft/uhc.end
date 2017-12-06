@@ -5,6 +5,7 @@ export mcecho_off=1
 
 
 . /home/sita/script/minecraft/alias.minecraft
+. /home/sita/script/minecraft/include/uhc
 
 # $1: default to wait for key press for each score
 #     <num> to sleep <num> sec between each score
@@ -35,18 +36,6 @@ team_all_set() {
 	do 
 		mcserver do scoreboard teams option $t $1 $2
 	done
-}
-
-quiet_run() {
-	# =============================================================
-	# mcecho_off=1
-	mcdo gamerule sendCommandFeedback false
-	# =============================================================
-	$1
-	$2
-	# =============================================================
-	mcdo gamerule sendCommandFeedback true
-	# mcecho_off=
 }
 
 end_message() {
@@ -84,7 +73,7 @@ end_message() {
 	# =============================================================
 }
 
-end_rule() {
+end_rule1() {
 	mcserver log teams
 	mcserver log slain
 	mcserver log winner
@@ -114,9 +103,13 @@ end_message2() {
 	sleep 5
 	title "$aqua""$bold""$italian"UHC伺服器即將關閉
 	sleep 5
+}
+
+end_rule2() {
 	mcdo stop
 }
 
+# s74
 # end_message
 # quiet_run end_message2
-quiet_run end_rule end_message2
+quiet_run end_rule1 end_message2 end_rule2
