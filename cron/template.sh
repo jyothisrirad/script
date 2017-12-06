@@ -65,7 +65,7 @@ case "$1" in
 	addto_crontab ""
 	addto_crontab "$cron_comment"
 	# addto_crontab "$cron_min $cron_hour $cron_day $cron_month $cron_wday /usr/bin/batch < $(readlink -e $0)"
-	addto_crontab "$cron_min $cron_hour $cron_day $cron_month $cron_wday $(readlink -e $0)"
+	addto_crontab "$cron_min $cron_hour $cron_day $cron_month $cron_wday /bin/bash /home/sita/script/minecraft/uhc.message$(readlink -e $0)"
 	crontab -l
 	exit
 	;;

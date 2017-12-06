@@ -58,29 +58,43 @@ npcrides() {
 	done
 }
 
+USERNAME=sita
+as_user() {
+  if [ "$(whoami)" == "$USERNAME" ] ; then
+    bash -c "$1"
+  else
+    su - $USERNAME -c "$1"
+  fi
+}
+
 say() {
-	# echo screen -p 0 -S $mcver -X eval 'stuff "say '"$*"'"\015'
-	screen -p 0 -S $mcver -X eval 'stuff "say '"$*"'"\015'
+	# screen -p 0 -S $mcver -X eval 'stuff \"say '"$*"'\"\015'
+	as_user "screen -p 0 -S $mcver -X eval 'stuff \"say '"$*"'\"\015'"
+}
+
+say1() {
+	# screen -p 0 -S $mcver -X eval "stuff 'say "$*"'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff 'say "$*"\015'\""
 }
 
 tellraw() {
-	# echo screen -p 0 -S $mcver -X eval "stuff 'tellraw @a [\"\",{\"text\":\""$*"\",\"color\":\"yellow\"}]'\015"
-	screen -p 0 -S $mcver -X eval "stuff 'tellraw @a [\"\",{\"text\":\""$*"\"}]'\015"
+	# screen -p 0 -S $mcver -X eval "stuff 'tellraw @a [\"\",{\"text\":\""$*"\"}]'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'tellraw @a [\\\"\\\",{\\\"text\\\":\\\""$*"\\\"}]\'\015\""
 }
 
 title() {
-	# echo screen -p 0 -S $mcver -X eval "stuff 'title @a title {\"text\":\""$*"\",\"color\":\"green\",\"bold\":\"true\",\"italic\":\"true\"}'\015"
-	screen -p 0 -S $mcver -X eval "stuff 'title @a title {\"text\":\""$*"\"}'\015"
+	# screen -p 0 -S $mcver -X eval "stuff 'title @a title {\"text\":\""$*"\"}'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'title @a title {\\\"text\\\":\\\""$*"\\\"}\'\015\""
 }
 
 subtitle() {
-	# echo screen -p 0 -S $mcver -X eval "stuff 'title @a subtitle {\"text\":\""$*"\",\"color\":\"green\",\"bold\":\"true\",\"italic\":\"true\"}'\015"
-	screen -p 0 -S $mcver -X eval "stuff 'title @a subtitle {\"text\":\""$*"\"}'\015"
+	# screen -p 0 -S $mcver -X eval "stuff 'title @a subtitle {\"text\":\""$*"\"}'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'title @a subtitle {\\\"text\\\":\\\""$*"\\\"}\'\015\""
 }
 
 actionbar() {
-	# echo screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\",\"color\":\"green\",\"bold\":\"true\",\"italic\":\"true\"}'\015"
-	screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\"}'\015"
+	# screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\"}'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'title @a actionbar {\\\"text\\\":\\\""$*"\\\"}\'\015\""
 }
 
 titles() {
