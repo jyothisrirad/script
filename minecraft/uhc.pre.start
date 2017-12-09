@@ -29,7 +29,7 @@ pre_start_message2() {
 }
 
 pre_start_rule() {
-	mcserver do whitelist on
+	# mcserver do whitelist on
 	mcdo time set 0
 }
 
