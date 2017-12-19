@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s81=81-bedwar
+s81=81-bedwar-kingdoms
 
 # s81() {
 	# oldmcvar=$mcver

@@ -10,7 +10,8 @@ utf8() {
 load_alias() {
 
 	for f in /home/sita/script/minecraft/alias/*; do  # or wget-*.sh instead of *.sh
-		. "$f" -H || break # if needed 
+		# . "$f" -H || break # if needed 
+		[ ! -f "$f" ] || . "$f" -H
 	done
 }
 
