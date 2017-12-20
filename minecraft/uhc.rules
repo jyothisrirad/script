@@ -110,8 +110,10 @@ mcserver do scoreboard players set @e[tag=g] h 0	#模式:永夜
 mcserver do scoreboard players set @e[tag=F] i 0	#隱藏名條Off
 mcserver do scoreboard players set @e[tag=N] i 1	#隱藏名條On
 mcserver do scoreboard players set @e[tag=N] j $time_shown #隱藏名條20min
-mcserver do scoreboard players set @e[tag=F] k 0	#玩家發光Off
-mcserver do scoreboard players set @e[tag=N] k 1	#玩家發光On
+# mcserver do scoreboard players set @e[tag=F] k 0	#玩家發光Off
+# mcserver do scoreboard players set @e[tag=N] k 1	#玩家發光On
+mcserver do scoreboard players set @e[tag=F] k 1	#玩家發光Off
+mcserver do scoreboard players set @e[tag=N] k 0	#玩家發光On
 mcserver do scoreboard players set @e[tag=N] l $time_beforefinal #玩家發光清除怪物60min
 
 # =============================================================
