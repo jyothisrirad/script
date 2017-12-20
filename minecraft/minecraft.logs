@@ -124,26 +124,25 @@ grep.left() {
 	# grep 'lost the achievement' | awk '{ printf ("%s\n", $4) }' | sort | uniq
 # }
 
-replace.teamtag() {
-	list=`cat`
-	list=$(echo $list | sed "s/$off//g")
-	list=$(echo $list | sed "s/$black/[黑隊]/g")
-	list=$(echo $list | sed "s/$dark_blue/[B5深藍隊]/g")
-	list=$(echo $list | sed "s/$dark_green/[B3深綠隊]/g")
-	list=$(echo $list | sed "s/$dark_aqua/[B4深青隊]/g")
-	list=$(echo $list | sed "s/$dark_red/[B1深紅隊]/g")
-	list=$(echo $list | sed "s/$dark_purple/[B6深紫隊]/g")
-	list=$(echo $list | sed "s/$gold/[B2橘隊]/g")
-	list=$(echo $list | sed "s/$gray/[A7灰隊]/g")
-	list=$(echo $list | sed "s/$dark_gray/[B7深灰隊]/g")
-	list=$(echo $list | sed "s/$blue/[A5藍隊]/g")
-	list=$(echo $list | sed "s/$green/[A3綠隊]/g")
-	list=$(echo $list | sed "s/$aqua/[A4青隊]/g")
-	list=$(echo $list | sed "s/$red/[A1紅隊]/g")
-	list=$(echo $list | sed "s/$light_purple/[A6亮紫隊]/g")
-	list=$(echo $list | sed "s/$yellow/[A2黃隊]/g")
-	list=$(echo $list | sed "s/$white/[白隊]/g")
-	echo $list
+file.replace.teamtag() {
+	[ -f $1 ] || { echo no file; return 1; }
+	sed -i "s/$off//g" $1
+	sed -i "s/$black/[黑隊]/g" $1
+	sed -i "s/$dark_blue/[B5深藍隊]/g" $1
+	sed -i "s/$dark_green/[B3深綠隊]/g" $1
+	sed -i "s/$dark_aqua/[B4深青隊]/g" $1
+	sed -i "s/$dark_red/[B1深紅隊]/g" $1
+	sed -i "s/$dark_purple/[B6深紫隊]/g" $1
+	sed -i "s/$gold/[B2橘隊]/g" $1
+	sed -i "s/$gray/[A7灰隊]/g" $1
+	sed -i "s/$dark_gray/[B7深灰隊]/g" $1
+	sed -i "s/$blue/[A5藍隊]/g" $1
+	sed -i "s/$green/[A3綠隊]/g" $1
+	sed -i "s/$aqua/[A4青隊]/g" $1
+	sed -i "s/$red/[A1紅隊]/g" $1
+	sed -i "s/$light_purple/[A6亮紫隊]/g" $1
+	sed -i "s/$yellow/[A2黃隊]/g" $1
+	sed -i "s/$white/[白隊]/g" $1
 }
 
 grep.teams() {
@@ -186,7 +185,7 @@ grep.slain() {
 ## was pricked to death
 ## was shot by 
 ## was slain by 
-	grep 'blew\|burned\|fell\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain' | replace.teamtag
+	grep 'blew\|burned\|fell\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain'
 }
 
 grep.winner() {
