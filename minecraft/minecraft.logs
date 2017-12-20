@@ -227,7 +227,10 @@ logs.grep() {
 		logs | grep.teams | sort
 		;;
     slain)
-		logs | grep.slain
+		logfile=/tmp/slain.log
+		logs | grep.slain >$logfile
+		file.replace.teamtag $logfile
+		cat $logfile
 		;;
     winner)
 		logs | grep.winner
