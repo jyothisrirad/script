@@ -39,12 +39,16 @@ time_shrink=$(echo $time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0)
 time_beforefinal=$(($time_game+$time_shrink))
 # time_final=$(echo $time_total*.08 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 
+if [ "$time_reminder" -gt "20" ]; then time_reminder=20; fi
+
 echo time_reminder=$time_reminder
 echo time_shown=$time_shown
 echo time_game=$time_game
 echo time_shrink=$time_shrink
 echo time_beforefinal=$time_beforefinal
 # echo time_final=$time_final
+
+exit
 
 # =============================================================
 mcdo gamerule sendCommandFeedback false
