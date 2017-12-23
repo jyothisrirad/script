@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s89=89-Snowbound
+
+s89() {
+	chmc $s89
+}
+
+alias 89=s89

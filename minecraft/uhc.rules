@@ -64,7 +64,8 @@ mcserver do scoreboard players set @e[tag=L] I 496	#地圖大小
 # =============================================================
 # Book 2
 # =============================================================
-mcserver do scoreboard players set @e[tag=N] F 1	#遊戲困難度
+# mcserver do scoreboard players set @e[tag=N] F 1	#遊戲困難度
+mcserver do scoreboard players set @e[tag=N] F 2	#遊戲困難度
 mcserver do scoreboard players set @e[tag=F] U 0	#提醒時間Off
 mcserver do scoreboard players set @e[tag=N] U 1	#提醒時間On
 mcserver do scoreboard players set @e[tag=N] u $time_reminder #提醒時間20min
