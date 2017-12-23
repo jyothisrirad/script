@@ -110,6 +110,7 @@ uhcteamcreate() {
 	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
 	mcdo list | grep.player | team.select >>$tmpscrpit
 	cat $tmpscrpit
+	mcdo gamerule sendCommandFeedback false
 	. $tmpscrpit
 	rm $tmpscrpit
 }
@@ -147,7 +148,7 @@ alias rule.biome='biome'
 alias uhcend='/home/sita/script/minecraft/uhc.end'
 alias uhcstat=uhcstat
 alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
-alias team.select='/home/sita/script/minecraft/uhc.team.select'
+alias team.select='/home/sita/script/minecraft/uhc.team.select $*'
 alias team.create=uhcteamcreate
 alias team.join='teamlist && playerlist && mcdo scoreboard teams join $1 $2'
 alias team.solo='mcserver do scoreboard teams join 1 @a'
