@@ -77,6 +77,15 @@ chmc() {
 	fi
 }
 
+rematch() {
+	mcserver pre_restore
+	mcserver restore $*
+	mcprep
+	mcserver start
+	sleep 1
+	mclog
+}
+
 #=================================
 utf8
 load_alias
@@ -102,7 +111,8 @@ alias mcstat='mcserver status'
 # alias mcreport='mcserver crashreport'
 alias mcbackup='mcserver backup'
 alias mcrestore='mcserver restore $*'
-alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog'
+# alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog'
+alias mcrematch='rematch $*'
 # alias mckill='mcserver kill'
 # alias mchalt='mcdo end && mcserver halt && swp'
 #alias mchalt='mcdo end && mcserver halt'
