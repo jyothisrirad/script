@@ -48,7 +48,7 @@ echo time_shrink=$time_shrink
 echo time_beforefinal=$time_beforefinal
 # echo time_final=$time_final
 
-exit
+# exit
 
 # =============================================================
 mcdo gamerule sendCommandFeedback false
