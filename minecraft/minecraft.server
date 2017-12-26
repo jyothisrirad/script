@@ -465,6 +465,7 @@ case "$1" in
 	fi
 	;;	
   install)
+	$0 remove_cron
 	# sudo cp $0 /etc/init.d/
 	# sudo chmod a+x /etc/init.d/$(basename $0)
 	# addto_crontab "#$VERSION server"
