@@ -477,6 +477,7 @@ case "$1" in
 	# crontab -l
 	;;
   remove_cron)
+	echo delfrom_crontab "$(basename $0)"
 	delfrom_crontab "#$VERSION server"
 	delfrom_crontab "$(basename $0)"
 	# crontab -l

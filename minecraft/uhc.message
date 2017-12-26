@@ -59,9 +59,33 @@ message2() {
 	sleep 5
 }
 
+message2hr() {
+	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	subtitle "$bold"特殊裝備"$yellow"附魔鐵靴"$off""$bold"每個成就升級速度力量血量
+	title "$aqua""$bold""$italian"UHCθ盃2小時比賽規則
+	sleep 5
+	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	subtitle "$red""$bold"40"$off""$bold"分玩家名條顯示
+	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
+	sleep 5
+	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	subtitle "$red""$bold"80"$off""$bold"分地圖開始漸縮、永遠白天
+	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
+	sleep 5
+	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	subtitle "$red""$bold"110"$off""$bold"分地圖縮至"$red"112x112"$off""$bold"、清除怪物、玩家發光
+	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
+	sleep 5
+	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	subtitle "$red""$bold"120"$off""$bold"分傳送到最後戰場
+	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
+	sleep 5
+}
+
 # s74
 # quiet_run message
-quiet_run message2
+# quiet_run message2
+quiet_run message2hr
 
 # echo $0 >> /tmp/debug
 # echo $mcver >> /tmp/debug
