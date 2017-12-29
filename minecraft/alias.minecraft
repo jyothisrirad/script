@@ -86,6 +86,15 @@ rematch() {
 	mclog
 }
 
+bungee_online_mode() {
+	echo online_mode: true >>config.yml
+}
+
+bungee_offline_mode() {
+	echo online_mode: false >>config.yml
+
+}
+
 #=================================
 utf8
 load_alias
@@ -129,3 +138,5 @@ alias mcseal='mcserver seal'
 alias sls='screen -ls'
 alias swp='screen -wipe'
 alias sr='screen -r $mcver'
+alias offline='65 && bungee_offline_mode && mcdo greload && 66 && mcwo'
+alias online='65 && bungee_online_mode && mcdo greload && 66 && mcwf'
