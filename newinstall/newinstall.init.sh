@@ -77,6 +77,11 @@ sudo sed -i "s/$(hostname)/$1/g" /etc/hosts
 sudo hostname $1
 
 #-------------------------------------------------
+# avoid CUPS messages
+# cat /var/log/samba/log.smbd
+sudo sed -i 's/\[global\]/\[global\]\nprinting = bsd\nprintcap name = \/dev\/null\n/' /etc/samba/smb.conf
+
+#-------------------------------------------------
 #vi /etc/nsswitch.conf
 #hosts:          files wins dns
 sudo sed -i 's/hosts:          files dns/hosts:          files wins dns mdns4_minimal/g' /etc/nsswitch.conf
