@@ -22,10 +22,6 @@ servers:
     motd: 大廳測試版
     address: lxcmc210:25566
     restricted: false
-  h2:
-    motd: 大廳1.8
-    address: lxcmc210:25580
-    restricted: false
   sv:
     motd: Survival
     address: lxcmc204:25567
@@ -70,13 +66,21 @@ servers:
     motd: 床戰PvP
     address: lxcmc204:25577
     restricted: false
+  pk2:
+    motd: 跑酷螺旋塔2
+    address: lxcmc204:25578
+    restricted: false
+  h2:
+    motd: 大廳1.8
+    address: lxcmc210:25580
+    restricted: false
   bed1:
     motd: 床戰Kingdoms
     address: lxcmc204:25581
     restricted: false
-  pk2:
-    motd: 跑酷螺旋塔2
-    address: lxcmc204:25578
+  uhc3:
+    motd: UHCrafted
+    address: lxcmc206:25582
     restricted: false
   battle:
     motd: 亡國之戰
@@ -101,6 +105,10 @@ servers:
   snow:
     motd: Snowbound
     address: lxcmc204:25589
+    restricted: false
+  terra:
+    motd: Terra Swoop Force - A Noxcrew Map
+    address: lxcmc204:25590
     restricted: false
 timeout: 30000
 listeners:
