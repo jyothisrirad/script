@@ -8,12 +8,13 @@ from subprocess import call
 
 max_team_players=3
 teamnames = 'R','Y','G','A','B','P','E','r','y','g','a','b','p','e'
+specials = 'Frs_yoyogood','qqua630512','Willwill01'
 
 preset_teams = {
 	'R': (),
-	'Y': ('qqua630512'),
+	'Y': (),
 	'G': (),
-	'A': ('Willwill01'),
+	'A': (),
 	'B': (),
 	'P': (),
 	'E': (),

@@ -36,7 +36,8 @@ time_reminder=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0)
 time_shown=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_game=$(echo $time_total*.67 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_shrink=$(echo $time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
-time_beforefinal=$(($time_game+$time_shrink))
+if [ "$time_shrink" -gt "20" ]; then time_shrink=$((($time_shrink/20)*20)); fi 
+time_nomob=$(($time_game+$time_shrink))
 # time_final=$(echo $time_total*.08 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 
 if [ "$time_reminder" -gt "20" ]; then time_reminder=20; fi
@@ -45,8 +46,9 @@ echo time_reminder=$time_reminder
 echo time_shown=$time_shown
 echo time_game=$time_game
 echo time_shrink=$time_shrink
-echo time_beforefinal=$time_beforefinal
+echo time_nomob=$time_nomob
 # echo time_final=$time_final
+echo time_total=$time_total
 
 # exit
 
@@ -119,7 +121,7 @@ mcserver do scoreboard players set @e[tag=F] k 0	#玩家發光Off
 mcserver do scoreboard players set @e[tag=N] k 1	#玩家發光On
 # mcserver do scoreboard players set @e[tag=F] k 1	#玩家發光Off
 # mcserver do scoreboard players set @e[tag=N] k 0	#玩家發光On
-mcserver do scoreboard players set @e[tag=N] l $time_beforefinal #玩家發光清除怪物60min
+mcserver do scoreboard players set @e[tag=N] l $time_nomob #玩家發光清除怪物60min
 
 # =============================================================
 # Book 4
@@ -133,7 +135,7 @@ mcserver do scoreboard players set @e[tag=N] FinalWar 1			#最後戰場On
 mcserver do scoreboard players set @e[tag=N] FinalTime $time_total #最後戰場65min
 # mcserver do scoreboard players set @e[tag=N] FinalM 5			# 
 # mcserver do scoreboard players set @e[tag=N] FinalS 31			#
-mcserver do scoreboard players set @e[tag=N] ClearTime $time_beforefinal #清除怪物60min
+mcserver do scoreboard players set @e[tag=N] ClearTime $time_nomob #清除怪物60min
 # mcserver do scoreboard players set @e[tag=N] minute 0			#  
 # mcserver do scoreboard players set @e[tag=N] second 300			#
 # mcserver do scoreboard players set @e[tag=HG] border 0			#
