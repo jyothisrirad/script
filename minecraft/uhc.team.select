@@ -6,25 +6,14 @@ from random import shuffle
 from subprocess import call
 
 
-max_team_players=3
-teamnames = 'R','Y','G','A','B','P','E','r','y','g','a','b','p','e'
-specials = 'Frs_yoyogood','qqua630512','Willwill01'
-
-preset_teams = {
-	'R': (),
-	'Y': (),
-	'G': (),
-	'A': (),
-	'B': (),
-	'P': (),
-	'E': (),
-	'r': (),
-	'y': (),
-	'g': (),
-	'a': (),
-	'b': (),
-	'p': (),
-	'e': (),
+max_team=6
+least_team_players=3
+teamnames = ['R','Y','G','A','B','P','E','r','y','g','a','b','p','e']
+preset_teams = {}
+presets = {
+	0: ['qqua630512'],
+	1: ['Willwill01'],
+	2: ['Frs_yoyogood'],
 }
 
 
@@ -40,29 +29,59 @@ def parse(f):
 	for line in lines:
 		for player in line.split(' '):
 			newplayers.append(player.strip())
+	# print('len(newplayers)=',len(newplayers))
+	max_team_players=len(newplayers)/max_team
+	if max_team_players < least_team_players: max_team_players=least_team_players
+	# print('max_team_players=',max_team_players)
 	
 	shuffle(newplayers)
-	# print(newplayers)
+	# print('newplayers=',newplayers)
+	shuffle(teamnames)
+	# print('teamnames=',teamnames)
 	
-	
-	# for team in teams:
-		# players = teams[team]
-		# for player in players:
-			# print(team,player)
-			
-	for name in teamnames:
-		for player in preset_teams[name]:
-			if player in newplayers:
-				newplayers.remove(player)
-				if name in newteams: newteams[name].append(player)
-				else: newteams[name] = [player]
-	for name in teamnames:
-		while count_or_default(newteams,name) < max_team_players:
+	#populate preset_teams
+	for i in range(len(presets)):
+		for player in presets[i]:
+			t=teamnames[i]
+			if t in preset_teams: preset_teams[t].append(player)			
+			else: preset_teams[t] = [player]
+	# print('preset_teams=',preset_teams)
+
+	#use players in preset_teams first
+	for t in teamnames:
+		if t in preset_teams:
+			for player in preset_teams[t]:
+				if player in newplayers:
+					newplayers.remove(player)
+					if t in newteams: newteams[t].append(player)
+					else: newteams[t] = [player]
+				
+	#use players in the rest of newplayers
+	for t in teamnames:
+		while count_or_default(newteams,t) < max_team_players:
 			try: player = newplayers.pop()
 			except: break
-			if name in newteams: newteams[name].append(player)
-			else: newteams[name] = [player]
-	# print(newteams)		
+			if t in newteams: newteams[t].append(player)
+			else: newteams[t] = [player]
+	# print('newteams=',newteams)
+	# for t in newteams: print('newteams[',t,']=',newteams[t])
+	# print('preset_teams.keys=',preset_teams.keys())
+	# print('newteams.keys=',newteams.keys())
+	
+	#find out which minor team has not enough players
+	minor_t="";
+	for t in newteams:
+		if len(newteams[t]) < max_team_players: 
+			minor_t=t
+			break
+	# print('minor_teamname=',minor_teamname)
+	
+	#move minor team players into other teams which has no preset players
+	for t in newteams:
+		if t not in preset_teams:
+			try: newteams[t].append(newteams[minor_t].pop())
+			except: break
+	# for t in newteams: print('newteams2[',t,']=',newteams[t])
 	return newteams
 
 
