@@ -28,17 +28,12 @@ tellraw() {
 time_total=60
 [ ! $1 ] || time_total=$1
 
-# echo $time_total*.67 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}'
-# echo $time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}'
-# echo $time_total*.08 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}'
-
 time_reminder=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_shown=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_game=$(echo $time_total*.67 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_shrink=$(echo $time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 if [ "$time_shrink" -gt "20" ]; then time_shrink=$((($time_shrink/20)*20)); fi 
 time_nomob=$(($time_game+$time_shrink))
-# time_final=$(echo $time_total*.08 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 
 if [ "$time_reminder" -gt "20" ]; then time_reminder=20; fi
 
@@ -47,7 +42,6 @@ echo time_shown=$time_shown
 echo time_game=$time_game
 echo time_shrink=$time_shrink
 echo time_nomob=$time_nomob
-# echo time_final=$time_final
 echo time_total=$time_total
 
 # exit
