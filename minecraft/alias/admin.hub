@@ -102,5 +102,11 @@ titles() {
 	[ ! $1 ] || title $1
 }
 
+playsound() {
+	# screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\"}'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'playsound $1 voice @p ~ ~ ~ 1 1 1\'\015\""
+}
+
+
 alias npc.rides='npcrides $*'
 alias yell='titles $*'

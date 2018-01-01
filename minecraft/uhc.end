@@ -87,21 +87,23 @@ end_rule1() {
 end_message2() {
 	actionbar "$bold"RC聊天室:"$black""$bold"27685743
 	subtitle "$bold"想參加賽後賽的玩家，請回到伺服器大廳
-	title "$aqua""$bold""$italian"UHCθ盃已經結束
+	title "$aqua""$bold""$italian"UHCθ盃已經結束 3...
 	sleep 5
 	actionbar "$bold"RC聊天室:"$black""$bold"27685743
-	subtitle "$bold"想參加賽後賽的玩家，請回到伺服器大廳
-	title "$aqua""$bold""$italian"UHCθ盃已經結束
+	title "$aqua""$bold""$italian"UHCθ盃已經結束 2...
 	sleep 5
 	actionbar "$bold"RC聊天室:"$black""$bold"27685743
-	subtitle "$bold"想參加賽後賽的玩家，請回到伺服器大廳
-	title "$aqua""$bold""$italian"UHCθ盃已經結束
+	title "$aqua""$bold""$italian"UHCθ盃已經結束 1...
 	sleep 5
-	title "$aqua""$bold""$italian"UHC伺服器即將關閉
+	
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉 3...
 	sleep 5
-	title "$aqua""$bold""$italian"UHC伺服器即將關閉
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉 2...
 	sleep 5
-	title "$aqua""$bold""$italian"UHC伺服器即將關閉
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉 1...
 	sleep 5
 }
 

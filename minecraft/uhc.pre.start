@@ -14,7 +14,7 @@ cron_wday='6'
 
 
 
-pre_start_message() {
+pre_start_message.0() {
 	mcserver do say ============================
 	mcserver do say 即將進行分隊
 	mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
@@ -25,7 +25,48 @@ pre_start_message() {
 
 pre_start_message2() {
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
-	title "$aqua""$bold""$italian"即將進行分隊
+	title "$aqua""$bold""$italian"即將進行分隊 3...
+	playsound block.note.hat
+	sleep 5
+	title "$aqua""$bold""$italian"即將進行分隊 2...
+	playsound block.note.hat
+	sleep 5
+	title "$aqua""$bold""$italian"即將進行分隊 1...
+	playsound block.note.hat
+	sleep 5
+	
+	uhcteamcreate
+	
+	subtitle "$bold"RC聊天室:"$black""$bold"27685743
+	title "$gold""$bold""$italian"分隊已完成，請進入各隊聊天室 6...
+	playsound block.note.hat
+	sleep 5
+	title "$gold""$bold""$italian"分隊已完成，請進入各隊聊天室 5...
+	playsound block.note.hat
+	sleep 5
+	title "$gold""$bold""$italian"分隊已完成，請進入各隊聊天室 4...
+	playsound block.note.hat
+	sleep 5
+	title "$gold""$bold""$italian"分隊已完成，請進入各隊聊天室 3...
+	playsound block.note.hat
+	sleep 5
+	title "$gold""$bold""$italian"分隊已完成，請進入各隊聊天室 2...
+	playsound block.note.hat
+	sleep 5
+	title "$gold""$bold""$italian"分隊已完成，請進入各隊聊天室 1...
+	playsound block.note.hat
+	sleep 5
+	
+	
+	# subtitle "$bold"RC聊天室:"$black""$bold"27685743
+	title "$gold""$bold""$italian"遊戲即將開始 3...
+	playsound block.note.hat
+	sleep 5
+	title "$gold""$bold""$italian"遊戲即將開始 2...
+	playsound block.note.hat
+	sleep 5
+	title "$gold""$bold""$italian"遊戲即將開始 1...
+	playsound block.note.hat
 }
 
 pre_start_rule() {
@@ -34,5 +75,5 @@ pre_start_rule() {
 }
 
 # s74
-# quiet_run pre_start_message pre_start_rule
+# quiet_run pre_start_message.0 pre_start_rule
 quiet_run pre_start_message2 pre_start_rule
