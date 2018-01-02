@@ -74,13 +74,14 @@ def parse(f):
 		if len(newteams[t]) < max_team_players: 
 			minor_t=t
 			break
-	# print('minor_teamname=',minor_teamname)
+	# print('minor_t=',minor_t)
 	
 	#move minor team players into other teams which has no preset players
-	for t in newteams:
-		if t not in preset_teams:
-			try: newteams[t].append(newteams[minor_t].pop())
-			except: break
+	if minor_t:
+		for t in newteams:
+			if t not in preset_teams:
+				try: newteams[t].append(newteams[minor_t].pop())
+				except: break
 	# for t in newteams: print('newteams2[',t,']=',newteams[t])
 	return newteams
 
