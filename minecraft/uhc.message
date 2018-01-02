@@ -37,50 +37,50 @@ message() {
 }
 
 message1hr() {
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$bold"特殊裝備"$yellow"附魔鐵靴"$off""$bold"每個成就升級速度力量血量
 	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$red""$bold"20"$off""$bold"分玩家名條顯示
 	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$red""$bold"40"$off""$bold"分地圖開始漸縮、永遠白天
 	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
-	subtitle "$red""$bold"55"$off""$bold"分地圖縮至"$red"112x112"$off""$bold"、清除怪物、玩家發光
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
+	subtitle "$red""$bold"55"$off""$bold"分地圖縮至"$red"112x112"$off""$bold"、清除怪物、玩家發光5分鐘
 	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$red""$bold"60"$off""$bold"分傳送到最後戰場
 	title "$aqua""$bold""$italian"UHCθ盃1小時比賽規則
 	sleep 5
 }
 
 message2hr() {
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$bold"特殊裝備"$yellow"附魔鐵靴"$off""$bold"每個成就升級速度力量血量
 	title "$aqua""$bold""$italian"UHCθ盃2小時比賽規則
 	playsound block.note.hat
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$red""$bold"40"$off""$bold"分玩家名條顯示
 	title "$aqua""$bold""$italian"UHCθ盃2小時比賽規則
 	playsound block.note.hat
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$red""$bold"80"$off""$bold"分地圖開始漸縮、永遠白天
 	title "$aqua""$bold""$italian"UHCθ盃2小時比賽規則
 	playsound block.note.hat
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
-	subtitle "$red""$bold"110"$off""$bold"分地圖縮至"$red"112x112"$off""$bold"、清除怪物、玩家發光
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
+	subtitle "$red""$bold"110"$off""$bold"分地圖縮至"$red"112x112"$off""$bold"、清除怪物、玩家發光5分鐘
 	title "$aqua""$bold""$italian"UHCθ盃2小時比賽規則
 	playsound block.note.hat
 	sleep 5
-	actionbar "$bold"請進入RC聊天室:"$black""$bold"27685743
+	actionbar "$bold"8點開始分隊，請進入RC聊天室:"$black""$bold"27685743
 	subtitle "$red""$bold"120"$off""$bold"分傳送到最後戰場
 	title "$aqua""$bold""$italian"UHCθ盃2小時比賽規則
 	playsound block.note.hat
