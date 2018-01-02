@@ -70,27 +70,21 @@ pre_open_rule() {
 open_message2() {
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
 	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
-	playsound block.note.hat
 	sleep 5
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
 	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
-	playsound block.note.hat
 	sleep 5
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
 	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
-	playsound block.note.hat
 	sleep 5
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
 	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
-	playsound block.note.hat
 	sleep 5
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
 	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
-	playsound block.note.hat
 	sleep 5
 	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
 	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
-	playsound block.note.hat
 	sleep 5
 }
 

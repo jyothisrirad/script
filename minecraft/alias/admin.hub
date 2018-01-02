@@ -102,8 +102,18 @@ titles() {
 	[ ! $1 ] || title $1
 }
 
+# block.note.bass (guitar)
+# block.note.snare (snare drum)
+# block.note.hat (click)
+# block.note.basedrum (bass drum)
+# block.note.bell
+# block.note.flute
+# block.note.chime
+# block.note.guitar
+# block.note.xylophone
+# block.note.harp (piano)
+# block.note.pling (unused--more flushed piano)
 playsound() {
-	# screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\"}'\015"
 	as_user "screen -p 0 -S $mcver -X eval \"stuff \'playsound $1 voice @p ~ ~ ~ 1 1 1\'\015\""
 }
 
