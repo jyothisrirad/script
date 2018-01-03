@@ -80,10 +80,12 @@ chmc() {
 rematch() {
 	mcserver pre_restore
 	mcserver restore $*
-	mcprep
+	# mcprep
+	server.prep
 	mcserver start
 	sleep 1
-	mclog
+	# mclog
+	mcserver log $*
 }
 
 bungee_online_mode() {
