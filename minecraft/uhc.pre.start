@@ -36,6 +36,7 @@ pre_start_message2() {
 	playsound block.note.hat
 	sleep 5
 	
+	mcserver log list
 	uhcteamcreate
 	
 	subtitle "$bold"RC聊天室:"$black""$bold"27685743
