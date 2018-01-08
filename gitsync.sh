@@ -11,7 +11,7 @@ DIR=$(readlink -e "$0")
 DP0=$(dirname "$DIR")
 
 #=================================
-$DP0/gitconf.sh
+[ ! -f $DP0/gitconf.sh ] || $DP0/gitconf.sh
 
 #=================================
 if [ -z "$1" ]; then
