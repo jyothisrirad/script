@@ -91,3 +91,4 @@ open_message2() {
 # s74
 # open_message
 quiet_run pre_open_rule open_message2
+# quiet_run pre_open_rule 

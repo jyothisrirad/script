@@ -108,7 +108,8 @@ uhcinit() {
 uhcteamcreate() {
 	tmpscrpit=/tmp/teamcreate
 	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
-	mcdo list | grep.player | team.select >>$tmpscrpit
+	# mcdo list | grep.player | team.select >>$tmpscrpit
+	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select >>$tmpscrpit
 	cat $tmpscrpit
 	mcdo gamerule sendCommandFeedback false
 	. $tmpscrpit
@@ -145,7 +146,7 @@ alias rule.init=uhcinit
 alias rule.set='/home/sita/script/minecraft/uhc.rules $*'
 alias rule.biome='biome'
 # alias uhcstart='/home/sita/script/minecraft/uhc.start'
-alias uhcend='/home/sita/script/minecraft/uhc.end'
+# alias uhcend='/home/sita/script/minecraft/uhc.end'
 alias uhcstat=uhcstat
 alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
 alias team.select='/home/sita/script/minecraft/uhc.team.select $*'
