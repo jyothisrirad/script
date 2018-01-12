@@ -324,8 +324,8 @@ deldir() {
 }
 
 mc_playeronline() {
-	# mcdo list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | grep -n '[A-Za-z0-9\-\_]+'
-	mc_command list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | grep -E --quiet '[A-Za-z0-9\-\_]+'
+	# mcdo list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | sed 's/Admins: //g' | sed 's/當前有 0//g' | grep -n '[A-Za-z0-9\-\_]+'
+	mc_command list | tail -1 | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | awk '{printf ("%s %s\n", $4, $5)}' | sed 's/\[[^]]*\]//g' | sed 's/not found//g' | sed 's/default://g' | sed 's/There are//g' | sed 's/Admins: //g' | sed 's/當前有 0//g' | grep -E --quiet '[A-Za-z0-9\-\_]+'
 	return $?
 }
 
@@ -527,8 +527,8 @@ case "$1" in
   archive)
 	if mc_status; then
 		if mc_playeronline; then
-			# echo player online
-			$0 backup $archives
+			echo player online
+			# $0 backup $archives
 		fi
 	fi
     ;;

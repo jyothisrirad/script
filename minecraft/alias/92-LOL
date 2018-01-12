@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s92=92-LOL
+
+s92() {
+	chmc $s92
+}
+
+alias 92=s92

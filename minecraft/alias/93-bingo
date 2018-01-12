@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s93=93-bingo
+
+s93() {
+	chmc $s93
+}
+
+alias 93=s93
