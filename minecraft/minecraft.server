@@ -34,6 +34,7 @@ WORLD=world
 # LOG="$MCPATH/logs/latest.log"
 RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak"
 ME=`whoami`
+DIRTYBIT="$MCSTORE/logs/mc_playeronline"
 
 as_user() {
   if [ "$ME" == "$USERNAME" ] ; then
@@ -376,6 +377,12 @@ case "$1" in
 	else
 		mc_savetodisk_online
 	fi
+	if mc_status; then
+		if mc_playeronline; then
+			# echo player online
+			touch $DIRTYBIT
+		fi
+	fi	
     ;;
   seal)
 	if [ -d $MCSTORE ]; then
@@ -525,9 +532,15 @@ case "$1" in
 	# showstat
     ;;
   archive)
-	if mc_status; then
-		if mc_playeronline; then
-			# echo player online
+	# if mc_status; then
+		# if mc_playeronline; then
+			## echo player online
+			# $0 backup $archives
+		# fi
+	# fi
+	if ! mc_playeronline; then
+		if [ -f $DIRTYBIT ]; then
+			rm $DIRTYBIT
 			$0 backup $archives
 		fi
 	fi
