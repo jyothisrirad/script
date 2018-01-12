@@ -527,8 +527,8 @@ case "$1" in
   archive)
 	if mc_status; then
 		if mc_playeronline; then
-			echo player online
-			# $0 backup $archives
+			# echo player online
+			$0 backup $archives
 		fi
 	fi
     ;;
