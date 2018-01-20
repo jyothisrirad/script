@@ -145,6 +145,40 @@ file.replace.teamtag() {
 	sed -i "s/$white/[白隊]/g" $1
 }
 
+file.cleanup() {
+	[ -f $1 ] || { echo no file; return 1; }
+	sed -i "s/ [Server thread/INFO]//g" $1
+}
+
+file.replace.cause() {
+	[ -f $1 ] || { echo no file; return 1; }
+	sed -i "s/blew up/爆炸了/g" $1
+	sed -i "s/burned to death/燒死/g" $1
+	sed -i "s/fell from a high place/從高處墜落/g" $1
+	sed -i "s/fell out of the world/脫離了世界/g" $1
+	sed -i "s/hit the ground too hard/墜地得太大力了/g" $1
+	sed -i "s/suffocated in a wall/窒息在牆裡/g" $1
+	sed -i "s/swim in lava/在熔岩里游泳/g" $1
+	sed -i "s/killed by magic/被魔法殺死/g" $1
+	sed -i "s/pricked to death/刺死了/g" $1
+	sed -i "s/swim in lava to escape /在熔岩里游泳，為了逃避/g" $1
+	sed -i "s/burnt to a crisp whilst fighting /戰鬥中被燒死，對手是/g" $1
+	sed -i "s/was shot by /被射殺了，射手是/g" $1
+	sed -i "s/was slain by /被殺了，殺手是/g" $1
+}
+
+file.replace.mob() {
+	[ -f $1 ] || { echo no file; return 1; }
+	sed -i "s/Cave Spider/洞穴蜘蛛/g" $1
+	sed -i "s/Enderman/安德/g" $1
+	sed -i "s/Husk/屍殼/g" $1
+	sed -i "s/Silverfish/蠹魚/g" $1
+	sed -i "s/Skeleton/骷髏/g" $1
+	sed -i "s/Spider/蜘蛛/g" $1
+	sed -i "s/Zombie Villager/殭屍村民/g" $1
+	sed -i "s/Zombie/殭屍/g" $1
+}
+
 grep.teams() {
 	# list=$(grep 'lost the achievement' | awk '{ printf ("%s\n", $4) }' | sort | uniq)
 	# list=$(grep achievement | grep § | grep -v -x $black | awk '{ printf ("%s\n", $4) }' | sort | uniq | grep -v $black)
@@ -229,7 +263,10 @@ logs.grep() {
     slain)
 		logfile=/tmp/slain.log
 		logs | grep.slain >$logfile
+		file.cleanup $logfile
 		file.replace.teamtag $logfile
+		file.replace.cause $logfile
+		file.replace.mob $logfile
 		cat $logfile
 		;;
     winner)
