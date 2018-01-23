@@ -147,24 +147,24 @@ file.replace.teamtag() {
 
 file.cleanup() {
 	[ -f $1 ] || { echo no file; return 1; }
-	sed -i "s/ [Server thread/INFO]//g" $1
+	sed -i "s/ \[Server thread\/INFO\]//g" $1
 }
 
 file.replace.cause() {
 	[ -f $1 ] || { echo no file; return 1; }
-	sed -i "s/blew up/爆炸了/g" $1
-	sed -i "s/burned to death/燒死/g" $1
-	sed -i "s/fell from a high place/從高處墜落/g" $1
-	sed -i "s/fell out of the world/脫離了世界/g" $1
-	sed -i "s/hit the ground too hard/墜地得太大力了/g" $1
-	sed -i "s/suffocated in a wall/窒息在牆裡/g" $1
-	sed -i "s/swim in lava/在熔岩里游泳/g" $1
-	sed -i "s/killed by magic/被魔法殺死/g" $1
-	sed -i "s/pricked to death/刺死了/g" $1
-	sed -i "s/swim in lava to escape /在熔岩里游泳，為了逃避/g" $1
-	sed -i "s/burnt to a crisp whilst fighting /戰鬥中被燒死，對手是/g" $1
-	sed -i "s/was shot by /被射殺了，射手是/g" $1
-	sed -i "s/was slain by /被殺了，殺手是/g" $1
+	sed -i "s/ blew up/爆炸了/g" $1
+	sed -i "s/ burned to death/燒死/g" $1
+	sed -i "s/ fell from a high place/從高處墜落/g" $1
+	sed -i "s/ fell out of the world/脫離了世界/g" $1
+	sed -i "s/ hit the ground too hard/墜地得太大力了/g" $1
+	sed -i "s/ suffocated in a wall/窒息在牆裡/g" $1
+	sed -i "s/ tried to swim in lava/在熔岩里游泳/g" $1
+	sed -i "s/ killed by magic/被魔法殺死/g" $1
+	sed -i "s/ pricked to death/刺死了/g" $1
+	sed -i "s/ swim in lava to escape /在熔岩里游泳,為了逃避/g" $1
+	sed -i "s/ burnt to a crisp whilst fighting /戰鬥中被燒死,對手是/g" $1
+	sed -i "s/ was shot by /被射殺了,射手是/g" $1
+	sed -i "s/ was slain by /被殺了,殺手是/g" $1
 }
 
 file.replace.mob() {
