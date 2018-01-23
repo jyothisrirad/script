@@ -249,6 +249,10 @@ grep.cheater() {
 	grep 'Teleported\|give'
 }
 
+grep.lag() {
+	grep 'overloaded\|TPS has dropped'
+}
+
 logs.grep() {
   case "$1" in
     list)
@@ -274,6 +278,9 @@ logs.grep() {
 		;;
     cheater)
 		logs | grep.cheater
+		;;
+    lag)
+		logs | grep.lag
 		;;
     *)
     ;;
