@@ -56,7 +56,7 @@ mc_start() {
   else
 	[ -d $MCSTORE ] || { echo $MCSTORE, Path not found.; return; }
 	
-	[ ! "$LOOPSTOP" ] || rm "$LOOPSTOP" #remove loopstop flag
+	[ ! -f "$LOOPSTOP" ] || rm "$LOOPSTOP" #remove loopstop flag
 	
     echo "$JARFILE was not running... starting."
     if [ -d $MCSTORE/$WORLD.bak ]; then
@@ -81,8 +81,6 @@ mc_start() {
 
 mc_stop() {
   if mc_status; then
-	[ ! "$LOOPSTOP" ] || touch "$LOOPSTOP" #create loopstop flag for loop.sh
-	
     echo "$JARFILE is running... stopping."
     TO_SCREEN="screen -p 0 -S $VERSION -X eval 'stuff "
     as_user "$TO_SCREEN \"say 伺服器將在5秒內關閉. 儲存世界中...\"\015'"
@@ -520,6 +518,9 @@ case "$1" in
   halt)
 	if mc_status; then
 		mc_savetodisk_online
+		
+		[ ! "$LOOPSTOP" ] || touch "$LOOPSTOP" #create loopstop flag for loop.sh
+	
 		mc_stop
 		# pids=$(ps aux|grep -F -v grep|grep $VERSION|grep $JARFILE|awk '{print $2}')
 		pids=$(ps aux|grep -F -v grep|grep -F -v bash|grep $VERSION|awk '{print $2}')

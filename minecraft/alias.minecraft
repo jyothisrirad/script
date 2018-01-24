@@ -78,6 +78,7 @@ chmc() {
 }
 
 rematch() {
+	mcserver halt
 	mcserver pre_restore
 	mcserver restore $*
 	# mcprep
