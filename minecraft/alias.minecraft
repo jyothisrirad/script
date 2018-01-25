@@ -145,3 +145,4 @@ alias off204='65 && bungee_offline_mode && mcdo greload && 66 && mcwo && sleep 1
 alias offline='65 && bungee_offline_mode && mcdo greload && sleep 10 && online'
 alias online='65 && bungee_online_mode && mcdo greload && 66 && mcwf'
 alias lag='logs | grep.lag'
+alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
