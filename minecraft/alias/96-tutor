@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s96=96-tutor
+
+s96() {
+	chmc $s96
+}
+
+alias 96=s96

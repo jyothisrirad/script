@@ -1,9 +1,0 @@
-#!/bin/bash
-
-s95=95-tutor
-
-s95() {
-	chmc $s95
-}
-
-alias 95=s95
