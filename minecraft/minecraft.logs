@@ -158,11 +158,11 @@ file.replace.cause() {
 	sed -i "s/ fell out of the world/脫離了世界/g" $1
 	sed -i "s/ hit the ground too hard/墜地得太大力了/g" $1
 	sed -i "s/ suffocated in a wall/窒息在牆裡/g" $1
-	sed -i "s/ tried to swim in lava/在熔岩里游泳/g" $1
-	sed -i "s/ killed by magic/被魔法殺死/g" $1
-	sed -i "s/ pricked to death/刺死了/g" $1
 	sed -i "s/ swim in lava to escape /在熔岩里游泳,為了逃避/g" $1
-	sed -i "s/ burnt to a crisp whilst fighting /戰鬥中被燒死,對手是/g" $1
+	sed -i "s/ tried to swim in lava/在熔岩里游泳/g" $1
+	sed -i "s/ was killed by magic/被魔法殺死/g" $1
+	sed -i "s/ was pricked to death/刺死了/g" $1
+	sed -i "s/ was burnt to a crisp whilst fighting /戰鬥中被燒死,對手是/g" $1
 	sed -i "s/ was shot by /被射殺了,射手是/g" $1
 	sed -i "s/ was slain by /被殺了,殺手是/g" $1
 }
