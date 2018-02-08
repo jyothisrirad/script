@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s02=102-rpghard
+
+s02() {
+	chmc $s02
+}
+
+alias 02=s02

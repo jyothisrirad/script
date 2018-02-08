@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s01=101-rpg
+
+s01() {
+	chmc $s01
+}
+
+alias 01=s01
