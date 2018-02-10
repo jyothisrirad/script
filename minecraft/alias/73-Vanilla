@@ -5,14 +5,16 @@ s73=73-Vanilla
 s73() {
 	chmc $s73
 	
-	alias  s1='export pos="250 70 250"    && echo pos=家'
-	alias  s1a='export pos="207 139 249" && echo pos=船電梯頂端'
-	alias  s2='export pos="10455 80 4400" && echo pos=林地'
-	alias  s3='export pos="1262 71 1814" && echo pos=終界要塞'
-	alias  s4='export pos="-4 62 4" && echo pos=終界返回傳送門'
-	alias  s5='export pos="-1224 62 -249" && echo pos=終界城1'
-	alias  s6='export pos="2032 65 1696" && echo pos=蘑菇島'
-	alias  s7='export pos="6330 65 4270" && echo pos=海底遺跡'
+	alias  w1='export pos="250 70 250"    && echo pos=家'
+	alias  w1a='export pos="207 139 249" && echo pos=船電梯頂端'
+	alias  w2='export pos="10455 80 4400" && echo pos=林地'
+	alias  w3='export pos="1262 71 1814" && echo pos=終界要塞'
+	alias  w4='export pos="2032 65 1696" && echo pos=蘑菇島'
+	alias  m1='export pos="6313 65 4294" && echo pos=海底遺跡1'
+	alias  m2='export pos="328 65 2904" && echo pos=海底遺跡(終界旁)'
+	alias  m3='export pos="11848 65 5192" && echo pos=海底遺跡(林地旁)'
+	alias  e1='export pos="-4 62 4" && echo pos=終界返回傳送門'
+	alias  e1='export pos="-1224 62 -249" && echo pos=終界城1'
 }
 
 alias v11=s73
