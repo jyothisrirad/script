@@ -12,6 +12,7 @@ s73() {
 	alias  s4='export pos="-4 62 4" && echo pos=終界返回傳送門'
 	alias  s5='export pos="-1224 62 -249" && echo pos=終界城1'
 	alias  s6='export pos="2032 65 1696" && echo pos=蘑菇島'
+	alias  s7='export pos="6330 65 4270" && echo pos=海底遺跡'
 }
 
 alias v11=s73
