@@ -15,6 +15,7 @@ s73() {
 	alias  wm3='export pos="11848 65 5192" && echo pos=海底遺跡_林地旁'
 	alias  wm4='export pos="2440 65 1176" && echo pos=海底遺跡_蘑菇島'
 	alias  wm5='export pos="2343 65 633" && echo pos=海底遺跡_地圖'
+	alias  wm5='export pos="2343 65 573" && echo pos=海底遺跡_地圖'
 	alias  e1='export pos="-4 62 4" && echo pos=終界返回傳送門'
 	alias  e1='export pos="-1224 62 -249" && echo pos=終界城1'
 }
