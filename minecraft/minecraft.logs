@@ -250,7 +250,7 @@ grep.cheater() {
 }
 
 grep.lag() {
-	grep 'overloaded\|TPS has dropped'
+	grep 'overloaded\|TPS has dropped\|free memory pool'
 }
 
 logs.grep() {
