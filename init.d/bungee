@@ -3,4 +3,5 @@
 . /home/sita/script/minecraft/alias.minecraft
 
 65
-mcww
+#mcww
+mcserver start
