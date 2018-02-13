@@ -8,11 +8,12 @@
 # Description:       fix dir permissions
 ### END INIT INFO
 
-SCRIPT=/home/sita/script/pve/fixperms
-RUNAS=root
+APP=fixperms
+SCRIPT=/home/sita/script/init.d/$APP
+RUNAS=sita
 
-PIDFILE=/var/run/fixperms.pid
-LOGFILE=/var/log/fixperms.log
+PIDFILE=/var/run/$APP.pid
+LOGFILE=/var/log/$APP.log
 
 start() {
   if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then
