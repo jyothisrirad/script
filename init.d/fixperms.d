@@ -15,7 +15,7 @@ PIDFILE=/var/run/fixperms.pid
 LOGFILE=/var/log/fixperms.log
 
 start() {
-  if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then
+  if [ -f /var/run/$APP.pid ] && kill -0 $(cat /var/run/$APP.pid); then
     echo 'Service already running' >&2
     return 1
   fi
