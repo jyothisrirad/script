@@ -15,5 +15,3 @@ user$>	sudo passwd root
 user$>	sudo apt install -y git sudo ca-certificates
 user$>	git clone https://github.com/chsliu/script.git
 user$>	newinstall.azure.sh <hostname>
-
-
