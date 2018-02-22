@@ -2,15 +2,6 @@
 
 g65=65-bungeeCord
 
-# s65() {
-	# oldmcvar=$mcver
-	# export mcver=$s65 
-	
-	# mcpath=/mnt/runtimes/$mcver
-	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
-	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
-# }
-
 g65() {
 	chmc $s65
 }
