@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s65=65-bungeeCord
+s65=65-bungeeCord-azure
 
 # s65() {
 	# oldmcvar=$mcver
@@ -15,7 +15,7 @@ s65() {
 	chmc $s65
 }
 
-alias s65=s65
-alias ghub2='s65 && mcdo send all hub'
-alias guhc2='s65 && mcdo send all uhc'
-alias glist2='s65 && mcdo glist'
+alias 65=s65
+alias ghub='65 && mcdo send all hub'
+alias guhc='65 && mcdo send all uhc'
+alias glist='65 && mcdo glist'

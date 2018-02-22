@@ -8,7 +8,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAlnbdmUXHVzxDEmqKTP4Hci8Kq4BU9LA8piUHSbHA+Y+l
 >create vm: static ip,auto shutdown
 >az vm open-port --port 25565 --resource-group creeperResourceGroup --name 65-bungeeCord
 >DNS: ca65
->Automation StartAzureV2Vm Startup, Holiday, Weekend, Weekday
+>Automation StartAzureV2Vm Startup, Holiday 10:00:00, Weekend 10:00:00, Weekday 17:00:00
 
 ###basic setup for new system
 user$>	sudo passwd root

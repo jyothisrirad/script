@@ -11,3 +11,4 @@ echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | su
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 sudo apt update
 sudo apt install -y oracle-java8-installer
+
