@@ -7,6 +7,6 @@ g65() {
 }
 
 alias g65=g65
-alias ghub2='s65 && mcdo send all hub'
-alias guhc2='s65 && mcdo send all uhc'
-alias glist2='s65 && mcdo glist'
+alias gghub='g65 && mcdo send all hub'
+alias gguhc='g65 && mcdo send all uhc'
+alias gglist='g65 && mcdo glist'
