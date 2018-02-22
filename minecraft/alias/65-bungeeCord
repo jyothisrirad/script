@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s65=65-bungeeCord
+g65=65-bungeeCord
 
 # s65() {
 	# oldmcvar=$mcver
@@ -11,11 +11,11 @@ s65=65-bungeeCord
 	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
 # }
 
-s65() {
+g65() {
 	chmc $s65
 }
 
-alias s65=s65
+alias g65=g65
 alias ghub2='s65 && mcdo send all hub'
 alias guhc2='s65 && mcdo send all uhc'
 alias glist2='s65 && mcdo glist'
