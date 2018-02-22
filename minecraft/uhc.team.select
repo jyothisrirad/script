@@ -6,14 +6,17 @@ from random import shuffle
 from subprocess import call
 
 
-max_team=6
+max_team=10
 least_team_players=3
 teamnames = ['R','Y','G','A','B','P','E','r','y','g','a','b','p','e']
 preset_teams = {}
 presets = {
-	0: ['qqua630512'],
-	1: ['Willwill01'],
-	2: ['Frs_yoyogood'],
+	# 0: ['qqua630512'],
+	# 1: ['Willwill01'],
+	# 2: ['Frs_yoyogood'],
+	0: ['ZK_KY'],
+	1: ['eddy228'],
+	2: ['DY_speaker'],
 }
 
 
