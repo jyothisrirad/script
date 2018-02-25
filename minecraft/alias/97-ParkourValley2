@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s97=97-ParkourValley2
+
+s97() {
+	chmc $s97
+}
+
+alias 97=s97
