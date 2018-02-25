@@ -1,3 +1,4 @@
+Buscript/*
 ForgeEssentials/Backups/*
 HyperConomy/*.gz
 HyperConomy/lib/*
