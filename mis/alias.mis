@@ -25,7 +25,15 @@ alias ddos='netstat -tn 2>/dev/null | grep :80 | awk '"'"'{print $5}'"'"' | cut 
 
 blockip() {
 	sudo route add -host $1 reject
+}
+
+unblockip() {
+	sudo route delete $1
+}
+
+route_show() {
 	netstat -nr
 }
 
-alias block='blockip $*'
+alias block='blockip $*; route_show'
+alias unblock='unblockip $*; route_show'
