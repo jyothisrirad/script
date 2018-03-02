@@ -1,4 +1,8 @@
 #!/usr/bin/expect -f
+# or
+# http://192.168.0.252/MAINTENANCE/reboot.xgi
+# RouterOS
+# /tool fetch url=http://192.168.0.252/MAINTENANCE/reboot.xgi user=cht password=chtnvdsl
 
 spawn ssh cht@192.168.0.252
 expect {

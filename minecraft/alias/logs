@@ -17,7 +17,7 @@ alias mcj2="logs | left"
 alias mcslain="logs | grep.slain"
 alias mccheater="logs | grep.cheater"
 alias mcperms="logs | grep.perms"
-
+alias mcjb="cat proxy.log.0 | grep connected | grep mv | awk \'{ printf (\"%s\n\", $3) }\' | sort | uniq"
 
 #############
 # logs
