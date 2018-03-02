@@ -1,6 +1,6 @@
 #!/usr/bin/expect -f
 
-spawn ssh cht@192.168.1.250
+spawn ssh cht@192.168.0.252
 expect {
 	"password: " {
 		send_user "<Enter Password ...>\n"

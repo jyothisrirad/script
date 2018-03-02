@@ -1,6 +1,3 @@
-###fix grub
-(initramfs) vgchange -ay
-
 ###basic setup for new system
 root#>	adduser username
 root#>	apt install -y git sudo ca-certificates
@@ -8,6 +5,10 @@ user$>	git clone https://github.com/chsliu/script.git
 root#> 	newinstall.sudo.sh
 user$>	newinstall.init.sh <hostname>
 user$>	pve/newuser <username>
+
+
+###fix grub
+(initramfs) vgchange -ay
 
 
 ###create disk id
