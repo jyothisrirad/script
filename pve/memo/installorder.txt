@@ -1,7 +1,7 @@
 ###basic setup for new system
+$> 			newuser <username>
 #> 			newinstall.root.sh
 newinstall> newinstall.init.sh <hostname>
-$> 			newuser <username>
 
 
 ###create disk id
