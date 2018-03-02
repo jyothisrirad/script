@@ -1,0 +1,13 @@
+#!/bin/bash
+
+s68=68-multiverse
+
+s68() {
+	chmc $s68
+	
+	alias  s0='export pos="-90 75 274"    && echo pos=sita出生點0'
+	alias  s1='export pos="-83 80 247"    && echo pos=sita出生點sandstone'
+	alias  s2='export pos="-71 87 216"    && echo pos=qq家'
+}
+
+alias 68=s68

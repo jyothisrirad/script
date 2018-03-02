@@ -1,0 +1,18 @@
+#!/bin/bash
+
+s74b=74b-HyperUHC
+
+# s74b() {
+	# oldmcvar=$mcver
+	# export mcver=$s74b 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s74b() {
+	chmc $s74b
+}
+
+alias 74b=s74b

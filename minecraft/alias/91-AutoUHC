@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s91=91-AutoUHC
+
+s91() {
+	chmc $s91
+}
+
+alias 91=s91

@@ -11,15 +11,15 @@ DIR=$(readlink -e "$0")
 DP0=$(dirname "$DIR")
 
 #=================================
-$DP0/gitconf.sh
+[ ! -f $DP0/gitconf.sh ] || $DP0/gitconf.sh
 
 #=================================
 if [ -z "$1" ]; then
 	# echo Working in $DP0
-	pushd $DP0
+	pushd "$DP0"
 else
 	# echo Working in $1
-	pushd $1
+	pushd "$1"
 fi
 
 #=================================

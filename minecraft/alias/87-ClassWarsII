@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s87=87-ClassWarsII
+
+s87() {
+	chmc $s87
+}
+
+alias 87=s87

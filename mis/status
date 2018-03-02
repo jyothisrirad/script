@@ -99,7 +99,10 @@ network_info() {
 echo =================================
 echo NETWORK Info
 echo =================================
-sudo lspci -v -s $(lspci | grep Ethernet | cut -d" " -f 1)
+# sudo lspci -v -s $(lspci | grep Ethernet | cut -d" " -f 1)
+lspci | grep Ethernet | cut -d" " -f 1 | while read line; do
+	sudo lspci -v -s "$line"
+done
 dmesg | grep eth0 | grep up
 sudo mii-tool -v eth0 | grep status
 sudo ethtool eth0 | grep Speed
@@ -250,6 +253,13 @@ sudo tune2fs -l $(df / | tail -1 | cut -d" " -f 1) | grep 'Filesystem created:'
 w
 }
 
+benchmark_info() {
+echo =================================
+echo BENCHMARK Info
+echo =================================
+sudo pveperf
+}
+
 mailreport() {
 	# $1=subject
 	# $2=content
@@ -307,7 +317,7 @@ case "$1" in
 		gpu3d_info
 		os_info
 		uptime_info
-		
+		benchmark_info
 		# sudo lshw
 		# sudo lshw -businfo
         ;;
@@ -335,7 +345,7 @@ case "$1" in
 		os_info
 		uptime_info
         ;;
-  log)
+  maillog)
 		log=/tmp/$2-$(hostname)-$(date +"%Y-%m-%d").txt
 		$0 $2 > $log
 		mailreport "$2" "$2" "-a $log -a $0"
@@ -344,8 +354,11 @@ case "$1" in
   watch)
 		# dstat --cpu24 -m -s -g -d -n
         ;;
+  benchmark)
+		benchmark_info
+		;;
   *)
-		echo "Usage: /etc/init.d/$0 {install|uninstall|info|mb|gpu|net|disk|smart|os|log|watch}"
+		echo "Usage: /etc/init.d/$0 {install|uninstall|info|mb|gpu|net|disk|smart|os|maillog|watch|benchmark}"
 		exit 1
 		;;
 esac

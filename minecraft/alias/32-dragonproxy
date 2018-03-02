@@ -1,0 +1,18 @@
+#!/bin/bash
+
+s32=32-dragonproxy
+
+# s32() {
+	# oldmcvar=$mcver
+	# export mcver=$s32 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s32() {
+	chmc $s32
+}
+
+alias 32=s32

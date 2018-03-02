@@ -1,0 +1,12 @@
+#!/bin/bash
+
+g65=65-bungeeCord
+
+g65() {
+	chmc $g65
+}
+
+alias g65=g65
+alias gghub='g65 && mcdo send all hub'
+alias gguhc='g65 && mcdo send all uhc'
+alias gglist='g65 && mcdo glist'

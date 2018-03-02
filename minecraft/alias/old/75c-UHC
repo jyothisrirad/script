@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s75c=75c-UHC
+
+s75c() {
+	chmc $s75c
+}
+
+alias 75c=s75c

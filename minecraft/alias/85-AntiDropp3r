@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s85=85-AntiDropp3r
+
+s85() {
+	chmc $s85
+}
+
+alias 85=s85

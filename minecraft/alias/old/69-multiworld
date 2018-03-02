@@ -1,0 +1,18 @@
+#!/bin/bash
+
+s69=69-multiworld
+
+# s69() {
+	# oldmcvar=$mcver
+	# export mcver=$s69 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s69() {
+	chmc $s69
+}
+
+alias 69=s69

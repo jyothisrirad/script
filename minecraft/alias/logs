@@ -1,0 +1,72 @@
+#!/bin/bash
+
+. /home/sita/script/minecraft/minecraft.logs
+
+grep.perms() {
+	grep permission | awk '{print $10}' | sort | uniq
+}
+
+
+# alias mcj="mclogdump | grep joined | awk '{ printf (\"%s %s\n\", \$4, \$5) }' | sort | uniq"
+# alias mcjoin="echo $LOG && mclogdump | grep 'joined\|left'"
+# alias mcj2="mclogdump | grep 'UUID of player' | awk '{ printf (\"%s %s\n\", \$7, \$8) }' | sort | uniq"
+# alias mcslain="mclogdump | grep 'was\|burned\|fell\|swim\|blew\|suffocated\|swim\|hit the ground'"
+# alias mctele="mclogdump | grep Teleported"
+alias mcj="logs | grep.logged"
+alias mcj2="logs | left"
+alias mcslain="logs | grep.slain"
+alias mccheater="logs | grep.cheater"
+alias mcperms="logs | grep.perms"
+
+
+#############
+# logs
+#############
+# forge, craftbukkit
+# alias log='cat /mnt/runtimes/$mcver/logs/latest.log'
+# pe
+# alias pelog='cat /mnt/runtimes/$mcver/server.log'
+
+#############
+# attendance
+#############
+# pe, forge, craftbukkit
+alias logged=grep.logged
+# pe, forge, craftbukkit
+alias left=grep.left
+# pe, forge
+alias joined="grep joined | awk '{ printf (\"%s %s\n\", \$4, \$5) }' | sort | uniq"
+# forge
+alias uuid="grep 'UUID of player' | awk '{ printf (\"%s\n\", \$8) }' | sort | uniq"
+alias teams=grep.teams
+
+#############
+# kill record
+#############
+## blew up
+## burned to death
+## fell from a high place
+## fell out of the world
+## hit the ground too hard
+## suffocated in a wall
+## tried to swim in lava
+## was burnt to a crisp
+## was killed by magic
+## was pricked to death
+## was shot by 
+## was slain by 
+# pe, forge?, craftbukkit
+alias slain=grep.slain
+
+#############
+# winner
+#############
+alias winner=grep.winner
+
+#############
+# cheater
+#############
+# pe, forge, craftbukkit
+alias cheater=grep.cheater
+
+

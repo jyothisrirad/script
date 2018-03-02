@@ -1,0 +1,19 @@
+#!/bin/bash
+
+s66=66-hub
+
+# s66() {
+	# oldmcvar=$mcver
+	# export mcver=$s66 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s66() {
+	chmc $s66
+}
+
+alias 66=s66
+alias hub=s66

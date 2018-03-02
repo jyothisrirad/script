@@ -1,0 +1,94 @@
+#!/bin/bash
+
+USERNAME=sita
+export mcecho_off=1 
+cron_min='50'
+cron_hour='19'
+cron_day='*'
+cron_month='*'
+cron_wday='6'
+
+
+. /home/sita/script/cron/template.sh
+. /home/sita/script/minecraft/alias.minecraft
+. /home/sita/script/minecraft/include/uhc
+
+
+# mc_status() {
+  # ps aux |grep -F -v grep|grep -F -v SCREEN|grep -F --quiet java
+  # return $?
+# }
+
+# as_user() {
+	# if [ "$(whoami)" == "$USERNAME" ] ; then
+		# bash -c "$1"
+	# else
+		# su - $USERNAME -c "$1"
+	# fi
+# }
+
+# mchalt() {
+	# if mc_status; then
+			
+		# TO_SCREEN="screen -p 0 -S minecraft -X eval 'stuff "
+		# as_user "$TO_SCREEN \"say SERVER SHUTTING DOWN IN 5 SECONDS. Saving map...\"\015'"
+		# as_user "$TO_SCREEN \"save-all\"\015'"
+		# sleep 5
+		# as_user "$TO_SCREEN \"stop\"\015'"
+		# sleep 5
+		# kill -9 $(ps aux | grep java | awk '{print $2}')
+	# fi
+# }
+
+open_message() {
+	# mchalt #unknown server version, so closing java instead
+	# mc1112uc
+	mcserver start
+	# =============================================================
+	mcdo gamerule sendCommandFeedback false
+
+	# =============================================================
+	mcserver do whitelist off
+	mcserver do say ============================
+	mcserver do say ==== "$bold"歡迎來到UHCθ盃"$off" ====
+	mcserver do say ============================
+	mcserver do say 規則設定說明: "$yellow"http://sitahome.ddns.net/uhc規則設定"$off"
+	mcserver do say 請進入RC聊天室: "$yellow"27685743"$off"
+	mcserver do say 有玩家投訴，RC聊天室有雜音，罵人等令人不舒服的聲音。
+	mcserver do say 如果有人投訴，犯者將會在本次比賽中被禁言。
+	mcserver do say ============================
+
+	# =============================================================
+	mcdo gamerule sendCommandFeedback true
+}
+
+pre_open_rule() {
+	mcserver start
+	mcserver do whitelist off
+}
+
+open_message2() {
+	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
+	sleep 5
+	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
+	sleep 5
+	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
+	sleep 5
+	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
+	sleep 5
+	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
+	sleep 5
+	subtitle "$bold"請進入RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"歡迎來到UHCθ盃1小時比賽
+	sleep 5
+}
+
+# s74
+# open_message
+quiet_run pre_open_rule open_message2
+# quiet_run pre_open_rule 

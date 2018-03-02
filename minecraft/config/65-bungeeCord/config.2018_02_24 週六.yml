@@ -1,0 +1,129 @@
+ip_forward: false
+network_compression_threshold: 256
+stats: 71caa302-444f-46b7-b878-a6bc3f703080
+permissions:
+  default:
+  - bungeecord.command.list
+  admin:
+  - bungeecord.command.server
+  - bungeecord.command.alert
+  - bungeecord.command.end
+  - bungeecord.command.ip
+  - bungeecord.command.reload
+groups:
+  chsliu:
+  - admin
+servers:
+  hub:
+    motd: 大廳
+    address: lxcmc204:20466
+    restricted: false
+  mv:
+    motd: RPG生存世界
+    address: lxcmc204:20468
+    restricted: false
+  v10:
+    motd: 兩張床世界
+    address: lxcmc210:21071
+    restricted: false
+  v11:
+    motd: 原味生存世界
+    address: lxcmc206:20673
+    restricted: false
+  uhc:
+    motd: UHC with NCP
+    address: lxcmc206:20674
+    restricted: false
+  uhc2:
+    motd: UHC
+    address: lxcmc206:20675
+    restricted: false
+  bed1:
+    motd: 床戰Kingdoms
+    address: lxcmc204:20481
+    restricted: false
+  battle:
+    motd: 亡國之戰
+    address: lxcmc204:20484
+    restricted: false
+  siege:
+    motd: 殲滅攻城戰Ver4.3
+    address: lxcmc204:20488
+    restricted: false
+  terra:
+    motd: Terra Swoop Force - A Noxcrew Map
+    address: lxcmc204:20490
+    restricted: false
+  autouhc:
+    motd: UHC練習場
+    address: lxcmc206:20691
+    restricted: false
+  lol:
+    motd: 聖殿與邪魔之役v1.5.6
+    address: lxcmc204:20492
+    restricted: false
+  bingo:
+    motd: MinecraftBINGOv3_1
+    address: lxcmc204:20493
+    restricted: false
+  floor:
+    motd: The Floor is Lava
+    address: lxcmc204:20494
+    restricted: false
+  three:
+    motd: 3人原味生存系列
+    address: lxcmc206:20695
+    restricted: false
+  tutor:
+    motd: 指令教學
+    address: lxcmc206:20696
+    restricted: false
+  valley:
+    motd: Parkour Valley 2
+    address: lxcmc204:20497
+    restricted: false
+  kohaku:
+    motd: 紅白對抗 ST2.1 春季版
+    address: lxcmc204:20498
+    restricted: false
+  meetup:
+    motd: UHC Meetup
+    address: lxcmc204:20499
+    restricted: false
+  void:
+    motd: 虛空世界
+    address: lxcmc206:20600
+    restricted: false
+  rpg:
+    motd: RPG生存世界
+    address: lxcmc206:20601
+    restricted: false
+  rpghard:
+    motd: RPG困難世界
+    address: lxcmc206:20602
+    restricted: false
+timeout: 30000
+listeners:
+- query_port: 25577
+  motd: §a苦力怕競技場 §e1.9/1.10/1.11/1.12 §6UHC,床戰和其他PvP小遊戲
+  tab_list: GLOBAL_PING
+  query_enabled: false
+  proxy_protocol: false
+  ping_passthrough: true
+  priorities:
+  - hub
+  bind_local_address: true
+  host: 0.0.0.0:25565
+  max_players: 1
+  tab_size: 60
+  force_default_server: false
+  forced_hosts:
+    sitahome.ddns.net: hub
+    sita.ddns.net: hub
+prevent_proxy_connections: false
+player_limit: -1
+online_mode: true
+log_commands: false
+disabled_commands:
+- disabledcommandhere
+connection_throttle: 1000

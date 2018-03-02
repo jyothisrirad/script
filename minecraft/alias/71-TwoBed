@@ -1,0 +1,35 @@
+#!/bin/bash
+
+s71=71-TwoBed
+
+# s71() {
+	# oldmcvar=$mcver
+	# export mcver=$s71 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+	
+	# alias  s1='export pos="-242 74 291"   && echo pos=蚊子車站'
+	# alias  s2='export pos="986 103 291"   && echo pos=山丘車站'
+	# alias  s3='export pos="986 103 -738"  && echo pos=陸湖車站'
+	# alias  s4='export pos="-242 103 -738" && echo pos=水下車站'
+	# alias tnt='export pos="540 82 310"    && echo pos=TNT礦車轟炸點'
+	# alias cr1='export pos="-242 93 -256" && echo pos=田字東西起點'
+	# alias cr2='export pos="256 103 291" && echo pos=田字南北起點'
+# }
+
+s71() {
+	chmc $s71
+	
+	alias  s1='export pos="-242 74 291"   && echo pos=蚊子車站'
+	alias  s2='export pos="986 103 291"   && echo pos=山丘車站'
+	alias  s3='export pos="986 103 -738"  && echo pos=陸湖車站'
+	alias  s4='export pos="-242 103 -738" && echo pos=水下車站'
+	alias tnt='export pos="540 82 310"    && echo pos=TNT礦車轟炸點'
+	alias cr1='export pos="-242 93 -256" && echo pos=田字東西起點'
+	alias cr2='export pos="256 103 291" && echo pos=田字南北起點'
+}
+
+alias v10=s71
+alias 71=s71

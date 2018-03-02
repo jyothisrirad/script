@@ -1,0 +1,122 @@
+#!/bin/bash
+
+npcrides0() {
+	case "$1" in
+		2)  # reset to 2 rides ready
+			# 來騎我吧y1
+			mcdo npc select 10
+			mcdo npc anchor --assume hub
+			# 來騎我吧y2
+			mcdo npc select 18
+			mcdo npc anchor --assume hide
+			# 來騎我吧y3
+			mcdo npc select 19
+			mcdo npc anchor --assume hide
+			# 來騎我吧c1
+			mcdo npc select 12
+			mcdo npc anchor --assume hub
+			# 來騎我吧c2
+			mcdo npc select 20
+			mcdo npc anchor --assume hide
+			# 來騎我吧c3
+			mcdo npc select 21
+			mcdo npc anchor --assume hide
+		;;
+		*)  # reset to all rides ready
+			# 來騎我吧y1
+			mcdo npc select 10
+			mcdo npc anchor --assume hub
+			# 來騎我吧y1
+			mcdo npc select 18
+			mcdo npc anchor --assume hub
+			# 來騎我吧y2
+			mcdo npc select 19
+			mcdo npc anchor --assume hub
+			# 來騎我吧y3
+			mcdo npc select 12
+			mcdo npc anchor --assume hub
+			# 來騎我吧c1
+			mcdo npc select 20
+			mcdo npc anchor --assume hub
+			# 來騎我吧c2
+			mcdo npc select 21
+			mcdo npc anchor --assume hub
+		;;
+	esac  
+}
+
+npcrides() {
+	npc_ids=(10 12 18 20 19 21)
+	cnt=0
+	loc=hub
+	for i in "${npc_ids[@]}"; do
+		if [ $cnt == "$1" ]; then loc=hide; fi
+		# echo "$i is in $loc"
+		mcdo npc select $i
+		mcdo npc anchor --assume $loc
+		let cnt=cnt+1 
+	done
+}
+
+USERNAME=sita
+as_user() {
+  if [ "$(whoami)" == "$USERNAME" ] ; then
+    bash -c "$1"
+  else
+    su - $USERNAME -c "$1"
+  fi
+}
+
+say() {
+	# screen -p 0 -S $mcver -X eval 'stuff \"say '"$*"'\"\015'
+	as_user "screen -p 0 -S $mcver -X eval 'stuff \"say '"$*"'\"\015'"
+}
+
+say1() {
+	# screen -p 0 -S $mcver -X eval "stuff 'say "$*"'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff 'say "$*"\015'\""
+}
+
+tellraw() {
+	# screen -p 0 -S $mcver -X eval "stuff 'tellraw @a [\"\",{\"text\":\""$*"\"}]'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'tellraw @a [\\\"\\\",{\\\"text\\\":\\\""$*"\\\"}]\'\015\""
+}
+
+title() {
+	# screen -p 0 -S $mcver -X eval "stuff 'title @a title {\"text\":\""$*"\"}'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'title @a title {\\\"text\\\":\\\""$*"\\\"}\'\015\""
+}
+
+subtitle() {
+	# screen -p 0 -S $mcver -X eval "stuff 'title @a subtitle {\"text\":\""$*"\"}'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'title @a subtitle {\\\"text\\\":\\\""$*"\\\"}\'\015\""
+}
+
+actionbar() {
+	# screen -p 0 -S $mcver -X eval "stuff 'title @a actionbar {\"text\":\""$*"\"}'\015"
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'title @a actionbar {\\\"text\\\":\\\""$*"\\\"}\'\015\""
+}
+
+titles() {
+	[ ! $2 ] || subtitle $2
+	[ ! $1 ] || title $1
+}
+
+# block.note.bass (guitar)
+# block.note.snare (snare drum)
+# block.note.hat (click)
+# block.note.basedrum (bass drum)
+# block.note.bell
+# block.note.flute
+# block.note.chime
+# block.note.guitar
+# block.note.xylophone
+# block.note.harp (piano)
+# block.note.pling (unused--more flushed piano)
+playsound() {
+	as_user "screen -p 0 -S $mcver -X eval \"stuff \'playsound $1 voice @p ~ ~ ~ 1 1 1\'\015\""
+}
+
+
+alias npc.rides='npcrides $*'
+alias yell='titles $*'

@@ -1,0 +1,19 @@
+#! /bin/sh
+
+sudo mkdir /var/log/pveproxy
+sudo chown www-data:www-data /var/log/pveproxy
+
+sudo mkdir /var/log/samba
+sudo chown root:adm /var/log/samba
+sudo mkdir /var/log/samba/cores
+sudo chmod 700 /var/log/samba/cores
+sudo mkdir /var/log/samba/cores/nmbd
+sudo mkdir /var/log/samba/cores/smbd
+sudo mkdir /var/log/samba/cores/winbindd
+
+sudo mkdir /var/cache/samba
+sudo chown root:adm /var/cache/samba
+sudo mkdir /var/cache/samba/lck
+sudo mkdir /var/cache/samba/msg
+sudo chmod 700 /var/cache/samba/msg
+sudo mkdir /var/cache/samba/printing

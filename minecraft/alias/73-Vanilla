@@ -1,0 +1,24 @@
+#!/bin/bash
+
+s73=73-Vanilla
+
+s73() {
+	chmc $s73
+	
+	alias  w1='export pos="250 70 250"    && echo pos=家'
+	alias  w1a='export pos="207 139 249" && echo pos=船電梯頂端'
+	alias  w2='export pos="10455 80 4400" && echo pos=林地'
+	alias  w3='export pos="1262 71 1814" && echo pos=終界要塞'
+	alias  w4='export pos="2032 65 1696" && echo pos=蘑菇島'
+	alias  wm1='export pos="6313 65 4294" && echo pos=海底遺跡'
+	alias  wm2='export pos="328 65 2904" && echo pos=海底遺跡_終界旁'
+	alias  wm3='export pos="11848 65 5192" && echo pos=海底遺跡_林地旁'
+	alias  wm4='export pos="2440 65 1176" && echo pos=海底遺跡_蘑菇島'
+	alias  wm5='export pos="2343 65 633" && echo pos=海底遺跡_地圖'
+	alias  wm5='export pos="2343 65 573" && echo pos=海底遺跡_地圖'
+	alias  e1='export pos="-4 62 4" && echo pos=終界返回傳送門'
+	alias  e1='export pos="-1224 62 -249" && echo pos=終界城1'
+}
+
+alias v11=s73
+alias 73=s73

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+export mcecho_off=1 
+cron_min='00'
+cron_hour='20'
+cron_day='*'
+cron_month='*'
+cron_wday='6'
+
+
+. /home/sita/script/cron/template.sh
+. /home/sita/script/minecraft/alias.minecraft
+
+# =============================================================
+mcdo gamerule sendCommandFeedback false
+
+# mc1112uc
+# =============================================================
+# Game Manul Start
+# =============================================================
+mcserver log list
+# mcserver do deop chsliu
+# mcserver do deop yozliu
+# mcserver do deop angussu
+# mcserver do gamemode 1 chsliu
+# mcserver do gamemode 1 yozliu
+# mcserver do gamemode 1 angussu
+mcserver do whitelist off
+# mcdo time set 0
+# team_all_set friendlyfire false
+
+# =============================================================
+mcdo gamerule sendCommandFeedback true

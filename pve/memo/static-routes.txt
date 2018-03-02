@@ -1,0 +1,2 @@
+sudo vi /etc/network/interfaces
+post-up route add -host 198.27.66.94 reject

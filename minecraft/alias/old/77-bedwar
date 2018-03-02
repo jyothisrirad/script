@@ -1,0 +1,20 @@
+#!/bin/bash
+
+s77=77-bedwar
+
+# s77() {
+	# oldmcvar=$mcver
+	# export mcver=$s77 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s77() {
+	chmc $s77
+}
+
+alias v11b=s77
+alias 77=s77
+alias bed=s77

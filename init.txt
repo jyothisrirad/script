@@ -1,6 +1,6 @@
 ssh as root
 
-apt install git sudo
+apt install git ca-certificates sudo
 
 adduser <user>
 

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s84=84-battle
+
+s84() {
+	chmc $s84
+}
+
+alias 84=s84

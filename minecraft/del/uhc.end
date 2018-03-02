@@ -1,0 +1,117 @@
+#!/bin/bash
+
+USERNAME=sita
+export mcecho_off=1 
+
+
+. /home/sita/script/minecraft/alias.minecraft
+. /home/sita/script/minecraft/include/uhc
+
+# $1: default to wait for key press for each score
+#     <num> to sleep <num> sec between each score
+mcscores() {
+	# echo $1 $2
+	while : ; do
+		mcserver do scoreboard objectives setdisplay sidebar FinalKill
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEntity
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalDiamond
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalGold
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalStone
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEat
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar List
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		[[ $2 == 'forever' ]] || break
+	done
+}
+
+
+team_all_set() {
+	for t in R Y G A B P E r y g a b p e 0 1
+	do 
+		mcserver do scoreboard teams option $t $1 $2
+	done
+}
+
+end_message() {
+	# =============================================================
+	mcdo gamerule sendCommandFeedback false
+
+	# =============================================================
+	# mc1112uc
+	mcserver log teams
+	mcserver log slain
+	mcserver log winner
+	mcserver backup
+	mcserver save off
+	mcscores 3 
+	mcscores 3 
+	mcscores 3 
+	# mcserver do scoreboard teams list
+	# mcserver do worldborder get
+	# mcserver do worldborder set 64
+	# mcserver do whitelist off
+	# team_all_set friendlyfire true
+	# mcserver do scoreboard teams join 1 @a
+	# mcserver do gamemode 1 @a
+	# mcserver do gamemode 1 @a
+	mcserver do say ============================
+	mcserver do say ==== "$bold"UHCθ盃已經結束"$off" ====
+	mcserver do say ============================
+	mcserver do say 伺服器現在開放自由玩
+	mcserver do say 可隨意離場
+	mcserver do say ============================
+
+	# =============================================================
+	mcdo gamerule sendCommandFeedback true
+
+	# =============================================================
+}
+
+end_rule1() {
+	mcserver log teams
+	mcserver log slain
+	mcserver log winner
+	mcserver backup
+	mcserver save off
+	mcscores 3
+	mcscores 3
+	mcscores 3
+}
+
+end_message2() {
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	subtitle "$bold"想參加賽後賽的玩家，請回到伺服器大廳
+	title "$aqua""$bold""$italian"UHCθ盃已經結束 3...
+	sleep 5
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHCθ盃已經結束 2...
+	sleep 5
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHCθ盃已經結束 1...
+	sleep 5
+	
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉 3...
+	sleep 5
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉 2...
+	sleep 5
+	actionbar "$bold"RC聊天室:"$black""$bold"27685743
+	title "$aqua""$bold""$italian"UHC伺服器即將關閉 1...
+	sleep 5
+}
+
+end_rule2() {
+	mcdo stop
+}
+
+# s74
+# end_message
+# quiet_run end_message2
+quiet_run end_rule1 end_message2 end_rule2

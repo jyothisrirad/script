@@ -1,0 +1,12 @@
+#!/bin/bash
+
+s65=65-bungeeCord-azure
+
+s65() {
+	chmc $s65
+}
+
+alias 65=s65
+alias ghub='65 && mcdo send all hub'
+alias guhc='65 && mcdo send all uhc'
+alias glist='65 && mcdo glist'

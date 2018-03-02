@@ -1,0 +1,19 @@
+#!/bin/bash
+
+s67=67-survival
+
+# s67() {
+	# oldmcvar=$mcver
+	# export mcver=$s67 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s67() {
+	chmc $s67
+}
+
+alias 67=s67
+alias sv=s67

@@ -60,6 +60,7 @@ postfix_fix
 sudo apt install -y ssmtp heirloom-mailx
 
 #setting for displayed name in From: field
+#change user information in /etc/passwd
 sudo chfn -f "root at $(hostname)" root
 sudo chfn -f "$(whoami) at $(hostname)" $(whoami)
 

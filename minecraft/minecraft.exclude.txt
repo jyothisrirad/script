@@ -1,0 +1,11 @@
+Buscript/*
+ForgeEssentials/Backups/*
+HyperConomy/*.gz
+HyperConomy/lib/*
+crash-reports/*
+logs/*.gz
+mcMMO/backup/*
+orebfuscator_cache/*
+plugins.tried/*
+timings/*
+DiscordConsole.log

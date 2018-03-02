@@ -1,0 +1,20 @@
+#!/bin/bash
+
+s74=74-UHC
+
+# s74() {
+	# oldmcvar=$mcver
+	# export mcver=$s74 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s74() {
+	chmc $s74
+}
+
+alias v11uc=s74
+alias 74=s74
+alias uhc=s74

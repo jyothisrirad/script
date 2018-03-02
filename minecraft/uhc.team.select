@@ -1,0 +1,109 @@
+#!/usr/bin/python
+
+from __future__ import print_function
+import sys
+from random import shuffle
+from subprocess import call
+
+
+max_team=14
+least_team_players=3
+teamnames = ['R','Y','G','A','B','P','E','r','y','g','a','b','p','e']
+preset_teams = {}
+presets = {
+	# 0: ['qqua630512'],
+	# 1: ['Willwill01'],
+	# 2: ['Frs_yoyogood'],
+	0: ['ZK_KY'],
+	1: ['eddy228'],
+	2: ['DY_speaker'],
+}
+
+
+def count_or_default(d,k):
+	if k in d: return len(d[k])
+	else: return 0
+
+
+def parse(f):
+	lines = f.readlines()
+	newplayers = []
+	newteams = {}
+	for line in lines:
+		for player in line.split(' '):
+			newplayers.append(player.strip())
+	# print('len(newplayers)=',len(newplayers))
+	max_team_players=len(newplayers)/max_team
+	if max_team_players < least_team_players: max_team_players=least_team_players
+	# print('max_team_players=',max_team_players)
+	
+	shuffle(newplayers)
+	# print('newplayers=',newplayers)
+	shuffle(teamnames)
+	# print('teamnames=',teamnames)
+	
+	#populate preset_teams
+	for i in range(len(presets)):
+		for player in presets[i]:
+			t=teamnames[i]
+			if t in preset_teams: preset_teams[t].append(player)			
+			else: preset_teams[t] = [player]
+	# print('preset_teams=',preset_teams)
+
+	#use players in preset_teams first
+	for t in teamnames:
+		if t in preset_teams:
+			for player in preset_teams[t]:
+				if player in newplayers:
+					newplayers.remove(player)
+					if t in newteams: newteams[t].append(player)
+					else: newteams[t] = [player]
+				
+	#use players in the rest of newplayers
+	for t in teamnames:
+		while count_or_default(newteams,t) < max_team_players:
+			try: player = newplayers.pop()
+			except: break
+			if t in newteams: newteams[t].append(player)
+			else: newteams[t] = [player]
+	# print('newteams=',newteams)
+	# for t in newteams: print('newteams[',t,']=',newteams[t])
+	# print('preset_teams.keys=',preset_teams.keys())
+	# print('newteams.keys=',newteams.keys())
+	
+	#find out which minor team has not enough players
+	minor_t="";
+	for t in newteams:
+		if len(newteams[t]) < max_team_players: 
+			minor_t=t
+			break
+	# print('minor_t=',minor_t)
+	
+	#move minor team players into other teams which has no preset players
+	if minor_t:
+		for t in newteams:
+			if t not in preset_teams:
+				try: newteams[t].append(newteams[minor_t].pop())
+				except: break
+	# for t in newteams: print('newteams2[',t,']=',newteams[t])
+	return newteams
+
+
+def team_print(teams):
+	for team in teams:
+		for player in teams[team]:
+			# if player.strip() != None:
+				cmd="mcdo scoreboard teams join",team,player
+				print(' '.join(cmd))
+				# call(["ls", "-l"])
+				# call([cmd,""])
+			
+
+def main():
+	f = sys.stdin
+	teams = parse(f)
+	team_print(teams)
+	
+
+if __name__ == '__main__':
+	main()

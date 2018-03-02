@@ -1,0 +1,19 @@
+#!/bin/bash
+
+s83=83-UHC4
+
+# s83() {
+	# oldmcvar=$mcver
+	# export mcver=$s83 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s83() {
+	chmc $s83
+}
+
+alias 83=s83
+alias uhc4=s83

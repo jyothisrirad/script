@@ -1,10 +1,26 @@
 ###basic setup for new system
+<<<<<<< HEAD
 $> 			newuser <username>
 #> 			newinstall.root.sh
 newinstall> newinstall.init.sh <hostname>
+=======
+root#>	adduser username
+root#>	apt install -y git sudo ca-certificates
+user$>	git clone https://github.com/chsliu/script.git
+root#> 	newinstall.sudo.sh
+user$>	newinstall.init.sh <hostname>
+user$>	pve/newuser <username>
+
+
+###fix grub
+(initramfs) vgchange -ay
+>>>>>>> 7a7fb0b8ccd4ddc059d485f99832cf56cc68afb5
 
 
 ###create disk id
+echo === config /etc/default/zfs
+echo add ZPOOL_IMPORT_PATH="/dev/disk/by-id"
+
 Edit /etc/zfs/vdev_id.conf to prepare aliases for disk devices found in /dev/disk/by-id/ 
 --------cut here-------------------
 # run 'udevadm trigger' after updating this file
@@ -17,13 +33,18 @@ $>			sudo mis/disksec.query.sh
 #for 4k disk use ashift=12
 $>			sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <disk4> ...
 
+
+###disable usbstick swap and create zfs shares
 usbstick.prep
 rsync.enable
 smbshare.enable
+cat /etc/zfs/zed.d/zed.rc | grep ZED_EMAIL_ADDR
 
 
+###zfs benchmark
+benchmark> 	hd.speed.sh
 ###benchmark
-#>				smartctl -a /dev/sd?
+#>				smartctl -i /dev/sd?
 #>				zpool status
 #> 				zfs get compression 
 /tank#> 		/home/sita/script/benchmark/hd.speed.sh
@@ -33,12 +54,13 @@ smbshare.enable
 ###crontab 
 mail.forward
 
+
 root@pve2:/home/sita/script/pve# crontab -l
 # rsync.enable: monthly netbackup cleanup
 10 5 1 * * sudo python -x /tank/Shares/NetBackup/recycle/cleanup.py.cmd 3 0
 
 # usbstick.prep: weekly usbstick backup
-20 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup
+20 6 * * 0 /usr/bin/batch < /home/sita/script/pve/usbbackup >/dev/null 2>&1 
 
 # zpool.scrub: yearly zfs disk scrub
 30 1 1 11 * /home/sita/script/pve/zpool.scrub scrub
@@ -47,4 +69,4 @@ root@pve2:/home/sita/script/pve# crontab -l
 40 1 * * 7 /home/sita/script/mis/status log smart
 
 #cleanup.monthly.sh
-50 3 1 * * /usr/bin/batch < /home/sita/script/cron/cleanup.monthly.sh
+50 3 1 * * /usr/bin/batch < /home/sita/script/cron/cleanup.monthly.sh >/dev/null 2>&1

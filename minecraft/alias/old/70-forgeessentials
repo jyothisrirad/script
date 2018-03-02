@@ -1,0 +1,18 @@
+#!/bin/bash
+
+s70=70-forgeessentials
+
+# s70() {
+	# oldmcvar=$mcver
+	# export mcver=$s70 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s70() {
+	chmc $s70
+}
+
+alias 70=s70

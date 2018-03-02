@@ -1,0 +1,21 @@
+#!/bin/bash
+
+s76=76-Wither
+
+# s76() {
+	# oldmcvar=$mcver
+	# export mcver=$s76 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s76() {
+	chmc $s76
+}
+
+alias v11w=s76
+alias 76=s76
+alias wither=s76
+alias wrun='76 && /home/sita/script/minecraft/wither.arena $*'

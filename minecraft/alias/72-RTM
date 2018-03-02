@@ -1,0 +1,19 @@
+#!/bin/bash
+
+s72=72-RTM
+
+# s72() {
+	# oldmcvar=$mcver
+	# export mcver=$s72 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s72() {
+	chmc $s72
+}
+
+alias v7=s72
+alias 72=s72

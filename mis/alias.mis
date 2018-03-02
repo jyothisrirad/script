@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'
+alias ls='ls --color=auto'
+
+
+#
+alias a=alias
+alias aed='vi ~/script/mis/alias.mis; are'
+alias are='. ~/script/mis/alias.mis'
+alias ph='cd ~/script/ssh'
+alias pm='cd ~/script/mis'
+alias pp='cd ~/script/pve'
+
+alias gs='cd ~/script && ./gitsync.sh'
+
+alias ddos='netstat -tn 2>/dev/null | grep :80 | awk '"'"'{print $5}'"'"' | cut -d: -f1 | sort | uniq -c | sort -nr | head'
+alias ddcheck='sudo netstat -antp'
+
+blockip() {
+	sudo route add -host $1 reject
+	route_show
+}
+
+unblockip() {
+	sudo route del -host $1 reject
+	route_show
+}
+
+route_show() {
+	sudo route -n
+}
+
+alias block='blockip $*'
+alias unblock='unblockip $*'

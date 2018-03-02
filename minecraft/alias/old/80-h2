@@ -1,0 +1,19 @@
+#!/bin/bash
+
+s80=80-h2
+
+# s80() {
+	# oldmcvar=$mcver
+	# export mcver=$s80 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s80() {
+	chmc $s80
+}
+
+alias 80=s80
+alias h2=s80

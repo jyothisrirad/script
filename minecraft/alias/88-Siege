@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s88=88-Siege
+
+s88() {
+	chmc $s88
+}
+
+alias 88=s88

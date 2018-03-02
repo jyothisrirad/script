@@ -1,0 +1,55 @@
+#!/bin/bash
+
+USERNAME=sita
+export mcecho_off=1 
+cron_min='24'
+cron_hour='*/6'
+cron_day='*'
+cron_month='*'
+cron_wday='*'
+pids=(`ps aux|grep -F -v grep|grep java| awk '{print $2}'`)
+[ ! $pids ] || MCSTORE=$(sudo cat /proc/${pids[0]}/environ | tr '\0' '\n' | grep '^PWD' | sed -r 's/PWD=//g')
+
+
+. /home/sita/script/cron/template.sh
+# . /home/sita/script/minecraft/alias.minecraft
+
+
+mc_status() {
+  ps aux |grep -F -v grep|grep -F -v SCREEN|grep -F --quiet java
+  return $?
+}
+
+as_user() {
+	if [ "$(whoami)" == "$USERNAME" ] ; then
+		bash -c "$1"
+	else
+		su - $USERNAME -c "$1"
+	fi
+}
+
+mc_command() {
+  command="$1";
+  if mc_status; then
+    [ $mcecho_off ] || echo "$JARFILE is running... executing command"
+    # as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+    as_user "screen -p 0 -X eval 'stuff \"$command\"\015'"
+  fi
+}
+
+mc_backup() {
+  if mc_status; then
+    echo "Backing up minecraft files"
+	# as_user "tar zcf $BACKUPPATH/MCBKUP_`date "+%Y.%m.%d-%H"`.tar.gz $MCSTORE"
+	# as_user "$MCSTORE/backup.sh"
+	as_user "$DP0/backup.sh $MCSTORE"
+	echo "Backup complete"
+  else
+    echo "$JARFILE was not running. No need to backup."
+  fi
+}
+
+mc_command save-off
+mc_command save-all
+[ ! $MCSTORE ] || mc_backup
+mc_command save-on

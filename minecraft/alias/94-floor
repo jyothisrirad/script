@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s94=94-floor
+
+s94() {
+	chmc $s94
+}
+
+alias 94=s94

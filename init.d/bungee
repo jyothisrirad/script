@@ -1,0 +1,6 @@
+#! /bin/bash
+
+. /home/sita/script/minecraft/alias.minecraft
+
+s65
+mcserver start

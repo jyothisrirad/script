@@ -1,0 +1,19 @@
+#!/bin/bash
+
+s81=81-bedwar-kingdoms
+
+# s81() {
+	# oldmcvar=$mcver
+	# export mcver=$s81 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s81() {
+	chmc $s81
+}
+
+alias 81=s81
+alias bed1=s81

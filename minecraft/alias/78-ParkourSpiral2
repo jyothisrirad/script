@@ -1,0 +1,23 @@
+#!/bin/bash
+
+s78=78-ParkourSpiral2
+
+s78() {
+	oldmcvar=$mcver
+	export mcver=$s78 
+	
+	mcpath=/mnt/runtimes/$mcver
+	[ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+	
+	alias  s1='export pos="-10 205 15"    && echo pos=繞過關卡的蟲'
+}
+
+s78() {
+	chmc $s78
+	
+	alias  s1='export pos="-10 205 15"    && echo pos=繞過關卡的蟲'
+}
+
+alias 78=s78
+alias pk2=s78

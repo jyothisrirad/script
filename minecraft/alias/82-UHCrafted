@@ -1,0 +1,20 @@
+#!/bin/bash
+
+s82=82-UHCrafted
+
+# s82() {
+	## oldmcvar=$mcver
+	# export mcver=$s82 
+	
+	# mcpath=/mnt/runtimes/$mcver
+	## [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; mcver=$oldmcvar; }
+	# [ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; }
+	# [   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+# }
+
+s82() {
+	chmc $s82
+}
+
+alias 82=s82
+alias uhc3=s82

@@ -1,0 +1,156 @@
+#!/bin/bash
+
+# $1: default to wait for key press for each score
+#     <num> to sleep <num> sec between each score
+mcscores() {
+	# echo $1 $2
+	while : ; do
+		mcserver do scoreboard objectives setdisplay sidebar FinalKill
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEntity
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalDiamond
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalGold
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalStone
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar FinalEat
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+		mcserver do scoreboard objectives setdisplay sidebar List
+		[[ $2 == 'forever' ]] || break
+		if [ -z ${1+x} ]; then pause; else sleep $1; fi
+	done
+}
+
+
+# friendlyfireSet() {
+	# for t in R Y G A B P E r y g a b p e
+	# do 
+		# mcserver do scoreboard teams option $t friendlyfire $1
+	# done
+# }
+
+
+team_all_set() {
+	# for t in R Y G A B P E r y g a b p e 0 1
+	for t in R Y G A B P E r y g a b p e
+	do 
+		mcserver do scoreboard teams option $t $1 $2
+	done
+}
+
+# aqua() { 
+	# echo A 
+# }
+
+teamlist() {
+	# echo 隊伍ID列表
+	# echo Solo=1
+	# echo Spectate=0
+	# echo Red=R
+	# echo Yellow=Y
+	# echo Green=G
+	# echo Aqua=A
+	# echo Blue=B
+	# echo Light Purple=P
+	# echo Gray=E
+	# echo Dark Red=r
+	# echo Gold=y
+	# echo Dark Green=g
+	# echo Dark Aqua=a
+	# echo Dark Blue=b
+	# echo Dark Purple=p
+	# echo Dark Gray=e
+	echo 隊伍ID:__[1]單人[0]旁觀者
+	echo [R]紅隊__[Y]黃隊[G]綠隊__[A]青隊__[B]藍隊__[P]亮紫隊[E]灰隊
+	echo [r]深紅隊[y]橘隊[g]深綠隊[a]深青隊[b]深藍隊[p]深紫隊[e]深灰隊
+}
+
+playerlist() {
+	echo 玩家ID:
+	mcdo list | grep.player
+}
+
+uhcstat() {
+	LOG=/mnt/runtimes/$mcver/logs/list.log
+	if [ -f "$LOG" ]; then 
+		echo 上線名單:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/teams.log
+	if [ -f "$LOG" ]; then 
+		echo 參賽名單:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/slain.log
+	if [ -f "$LOG" ]; then 
+		echo 戰敗順序:
+		cat $LOG
+	fi
+	LOG=/mnt/runtimes/$mcver/logs/winner.log
+	if [ -f "$LOG" ]; then 
+		echo 最後贏家:
+		cat $LOG
+	fi
+}
+
+
+uhcinit() {
+	mcdo time set 0
+	# mcdo tp @a 9475 65 3420
+	mcdo op chsliu
+	mcdo gamemode 1 @a
+	mcdo replaceitem entity @a slot.hotbar.7 command_block
+	mcdo replaceitem entity @a slot.hotbar.8 redstone_block
+}
+
+uhcteamcreate() {
+	tmpscrpit=/tmp/teamcreate
+	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
+	# mcdo list | grep.player | team.select >>$tmpscrpit
+	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select >>$tmpscrpit
+	cat $tmpscrpit
+	mcdo gamerule sendCommandFeedback false
+	. $tmpscrpit
+	rm $tmpscrpit
+}
+
+uhcteamchoice() {
+	if [ ! -z ${1+x} ]; then 
+		echo -e "${GREEN}加入隊伍權限On${NC}"
+		mcdo scoreboard players set @e[tag=F] J 0	#加入隊伍權限Off
+		mcdo scoreboard players set @e[tag=N] J 1	#加入隊伍權限On
+	else
+		echo -e "${YELLOW}加入隊伍權限Off${NC}"
+		mcdo scoreboard players set @e[tag=F] J 1	#加入隊伍權限Off
+		mcdo scoreboard players set @e[tag=N] J 0	#加入隊伍權限On
+	fi
+}
+
+biome() {
+	mcdo otg biome -f
+	mcdo otg biome -s
+	mcdo otg biome -d
+	mcdo otg biome -m
+}
+
+
+alias mcsb='mcscores 3'
+# alias mcsbs='mcscores $*'
+alias mcwb='mcdo worldborder $*'
+alias mcwb0='mcdo worldborder set 60000000'
+alias mcff='team_all_set friendlyfire true'
+alias mcfff='team_all_set friendlyfire false'
+alias rule.init=uhcinit
+alias rule.set='/home/sita/script/minecraft/uhc.rules $*'
+alias rule.biome='biome'
+# alias uhcstart='/home/sita/script/minecraft/uhc.start'
+# alias uhcend='/home/sita/script/minecraft/uhc.end'
+alias uhcstat=uhcstat
+alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
+alias team.select='/home/sita/script/minecraft/uhc.team.select $*'
+alias team.create=uhcteamcreate
+alias team.join='teamlist && playerlist && mcdo scoreboard teams join $1 $2'
+alias team.solo='mcserver do scoreboard teams join 1 @a'
+alias team.choice='uhcteamchoice $*'
