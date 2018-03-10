@@ -41,7 +41,7 @@ BASEDIR=$(dirname $0)
 #-------------------------------------------------
 sudo apt update
 # sudo apt-get install -y git ntpdate samba tmux at libnss-winbind
-sudo apt-get install -y git ntpdate tmux at
+sudo apt-get install -y git ntpdate tmux at screen
 
 #-------------------------------------------------
 sh ${BASEDIR}/../gitconf.sh
