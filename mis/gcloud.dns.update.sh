@@ -61,12 +61,16 @@ lookup_dns_ip() {
   host "$1" | sed -rn 's@^.* has address @@p'
 }
 
+lookup_dns_cname() {
+  host "$1" | sed -rn 's@^.* an alias for @@p'
+}
+
 my_ip() {
   # ip -4 addr show dev eth0 | sed -rn 's@^    inet ([0-9.]+).*@\1@p'
   curl https://api.ipify.org
 }
 
-doit() {
+update_A() {
   ZONENAME=$1
   ZONE=$2
   HOST=$3
@@ -77,5 +81,30 @@ doit() {
   dns_commit
 }
 
-# doit foo-bar-com foo.bar.com my-vm 5min
-doit $1 $2 $3 $4
+update_CNAME() {
+  ZONENAME=$1
+  ZONE=$2
+  HOST=$3
+  TTL=$4
+  CNAME=$5
+  dns_start
+  dns_del ${HOST} ${TTL} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
+  dns_add ${HOST} ${TTL} CNAME ${CNAME}
+  dns_commit
+}
+
+case "$1" in
+  A)
+	# update_A foo-bar-com foo.bar.com my-vm 5min
+    update_A $2 $3 $4 $5
+    exit
+    ;;
+  CNAME)
+    update_CNAME $2 $3 $4 $5 $6
+    exit
+    ;;
+  *)
+	echo "Usage: $0 {A|CNAME}"
+	exit 1
+	;;
+esac
