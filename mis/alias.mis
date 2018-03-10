@@ -41,6 +41,4 @@ route_show() {
 alias block='blockip $*'
 alias unblock='unblockip $*'
 
-# alias stop='sudo poweroff && exit'
-# alias stop='nohup ~/script/poweroff.sh && exit'
 alias stop='su - root -c "screen -dmS off poweroff" && exit'
