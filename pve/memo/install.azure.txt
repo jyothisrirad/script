@@ -25,11 +25,13 @@ sftp	/mnt/backup/65-bungeeCord-azure/*.zip
 user$>	~/script/minecraft/azure/init.bungee.sh
 user$>	/mnt/runtimes/65-bungeeCord-azure/update.sh
 user$>	vi /mnt/runtimes/65-bungeeCord-azure/plugins/RedisBungee/config.yml
-user$>	vi ~/start.mc.sh
+user$>	cp ~/script/init.d/start.mc.sh ~/
+user$>	vi start.mc.sh
 
 ###uhc
 user$>	~/script/minecraft/azure/init.sh
 user$>	mkdir /mnt/backup/74-UHC
 sftp	/mnt/backup/74-UHC/*.zip
 user$>	~/script/minecraft/azure/init.uhc.sh
-user$>	vi ~/start.mc.sh
+user$>	cp ~/script/init.d/start.mc.sh ~/
+user$>	vi start.mc.sh
