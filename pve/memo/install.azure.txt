@@ -20,7 +20,7 @@ user$>	~/script/newinstall/newinstall.azure.sh
 
 ###bungeeCord
 user$>	~/script/minecraft/azure/init.sh
-mkdir   /mnt/backup/65-bungeeCord-azure
+user$>	mkdir /mnt/backup/65-bungeeCord-azure
 sftp	/mnt/backup/65-bungeeCord-azure/*.zip
 user$>	~/script/minecraft/azure/init.bungee.sh
 user$>	/mnt/runtimes/65-bungeeCord-azure/update.sh
