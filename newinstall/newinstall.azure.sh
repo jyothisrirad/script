@@ -133,3 +133,8 @@ echo Host IP for ssh
 echo ===============
 ip addr show | grep 192
 
+#-------------------------------------------------
+echo =====================
+echo set password for root
+echo =====================
+sudo passwd root

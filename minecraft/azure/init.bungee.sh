@@ -7,16 +7,17 @@ addto_root_crontab() {
 
 ### 
 addto_root_crontab "0 23 * * * /sbin/poweroff"
-~/script/init.d/inst.as.sh ~/script/init.d/bungee.d bungeestart
+# ~/script/init.d/inst.as.sh ~/script/init.d/bungee.d bungeestart
+~/script/init.d/inst.as.sh ~/script/init.d/start.mc.d startmc
 
 ### 
-. /home/sita/script/minecraft/alias.minecraft
+~/script/minecraft/azure/init.sh
+sudo mkdir /mnt/backup/65-bungeeCord-azure
+sudo chown sita:sita /mnt/backup/65-bungeeCord-azure
 
-### 
-s65
-mcserver restore
-
-sudo rm /etc/logrotate.d/bungeecord
-sudo ln -s /mnt/runtimes/65-bungeeCord-azure/logrotate /etc/logrotate.d/bungeecord
-sudo chown root /mnt/runtimes/65-bungeeCord-azure/logrotate
-sudo logrotate -d /etc/logrotate.d/bungeecord
+cp ~/script/init.d/start.mc.sh ~/
+echo !!!!!!!!!!!!!!
+echo vi start.mc.sh
+echo 65
+echo mcrestore
+echo !!!!!!!!!!!!!!
