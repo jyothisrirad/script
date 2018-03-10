@@ -152,19 +152,23 @@ file.cleanup() {
 
 file.replace.cause() {
 	[ -f $1 ] || { echo no file; return 1; }
-	sed -i "s/ blew up/爆炸了/g" $1
-	sed -i "s/ burned to death/燒死/g" $1
+	sed -i "s/ blew up/被炸死了/g" $1
+	sed -i "s/ burned to death/被燒死/g" $1
 	sed -i "s/ fell from a high place/從高處墜落/g" $1
-	sed -i "s/ fell out of the world/脫離了世界/g" $1
-	sed -i "s/ hit the ground too hard/墜地得太大力了/g" $1
+	sed -i "s/ fell out of the world/離開了人世/g" $1
+	sed -i "s/ hit the ground too hard/撞擊地面太大力/g" $1
 	sed -i "s/ suffocated in a wall/窒息在牆裡/g" $1
-	sed -i "s/ tried to swim in lava to escape /在熔岩里游泳,為了逃避/g" $1
-	sed -i "s/ tried to swim in lava/在熔岩里游泳/g" $1
+	sed -i "s/ tried to swim in lava to escape /在熔岩裡游泳,為了逃避/g" $1
+	sed -i "s/ tried to swim in lava/在熔岩裡游泳/g" $1
+	sed -i "s/ was killed by Witch using magic/被女巫用魔法殺死/g" $1
 	sed -i "s/ was killed by magic/被魔法殺死/g" $1
-	sed -i "s/ was pricked to death/刺死了/g" $1
-	sed -i "s/ was burnt to a crisp whilst fighting /戰鬥中被燒死,對手是/g" $1
+	sed -i "s/ was pricked to death/被刺死了/g" $1
+	sed -i "s/ was burnt to a crisp whilst fighting /在戰鬥中被燒死,對手是/g" $1
 	sed -i "s/ was shot by /被射殺了,射手是/g" $1
 	sed -i "s/ was slain by /被殺了,殺手是/g" $1
+	sed -i "s/ left the game/不玩了/g" $1
+	sed -i "s/ drowned/淹死了/g" $1
+	sed -i "s/ was blown up by Creeper/被苦力怕炸飛了/g" $1
 }
 
 file.replace.mob() {
@@ -177,6 +181,29 @@ file.replace.mob() {
 	sed -i "s/Spider/蜘蛛/g" $1
 	sed -i "s/Zombie Villager/殭屍村民/g" $1
 	sed -i "s/Zombie/殭屍/g" $1
+	sed -i "s/Creeper/苦力怕/g" $1
+	sed -i "s/Witch/女巫/g" $1
+}
+
+file.replace.escape() {
+	[ -f $1 ] || { echo no file; return 1; }
+	sed -i "s/\[0;30;1m//g" $1
+    sed -i "s/\[0;31;1m//g" $1
+    sed -i "s/\[0;32;1m//g" $1
+    sed -i "s/\[0;33;1m//g" $1
+    sed -i "s/\[0;34;1m//g" $1
+    sed -i "s/\[0;35;1m//g" $1
+    sed -i "s/\[0;36;1m//g" $1
+    sed -i "s/\[0;37;1m//g" $1
+    sed -i "s/\[0;30;22m//g" $1
+    sed -i "s/\[0;31;22m//g" $1
+    sed -i "s/\[0;32;22m//g" $1
+    sed -i "s/\[0;33;22m//g" $1
+    sed -i "s/\[0;34;22m//g" $1
+    sed -i "s/\[0;35;22m//g" $1
+    sed -i "s/\[0;36;22m//g" $1
+    sed -i "s/\[0;37;22m//g" $1    
+	sed -i "s/\[m//g" $1
 }
 
 grep.teams() {
@@ -219,7 +246,12 @@ grep.slain() {
 ## was pricked to death
 ## was shot by 
 ## was slain by 
-	grep 'blew\|burned\|fell\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain'
+## left the game
+## drowned
+## was killed by Witch using magic
+## was blown up by Creeper 
+    # grep left\|
+	grep 'blew\|burned\|fell\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain\|drowned\|using magic\|blown up'
 }
 
 grep.winner() {
@@ -271,6 +303,7 @@ logs.grep() {
 		file.replace.teamtag $logfile
 		file.replace.cause $logfile
 		file.replace.mob $logfile
+		file.replace.escape $logfile
 		cat $logfile
 		;;
     winner)
