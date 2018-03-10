@@ -72,8 +72,8 @@ my_ip() {
 
 update_A() {
   ZONENAME=$1
-  ZONE=$2
-  HOST=$3
+  HOST=$2
+  ZONE=$3
   TTL=$4
   dns_start
   dns_del ${HOST} ${TTL} A `lookup_dns_ip "${HOST}.${ZONE}."`
@@ -83,10 +83,10 @@ update_A() {
 
 update_CNAME() {
   ZONENAME=$1
-  ZONE=$2
-  HOST=$3
-  TTL=$4
-  CNAME=$5
+  HOST=$2
+  ZONE=$3
+  CNAME=$4
+  TTL=$5
   dns_start
   dns_del ${HOST} ${TTL} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
   dns_add ${HOST} ${TTL} CNAME ${CNAME}
