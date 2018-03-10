@@ -13,25 +13,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAlnbdmUXHVzxDEmqKTP4Hci8Kq4BU9LA8piUHSbHA+Y+l
 >Automation StartAzureV2Vm Startup, Holiday 10:00, Weekend 10:00, Weekday 17:00, UHC 19:30
 
 ###basic setup for new system
-user$>	sudo passwd root
 user$>	sudo apt install -y git sudo ca-certificates
-user$>	git clone https://github.com/chsliu/script.git
+user$>	git clone https://github.com/chsliu/script.git ~/script
 user$>	~/script/newinstall/newinstall.azure.sh
 
 ###bungeeCord
-user$>	~/script/minecraft/azure/init.sh
-user$>	mkdir /mnt/backup/65-bungeeCord-azure
-sftp	/mnt/backup/65-bungeeCord-azure/*.zip
 user$>	~/script/minecraft/azure/init.bungee.sh
-user$>	/mnt/runtimes/65-bungeeCord-azure/update.sh
-user$>	vi /mnt/runtimes/65-bungeeCord-azure/plugins/RedisBungee/config.yml
-user$>	cp ~/script/init.d/start.mc.sh ~/
-user$>	vi start.mc.sh
+        sftp /mnt/backup/65-bungeeCord-azure/*.zip
+user$>	~/script/minecraft/azure/init.bungee.2.sh
 
 ###uhc
-user$>	~/script/minecraft/azure/init.sh
-user$>	mkdir /mnt/backup/74-UHC
-sftp	/mnt/backup/74-UHC/*.zip
 user$>	~/script/minecraft/azure/init.uhc.sh
-user$>	cp ~/script/init.d/start.mc.sh ~/
-user$>	vi start.mc.sh
+        sftp /mnt/backup/74-UHC/*.zip
