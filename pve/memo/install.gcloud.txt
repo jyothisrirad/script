@@ -1,15 +1,10 @@
 ###basic setup for new system
 user$>	sudo apt install -y git sudo ca-certificates
 user$>	git clone https://github.com/chsliu/script.git ~/script
-user$>	~/script/newinstall/newinstall.azure.sh
+user$>	~/script/newinstall/newinstall.paas.sh
 
 ###bungeeCord
-user$>	~/script/minecraft/azure/init.bungee.sh
-xxx    		65
-xxx			mcrestore
-xxx user$>	~/script/minecraft/azure/init.bungee.2.sh
+user$>	~/script/minecraft/gcloud/init.bungee.sh
 
 ###uhc
-user$>	~/script/minecraft/azure/init.uhc.sh
-xxx 		74
-xxx 		mcrestore
+user$>	~/script/minecraft/gcloud/init.uhc.sh
