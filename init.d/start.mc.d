@@ -1,11 +1,11 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          fixperms
+# Provides:          start.mc.d
 # Required-Start:    
 # Required-Stop:     
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Description:       fix dir permissions
+# Description:       start minecraft server
 ### END INIT INFO
 
 APP=start.mc.sh
@@ -21,7 +21,7 @@ start() {
     return 1
   fi
   echo 'Starting service…' >&2
-  local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
+  local CMD="$SCRIPT start &> \"$LOGFILE\" & echo \$!"
   su -c "$CMD" $RUNAS > "$PIDFILE"
   echo 'Service started' >&2
 }
@@ -32,6 +32,8 @@ stop() {
     return 1
   fi
   echo 'Stopping service…' >&2
+  local CMD="$SCRIPT stop &> \"$LOGFILE\" & echo \$!"
+  su -c "$CMD" $RUNAS > "$PIDFILE"
   kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
   echo 'Service stopped' >&2
 }
@@ -44,7 +46,7 @@ uninstall() {
     stop
     rm -f "$PIDFILE"
     echo "Notice: log file is not be removed: '$LOGFILE'" >&2
-    update-rc.d -f fixperms remove
+    update-rc.d -f $(basename $0) remove
     rm -fv "$0"
   fi
 }
