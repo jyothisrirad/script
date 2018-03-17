@@ -14,7 +14,7 @@ delfrom_crontab() {
 case "$1" in
   install)
 	addto_crontab "#gcloud DNS update $(basename $0)"
-    addto_crontab "10 6 * * * /bin/bash $(readlink -e $0)"
+    addto_crontab "5 6 * * * /bin/bash $(readlink -e $0)"
     exit
     ;;
   remove)
