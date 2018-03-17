@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s10=10-chess
+
+s10() {
+	chmc $s10
+}
+
+alias 10=s10
