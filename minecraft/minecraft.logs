@@ -152,6 +152,7 @@ file.cleanup() {
 
 file.replace.cause() {
 	[ -f $1 ] || { echo no file; return 1; }
+	sed -i "s/ using /，使用/g" $1
 	sed -i "s/ blew up/被炸死了/g" $1
 	sed -i "s/ burned to death/被燒死/g" $1
 	sed -i "s/ fell from a high place/從高處墜落/g" $1
