@@ -1,19 +1,16 @@
 #!/bin/bash
 
-start() {
-###
 . /home/sita/script/minecraft/alias.minecraft
 
-s74 && mcserver start
-
-###
-/home/sita/script/minecraft/gcloud/uhc
+start() {
+  s74 && mcserver start
+  
+  ###
+  /home/sita/script/minecraft/gcloud/uhc
 }
 
 stop() {
-. /home/sita/script/minecraft/alias.minecraft
-
-s74 && mcserver halt
+  s74 && mcserver halt
 }
 
 case "$1" in
