@@ -97,6 +97,11 @@ bungee_offline_mode() {
 	echo online_mode: false >>config.yml
 
 }
+#=================================
+lag_check() {
+	logs | grep.lag
+	~/start.mc.sh lag
+}
 
 #=================================
 utf8
@@ -148,7 +153,8 @@ alias offline='65 && bungee_offline_mode && mcdo greload && sleep 10 && online'
 alias on204='g65 && bungee_online_mode && mcdo greload && g66 && mcwf'
 alias on206='g65 && bungee_online_mode && mcdo greload'
 alias online='65 && bungee_online_mode && mcdo greload && 66 && mcwf'
-alias lag='logs | grep.lag && ~/start.mc.sh lag'
+# alias lag='logs | grep.lag && ~/start.mc.sh lag'
+alias lag='lag_check'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 
 alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
