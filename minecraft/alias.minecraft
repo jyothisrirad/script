@@ -99,6 +99,7 @@ bungee_offline_mode() {
 }
 #=================================
 lag_check() {
+	echo mcver=$mcver
 	logs | grep.lag
 	~/start.mc.sh lag
 }
