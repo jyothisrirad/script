@@ -22,19 +22,22 @@ start() {
   fi
   echo 'Starting service…' >&2
   local CMD="$SCRIPT start &> \"$LOGFILE\" & echo \$!"
+  # echo "$CMD"
   su -c "$CMD" $RUNAS > "$PIDFILE"
   echo 'Service started' >&2
 }
 
 stop() {
-  if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
-    echo 'Service not running' >&2
-    return 1
-  fi
+  # if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
+    # echo 'Service not running' >&2
+    # return 1
+  # fi
   echo 'Stopping service…' >&2
   local CMD="$SCRIPT stop &> \"$LOGFILE\" & echo \$!"
-  su -c "$CMD" $RUNAS > "$PIDFILE"
-  kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
+  # echo "$CMD"
+  # su -c "$CMD" $RUNAS > "$PIDFILE"
+  $SCRIPT stop
+  # kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
   echo 'Service stopped' >&2
 }
 
@@ -56,14 +59,14 @@ case "$1" in
     start
     ;;
   stop)
-    # stop
+    stop
     ;;
   uninstall)
     uninstall
     ;;
   restart)
-    # stop
-    # start
+    stop
+    start
     ;;
   *)
     echo "Usage: $0 {start|stop|restart|uninstall}"
