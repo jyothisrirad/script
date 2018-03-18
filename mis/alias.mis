@@ -41,4 +41,4 @@ route_show() {
 alias block='blockip $*'
 alias unblock='unblockip $*'
 
-alias stop='su - root -c "screen -dmS off poweroff" && exit'
+alias stop='su - root -c "screen -dmS off shutdown -h now" && exit'

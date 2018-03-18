@@ -155,4 +155,4 @@ alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
 alias dns.uhc='/home/sita/script/minecraft/gcloud/uhc'
 alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 
-alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off poweroff" && exit'
+alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now" && exit'
