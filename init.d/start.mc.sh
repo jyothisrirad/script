@@ -20,12 +20,19 @@ stop() {
 	done
 }
 
+checklag() {
+  s74 && logs | grep.lag
+}
+
 case "$1" in
   start)
     start
     ;;
   stop)
     stop
+    ;;
+  lag)
+    checklag
     ;;
   *)
     start
