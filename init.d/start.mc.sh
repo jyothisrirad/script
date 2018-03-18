@@ -21,19 +21,22 @@ stop() {
 }
 
 checklag() {
-  s74 && logs | grep.lag
+	for srv in ${servers[*]}
+	do
+		$srv && logs | grep.lag
+	done
 }
 
 case "$1" in
-  start)
-    start
-    ;;
-  stop)
-    stop
-    ;;
-  lag)
-    checklag
-    ;;
-  *)
-    start
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	lag)
+		checklag
+		;;
+	*)
+		start
 esac
