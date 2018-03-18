@@ -1,16 +1,23 @@
 #!/bin/bash
 
 . /home/sita/script/minecraft/alias.minecraft
+servers=(s74)
 
 start() {
-  s74 && mcserver start
+	for srv in ${servers[*]}
+	do
+		$srv && mcserver start
+	done
   
-  ###
-  /home/sita/script/minecraft/gcloud/uhc
+	###
+	/home/sita/script/minecraft/gcloud/uhc
 }
 
 stop() {
-  s74 && mcserver halt
+	for srv in ${servers[*]}
+	do
+		$srv && mcserver halt
+	done
 }
 
 case "$1" in
