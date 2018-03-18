@@ -6,7 +6,7 @@
   hourly
   create 0664 sita sita
   su sita sita
-  minsize 1M
+#  minsize 1M
   rotate 24
   dateext
   missingok
