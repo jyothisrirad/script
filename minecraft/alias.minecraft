@@ -112,6 +112,16 @@ op_list_make() {
     cat $oplistfile
 }
 
+op_list() {
+    cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g'
+}
+
+deop_list_make() {
+    echo . /home/sita/script/minecraft/alias.minecraft >$oplistfile
+    cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("mcserver do deop %s\n", $4)}' >>$oplistfile
+    cat $oplistfile
+}
+
 #=================================
 utf8
 load_alias
@@ -172,6 +182,7 @@ alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 
 alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now" && exit'
 
-alias op.mk='op_list_make $*'
-alias op.set='bash $oplistfile'
-alias op.clr='rm /mnt/runtimes/$mcver/ops.json'
+alias opls='op_list'
+alias opmk='op_list_make $*'
+alias oprun='bash $oplistfile'
+alias deopmk='deop_list_make'
