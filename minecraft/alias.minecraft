@@ -154,13 +154,14 @@ op_clear() {
 whitelist_list() {
     [ -f $idlist ] && rm $idlist
     echo -e "${GREEN}=== $mcver whitelist list ${NC}"
-    ids=$(mcserver do whitelist list | tail -n +4 | awk '{$1=$2=$3=""; print $0;}' | sed 's/and/ /g' | sed 's/,/ /g')
-    # cat $idlist
-    for id in $ids
-    do
-        echo $id >>$idlist
-    done
     
+    # ids=$(mcserver do whitelist list | tail -n +4 | awk '{$1=$2=$3=""; print $0;}' | sed 's/and/ /g' | sed 's/,/ /g')
+    # for id in $ids
+    # do
+        # echo $id >>$idlist
+    # done
+    
+    cat /mnt/runtimes/$mcver/whitelist.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g' >$idlist
     [ -f $idlist ] && cat $idlist
 }
 
