@@ -119,6 +119,7 @@ op_list_make() {
 }
 
 op_list() {
+    echo '$mcver'=$mcver
     cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g'
 }
 
