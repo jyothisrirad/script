@@ -99,7 +99,7 @@ bungee_offline_mode() {
 }
 #=================================
 lag_check() {
-	echo mcver=$mcver
+    echo -e "${GREEN}=== $mcver lag ${NC}"
 	logs | grep.lag
 	~/start.mc.sh lag
 }
@@ -119,7 +119,7 @@ op_list_make() {
 }
 
 op_list() {
-    echo '$mcver'=$mcver
+    echo -e "${GREEN}=== $mcver op list ${NC}"
     cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g'
 }
 
