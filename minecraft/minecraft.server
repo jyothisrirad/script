@@ -283,7 +283,7 @@ mc_command() {
     [ $mcecho_off ] || echo "$JARFILE is running... executing command"
     # echo as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
     as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
-    sleep .1 # assumes that the command will run and print to the log file in less than .1 seconds
+    sleep .2 # assumes that the command will run and print to the log file in less than .1 seconds
     # print output
     [ ! -f "$LOG" ] || tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG"
   fi
