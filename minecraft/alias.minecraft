@@ -105,28 +105,83 @@ lag_check() {
 }
 
 #=================================
-oplistfile=/tmp/oplist
-op_list_make() {
-    echo . /home/sita/script/minecraft/alias.minecraft >$oplistfile
-    
-    while test ${#} -gt 0
-    do
-        mcserver do pex group $1 users | tail -n +4 | awk 'BEGIN {FS="/"}; {printf("mcserver do op %s\n", $3)}' | sed 's/\[m//g' >>$oplistfile
-      shift
-    done
-    
-    cat $oplistfile
-}
+idlist=~/idlist
 
 op_list() {
     echo -e "${GREEN}=== $mcver op list ${NC}"
-    cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g'
+    cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g' >$idlist
+    cat $idlist
 }
 
-deop_list_make() {
-    echo . /home/sita/script/minecraft/alias.minecraft >$oplistfile
-    cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("mcserver do deop %s\n", $4)}' >>$oplistfile
-    cat $oplistfile
+op_list_make() {
+    rm $idlist
+    # echo . /home/sita/script/minecraft/alias.minecraft >$idlist
+    
+    while test ${#} -gt 0
+    do
+        # mcserver do pex group $1 users | tail -n +4 | awk 'BEGIN {FS="/"}; {printf("mcserver do op %s\n", $3)}' | sed 's/\[m//g' >>$idlist
+        mcserver do pex group $1 users | tail -n +4 | awk 'BEGIN {FS="/"}; {printf("%s\n", $3)}' | sed 's/\[m//g' >>$idlist
+        shift
+    done
+    
+    cat $idlist
+}
+
+op_add() {
+# ='bash $idlist'
+    # echo . /home/sita/script/minecraft/alias.minecraft >$idlist
+    ids=`cat $idlist`
+    for id in $ids
+    do
+        echo mcserver do op $id
+    done
+}
+
+# deop_list_make() {
+    # echo . /home/sita/script/minecraft/alias.minecraft >$idlist
+    # cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("mcserver do deop %s\n", $4)}' >>$idlist
+    # cat $idlist
+# }
+
+op_clear() {
+    op_list
+    
+    # echo . /home/sita/script/minecraft/alias.minecraft >$idlist
+    ids=`cat $idlist`
+    for id in $ids
+    do
+        echo mcserver do deop $id
+    done
+}
+
+whitelist_list() {
+    rm $idlist
+    echo -e "${GREEN}=== $mcver whitelist list ${NC}"
+    ids=$(mcserver do whitelist list | tail -n +4 | awk '{$1=$2=$3=""; print $0;}' | sed 's/and/ /g' | sed 's/,/ /g')
+    # cat $idlist
+    for id in $ids
+    do
+        echo $id >>$idlist
+    done
+    
+    cat $idlist
+}
+
+whitelist_add() {
+    # echo . /home/sita/script/minecraft/alias.minecraft >$idlist
+    ids=`cat $idlist`
+    for id in $ids
+    do
+        echo mcserver do whitelist add $id
+    done
+}
+
+whitelist_clear() {
+    ids=`cat $idlist`
+    for id in $ids
+    do
+        echo mcserver do whitelist remove $id
+    done
 }
 
 #=================================
@@ -192,5 +247,8 @@ alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now"
 alias opls='op_list'
 alias opmk='op_list_make $*'
 alias opmkall='op_list_make vip youtuber admin owner'
-alias oprun='bash $oplistfile'
-alias deopmk='deop_list_make'
+alias opadd='op_add'
+alias opclr='op_clear'
+alias wlls='whitelist_list'
+alias wladd='whitelist_add'
+alias wlclr='whitelist_clear'
