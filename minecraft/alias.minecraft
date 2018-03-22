@@ -105,6 +105,14 @@ lag_check() {
 }
 
 #=================================
+oplistfile=/tmp/oplist
+op_list_make() {
+    echo . /home/sita/script/minecraft/alias.minecraft >$oplistfile
+    mcserver do pex group $1 users | tail -n +4 | awk 'BEGIN {FS="/"}; {printf("mcserver do op %s\n", $3)}' >>$oplistfile
+    cat $oplistfile
+}
+
+#=================================
 utf8
 load_alias
 # [ $mcver ] || mc1112uc
@@ -163,3 +171,7 @@ alias dns.uhc='/home/sita/script/minecraft/gcloud/uhc'
 alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 
 alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now" && exit'
+
+alias op.mk='op_list_make $*'
+alias op.set='bash $oplistfile'
+alias op.clr='rm /mnt/runtimes/$mcver/ops.json'
