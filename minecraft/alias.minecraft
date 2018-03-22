@@ -191,6 +191,6 @@ alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now"
 
 alias opls='op_list'
 alias opmk='op_list_make $*'
-alias opall='op_list_make vip youtuber owner admin'
+alias opmkall='op_list_make vip youtuber admin owner'
 alias oprun='bash $oplistfile'
 alias deopmk='deop_list_make'
