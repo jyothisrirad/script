@@ -74,10 +74,11 @@ update_A() {
   ZONENAME=$1
   HOST=$2
   ZONE=$3
-  TTL=$4
+  TTL1=$4
+  TTL2=$5
   dns_start
-  dns_del ${HOST} ${TTL} A `lookup_dns_ip "${HOST}.${ZONE}."`
-  dns_add ${HOST} ${TTL} A `my_ip`
+  dns_del ${HOST} ${TTL1} A `lookup_dns_ip "${HOST}.${ZONE}."`
+  dns_add ${HOST} ${TTL2} A `my_ip`
   dns_commit
 }
 
@@ -86,21 +87,22 @@ update_CNAME() {
   HOST=$2
   ZONE=$3
   CNAME=$4
-  TTL=$5
+  TTL1=$5
+  TTL2=$6
   dns_start
-  dns_del ${HOST} ${TTL} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
-  dns_add ${HOST} ${TTL} CNAME ${CNAME}
+  dns_del ${HOST} ${TTL1} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
+  dns_add ${HOST} ${TTL2} CNAME ${CNAME}
   dns_commit
 }
 
 case "$1" in
   A)
 	# update_A foo-bar-com foo.bar.com my-vm 5min
-    update_A $2 $3 $4 $5
+    update_A $2 $3 $4 $5 $6
     exit
     ;;
   CNAME)
-    update_CNAME $2 $3 $4 $5 $6
+    update_CNAME $2 $3 $4 $5 $6 $7
     exit
     ;;
   *)
