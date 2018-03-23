@@ -127,7 +127,8 @@ op_list() {
 }
 
 op_add() {
-    ids=`cat $idlist`
+    [ ! -z "$1" ] && [ -f "$1" ] && idlist=$1
+    [ -f $idlist ] && ids=`cat $idlist`
     for id in $ids
     do
         mcserver do op $id
@@ -137,7 +138,7 @@ op_add() {
 op_clear() {
     op_list
     
-    ids=`cat $idlist`
+    [ -f $idlist ] && ids=`cat $idlist`
     for id in $ids
     do
         mcserver do deop $id
@@ -159,7 +160,7 @@ whitelist_list() {
 }
 
 whitelist_add() {
-    ids=`cat $idlist`
+    [ -f $idlist ] && ids=`cat $idlist`
     for id in $ids
     do
         mcserver do whitelist add $id
@@ -167,7 +168,7 @@ whitelist_add() {
 }
 
 whitelist_clear() {
-    ids=`cat $idlist`
+    [ -f $idlist ] && ids=`cat $idlist`
     for id in $ids
     do
         mcserver do whitelist remove $id
@@ -237,8 +238,8 @@ alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now"
 alias grouplist='group_list $*'
 alias grouplistall='group_list vip youtuber admin owner'
 alias oplist='op_list'
-alias opadd='op_add'
-alias opclear='op_clear'
+alias opadd='op_add $*'
+alias opclear='op_clear $*'
 alias whitelist='whitelist_list'
-alias wladd='whitelist_add'
-alias wlclear='whitelist_clear'
+alias wladd='whitelist_add $*'
+alias wlclear='whitelist_clear $*'
