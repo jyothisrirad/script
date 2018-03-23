@@ -127,8 +127,9 @@ op_list() {
 }
 
 op_add() {
-    [ ! -z "$1" ] && [ -f "$1" ] && idlist=$1
-    [ -f $idlist ] && ids=`cat $idlist`
+    idfile=$idlist
+    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
+    [ -f $idfile ] && ids=`cat $idfile`
     for id in $ids
     do
         mcserver do op $id
@@ -138,7 +139,9 @@ op_add() {
 op_clear() {
     op_list
     
-    [ -f $idlist ] && ids=`cat $idlist`
+    idfile=$idlist
+    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
+    [ -f $idfile ] && ids=`cat $idfile`
     for id in $ids
     do
         mcserver do deop $id
@@ -160,7 +163,9 @@ whitelist_list() {
 }
 
 whitelist_add() {
-    [ -f $idlist ] && ids=`cat $idlist`
+    idfile=$idlist
+    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
+    [ -f $idfile ] && ids=`cat $idfile`
     for id in $ids
     do
         mcserver do whitelist add $id
@@ -168,7 +173,9 @@ whitelist_add() {
 }
 
 whitelist_clear() {
-    [ -f $idlist ] && ids=`cat $idlist`
+    idfile=$idlist
+    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
+    [ -f $idfile ] && ids=`cat $idfile`
     for id in $ids
     do
         mcserver do whitelist remove $id

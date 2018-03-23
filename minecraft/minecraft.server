@@ -27,7 +27,7 @@ MCSTORE="/mnt/runtimes/$VERSION"
 MCPATH=$MCSTORE
 USERNAME=$(whoami)
 [ ! -f $MCSTORE/config.sh ] || . $MCSTORE/config.sh
-CPU_COUNT=1
+# CPU_COUNT=1
 [ "$INVOCATION" ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
