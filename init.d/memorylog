@@ -2,7 +2,7 @@
 # sudo ln -s /home/sita/script/init.d/memorylog /etc/logrotate.d/memorylog
 # sudo chown root /home/sita/script/init.d/memorylog
 # sudo logrotate -d /etc/logrotate.d/memorylog
-/mnt/runtimes/*/logs/memory.log* {
+/mnt/runtimes/*/logs/memory.log.* {
   hourly
   create 0664 sita sita
   su sita sita
