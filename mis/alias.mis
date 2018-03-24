@@ -43,4 +43,4 @@ alias unblock='unblockip $*'
 
 alias stop='su - root -c "screen -dmS off shutdown -h now" && exit'
 
-alias myip='curl https://api.ipify.org'
+alias myip='curl https://api.ipify.org && echo '
