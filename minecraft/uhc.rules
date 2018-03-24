@@ -26,13 +26,15 @@ tellraw() {
 }
 
 time_total=60
+map_size=1008
+# shrink_min=39
 [ ! $1 ] || time_total=$1
 
 time_reminder=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_shown=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_game=$(echo $time_total*.67 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
-time_shrink_duration=$(echo 39+$time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
-if [ "$time_shrink_duration" -gt "20" ]; then time_shrink_duration=$((($time_shrink_duration/20)*20)); fi 
+time_shrink_duration=$(echo $map_size/20/20*20 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+# if [ "$time_shrink_duration" -gt "20" ]; then time_shrink_duration=$((($time_shrink_duration/20)*20)); fi 
 time_shrink=$(echo $time_total-$time_shrink_duration-5 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
 time_nomob=$(($time_game+$time_shrink_duration))
 
@@ -60,7 +62,7 @@ mcserver do scoreboard players set @e[tag=N] J 0	#加入隊伍權限On
 mcserver do scoreboard players set @e[tag=F] C 0	#死後亡靈觀察Off
 mcserver do scoreboard players set @e[tag=N] C 1	#死後亡靈觀察On
 # mcserver do scoreboard players set @e[tag=L] I 496	#地圖大小
-mcserver do scoreboard players set @e[tag=L] I 1008	#地圖大小
+mcserver do scoreboard players set @e[tag=L] I $map_size #地圖大小
 # mcserver do scoreboard players set @e[tag=N] G 0
 # mcserver do scoreboard players set @e[tag=N] S 0
 
