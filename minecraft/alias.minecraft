@@ -250,3 +250,6 @@ alias opclear='op_clear $*'
 alias whitelist='whitelist_list'
 alias wladd='whitelist_add $*'
 alias wlclear='whitelist_clear $*'
+
+alias debug='export mc_debug_mode=1'
+alias debugoff='export mc_debug_mode='
