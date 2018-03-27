@@ -84,9 +84,9 @@ rematch() {
 	# mcprep
 	server.prep
 	mcserver start
-	sleep 1
+	# sleep 1
 	# mclog
-	mcserver log $*
+	# mcserver log $*
 }
 
 bungee_online_mode() {
@@ -187,6 +187,10 @@ setmcport() {
     [ -f config.sh ] && echo "server-port=$1" && echo "echo server-port=$1>>server.properties">>config.sh
 }
 
+clearmcport() {
+    [ -f config.sh ] && sed -i "/^.*server\.properties$/d" config.sh
+}
+
 #=================================
 utf8
 load_alias
@@ -259,9 +263,10 @@ alias wlclear='whitelist_clear $*'
 alias debug='export mc_debug_mode=1'
 alias debugoff='export mc_debug_mode='
 
-alias portal1='setmcport 20403'
-alias portal2='setmcport 20404'
-alias portal3='setmcport 20405'
-alias portal4='setmcport 20606'
-alias portal5='setmcport 20607'
-alias portal6='setmcport 20608'
+alias ppclear='clearmcport'
+alias pp1='setmcport 20403'
+alias pp2='setmcport 20404'
+alias pp3='setmcport 20405'
+alias pp4='setmcport 20606'
+alias pp5='setmcport 20607'
+alias pp6='setmcport 20608'
