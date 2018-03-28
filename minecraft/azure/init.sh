@@ -4,7 +4,7 @@ sudo chown sita:sita /mnt/runtimes
 sudo mkdir /mnt/backup
 sudo chown sita:sita /mnt/backup
 
-sudo apt install -y zip dnsutils
+sudo apt install -y zip dnsutils uni2ascii
 
 echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | sudo tee /etc/apt/sources.list.d/webupd8team-java.list
 echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list

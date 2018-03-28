@@ -4,7 +4,7 @@ sudo chown sita:sita /mnt/runtimes
 sudo mkdir /mnt/backup
 sudo chown sita:sita /mnt/backup
 
-sudo apt install -y zip dnsutils
+sudo apt install -y zip dnsutils uni2ascii
 
 export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s`
 echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list
