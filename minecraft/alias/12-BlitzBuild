@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s12=12-BlitzBuild
+
+s12() {
+	chmc $s12
+}
+
+alias 12=s12

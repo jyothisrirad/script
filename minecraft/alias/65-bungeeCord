@@ -10,4 +10,5 @@ alias g65=g65
 alias gghub='g65 && mcdo send all hub'
 alias gguhc='g65 && mcdo send all uhc'
 alias gglist='g65 && mcdo glist showall'
-alias ggsend='g65 && mcdo viaversion probe && mcdo send all $*'
+alias gsend='g65 && mcdo viaversion probe && mcdo send all $*'
+alias gprobe='g65 && mcdo viaversion probe'

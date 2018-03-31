@@ -10,4 +10,5 @@ alias 65=s65
 alias ghub='65 && mcdo send all hub'
 alias guhc='65 && mcdo send all uhc'
 alias glist='65 && mcdo glist showall'
-alias gsend='65 && mcdo viaversion probe && mcdo send all $*'
+alias send='65 && mcdo viaversion probe && mcdo send all $*'
+alias probe='65 && mcdo viaversion probe'
