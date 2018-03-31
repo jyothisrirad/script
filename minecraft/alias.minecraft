@@ -270,3 +270,5 @@ alias pp3='setmcport 20405'
 alias pp4='setmcport 20606'
 alias pp5='setmcport 20607'
 alias pp6='setmcport 20608'
+
+alias cc='curl https://api.ipify.org && echo && dig mc.creeper.tw | grep creeper'
