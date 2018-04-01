@@ -49,7 +49,7 @@ post_game_setup() {
 # 4 - OP可以於遊戲中使用/stop。
 
 # export ZIPDIR
-cat >server.properties <<EOL
+cat >>server.properties <<EOL
 allow-flight=false
 allow-nether=false
 enable-command-block=true
