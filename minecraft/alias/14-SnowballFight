@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s14=14-SnowballFight
+
+s14() {
+	chmc $s14
+}
+
+alias 14=s14

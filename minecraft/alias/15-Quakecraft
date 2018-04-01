@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s15=15-Quakecraft
+
+s15() {
+	chmc $s15
+}
+
+alias 15=s15
