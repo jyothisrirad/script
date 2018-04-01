@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s13=13-LavaFloor
+
+s13() {
+	chmc $s13
+}
+
+alias 13=s13
