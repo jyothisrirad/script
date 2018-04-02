@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s18=18-IceWars
+
+s18() {
+	chmc $s18
+}
+
+alias 18=s18

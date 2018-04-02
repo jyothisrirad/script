@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s19=19-NaughtyList
+
+s19() {
+	chmc $s19
+}
+
+alias 19=s19

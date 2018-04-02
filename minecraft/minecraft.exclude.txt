@@ -9,3 +9,4 @@ orebfuscator_cache/*
 plugins.tried/*
 timings/*
 DiscordConsole.log
+.DS_Store
