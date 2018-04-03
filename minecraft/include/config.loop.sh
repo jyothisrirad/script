@@ -6,10 +6,13 @@ USERNAME="sita"
 ZIPDIR=/mnt/backup
 BACKUPPATH="/mnt/backup"
 # JARFILE="minecraft_server.1.12.2.jar"
-JARFILE=$(find . -maxdepth 1 -name '*.jar')
+JARFILE=$(basename $(find . -maxdepth 1 -name '*.jar'))
 LOG="$MCPATH/logs/latest.log"
 OPTMEM="-Xmx2G"
 JAVAARGS="$OPTMEM $OPTGC $OPTLOG"
+
+echo $BACKUPPATH/$JARFILE $MCPATH
+exit
 
 #
 LOOPSTOP="/mnt/runtimes/$mcver/logs/loopstop"
