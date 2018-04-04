@@ -1,3 +1,13 @@
+#!/bin/bash
+
+addto_fstab() {
+	fsfile=/etc/fstab
+
+	if ! sudo grep -Fxq "$*" $fsfile; then
+		echo $* | sudo tee -a $fsfile
+	fi
+}
+
 sudo mkdir /mnt/runtimes
 sudo chown sita:sita /mnt/runtimes
 
@@ -15,3 +25,7 @@ echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | su
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 sudo apt update
 sudo apt install -y oracle-java8-installer gcsfuse
+
+# gcloud iam service-accounts keys create /home/sita/script/minecraft/gcloud/key.json --iam-account=594227564613-compute@developer.gserviceaccount.com
+addto_fstab creeper-tw-backup /mnt/backup gcsfuse rw,noauto,user,key_file=/home/sita/script/minecraft/gcloud/key.json
+

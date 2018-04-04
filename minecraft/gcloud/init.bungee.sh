@@ -17,7 +17,7 @@ cp ~/script/init.d/start.mc.sh ~/
 ### 
 # sudo mkdir /mnt/backup/74-UHC
 # sudo chown sita:sita /mnt/backup/74-UHC
-gcsfuse creeper-tw-backup /mnt/backup
+gcsfuse --key-file /home/sita/script/minecraft/gcloud/key.json creeper-tw-backup /mnt/backup
 
 ### 
 . /home/sita/script/minecraft/alias.minecraft
@@ -42,6 +42,6 @@ sudo chown root /mnt/runtimes/65-bungeeCord-azure/logrotate
 sudo logrotate -d /etc/logrotate.d/bungeecord
 
 echo !!!!!!!!!!!!!!
-echo vi start.mc.sh
+echo vi ~/start.mc.sh
 echo vi /mnt/runtimes/65-bungeeCord-azure/plugins/RedisBungee/config.yml
 echo !!!!!!!!!!!!!!
