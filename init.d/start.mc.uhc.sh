@@ -6,7 +6,7 @@ servers=(s74)
 start() {
 	for srv in ${servers[*]}
 	do
-		$srv && mcserver start
+		echo $srv && mcserver start
 	done
   
 	###

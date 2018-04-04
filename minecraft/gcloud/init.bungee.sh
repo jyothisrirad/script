@@ -12,7 +12,7 @@ addto_root_crontab "0 23 * * * /sbin/poweroff"
 ### 
 ~/script/minecraft/azure/init.sh
 
-cp ~/script/init.d/start.mc.bungee.sh ~/start.mc.sh
+[ ! -f ~/start.mc.sh ] && cp ~/script/init.d/start.mc.bungee.sh ~/start.mc.sh
 
 ### 
 # sudo mkdir /mnt/backup/74-UHC

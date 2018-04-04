@@ -10,7 +10,7 @@ start() {
 	done
   
 	###
-	/home/sita/script/minecraft/gcloud/uhc
+	/home/sita/script/minecraft/gcloud/tw1
 }
 
 stop() {
