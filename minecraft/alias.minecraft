@@ -121,8 +121,9 @@ group_list() {
 }
 
 group_add() {
+    [ -z "$2" ] && echo need groupname and idlist && return
     idfile=$idlist
-    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$2
+    [ ! -z "$2" ] && [ -f "$2" ] && idfile=$2
     [ -f $idfile ] && ids=`cat $idfile`
     for id in $ids
     do
@@ -131,8 +132,9 @@ group_add() {
 }
 
 group_clear() {
+    [ -z "$2" ] && echo need groupname and idlist && return
     idfile=$idlist
-    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$2
+    [ ! -z "$2" ] && [ -f "$2" ] && idfile=$2
     [ -f $idfile ] && ids=`cat $idfile`
     for id in $ids
     do
