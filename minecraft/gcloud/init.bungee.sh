@@ -10,7 +10,7 @@ addto_root_crontab "0 23 * * * /sbin/poweroff"
 ~/script/init.d/inst.as.sh ~/script/init.d/start.mc.d startmc
 
 ### 
-~/script/minecraft/azure/init.sh
+~/script/minecraft/gcloud/init.sh
 
 [ ! -f ~/start.mc.sh ] && cp ~/script/init.d/start.mc.bungee.sh ~/start.mc.sh
 
