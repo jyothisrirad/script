@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s22=22-Rollercoaster
+
+s22() {
+	chmc $s22
+}
+
+alias 22=s22

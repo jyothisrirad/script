@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s52=52-GoldenChalice
+
+s52() {
+	chmc $s52
+}
+
+alias 52=s52

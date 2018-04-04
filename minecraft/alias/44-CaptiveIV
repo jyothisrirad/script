@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s44=44-CaptiveIV
+
+s44() {
+	chmc $s44
+}
+
+alias 44=s44

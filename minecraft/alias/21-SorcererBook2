@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s21=21-SorcererBook2
+
+s21() {
+	chmc $s21
+}
+
+alias 21=s21

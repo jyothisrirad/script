@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s42=42-CaptiveII
+
+s42() {
+	chmc $s42
+}
+
+alias 42=s42

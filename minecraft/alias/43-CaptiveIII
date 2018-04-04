@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s43=43-CaptiveIII
+
+s43() {
+	chmc $s43
+}
+
+alias 43=s43

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+54-SigilFear
+
+s54() {
+	chmc $s54
+}
+
+alias 54=s54
