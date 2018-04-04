@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s23=23-EggFactory
+
+s23() {
+	chmc $s23
+}
+
+alias 23=s23

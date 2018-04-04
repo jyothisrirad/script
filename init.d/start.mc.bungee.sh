@@ -4,6 +4,8 @@
 servers=(s32 s74)
 
 start() {
+    cd ~/script && ./gitsync.sh
+    
 	for srv in ${servers[*]}
 	do
 		$srv && mcserver start
