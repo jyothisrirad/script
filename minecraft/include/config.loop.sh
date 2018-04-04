@@ -12,7 +12,8 @@ OPTMEM="-Xmx2G"
 JAVAARGS="$OPTMEM $OPTGC $OPTLOG"
 
 #
-[ -z "$JARFILE" ] || rsync -avzq $BACKUPPATH/server/$JARFILE .
+NEWJAR=$BACKUPPATH/server/$JARFILE
+[ -f $NEWJAR ] || rsync -avzq $NEWJAR .
 
 #
 LOOPSTOP="/mnt/runtimes/$mcver/logs/loopstop"
