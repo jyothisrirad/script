@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PROJECT=creeper-196707
+
 ttlify() {
   local i
   for i in "$@"; do
@@ -18,19 +20,19 @@ ttlify() {
 }
 
 dns_start() {
-  gcloud dns record-sets transaction start    -z "${ZONENAME}"
+  gcloud dns record-sets transaction start    -z "${ZONENAME}" --project $PROJECT
 }
 
 dns_info() {
-  gcloud dns record-sets transaction describe -z "${ZONENAME}"
+  gcloud dns record-sets transaction describe -z "${ZONENAME}" --project $PROJECT
 }
 
 dns_abort() {
-  gcloud dns record-sets transaction abort    -z "${ZONENAME}"
+  gcloud dns record-sets transaction abort    -z "${ZONENAME}" --project $PROJECT
 }
 
 dns_commit() {
-  gcloud dns record-sets transaction execute  -z "${ZONENAME}"
+  gcloud dns record-sets transaction execute  -z "${ZONENAME}" --project $PROJECT
 }
 
 dns_add() {
@@ -42,7 +44,7 @@ dns_add() {
   local -r ttl="$(ttlify "$2")"
   local -r type="$3"
   shift 3
-  gcloud dns record-sets transaction add      -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@"
+  gcloud dns record-sets transaction add      -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
 }
 
 dns_del() {
@@ -54,7 +56,7 @@ dns_del() {
   local -r ttl="$(ttlify "$2")"
   local -r type="$3"
   shift 3
-  gcloud dns record-sets transaction remove   -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@"
+  gcloud dns record-sets transaction remove   -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
 }
 
 lookup_dns_ip() {

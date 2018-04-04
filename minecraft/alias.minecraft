@@ -142,6 +142,14 @@ group_clear() {
     done
 }
 
+group_set() {
+    [ -z "$1" ] && echo need groupname && return
+    [ ! -f ~/$1 ] && echo need preset list ~/$1 && return
+    group_list
+    group_clear $1 $idlist
+    group_add $1 ~/$1
+}
+
 op_list() {
     echo -e "${GREEN}=== $mcver op list ${NC}"
     cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g' >$idlist
@@ -276,7 +284,8 @@ alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now"
 alias grouplist='group_list $*'
 alias grouplistall='group_list vip youtuber admin owner'
 alias groupadd='group_add $*'
-alias groupclear='group_clear $*'
+alias groupremove='group_clear $*'
+alias groupset='group_set $*'
 alias oplist='op_list'
 alias opadd='op_add $*'
 alias opclear='op_clear $*'
