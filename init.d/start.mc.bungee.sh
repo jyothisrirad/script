@@ -1,7 +1,7 @@
 #!/bin/bash
 
 . /home/sita/script/minecraft/alias.minecraft
-servers=(s74)
+servers=(s32 s74)
 
 start() {
 	for srv in ${servers[*]}
