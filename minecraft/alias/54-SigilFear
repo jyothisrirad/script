@@ -1,6 +1,6 @@
 #!/bin/bash
 
-54-SigilFear
+s54=54-SigilFear
 
 s54() {
 	chmc $s54
