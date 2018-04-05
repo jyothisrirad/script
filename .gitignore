@@ -2,3 +2,4 @@ FileBot.jar
 *.swp
 *~
 minecraft/config.sh
+*.bak
