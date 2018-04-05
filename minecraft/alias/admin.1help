@@ -1,0 +1,63 @@
+#!/bin/bash
+
+#=================================
+helpArgs=()
+helpLines=()
+totalcnt=40
+#=================================
+hline() {
+    printf "%$1s" | tr ' ' $2
+}
+
+#=================================
+help_hline1() {
+    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    len=${#1}
+    cnt=$(echo \($totalcnt-$len\)/2 | bc)
+    helpArgs+=("$(hline $cnt \.)""$1""$(hline $cnt \.)") 
+    helpLines+=('') 
+}
+
+#=================================
+help_hline2() {
+    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    len=${#1}
+    cnt=$(echo \($totalcnt-$len\)/2 | bc)
+    helpArgs+=("$(hline $cnt -)""$1""$(hline $cnt -)") 
+    helpLines+=('') 
+}
+
+#=================================
+help_hline3() {
+    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    len=${#1}
+    cnt=$(echo \($totalcnt-$len\)/2 | bc)
+    helpArgs+=("$(hline $cnt =)""$1""$(hline $cnt =)") 
+    helpLines+=('') 
+}
+
+#=================================
+help_add() {
+    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    [ ! -z "$1" ] && helpArgs+=(${1}) || helpArgs+=("")
+    [ ! -z "$2" ] && helpLines+=(${2}) || helpLines+=("")
+}
+
+#=================================
+help_alias() {
+    # for line in "${helpLines[@]}"
+    # do
+        # echo $line
+    # done
+    
+    length=${#helpArgs[@]}
+    # echo $length
+    # do the loop
+    for ((i=0;i<=$length;i++)); do
+        pos=$(echo \($totalcnt\)/2 | bc)
+        printf "%${pos}s %s\n" ${helpArgs[$i]} ${helpLines[$i]}
+    done
+}
+
+#=================================
+alias helpme='help_alias'

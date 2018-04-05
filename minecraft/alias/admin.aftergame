@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#=================================
+help_hline3 '賽後賽'
+
+#=================================
+help_add 'siegestart' '殲滅攻城戰開始'
+alias siegestart='mcdo scoreboard players set @a ready 1'

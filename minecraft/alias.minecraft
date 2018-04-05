@@ -75,8 +75,12 @@ alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
+help_hline3 '其他'
+help_add 'jsu' '同步伺服器javascript'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 
+help_add 'stop' '關閉主機'
 alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now" && exit'
 
+help_add 'cc' '檢查DNS'
 alias cc='echo myIP=$(curl -s https://api.ipify.org) && dig mc.creeper.tw | grep IN && dig uhc.creeper.tw | grep IN'

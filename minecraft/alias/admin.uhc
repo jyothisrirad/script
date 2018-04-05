@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+help_hline3 'UHC'
+
+#=================================
 # $1: default to wait for key press for each score
 #     <num> to sleep <num> sec between each score
 mcscores() {
@@ -49,6 +52,7 @@ team_all_set() {
 # }
 
 #=================================
+help_add 'uhclist' 'UHC列出team名稱'
 uhclist() {
 	# echo 隊伍ID列表
 	# echo Solo=1
@@ -73,10 +77,10 @@ uhclist() {
 }
 
 #=================================
-playerlist() {
-	echo 玩家ID:
-	mcdo list | grep.player
-}
+# playerlist() {
+	# echo 玩家ID:
+	# mcdo list | grep.player
+# }
 
 #=================================
 uhcstat() {
@@ -146,24 +150,25 @@ otglist() {
 }
 
 #=================================
-teamhelp() {
-    echo ------------------------------------------
-    echo uhclist................UHC列出team名稱
-    echo uhccreate..............UHC隨機分隊
-    echo uhcjoin _team_ _id_....UHC加入隊伍
-    echo uhcsolo _id_...........UHC加入單人隊伍
-    echo uhcchoice..............UHC開啟加入隊伍權限
-    echo ..........................................
-    echo uhcshrink..............UHC開始縮地圖
-    echo uhcfinal...............UHC最後決戰
-    echo ------------------------------------------
-    echo teamlist _team_........列出隊伍變數名稱,指定team可列出玩家
-    echo playerlist.............列出線上玩家名稱
-    echo teamjoin _team_ _id_...加入隊伍
-    echo ------------------------------------------
-    echo siegestart.............殲滅攻城戰開始
-    echo ------------------------------------------
-}
+# teamhelp() {
+    # echo ------------------------------------------
+    # echo uhclist................UHC列出team名稱
+    # echo uhccreate..............UHC隨機分隊
+    # echo uhcjoin _team_ _id_....UHC加入隊伍
+    # echo uhcsolo _id_...........UHC加入單人隊伍
+    # echo uhcchoice..............UHC開啟加入隊伍權限
+    # echo ..........................................
+    # echo uhcshrink..............UHC開始縮地圖
+    # echo uhcfinal...............UHC最後決戰
+    # echo ------------------------------------------
+    # echo teamlist...............列出隊伍名稱
+    # echo teamlist _team_........列出隊伍team內玩家
+    # echo playerlist.............列出線上玩家名稱
+    # echo teamjoin _team_ _id_...加入隊伍
+    # echo ------------------------------------------
+    # echo siegestart.............殲滅攻城戰開始
+    # echo ------------------------------------------
+# }
 
 #=================================
 alias mcsb='mcscores 3' #UHC排行榜間隔3秒
@@ -183,16 +188,30 @@ alias ruleotg='otglist'
 #=================================
 alias uhcstat=uhcstat
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
-alias uhccreate=uhcteamcreate #uhccreate UHC隨機分隊
-alias uhcjoin='uhclist && playerlist && mcdo scoreboard teams join $1 $2' #uhcjoin <team> <id> UHC加入隊伍
-alias uhcsolo='mcserver do scoreboard teams join 1 @a' #uhcsolo <id> 加入單人隊伍
-alias uhcchoice='uhcteamchoice $*' #uhcchoice 開啟加入隊伍權限
+help_add 'uhccreate' 'UHC隨機分隊'
+alias uhccreate=uhcteamcreate
+help_add 'uhcjoin.<team>.<id>' 'UHC加入隊伍'
+alias uhcjoin='uhclist && playerlist && mcdo scoreboard teams join $1 $2'
+help_add 'uhcsolo.<id>' 'UHC加入單人隊伍'
+alias uhcsolo='mcserver do scoreboard teams join 1 @a'
+help_add 'uhcchoice' 'UHC開啟加入隊伍權限'
+alias uhcchoice='uhcteamchoice $*'
+
+help_hline1 'UHC控制'
+
+help_add 'uhcshrink' 'UHC開始縮地圖'
 alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
+help_add 'uhcfinal' 'UHC最後決戰'
 alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
 
 #=================================
-alias teamlist='mcdo scoreboard teams list' #teamlist 列出隊伍變數名稱
-alias teamjoin='teamlist && playerlist && mcdo scoreboard teams join $1 $2' #teamjoin <team> <id> 加入隊伍
+help_hline2 '隊伍'
 
-#=================================
-alias siegestart='mcdo scoreboard players set @a ready 1' #siegestart 殲滅攻城戰開始
+help_add 'teamlist' '列出隊伍名稱'
+help_add 'teamlist.<team>' '列出隊伍team內玩家'
+alias teamlist='mcdo scoreboard teams list'
+help_add 'playerlist' '列出線上玩家名稱'
+alias playerlist='echo 玩家ID: && mcdo list | grep.player | sort'
+help_add 'teamjoin.<team>.<id>' '加入隊伍'
+alias teamjoin='teamlist && playerlist && mcdo scoreboard teams join $1 $2'
+
