@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#=================================
+bungee_online_mode() {
+	echo online_mode: true >>config.yml
+}
+
+bungee_offline_mode() {
+	echo online_mode: false >>config.yml
+
+}
+
+#=================================
+alias off204='g65 && bungee_offline_mode && mcdo greload && 66 && mcwo && sleep 10 && on204'
+alias off206='g65 && bungee_offline_mode && mcdo greload && sleep 10 && on206'
+alias offline='65 && bungee_offline_mode && mcdo greload && sleep 10 && online'
+alias on204='g65 && bungee_online_mode && mcdo greload && g66 && mcwf'
+alias on206='g65 && bungee_online_mode && mcdo greload'
+alias online='65 && bungee_online_mode && mcdo greload && 66 && mcwf'

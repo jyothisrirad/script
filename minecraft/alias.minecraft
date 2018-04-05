@@ -7,6 +7,7 @@ utf8() {
 	export LANGUAGE=en_US.UTF-8
 }
 
+#=================================
 load_alias() {
 
 	for f in /home/sita/script/minecraft/alias/*; do  # or wget-*.sh instead of *.sh
@@ -39,34 +40,7 @@ mcdo() {
 	mcserver do $*
 }
 
-filehas() {
-	cat $1 | grep -F --quiet "$2"
-	return $?
-}
-
-mcwaituntilready() {
-	mcresult=/tmp/mcwaituntilready
-	# echo ================
-	mcserver status > $mcresult
-	if ! filehas $mcresult 'not running'; then
-		# echo 'running'
-		for i in $(seq 1 100)       
-		do
-			mcserver do list > $mcresult
-			if filehas $mcresult 'players'; then
-				break
-			fi
-		done
-	fi
-	# cat $mcresult
-	# echo ================
-}
-
-pause() {
-	read -p "Press any key to continue... " -n1 -s
-	echo 
-}
-
+#=================================
 chmc() {
 	if [ ! -z ${1+x} ]; then
 		export mcver=$1
@@ -77,148 +51,16 @@ chmc() {
 	fi
 }
 
-rematch() {
-	mcserver halt
-	mcserver pre_restore
-	mcserver restore $*
-	# mcprep
-	server.prep
-	mcserver start
-	# sleep 1
-	# mclog
-	# mcserver log $*
-}
-
-bungee_online_mode() {
-	echo online_mode: true >>config.yml
-}
-
-bungee_offline_mode() {
-	echo online_mode: false >>config.yml
-
-}
 #=================================
-lag_check() {
-    echo -e "${GREEN}=== $mcver lag ${NC}"
-	logs | grep.lag
-	~/start.mc.sh lag
+filehas() {
+	cat $1 | grep -F --quiet "$2"
+	return $?
 }
 
 #=================================
-idlist=~/idlist
-
-group_list() {
-    [ -f $idlist ] && rm $idlist
-    
-    while test ${#} -gt 0
-    do
-        echo -e "${GREEN}=== $mcver pex group $1 users ${NC}"
-        mcserver do pex group $1 users | tail -n +4 | awk 'BEGIN {FS="/"}; {printf("%s\n", $3)}' | sed 's/\[m//g' >>$idlist
-        shift
-    done
-    
-    [ -f $idlist ] && cat $idlist
-}
-
-group_add() {
-    [ -z "$2" ] && echo need groupname and idlist && return
-    idfile=$idlist
-    [ ! -z "$2" ] && [ -f "$2" ] && idfile=$2
-    [ -f $idfile ] && ids=`cat $idfile`
-    for id in $ids
-    do
-        mcserver do pex group $1 user add $id
-    done
-}
-
-group_clear() {
-    [ -z "$2" ] && echo need groupname and idlist && return
-    idfile=$idlist
-    [ ! -z "$2" ] && [ -f "$2" ] && idfile=$2
-    [ -f $idfile ] && ids=`cat $idfile`
-    for id in $ids
-    do
-        mcserver do pex group $1 user remove $id
-    done
-}
-
-group_set() {
-    [ -z "$1" ] && echo need groupname && return
-    [ ! -f ~/$1 ] && echo need preset list ~/$1 && return
-    group_list $1
-    group_clear $1 $idlist
-    group_add $1 ~/$1
-}
-
-op_list() {
-    echo -e "${GREEN}=== $mcver op list ${NC}"
-    cat /mnt/runtimes/$mcver/ops.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g' >$idlist
-    cat $idlist
-}
-
-op_add() {
-    idfile=$idlist
-    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
-    [ -f $idfile ] && ids=`cat $idfile`
-    for id in $ids
-    do
-        mcserver do op $id
-    done
-}
-
-op_clear() {
-    op_list
-    
-    idfile=$idlist
-    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
-    [ -f $idfile ] && ids=`cat $idfile`
-    for id in $ids
-    do
-        mcserver do deop $id
-    done
-}
-
-whitelist_list() {
-    [ -f $idlist ] && rm $idlist
-    echo -e "${GREEN}=== $mcver whitelist list ${NC}"
-    
-    # ids=$(mcserver do whitelist list | tail -n +4 | awk '{$1=$2=$3=""; print $0;}' | sed 's/and/ /g' | sed 's/,/ /g')
-    # for id in $ids
-    # do
-        # echo $id >>$idlist
-    # done
-    
-    cat /mnt/runtimes/$mcver/whitelist.json | grep name | awk 'BEGIN {FS="\""}; {printf("%s\n", $4)}' | sed 's/\[m//g' >$idlist
-    [ -f $idlist ] && cat $idlist
-}
-
-whitelist_add() {
-    idfile=$idlist
-    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
-    [ -f $idfile ] && ids=`cat $idfile`
-    for id in $ids
-    do
-        mcserver do whitelist add $id
-    done
-}
-
-whitelist_clear() {
-    idfile=$idlist
-    [ ! -z "$1" ] && [ -f "$1" ] && idfile=$1
-    [ -f $idfile ] && ids=`cat $idfile`
-    for id in $ids
-    do
-        mcserver do whitelist remove $id
-    done
-}
-
-#=================================
-setmcport() {
-    [ -f config.sh ] && echo "server-port=$1" && echo "echo server-port=$1>>server.properties">>config.sh
-}
-
-clearmcport() {
-    [ -f config.sh ] && sed -i "/^.*server\.properties$/d" config.sh
+pause() {
+	read -p "Press any key to continue... " -n1 -s
+	echo 
 }
 
 #=================================
@@ -233,71 +75,8 @@ alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
-# alias gamestop='mcserver backup && mcserver stop'
-# alias mcstart='mcserver start'
-alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog'
-alias mcww='mcprep && mcserver start && mcw off && mclf'
-alias mcstop='mcdo end && mcserver stop'
-alias mclog='mcserver log $*'
-alias mcload='mcserver load'
-alias mcsave='mcserver force-save'
-# alias mcdo='mcserver do'
-alias mcstat='mcserver status'
-# alias mcreport='mcserver crashreport'
-alias mcbackup='mcserver backup'
-alias mcrestore='mcserver restore $*'
-# alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog'
-alias mcrematch='rematch $*'
-# alias mckill='mcserver kill'
-# alias mchalt='mcdo end && mcserver halt && swp'
-#alias mchalt='mcdo end && mcserver halt'
-alias mchalt='mcserver halt'
-alias mcreload='mchalt && mcprep && mcserver start'
-#alias mced='vi /home/sita/script/minecraft/$mcver'
-alias mced='vi /home/sita/script/minecraft/minecraft.server'
-alias mcw='mcdo whitelist $*'
-alias mcwa='mcdo whitelist add $*'
-alias mcwo='mcdo whitelist on'
-alias mcwf='mcdo whitelist off'
-alias mclf="mcdo gamerule logAdminCommands false"
-alias mcseal='mcserver seal'
-# alias mctest='mcwaituntilready'
-alias sls='screen -ls'
-alias swp='screen -wipe'
-alias sr='screen -r $mcver'
-alias off204='g65 && bungee_offline_mode && mcdo greload && 66 && mcwo && sleep 10 && on204'
-alias off206='g65 && bungee_offline_mode && mcdo greload && sleep 10 && on206'
-alias offline='65 && bungee_offline_mode && mcdo greload && sleep 10 && online'
-alias on204='g65 && bungee_online_mode && mcdo greload && g66 && mcwf'
-alias on206='g65 && bungee_online_mode && mcdo greload'
-alias online='65 && bungee_online_mode && mcdo greload && 66 && mcwf'
-# alias lag='logs | grep.lag && ~/start.mc.sh lag'
-alias lag='lag_check'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 
 alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now" && exit'
-
-alias grouplist='group_list $*'
-alias grouplistall='group_list vip youtuber admin owner'
-alias groupadd='group_add $*'
-alias groupremove='group_clear $*'
-alias groupset='group_set $*'
-alias oplist='op_list'
-alias opadd='op_add $*'
-alias opclear='op_clear $*'
-alias whitelist='whitelist_list'
-alias wladd='whitelist_add $*'
-alias wlclear='whitelist_clear $*'
-
-alias debug='export mc_debug_mode=1'
-alias debugoff='export mc_debug_mode='
-
-alias ppclear='clearmcport'
-alias pp1='setmcport 20403'
-alias pp2='setmcport 20404'
-alias pp3='setmcport 20405'
-alias pp4='setmcport 20606'
-alias pp5='setmcport 20607'
-alias pp6='setmcport 20608'
 
 alias cc='echo myIP=$(curl -s https://api.ipify.org) && dig mc.creeper.tw | grep IN && dig uhc.creeper.tw | grep IN'
