@@ -145,7 +145,7 @@ group_clear() {
 group_set() {
     [ -z "$1" ] && echo need groupname && return
     [ ! -f ~/$1 ] && echo need preset list ~/$1 && return
-    group_list
+    group_list $1
     group_clear $1 $idlist
     group_add $1 ~/$1
 }
@@ -277,7 +277,8 @@ alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 
 alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
 alias dns.uhc='/home/sita/script/minecraft/gcloud/uhc'
-alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
+# alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
+alias gmnt='gcsfuse --key-file /home/sita/script/minecraft/gcloud/key.json creeper-tw-backup /mnt/backup'
 
 alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now" && exit'
 
@@ -304,4 +305,4 @@ alias pp4='setmcport 20606'
 alias pp5='setmcport 20607'
 alias pp6='setmcport 20608'
 
-alias cc='curl https://api.ipify.org && echo && dig mc.creeper.tw | grep creeper'
+alias cc='echo myIP=$(curl -s https://api.ipify.org) && dig mc.creeper.tw | grep IN && dig uhc.creeper.tw | grep IN'

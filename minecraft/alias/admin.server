@@ -2,6 +2,9 @@
 
 server.prep() {
 	# echo server.prep
+    SYNC=/mnt/runtimes/$mcver/sync.sh
+    [ -f $SYNC ] && . $SYNC
+    
 	config=/mnt/runtimes/$mcver/config.sh
 	[ ! -f $config ] || . $config
 
