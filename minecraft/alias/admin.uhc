@@ -147,7 +147,7 @@ teamhelp() {
     echo uhcfinal...............UHC最後決戰
     echo ------------------------------------------
     echo teamlist _team_........列出隊伍變數名稱,指定team可列出玩家
-    echo playerlist.............列出玩家名稱
+    echo playerlist.............列出線上玩家名稱
     echo teamjoin _team_ _id_...加入隊伍
     echo ------------------------------------------
     echo siegestart.............殲滅攻城戰開始
