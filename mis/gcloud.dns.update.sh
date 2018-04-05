@@ -69,7 +69,8 @@ lookup_dns_cname() {
 
 my_ip() {
   # ip -4 addr show dev eth0 | sed -rn 's@^    inet ([0-9.]+).*@\1@p'
-  curl https://api.ipify.org
+  # curl https://api.ipify.org
+  curl -s https://api.ipify.org
 }
 
 update_A() {
