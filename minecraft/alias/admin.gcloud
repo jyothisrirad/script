@@ -1,7 +1,9 @@
 #!/bin/bash
 
 dnssetup() {
-    [ ! -z "$1" ] && . /home/sita/script/minecraft/gcloud/$1
+    file=/home/sita/script/minecraft/gcloud/$1
+    # [ ! -z "$1" ] && . /home/sita/script/minecraft/gcloud/$1
+    [ -f "$file" ] && . $file
 }
 
 # alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
