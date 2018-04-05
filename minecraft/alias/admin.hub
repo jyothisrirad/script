@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#=================================
 npcrides0() {
 	case "$1" in
 		2)  # reset to 2 rides ready
@@ -117,6 +118,6 @@ playsound() {
 	as_user "screen -p 0 -S $mcver -X eval \"stuff \'playsound $1 voice @p ~ ~ ~ 1 1 1\'\015\""
 }
 
-
+#=================================
 alias npc.rides='npcrides $*'
 alias yell='titles $*'

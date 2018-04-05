@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#=================================
 # $1: default to wait for key press for each score
 #     <num> to sleep <num> sec between each score
 mcscores() {
@@ -24,6 +25,7 @@ mcscores() {
 }
 
 
+#=================================
 # friendlyfireSet() {
 	# for t in R Y G A B P E r y g a b p e
 	# do 
@@ -32,6 +34,7 @@ mcscores() {
 # }
 
 
+#=================================
 team_all_set() {
 	# for t in R Y G A B P E r y g a b p e 0 1
 	for t in R Y G A B P E r y g a b p e
@@ -40,10 +43,12 @@ team_all_set() {
 	done
 }
 
+#=================================
 # aqua() { 
 	# echo A 
 # }
 
+#=================================
 uhclist() {
 	# echo 隊伍ID列表
 	# echo Solo=1
@@ -67,11 +72,13 @@ uhclist() {
 	echo [r]深紅隊[y]橘隊[g]深綠隊[a]深青隊[b]深藍隊[p]深紫隊[e]深灰隊
 }
 
+#=================================
 playerlist() {
 	echo 玩家ID:
 	mcdo list | grep.player
 }
 
+#=================================
 uhcstat() {
 	LOG=/mnt/runtimes/$mcver/logs/list.log
 	if [ -f "$LOG" ]; then 
@@ -95,7 +102,7 @@ uhcstat() {
 	fi
 }
 
-
+#=================================
 uhcinit() {
 	mcdo time set 0
 	# mcdo tp @a 9475 65 3420
@@ -105,6 +112,7 @@ uhcinit() {
 	mcdo replaceitem entity @a slot.hotbar.8 redstone_block
 }
 
+#=================================
 uhcteamcreate() {
 	tmpscrpit=/tmp/teamcreate
 	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
@@ -116,6 +124,7 @@ uhcteamcreate() {
 	rm $tmpscrpit
 }
 
+#=================================
 uhcteamchoice() {
 	if [ ! -z ${1+x} ]; then 
 		echo -e "${GREEN}加入隊伍權限On${NC}"
@@ -128,6 +137,7 @@ uhcteamchoice() {
 	fi
 }
 
+#=================================
 otglist() {
 	mcdo otg biome -f
 	mcdo otg biome -s
@@ -135,6 +145,7 @@ otglist() {
 	mcdo otg biome -m
 }
 
+#=================================
 teamhelp() {
     echo ------------------------------------------
     echo uhclist................UHC列出team名稱
@@ -154,6 +165,7 @@ teamhelp() {
     echo ------------------------------------------
 }
 
+#=================================
 alias mcsb='mcscores 3' #UHC排行榜間隔3秒
 # alias mcsbs='mcscores $*'
 alias mcwb='mcdo worldborder $*' #設定世界邊界
@@ -161,11 +173,14 @@ alias mcwb0='mcdo worldborder set 60000000' #設定世界邊界60000000
 alias mcff='team_all_set friendlyfire true' #同隊傷害
 alias mcfff='team_all_set friendlyfire false' #同隊傷害關閉
 
+#=================================
 alias ruleinit=uhcinit
 alias ruleset='/home/sita/script/minecraft/uhc.rules $*'
 alias ruleotg='otglist'
 # alias uhcstart='/home/sita/script/minecraft/uhc.start'
 # alias uhcend='/home/sita/script/minecraft/uhc.end'
+
+#=================================
 alias uhcstat=uhcstat
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
 alias uhccreate=uhcteamcreate #uhccreate UHC隨機分隊
@@ -175,7 +190,9 @@ alias uhcchoice='uhcteamchoice $*' #uhcchoice 開啟加入隊伍權限
 alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
 alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
 
+#=================================
 alias teamlist='mcdo scoreboard teams list' #teamlist 列出隊伍變數名稱
 alias teamjoin='teamlist && playerlist && mcdo scoreboard teams join $1 $2' #teamjoin <team> <id> 加入隊伍
 
+#=================================
 alias siegestart='mcdo scoreboard players set @a ready 1' #siegestart 殲滅攻城戰開始

@@ -1,12 +1,14 @@
 #!/bin/bash
 
+#=================================
 . /home/sita/script/minecraft/minecraft.logs
 
+#=================================
 grep.perms() {
 	grep permission | awk '{print $10}' | sort | uniq
 }
 
-
+#=================================
 # alias mcj="mclogdump | grep joined | awk '{ printf (\"%s %s\n\", \$4, \$5) }' | sort | uniq"
 # alias mcjoin="echo $LOG && mclogdump | grep 'joined\|left'"
 # alias mcj2="mclogdump | grep 'UUID of player' | awk '{ printf (\"%s %s\n\", \$7, \$8) }' | sort | uniq"
