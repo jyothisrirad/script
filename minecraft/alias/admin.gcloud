@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dnsset() {
+dnssetup() {
     [ ! -z "$1" ] && . /home/sita/script/minecraft/gcloud/$1
 }
 
@@ -9,4 +9,4 @@ alias gmnt='gcsfuse --key-file /home/sita/script/minecraft/gcloud/key.json creep
 
 # alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
 # alias dns.uhc='/home/sita/script/minecraft/gcloud/uhc'
-alias dnsset='dnsset $*'
+alias dnsset='dnssetup $*'
