@@ -9,7 +9,8 @@ dnssetup() {
 
 #=================================
 # alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
-alias gmnt='gcsfuse --key-file /home/sita/script/minecraft/gcloud/key.json creeper-tw-backup /mnt/backup'
+alias gkey='mkdir /home/sita/.gcloud && rsync -az rsync://sita.ddns.net/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/ '
+alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
 
 #=================================
 # alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
