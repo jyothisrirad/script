@@ -60,4 +60,4 @@ help_alias() {
 }
 
 #=================================
-alias helpme='help_alias'
+alias helpmc='help_alias'

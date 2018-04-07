@@ -52,7 +52,6 @@ team_all_set() {
 # }
 
 #=================================
-help_add 'uhclist' 'UHC列出team名稱'
 uhclist() {
 	# echo 隊伍ID列表
 	# echo Solo=1
@@ -111,6 +110,7 @@ uhcinit() {
 	mcdo time set 0
 	# mcdo tp @a 9475 65 3420
 	mcdo op chsliu
+	mcdo op creeper_arena
 	mcdo gamemode 1 @a
 	mcdo replaceitem entity @a slot.hotbar.7 command_block
 	mcdo replaceitem entity @a slot.hotbar.8 redstone_block
@@ -179,13 +179,19 @@ alias mcff='team_all_set friendlyfire true' #同隊傷害
 alias mcfff='team_all_set friendlyfire false' #同隊傷害關閉
 
 #=================================
+help_hline1 'UHC地圖設定'
+help_add 'ruleinit' 'UHC初始'
 alias ruleinit=uhcinit
+help_add 'ruleset' 'UHC設定規則'
 alias ruleset='/home/sita/script/minecraft/uhc.rules $*'
+help_add 'ruleotg' 'OTG地圖'
 alias ruleotg='otglist'
 # alias uhcstart='/home/sita/script/minecraft/uhc.start'
 # alias uhcend='/home/sita/script/minecraft/uhc.end'
 
 #=================================
+help_hline1 'UHC遊戲中'
+help_add 'uhclist' 'UHC列出team名稱'
 alias uhcstat=uhcstat
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
 help_add 'uhccreate' 'UHC隨機分隊'
