@@ -1,7 +1,9 @@
 #!/bin/bash
 
 json_encoding() {
+    IFS='%'
     echo $(echo $*|uni2ascii -a U -q)
+    unset IFS
 }
 
 JARFILE="spigot-1.12.2.jar"
