@@ -53,16 +53,16 @@ post_game_setup() {
 # 4 - OP可以於遊戲中使用/stop。
 
 # export ZIPDIR
-cat >>server.properties <<EOL
+read -r -d '' server_properties <<- EOM
 allow-flight=false
 allow-nether=false
 enable-command-block=true
 gamemode=2
 level-name=world
-level-type=DEFAULT 
+level-type=DEFAULT
 online-mode=false
 op-permission-level=2
 snooper-enabled=false
 spawn-protection=0
 white-list=false
-EOL
+EOM
