@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+help_hline3 'gcloud'
+
+#=================================
 dnssetup() {
     file=/home/sita/script/minecraft/gcloud/$1
     # [ ! -z "$1" ] && . /home/sita/script/minecraft/gcloud/$1
@@ -15,4 +18,5 @@ alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-
 #=================================
 # alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
 # alias dns.uhc='/home/sita/script/minecraft/gcloud/uhc'
+help_add 'dnsset.<hostname>' 'DNS設定'
 alias dnsset='dnssetup $*'

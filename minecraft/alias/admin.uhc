@@ -150,25 +150,72 @@ otglist() {
 }
 
 #=================================
-# teamhelp() {
-    # echo ------------------------------------------
-    # echo uhclist................UHC列出team名稱
-    # echo uhccreate..............UHC隨機分隊
-    # echo uhcjoin _team_ _id_....UHC加入隊伍
-    # echo uhcsolo _id_...........UHC加入單人隊伍
-    # echo uhcchoice..............UHC開啟加入隊伍權限
-    # echo ..........................................
-    # echo uhcshrink..............UHC開始縮地圖
-    # echo uhcfinal...............UHC最後決戰
-    # echo ------------------------------------------
-    # echo teamlist...............列出隊伍名稱
-    # echo teamlist _team_........列出隊伍team內玩家
-    # echo playerlist.............列出線上玩家名稱
-    # echo teamjoin _team_ _id_...加入隊伍
-    # echo ------------------------------------------
-    # echo siegestart.............殲滅攻城戰開始
-    # echo ------------------------------------------
-# }
+log_parse_teams() {
+    logfile=$(pwd)/teams.log
+    logs | grep.teams | sort >$logfile
+    cat $logfile
+}
+
+#=================================
+log_parse_slain() {
+    logfile=/tmp/slain.log
+    logfile2=$(pwd)/slain.log
+    cat $1 | grep.slain | grep -v DiscordSRV >$logfile
+    file.cleanup $logfile
+    file.replace.escape $logfile
+    cat $logfile >$logfile2
+    echo >>$logfile2
+    file.replace.teamtag $logfile
+    file.replace.cause $logfile
+    file.replace.mob $logfile
+    cat $logfile >>$logfile2
+    
+    echo $logfile2
+    cat $logfile2
+}
+
+#=================================
+log_parse_winner() {
+    logfile=$(pwd)/winner.log
+    cat $1 | grep.winner >$logfile
+    cat $logfile
+}
+
+#=================================
+second_diff() {
+# Convert the times to seconds from the Epoch
+SEC1=`date +%s -d ${1}`
+SEC2=`date +%s -d ${2}`
+
+# Use expr to do the math, let's say TIME1 was the start and TIME2 was the finish
+DIFFSEC=`expr ${SEC2} - ${SEC1}`
+
+# echo Start ${1}
+# echo Finish ${2}
+
+# echo Took ${DIFFSEC} seconds.
+
+# And use date to convert the seconds back to something more meaningful
+# echo Took `date +%H:%M:%S -ud @${DIFFSEC}`
+
+echo ${DIFFSEC}
+}
+
+log_parse_lag() {
+    logfile=$(pwd)/lag.log
+    cat $1 | grep.lag >$logfile
+    totalms=$(cat $logfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
+    totaltick=$(cat $logfile | awk '{ printf ("%s\n", $21) }' | sed '/^\s*$/d' | paste -sd+ - | bc)
+    # starttime=
+    TIME1=$(cat $1 | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+    TIME2=$(cat $1 | tail -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+    sec=$(second_diff $TIME1 $TIME2)
+    per=$(echo "scale=2;100*$totalms/1000/$sec" | bc -l)
+    maxms=$(cat $logfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 1)
+    echo ================================= >>$logfile
+    echo Running total ${totalms}ms behind, skipping ${totaltick} tick\(s\), ${totalms}ms/${sec}sec=${per}%, max delay is ${maxms}ms. >>$logfile
+    cat $logfile
+}
 
 #=================================
 alias mcsb='mcscores 3' #UHC排行榜間隔3秒
@@ -177,6 +224,17 @@ alias mcwb='mcdo worldborder $*' #設定世界邊界
 alias mcwb0='mcdo worldborder set 60000000' #設定世界邊界60000000
 alias mcff='team_all_set friendlyfire true' #同隊傷害
 alias mcfff='team_all_set friendlyfire false' #同隊傷害關閉
+
+#=================================
+help_hline2 '隊伍'
+
+help_add 'teamlist' '列出隊伍名稱'
+help_add 'teamlist.<team>' '列出隊伍team內玩家'
+alias teamlist='mcdo scoreboard teams list'
+help_add 'playerlist' '列出線上玩家名稱'
+alias playerlist='echo 玩家ID: && mcdo list | grep.player | sort'
+help_add 'teamjoin.<team>.<id>' '加入隊伍'
+alias teamjoin='teamlist && playerlist && mcdo scoreboard teams join $1 $2'
 
 #=================================
 help_hline1 'UHC地圖設定'
@@ -205,19 +263,22 @@ alias uhcchoice='uhcteamchoice $*'
 
 help_hline1 'UHC控制'
 
+help_add 'uhctime.<minutes>' 'UHC設定時間'
+alias uhctime='mcdo scoreboard players set @e[tag=N] minute $*'
 help_add 'uhcshrink' 'UHC開始縮地圖'
 alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
-help_add 'uhcfinal' 'UHC最後決戰'
-alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
+# help_add 'uhcfinal' 'UHC最後決戰'
+# alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
+help_add 'uhcfinal.<ticks>' 'UHC最後戰場倒數'
+alias uhctime='mcdo scoreboard players set @e[tag=N] FinalWar $*'
 
 #=================================
-help_hline2 '隊伍'
-
-help_add 'teamlist' '列出隊伍名稱'
-help_add 'teamlist.<team>' '列出隊伍team內玩家'
-alias teamlist='mcdo scoreboard teams list'
-help_add 'playerlist' '列出線上玩家名稱'
-alias playerlist='echo 玩家ID: && mcdo list | grep.player | sort'
-help_add 'teamjoin.<team>.<id>' '加入隊伍'
-alias teamjoin='teamlist && playerlist && mcdo scoreboard teams join $1 $2'
-
+help_hline1 'UHC紀錄分析'
+help_add 'logteams.<log>' 'UHC分析參賽名單'
+alias logteams='log_parse_teams $*'
+help_add 'logslain.<log>' 'UHC分析殺人紀錄'
+alias logslain='log_parse_slain $*'
+help_add 'logwinner.<log>' 'UHC分析贏家'
+alias logwinner='log_parse_winner $*'
+help_add 'loglag.<log>' 'UHC分析延遲'
+alias loglag='log_parse_lag $*'

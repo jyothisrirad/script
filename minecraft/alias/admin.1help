@@ -61,3 +61,4 @@ help_alias() {
 
 #=================================
 alias helpmc='help_alias'
+alias hh='help_alias'
