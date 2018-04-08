@@ -151,13 +151,19 @@ otglist() {
 
 #=================================
 log_parse_teams() {
+    [ ! -f "$1" ] && return
     logfile=$(pwd)/teams.log
-    logs | grep.teams | sort >$logfile
+    tmp=/tmp/teams.log
+    cat $1 | egrep '\[*隊\]' | awk '{ printf ("%s\n", $4) }' >$tmp
+    file.replace.escape $tmp
+    cat $tmp >$logfile
+    
     cat $logfile
 }
 
 #=================================
 log_parse_slain() {
+    [ ! -f "$1" ] && return
     logfile=/tmp/slain.log
     logfile2=$(pwd)/slain.log
     cat $1 | grep.slain | grep -v DiscordSRV >$logfile
@@ -170,14 +176,20 @@ log_parse_slain() {
     file.replace.mob $logfile
     cat $logfile >>$logfile2
     
-    echo $logfile2
     cat $logfile2
 }
 
 #=================================
 log_parse_winner() {
+    [ ! -f "$1" ] && return
     logfile=$(pwd)/winner.log
-    cat $1 | grep.winner >$logfile
+    tmp=/tmp/winner.log
+    cat $1 | grep '\[0;30;1' | egrep 'm([0-9]+,|=)' >$tmp
+    winner=$(cat $1 | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
+    echo 最後贏家 $winner >>$tmp
+    file.replace.escape $tmp
+    cat $tmp >$logfile
+    
     cat $logfile
 }
 
@@ -202,11 +214,11 @@ echo ${DIFFSEC}
 }
 
 log_parse_lag() {
+    [ ! -f "$1" ] && return
     logfile=$(pwd)/lag.log
     cat $1 | grep.lag >$logfile
     totalms=$(cat $logfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
     totaltick=$(cat $logfile | awk '{ printf ("%s\n", $21) }' | sed '/^\s*$/d' | paste -sd+ - | bc)
-    # starttime=
     TIME1=$(cat $1 | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
     TIME2=$(cat $1 | tail -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
     sec=$(second_diff $TIME1 $TIME2)
@@ -214,6 +226,7 @@ log_parse_lag() {
     maxms=$(cat $logfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 1)
     echo ================================= >>$logfile
     echo Running total ${totalms}ms behind, skipping ${totaltick} tick\(s\), ${totalms}ms/${sec}sec=${per}%, max delay is ${maxms}ms. >>$logfile
+    
     cat $logfile
 }
 

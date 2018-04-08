@@ -205,6 +205,7 @@ file.replace.escape() {
     sed -i "s/\[0;36;22m//g" $1
     sed -i "s/\[0;37;22m//g" $1    
 	sed -i "s/\[m//g" $1
+	sed -i "s/\[21m//g" $1
 }
 
 grep.teams() {
@@ -252,7 +253,7 @@ grep.slain() {
 ## was killed by Witch using magic
 ## was blown up by Creeper 
     # grep left\|
-	grep 'blew\|burned\|fell\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain\|drowned\|using magic\|blown up'
+	grep 'blew\|burned\|fell from\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain\|drowned\|using magic\|blown up'
 }
 
 grep.winner() {
