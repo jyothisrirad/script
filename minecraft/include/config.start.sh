@@ -54,14 +54,15 @@ post_game_setup() {
 
 # export ZIPDIR
 cat >>server.properties <<EOL
-allow-flight=false
 # allow-nether=false
-enable-command-block=true
 # gamemode=2
+# spawn-protection=0
+allow-flight=false
+enable-command-block=true
 level-name=world
+level-type=DEFAULT 
 online-mode=false
 op-permission-level=2
 snooper-enabled=false
-# spawn-protection=0
 white-list=false
 EOL

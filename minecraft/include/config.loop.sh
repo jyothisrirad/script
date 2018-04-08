@@ -59,6 +59,7 @@ allow-nether=false
 enable-command-block=true
 gamemode=2
 level-name=world
+level-type=DEFAULT 
 online-mode=false
 op-permission-level=2
 snooper-enabled=false
