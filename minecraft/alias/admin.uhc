@@ -231,6 +231,14 @@ log_parse_lag() {
 }
 
 #=================================
+log_parse_uhc() {
+    log_parse_teams $*
+    log_parse_slain $*
+    log_parse_winner $*
+    log_parse_lag $*
+}
+
+#=================================
 alias mcsb='mcscores 3' #UHC排行榜間隔3秒
 # alias mcsbs='mcscores $*'
 alias mcwb='mcdo worldborder $*' #設定世界邊界
@@ -295,3 +303,5 @@ help_add 'logwinner.<log>' 'UHC分析贏家'
 alias logwinner='log_parse_winner $*'
 help_add 'loglag.<log>' 'UHC分析延遲'
 alias loglag='log_parse_lag $*'
+help_add 'loguhc.<log>' 'UHC賽後分析'
+alias loguhc='log_parse_uhc $*'
