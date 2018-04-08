@@ -14,9 +14,10 @@ presets = {
 	# 0: ['qqua630512'],
 	# 1: ['Willwill01'],
 	# 2: ['Frs_yoyogood'],
-	0: ['ZK_KY'],
-	1: ['eddy228'],
-	2: ['DY_speaker'],
+	# 0: ['ZK_KY'],
+	# 1: ['eddy228'],
+	# 2: ['DY_speaker'],
+	0: ['yozliu','AhYuan_OuO','qqua630512'],
 }
 
 

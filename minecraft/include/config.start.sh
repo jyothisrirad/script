@@ -60,7 +60,7 @@ read -r -d '' server_properties <<- EOM
 allow-flight=false
 enable-command-block=true
 level-name=world
-level-type=DEFAULT 
+level-type=DEFAULT
 online-mode=false
 op-permission-level=2
 snooper-enabled=false
