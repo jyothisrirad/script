@@ -217,20 +217,33 @@ echo ${DIFFSEC}
 log_parse_lag() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/lag.log
-    cat $1 | grep.lag >$logfile
-    totalms=$(cat $logfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
-    totaltick=$(cat $logfile | awk '{ printf ("%s\n", $21) }' | sed '/^\s*$/d' | paste -sd+ - | bc)
+    tmpfile=$(pwd)/lag.tmp
+    rm $logfile
+    cat $1 | grep.lag >$tmpfile
+    totalms=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
+    totaltick=$(cat $tmpfile | awk '{ printf ("%s\n", $21) }' | sed '/^\s*$/d' | paste -sd+ - | bc)
     TIME1=$(cat $1 | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
     TIME2=$(cat $1 | tail -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
     sec=$(second_diff $TIME1 $TIME2)
     per=$(echo "scale=2;100*$totalms/1000/$sec" | bc -l)
-    maxms=$(cat $logfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 1)
-    echo ================================= >>$logfile
-    echo Running total ${totalms}ms behind, skipping ${totaltick} tick\(s\), ${totalms}ms/${sec}sec=${per}%, max delay is ${maxms}ms. >>$logfile
+    max=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 1)
+    tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 10)
+    count=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | sort -nr | wc -l)
+    avg=$(echo "scale=0;$totalms/$count" | bc -l)
+    # echo ================================= >>$logfile
+    echo Running total ${totalms}ms behind, skipping ${totaltick} tick\(s\), ${totalms}ms/${sec}sec=${per}%, with ${count} times, max delay is ${max}ms. avg delay is ${avg}ms. >>$logfile
+    echo [$TIME1] to [$TIME2] for `date +%H:%M:%S -ud @${sec}` >$tmpfile
+    gamestart=$(cat $1 | grep 傳送倒數計時 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+    for top in $tops; do
+        delaytimes=$(cat $1 | grep ${top} | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+        for delaytime in $delaytimes; do
+            gametime=$(second_diff $gamestart $delaytime)
+            echo [${delaytime}] `date +%H:%M:%S -ud @${gametime}` - Lag ${top}ms>>$tmpfile
+        done
+    done
+    cat $tmpfile | sort >>$logfile
     
     cat $logfile
-    echo Duration from $TIME1 to $TIME2
-    cat $1 | grep ${maxms}
 }
 
 #=================================
