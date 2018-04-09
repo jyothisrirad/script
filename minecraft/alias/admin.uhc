@@ -218,6 +218,7 @@ log_parse_lag() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/lag.log
     tmpfile=$(pwd)/lag.tmp
+    delayLimitms=5000
     rm $logfile
     cat $1 | grep.lag >$tmpfile
     totalms=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
@@ -227,7 +228,8 @@ log_parse_lag() {
     sec=$(second_diff $TIME1 $TIME2)
     per=$(echo "scale=2;100*$totalms/1000/$sec" | bc -l)
     max=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 1)
-    tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 10)
+    # tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 20)
+    tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | sed '/^\s*$/d' | sed 's/[^0-9]*//g' | awk '$1>'"$delayLimitms")
     count=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | sort -nr | wc -l)
     avg=$(echo "scale=0;$totalms/$count" | bc -l)
     # echo ================================= >>$logfile
@@ -235,12 +237,13 @@ log_parse_lag() {
     echo [$TIME1] to [$TIME2] for `date +%H:%M:%S -ud @${sec}` >$tmpfile
     gamestart=$(cat $1 | grep 傳送倒數計時 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
     for top in $tops; do
-        delaytimes=$(cat $1 | grep ${top} | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+        delaytimes=$(cat $1 | grep ${top}ms | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
         for delaytime in $delaytimes; do
             gametime=$(second_diff $gamestart $delaytime)
             echo [${delaytime}] `date +%H:%M:%S -ud @${gametime}` - Lag ${top}ms>>$tmpfile
         done
     done
+    cat $1 | grep 物品！ >>$tmpfile
     cat $tmpfile | sort >>$logfile
     
     cat $logfile
