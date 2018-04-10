@@ -120,7 +120,7 @@ mcserver do scoreboard players set @e[tag=F] k 0	#玩家發光Off
 mcserver do scoreboard players set @e[tag=N] k 1	#玩家發光On
 # mcserver do scoreboard players set @e[tag=F] k 1	#玩家發光Off
 # mcserver do scoreboard players set @e[tag=N] k 0	#玩家發光On
-mcserver do scoreboard players set @e[tag=N] l $time_nomob #玩家發光清除怪物60min
+mcserver do scoreboard players set @e[tag=N] l $time_nomob #玩家發光60min
 
 # =============================================================
 # Book 4
