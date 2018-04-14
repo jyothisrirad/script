@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+help_hline3 '伺服器管理'
+
+#=================================
 server.prep() {
 	# echo server.prep
     SYNC=/mnt/runtimes/$mcver/sync.sh
@@ -56,6 +59,13 @@ lag_check() {
 }
 
 #=================================
+clag_check() {
+    echo -e "${GREEN}=== $mcver clag ${NC}"
+	logs | grep 服務器
+	~/start.mc.sh clag
+}
+
+#=================================
 alias sls='screen -ls'
 alias swp='screen -wipe'
 alias sr='screen -r $mcver'
@@ -106,4 +116,7 @@ alias debugoff='export mc_debug_mode='
 
 #=================================
 # alias lag='logs | grep.lag && ~/start.mc.sh lag'
+help_add 'lag' '顯示lag'
 alias lag='lag_check'
+help_add 'clag' '顯示clag'
+alias clag='clag_check'
