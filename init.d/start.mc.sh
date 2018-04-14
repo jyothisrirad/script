@@ -27,6 +27,13 @@ checklag() {
 	done
 }
 
+checkclag() {
+	for srv in ${servers[*]}
+	do
+		$srv && logs | grep 服務器
+	done
+}
+
 case "$1" in
 	start)
 		start
@@ -40,6 +47,9 @@ case "$1" in
 		;;
 	lag)
 		checklag
+		;;
+	clag)
+		checkclag
 		;;
 	*)
 		start
