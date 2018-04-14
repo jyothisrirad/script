@@ -47,12 +47,17 @@ team_all_set() {
 }
 
 #=================================
+playertaglist() {
+    mcdo scoreboard players tag $1 list
+}
+
+#=================================
 # aqua() { 
 	# echo A 
 # }
 
 #=================================
-uhclist() {
+uhcteams() {
 	# echo 隊伍ID列表
 	# echo Solo=1
 	# echo Spectate=0
@@ -107,13 +112,13 @@ uhcstat() {
 
 #=================================
 uhcinit() {
+	mcdo replaceitem entity @a slot.hotbar.7 command_block
+	mcdo replaceitem entity @a slot.hotbar.8 redstone_block
 	mcdo time set 0
-	# mcdo tp @a 9475 65 3420
 	mcdo op chsliu
 	mcdo op creeper_arena
 	mcdo gamemode 1 @a
-	mcdo replaceitem entity @a slot.hotbar.7 command_block
-	mcdo replaceitem entity @a slot.hotbar.8 redstone_block
+    mcdo tp @a 0 100 0
 }
 
 #=================================
@@ -258,25 +263,6 @@ log_parse_uhc() {
 }
 
 #=================================
-alias mcsb='mcscores 3' #UHC排行榜間隔3秒
-# alias mcsbs='mcscores $*'
-alias mcwb='mcdo worldborder $*' #設定世界邊界
-alias mcwb0='mcdo worldborder set 60000000' #設定世界邊界60000000
-alias mcff='team_all_set friendlyfire true' #同隊傷害
-alias mcfff='team_all_set friendlyfire false' #同隊傷害關閉
-
-#=================================
-help_hline2 '隊伍'
-
-help_add 'teamlist' '列出隊伍名稱'
-help_add 'teamlist.<team>' '列出隊伍team內玩家'
-alias teamlist='mcdo scoreboard teams list'
-help_add 'playerlist' '列出線上玩家名稱'
-alias playerlist='echo 玩家ID: && mcdo list | grep.player | sort'
-help_add 'teamjoin.<team>.<id>' '加入隊伍'
-alias teamjoin='teamlist && playerlist && mcdo scoreboard teams join $1 $2'
-
-#=================================
 help_hline1 'UHC地圖設定'
 help_add 'ruleinit' 'UHC初始'
 alias ruleinit=uhcinit
@@ -288,18 +274,43 @@ alias ruleotg='otglist'
 # alias uhcend='/home/sita/script/minecraft/uhc.end'
 
 #=================================
+help_hline2 '隊伍'
+
+help_add 'teams' '列出隊伍名稱'
+help_add 'objs' '列出變數'
+alias objs='mcdo scoreboard objectives list'
+help_add 'players.<player>' '列出玩家'
+alias players='mcdo scoreboard players list'
+help_add 'teams.<team>' '列出隊伍team內玩家'
+alias teams='mcdo scoreboard teams list'
+help_add 'playertag.<player>' '列出玩家標籤'
+alias playertag='playertaglist $*'
+help_add 'onlineplayerlist' '列出線上玩家名稱'
+alias onlineplayerlist='echo 玩家ID: && mcdo list | grep.player | sort'
+help_add 'teamjoin.<team>.<id>' '加入隊伍'
+alias teamjoin='teamlist && onlineplayerlist && mcdo scoreboard teams join $1 $2'
+
+#=================================
 help_hline1 'UHC遊戲中'
-help_add 'uhclist' 'UHC列出team名稱'
+help_add 'uhcteams' 'UHC列出team名稱'
 alias uhcstat=uhcstat
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
 help_add 'uhccreate' 'UHC隨機分隊'
 alias uhccreate=uhcteamcreate
 help_add 'uhcjoin.<team>.<id>' 'UHC加入隊伍'
-alias uhcjoin='uhclist && playerlist && mcdo scoreboard teams join $1 $2'
+alias uhcjoin='uhcteams && onlineplayerlist && mcdo scoreboard teams join $1 $2'
 help_add 'uhcsolo.<id>' 'UHC加入單人隊伍'
 alias uhcsolo='mcserver do scoreboard teams join 1 @a'
 help_add 'uhcchoice' 'UHC開啟加入隊伍權限'
 alias uhcchoice='uhcteamchoice $*'
+
+#=================================
+alias mcsb='mcscores 3' #UHC排行榜間隔3秒
+# alias mcsbs='mcscores $*'
+alias mcwb='mcdo worldborder $*' #設定世界邊界
+alias mcwb0='mcdo worldborder set 60000000' #設定世界邊界60000000
+alias mcff='team_all_set friendlyfire true' #同隊傷害
+alias mcfff='team_all_set friendlyfire false' #同隊傷害關閉
 
 help_hline1 'UHC控制'
 
@@ -310,7 +321,7 @@ alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
 # help_add 'uhcfinal' 'UHC最後決戰'
 # alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
 help_add 'uhcfinal.<ticks>' 'UHC最後戰場倒數'
-alias uhctime='mcdo scoreboard players set @e[tag=N] FinalWar $*'
+alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalWar $*'
 
 #=================================
 help_hline1 'UHC紀錄分析'

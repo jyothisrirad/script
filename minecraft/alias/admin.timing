@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#=================================
+help_hline3 'Timing'
+
+#=================================
+help_add 'mcton' '分析On'
+alias mcton='mcdo timings on'
+help_add 'mctoff' '分析off'
+alias mctoff='mcdo timings off'
+help_add 'mctreset' '分析reset'
+alias mctreset='mcdo timings reset'
+help_add 'mctreport' '分析報告'
+alias mctreport='mcdo timings report'
+help_add 'mctpast' '分析線上報告'
+alias mctpast='mcdo timings paste'
+help_add 'mctlag' '分析lag'
+alias mctlag='mcdo lag'
