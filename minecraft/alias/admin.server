@@ -61,7 +61,7 @@ lag_check() {
 #=================================
 clag_check() {
     echo -e "${GREEN}=== $mcver clag ${NC}"
-	logs | grep 服務器
+	logs | grep '服務器'
 	~/start.mc.sh clag
 }
 

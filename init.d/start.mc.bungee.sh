@@ -32,7 +32,7 @@ checklag() {
 checkclag() {
 	for srv in ${servers[*]}
 	do
-		$srv && logs | grep 服務器
+		$srv && logs | grep '服務器'
 	done
 }
 
