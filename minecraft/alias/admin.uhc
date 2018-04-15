@@ -159,7 +159,7 @@ log_parse_seed() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/teams.log
     tmp=/tmp/teams.log
-    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' >$tmp
+    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' | uniq >$tmp
     file.replace.escape $tmp
     cat $tmp >$logfile
     
