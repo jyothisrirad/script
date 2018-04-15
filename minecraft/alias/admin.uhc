@@ -159,9 +159,11 @@ log_parse_seed() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/teams.log
     tmp=/tmp/teams.log
-    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' | uniq >$tmp
+    rm $tmp
+    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' | uniq >>$tmp
+    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $11) }' | uniq >>$tmp
     file.replace.escape $tmp
-    cat $tmp >$logfile
+    cat $tmp | grep -v start | sed "s/)//g" >$logfile
     
     cat $logfile
 }
@@ -171,7 +173,7 @@ log_parse_teams() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/teams.log
     tmp=/tmp/teams.log
-    cat $1 | egrep '\[*隊\]' | awk '{ printf ("%s\n", $4) }' >$tmp
+    cat $1 | egrep '\[*隊\]' | awk '{ printf ("  * %s\n", $4) }' >$tmp
     file.replace.escape $tmp
     cat $tmp >$logfile
     
@@ -183,7 +185,7 @@ log_parse_slain() {
     [ ! -f "$1" ] && return
     logfile=/tmp/slain.log
     logfile2=$(pwd)/slain.log
-    cat $1 | grep.slain | grep -v DiscordSRV >$logfile
+    cat $1 | grep.slain | grep -v DiscordSRV | sed 's/^/  * /'  >$logfile
     file.cleanup $logfile
     file.replace.escape $logfile
     file.replace.teamtag $logfile
@@ -261,7 +263,7 @@ log_parse_lag() {
             echo [${delaytime}] `date +%H:%M:%S -ud @${gametime}` - Lag ${top}ms>>$tmpfile
         done
     done
-    cat $1 | grep 物品！ >>$tmpfile
+    cat $1 | grep 物品！ | grep -v 清除0個 >>$tmpfile
     cat $tmpfile | sort >>$logfile
     
     cat $logfile
@@ -269,17 +271,25 @@ log_parse_lag() {
 
 #=================================
 log_parse_uhc() {
-    echo ==== 第x屆UHC苦力怕盃歡樂場xxx 比賽紀錄 2018/xx/xx ====
-    echo 感言:
-    echo 生物群系:
+    echo ==== 第xxx屆UHC苦力怕盃歡樂場xxx/決賽 比賽紀錄 $(date '+%Y/%m/%d' -r $1) ====
+    echo 感言:\\\\
+    echo 生物群系:\\\\
     echo 種子碼:
     log_parse_seed $*
-    echo 影片:
+    echo \\\\
+    echo \\\\
+    echo 影片:\\\\
     echo 參賽名單:
     log_parse_teams $*
     echo 戰敗順序:
     log_parse_slain $*
     echo 頭銜:
+    echo '  * 最後贏家:'
+    echo '  * 殺人王:'
+    echo '  * 鬼見愁:'
+    echo '  * 幸運星: (礦石比 xxx/xxx=xxx%)'
+    echo '  * 金好命:'  
+    echo 
     log_parse_winner $*
     echo Lag:
     log_parse_lag $*
