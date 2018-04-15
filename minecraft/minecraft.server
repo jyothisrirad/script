@@ -236,8 +236,9 @@ mc_backup_ex() {
   
   if mc_status; then mc_saveoff; fi
   
-  ZIPTAIL="seal"
+  ZIPTAIL="seal"; export ZIPTAIL
   as_user "$DP0/backup.sh $MCSTORE $1"
+  unset ZIPTAIL
   echo "Backup complete"
   
   if mc_status; then mc_saveon; fi
