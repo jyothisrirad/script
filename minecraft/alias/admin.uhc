@@ -155,6 +155,18 @@ otglist() {
 }
 
 #=================================
+log_parse_seed() {
+    [ ! -f "$1" ] && return
+    logfile=$(pwd)/teams.log
+    tmp=/tmp/teams.log
+    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' >$tmp
+    file.replace.escape $tmp
+    cat $tmp >$logfile
+    
+    cat $logfile
+}
+
+#=================================
 log_parse_teams() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/teams.log
@@ -189,10 +201,11 @@ log_parse_winner() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/winner.log
     tmp=/tmp/winner.log
-    cat $1 | grep '\[0;30;1' | egrep 'm([0-9]+,|=)' | awk '{ printf ("%s %s\n",$4,$5) }' >$tmp
+    rm $tmp
     winner=$(cat $1 | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
-    echo ================================= >>$tmp
     echo 最後贏家 $winner >>$tmp
+    echo ================================= >>$tmp
+    cat $1 | grep '\[0;30;1' | egrep 'm([0-9]+,|=)' | awk '{ printf ("%s %s\n",$4,$5) }' >>$tmp
     file.replace.escape $tmp
     cat $tmp >$logfile
     
@@ -222,8 +235,8 @@ echo ${DIFFSEC}
 log_parse_lag() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/lag.log
-    tmpfile=$(pwd)/lag.tmp
-    delayLimitms=5000
+    tmpfile=/tmp/lag.tmp
+    delayLimitms=3000
     rm $logfile
     cat $1 | grep.lag >$tmpfile
     totalms=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
@@ -256,9 +269,19 @@ log_parse_lag() {
 
 #=================================
 log_parse_uhc() {
+    echo ==== 第x屆UHC苦力怕盃歡樂場xxx 比賽紀錄 2018/xx/xx ====
+    echo 感言:
+    echo 生物群系:
+    echo 種子碼:
+    log_parse_seed $*
+    echo 影片:
+    echo 參賽名單:
     log_parse_teams $*
+    echo 戰敗順序:
     log_parse_slain $*
+    echo 頭銜:
     log_parse_winner $*
+    echo Lag:
     log_parse_lag $*
 }
 
