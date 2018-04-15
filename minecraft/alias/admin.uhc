@@ -185,12 +185,13 @@ log_parse_slain() {
     [ ! -f "$1" ] && return
     logfile=/tmp/slain.log
     logfile2=$(pwd)/slain.log
+    rm $logfile2
     cat $1 | grep.slain | grep -v DiscordSRV | sed 's/^/  * /'  >$logfile
     file.cleanup $logfile
     file.replace.escape $logfile
     file.replace.teamtag $logfile
-    cat $logfile >$logfile2
-    echo >>$logfile2
+    [ -z "$2" ] && cat $logfile >$logfile2
+    [ -z "$2" ] && echo >>$logfile2
     file.replace.cause $logfile
     file.replace.mob $logfile
     cat $logfile >>$logfile2
@@ -348,8 +349,9 @@ log_parse_uhc() {
     weekEnd=$(date --date "$dates -`date +%d -r $1` days +1 month" +%U)
     weekNow=$(date +%U -r $1)
     weekDiff=$(echo $weekNow - $weekBegin + 1 | bc)
+    headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
     title=$([ $weekNow == $weekEnd ] && echo 決賽 || echo 歡樂場$(num2roman $weekDiff))
-    echo ==== 第$num屆UHC苦力怕盃$title 比賽紀錄 $dates ====
+    echo $headline 第$num屆UHC苦力怕盃$title 比賽紀錄 $dates $headline
     echo 感言:\\\\
     echo 生物群系:\\\\
     echo 種子碼:
@@ -360,7 +362,7 @@ log_parse_uhc() {
     echo 參賽名單:
     log_parse_teams $*
     echo 戰敗順序:
-    log_parse_slain $*
+    log_parse_slain $* false
     echo 頭銜:
     echo '  * 最後贏家:'
     echo '  * 殺人王:'
