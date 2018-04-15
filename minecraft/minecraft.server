@@ -236,6 +236,7 @@ mc_backup_ex() {
   
   if mc_status; then mc_saveoff; fi
   
+  ZIPTAIL="seal"
   as_user "$DP0/backup.sh $MCSTORE $1"
   echo "Backup complete"
   

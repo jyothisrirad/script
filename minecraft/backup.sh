@@ -24,6 +24,7 @@ TODAY=$(date +"%Y-%m-%d_%H%M")
 HOST=$(hostname)
 ZIPDIR=$(echo $ZIPDIR/$BASE)
 ZIP=$BASE.$TODAY.$HOST.zip
+[ ! -z "$ZIPTAIL" ] && ZIP=$BASE.$TODAY.$HOST.$ZIPTAIL.zip
 # TEMPZIP=/tmp/$ZIP
 TEMPZIP=~/$ZIP
 
