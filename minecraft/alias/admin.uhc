@@ -261,9 +261,15 @@ log_parse_lag() {
         delaytimes=$(cat $1 | grep ${top}ms | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
         for delaytime in $delaytimes; do
             gametime=$(second_diff $gamestart $delaytime)
-            echo [${delaytime}] `date +%H:%M:%S -ud @${gametime}` - Lag ${top}ms>>$tmpfile
+            echo [${delaytime}] `date +%H:%M:%S -ud @${gametime}` - Lag ${top}ms >>$tmpfile
         done
     done
+    
+    delaytime=$(cat $1 | grep 'max 0.05' | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+    gametime=$(second_diff $gamestart $delaytime)
+    gametimeH=$(date +%H:%M:%S -ud @${gametime})
+    cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - %s %s\n",$1,gt,$9,$10) }' >>$tmpfile
+    
     cat $1 | grep 物品！ | grep -v 清除0個 >>$tmpfile
     cat $tmpfile | sort >>$logfile
     
