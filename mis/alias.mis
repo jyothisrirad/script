@@ -41,7 +41,7 @@ route_show() {
 machine_stop() {
     # if [ "root" = $(whoami) ]; then
         sudo echo
-        su - root -c "screen -dmS off shutdown -h now" && exit
+        screen -dmS off sudo shutdown -h now && exit
     # else
         # echo "Please run as root"
     # fi    
