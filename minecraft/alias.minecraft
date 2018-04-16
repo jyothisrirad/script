@@ -64,6 +64,16 @@ pause() {
 }
 
 #=================================
+machine_stop() {
+    if [ "root" = $(whoami) ]; then
+        ~/start.mc.sh stop
+        su - root -c "screen -dmS off shutdown -h now" && exit
+    else
+        echo "Please run as root"
+    fi    
+}
+
+#=================================
 utf8
 load_alias
 # [ $mcver ] || mc1112uc
@@ -80,7 +90,7 @@ help_add 'jsu' '同步伺服器javascript'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 
 help_add 'stop' '關閉主機'
-alias stop='~/start.mc.sh stop && su - root -c "screen -dmS off shutdown -h now" && exit'
+alias stop='machine_stop'
 
 help_add 'cc' '檢查DNS'
 alias cc='echo myIP=$(curl -s https://api.ipify.org) && dig mc.creeper.tw | grep IN && dig uhc.creeper.tw | grep IN'

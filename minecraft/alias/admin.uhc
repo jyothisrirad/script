@@ -256,7 +256,7 @@ log_parse_lag() {
     # echo ================================= >>$logfile
     echo Running total ${totalms}ms behind, skipping ${totaltick} tick\(s\), ${totalms}ms/${sec}sec=${per}%, with ${count} times, max delay is ${max}ms. avg delay is ${avg}ms. >>$logfile
     echo [$TIME1] to [$TIME2] for `date +%H:%M:%S -ud @${sec}` >$tmpfile
-    gamestart=$(cat $1 | grep 傳送倒數計時 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+    gamestart=$(cat $1 | grep '傳送倒數計時\|lost the achievement' | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
     for top in $tops; do
         delaytimes=$(cat $1 | grep ${top}ms | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
         for delaytime in $delaytimes; do
@@ -268,7 +268,8 @@ log_parse_lag() {
     delaytime=$(cat $1 | grep 'max 0.05' | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
     gametime=$(second_diff $gamestart $delaytime)
     gametimeH=$(date +%H:%M:%S -ud @${gametime})
-    cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - %s %s\n",$1,gt,$9,$10) }' >>$tmpfile
+    # echo $gamestart $delaytime $gametime $gametimeH >>$tmpfile
+    cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - Lag %s%s\n",$1,gt,$9,$10) }' >>$tmpfile
     
     cat $1 | grep 物品！ | grep -v 清除0個 >>$tmpfile
     cat $tmpfile | sort >>$logfile
