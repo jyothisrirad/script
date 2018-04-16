@@ -65,12 +65,13 @@ pause() {
 
 #=================================
 machine_stop() {
-    if [ "root" = $(whoami) ]; then
+    # if [ "root" = $(whoami) ]; then
+        sudo echo
         ~/start.mc.sh stop
         su - root -c "screen -dmS off shutdown -h now" && exit
-    else
-        echo "Please run as root"
-    fi    
+    # else
+        # echo "Please run as root"
+    # fi    
 }
 
 #=================================
