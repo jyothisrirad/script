@@ -38,19 +38,10 @@ route_show() {
 	sudo route -n
 }
 
-machine_stop() {
-    # if [ "root" = $(whoami) ]; then
-        sudo echo
-        screen -dmS off sudo shutdown -h now && exit
-    # else
-        # echo "Please run as root"
-    # fi    
-}
-
 alias block='blockip $*'
 alias unblock='unblockip $*'
 
-alias stop='machine_stop'
+alias stop='sudo echo && sudo screen -dmS off shutdown -h now && exit'
 
 alias ii='curl https://api.ipify.org && echo '
  
