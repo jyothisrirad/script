@@ -73,39 +73,41 @@ testconnect() {
     return $?
 }
 
-case "$1" in
-	start)
-		start
-		;;
-	mcstart)
-        while [ 1 ]; do
-            if checkip $mcdns; then
-                echo -e "${GREEN}=== IP and DNS matched ${NC}"
-                if testconnect $mchub $mchubport; then
-                    echo -e "${GREEN}=== Hub connected ${NC}"
-                    echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
-                    break
+run() {
+    case "$1" in
+        start)
+            start
+            ;;
+        mcstart)
+            while [ 1 ]; do
+                if checkip $mcdns; then
+                    echo -e "${GREEN}=== IP and DNS matched ${NC}"
+                    if testconnect $mchub $mchubport; then
+                        echo -e "${GREEN}=== Hub connected ${NC}"
+                        echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
+                        break
+                    fi
+                else
+                    echo -e "${RED}=== IP and DNS not matched ${NC}"
                 fi
-            else
-                echo -e "${RED}=== IP and DNS not matched ${NC}"
-            fi
-            waiting 10
-        done
-		mcstart
-		;;
-	stop)
-		stop
-		;;
-	restart)
-		stop
-        start
-		;;
-	lag)
-		checklag
-		;;
-	clag)
-		checkclag
-		;;
-	*)
-		start
-esac
+                waiting 10
+            done
+            mcstart
+            ;;
+        stop)
+            stop
+            ;;
+        restart)
+            stop
+            start
+            ;;
+        lag)
+            checklag
+            ;;
+        clag)
+            checkclag
+            ;;
+        *)
+            start
+    esac
+}
