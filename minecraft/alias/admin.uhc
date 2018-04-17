@@ -239,7 +239,7 @@ log_parse_lag() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/lag.log
     tmpfile=/tmp/lag.tmp
-    delayLimitms=3000
+    delayLimitms=1000
     rm $logfile
     cat $1 | grep.lag >$tmpfile
     totalms=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
@@ -266,10 +266,11 @@ log_parse_lag() {
     done
     
     delaytime=$(cat $1 | grep 'max 0.05' | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
-    gametime=$(second_diff $gamestart $delaytime)
-    gametimeH=$(date +%H:%M:%S -ud @${gametime})
-    # echo $gamestart $delaytime $gametime $gametimeH >>$tmpfile
-    cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - Lag %s%s\n",$1,gt,$9,$10) }' >>$tmpfile
+    if [ ! -z "$delaytime" ]; then
+        gametime=$(second_diff $gamestart $delaytime)
+        gametimeH=$(date +%H:%M:%S -ud @${gametime})
+        cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - Shutdown %s%s\n",$1,gt,$9,$10) }' >>$tmpfile
+    fi
     
     cat $1 | grep 物品！ | grep -v 清除0個 >>$tmpfile
     cat $tmpfile | sort >>$logfile
@@ -350,6 +351,7 @@ num2roman() { # NUM
 	}
 
 log_parse_uhc() {
+    echo File: $1
     num=$(echo $(date +%m -r $1)+5 | bc)
     dates=$(date '+%Y/%m/%d' -r $1)
     weekBegin=$(date --date "$dates -`date +%d -r $1` days +1 days" +%U)
