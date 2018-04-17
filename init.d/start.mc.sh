@@ -4,9 +4,9 @@
 
 mchub=tp1.creeper.tw
 mchubport=20468
-dns_external=uhc
-dns_updates=($dns_external)
-servers=(s74)
+# dns_external=uhc
+# dns_updates=($dns_external)
+# servers=(s74)
 
 mcstart() {
 	for srv in ${servers[*]}
@@ -19,7 +19,7 @@ start() {
     echo -e "${GREEN}=== gitsync ${NC}"
     cd ~/script && ./gitsync.sh
     
-    for h in $dns_updates; do
+    for h in ${dns_updates[*]}; do
         echo -e "${GREEN}=== gcloud dns for $h ${NC}"
         /home/sita/script/minecraft/gcloud/$h
     done
