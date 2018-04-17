@@ -20,8 +20,8 @@ start() {
     cd ~/script && ./gitsync.sh
     
     for h in ${dns_updates[*]}; do
-        echo -e "${GREEN}=== gcloud dns for $h ${NC}"
-        /home/sita/script/minecraft/gcloud/$h
+        runscript=/home/sita/script/minecraft/gcloud/$h
+        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h ${NC}"; $runscript )
     done
     
     checkip tp1 && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart )
