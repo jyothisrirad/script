@@ -2,6 +2,7 @@
 
 . /home/sita/script/minecraft/alias.minecraft
 
+mchome=tp1
 mchub=tp1.creeper.tw
 mchubport=20468
 # dns_external=uhc
@@ -19,12 +20,12 @@ start() {
     echo -e "${GREEN}=== gitsync ${NC}"
     cd ~/script && ./gitsync.sh
     
-    # for h in ${dns_updates[*]}; do
-        # runscript=/home/sita/script/minecraft/gcloud/$h
-        # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h ${NC}"; $runscript )
-    # done
+    for h in ${dns_updates[*]}; do
+        runscript=/home/sita/script/minecraft/gcloud/$h
+        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h ${NC}"; $runscript )
+    done
     
-    checkip tp12 && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== run $0 mcstart to start server ${NC}"
+    checkip $mchome && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== run $0 mcstart to start server ${NC}"
 }
 
 stop() {
