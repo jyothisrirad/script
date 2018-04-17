@@ -1,18 +1,21 @@
 #!/bin/bash
 
 . /home/sita/script/minecraft/alias.minecraft
-servers=(s32 s74)
+servers=(s32 s65)
 
-start() {
-    cd ~/script && ./gitsync.sh
-    
+mcstart() {
 	for srv in ${servers[*]}
 	do
 		$srv && mcserver start
 	done
+}
+
+start() {
+    cd ~/script && ./gitsync.sh
   
-	###
 	/home/sita/script/minecraft/gcloud/tw1
+    
+    # mcstart
 }
 
 stop() {
@@ -39,6 +42,9 @@ checkclag() {
 case "$1" in
 	start)
 		start
+		;;
+	mcstart)
+		mcstart
 		;;
 	stop)
 		stop
