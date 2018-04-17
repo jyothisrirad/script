@@ -351,7 +351,6 @@ num2roman() { # NUM
 	}
 
 log_parse_uhc() {
-    echo File: $1
     num=$(echo $(date +%m -r $1)+5 | bc)
     dates=$(date '+%Y/%m/%d' -r $1)
     weekBegin=$(date --date "$dates -`date +%d -r $1` days +1 days" +%U)
@@ -382,6 +381,7 @@ log_parse_uhc() {
     log_parse_winner $*
     echo Lag:
     log_parse_lag $*
+    echo 紀錄檔: $(readlink -e $1)
 }
 
 #=================================
