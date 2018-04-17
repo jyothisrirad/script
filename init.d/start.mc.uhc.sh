@@ -2,9 +2,9 @@
 
 . /home/sita/script/minecraft/alias.minecraft
 
-mcdns=uhc
 mchub=tp1.creeper.tw
 mchubport=20468
+mcdns=uhc
 hostnames=($mcdns)
 servers=(s74)
 
@@ -16,11 +16,15 @@ mcstart() {
 }
 
 start() {
+    echo -e "${GREEN}=== gitsync ${NC}"
     cd ~/script && ./gitsync.sh
     
-	/home/sita/script/minecraft/gcloud/$mcdns
+    for h in $hostnames; do
+        echo -e "${GREEN}=== gcloud dns for $h ${NC}"
+        /home/sita/script/minecraft/gcloud/$h
+    done
     
-    # mcstart
+    checkip tp1 && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart )
 }
 
 stop() {
@@ -48,7 +52,7 @@ checkip() {
     # echo Checking $1
     thisip=$(curl -s https://api.ipify.org)
     thisdns=$(dig $1.creeper.tw | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
-    # echo $myip $mydns
+    # echo $thisip $thisdns
     [ $thisip == $thisdns ] && return 0 || return 1
 }
 
@@ -76,14 +80,14 @@ case "$1" in
 	mcstart)
         while [ 1 ]; do
             if checkip $mcdns; then
-                echo === IP and DNS matched
+                echo -e "${GREEN}=== IP and DNS matched ${NC}"
                 # if testconnect $mchub $mchubport; then
-                    # echo === Hub connected
-                    # echo === Starting Minecraft Server
+                    # echo -e "${GREEN}=== Hub connected ${NC}"
+                    # echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
                     break
                 # fi
             else
-                echo IP and DNS not matched
+                echo -e "${RED}=== IP and DNS not matched ${NC}"
             fi
             waiting 10
         done
