@@ -4,8 +4,8 @@
 
 mchub=tp1.creeper.tw
 mchubport=20468
-mcdns=uhc
-hostnames=($mcdns)
+dns_external=uhc
+dns_updates=($dns_external)
 servers=(s74)
 
 mcstart() {
@@ -19,7 +19,7 @@ start() {
     echo -e "${GREEN}=== gitsync ${NC}"
     cd ~/script && ./gitsync.sh
     
-    for h in $hostnames; do
+    for h in $dns_updates; do
         echo -e "${GREEN}=== gcloud dns for $h ${NC}"
         /home/sita/script/minecraft/gcloud/$h
     done
@@ -80,7 +80,7 @@ run() {
             ;;
         mcstart)
             while [ 1 ]; do
-                if checkip $mcdns; then
+                if checkip $dns_external; then
                     echo -e "${GREEN}=== IP and DNS matched ${NC}"
                     if testconnect $mchub $mchubport; then
                         echo -e "${GREEN}=== Hub connected ${NC}"
