@@ -24,7 +24,7 @@ start() {
         # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h ${NC}"; $runscript )
     # done
     
-    checkip tp12 && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart ) || echo -e "${WHITE}=== run $0 mcstart to start server ${NC}"
+    checkip tp12 && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart ) || echo -e "${AQUA}=== run $0 mcstart to start server ${NC}"
 }
 
 stop() {
