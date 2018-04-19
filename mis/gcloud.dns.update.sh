@@ -44,7 +44,7 @@ dns_add() {
   local -r ttl="$(ttlify "$2")"
   local -r type="$3"
   shift 3
-  echo gcloud dns record-sets transaction add -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
+  echo -e ${GREEN}gcloud dns record-sets transaction add -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT ${NC}
   gcloud dns record-sets transaction add      -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
 }
 
@@ -57,7 +57,7 @@ dns_del() {
   local -r ttl="$(ttlify "$2")"
   local -r type="$3"
   shift 3
-  echo gcloud dns record-sets transaction remove -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
+  echo -e ${GREEN}gcloud dns record-sets transaction remove -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT ${NC}
   gcloud dns record-sets transaction remove   -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
 }
 
