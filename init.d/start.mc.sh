@@ -48,10 +48,10 @@ checkclag() {
 
 is_my_ip_match_to_dns() {
     # echo Checking $1
-    thisip=$(curl -s https://api.ipify.org)
-    thisdns=$(dig $1 | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
-    # echo $thisip $thisdns
-    [ $thisip == $thisdns ] && return 0 || return 1
+    my_ip=$(curl -s https://api.ipify.org)
+    matching_dns=$(dig $1 | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
+    # echo $my_ip $matching_dns
+    [ $my_ip == $matching_dns ] && return 0 || return 1
 }
 
 waiting() {

@@ -245,7 +245,7 @@ mc_backup_ex() {
 }
 
 mc_restore() {
-   echo "Restoring minecraft files to disk: $1"
+   [ -f $1 ] && echo "Restoring minecraft files to disk: $1"
    # as_user "$MCSTORE/restore.sh $1"
    as_user "$DP0/restore.sh $MCSTORE $1"
    echo "Restore complete"
