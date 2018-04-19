@@ -2,13 +2,9 @@
 
 . /home/sita/script/minecraft/alias.minecraft
 
-mchome=tp1
 mcdomain=creeper.tw
-mchub=tp1.creeper.tw
+mchub=tp1.${mcdomain}
 mchubport=20468
-# dns_external=uhc
-# dns_updates=($dns_external)
-# servers=(s74)
 
 mcstart() {
 	for srv in ${servers[*]}
@@ -26,7 +22,7 @@ start() {
         [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h ${NC}"; $runscript )
     done
     
-    checkip $mchome && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== run $0 mcstart to start server ${NC}"
+    is_my_ip_match_to_dns ${mchub} && ( echo -e "${GREEN}=== mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== run $0 mcstart to start server ${NC}"
 }
 
 stop() {
@@ -50,10 +46,10 @@ checkclag() {
 	done
 }
 
-checkip() {
+is_my_ip_match_to_dns() {
     # echo Checking $1
     thisip=$(curl -s https://api.ipify.org)
-    thisdns=$(dig $1.${mcdomain} | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
+    thisdns=$(dig $1 | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
     # echo $thisip $thisdns
     [ $thisip == $thisdns ] && return 0 || return 1
 }
@@ -82,17 +78,17 @@ run() {
             ;;
         mcstart)
             while [ 1 ]; do
-                if checkip $dns_external; then
-                    echo -e "${GREEN}=== IP and DNS matched for ${dns_external}.${mcdomain} ${NC}"
+                if is_my_ip_match_to_dns ${dns_external}.${mcdomain}; then
+                    echo -e "${GREEN}=== ${dns_external}.${mcdomain} IP and DNS matched ${NC}"
                     if testconnect $mchub $mchubport; then
-                        echo -e "${GREEN}=== Hub ${mchub}:${mchubport} connected ${NC}"
+                        echo -e "${GREEN}=== ${mchub}:${mchubport} Hub connected ${NC}"
                         echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
                         break
                     else
-                        echo -e "${RED}=== Hub ${mchub}:${mchubport} not connected ${NC}"
+                        echo -e "${RED}=== ${mchub}:${mchubport} Hub not connected ${NC}"
                     fi
                 else
-                    echo -e "${RED}=== IP and DNS not matched for ${dns_external}.${mcdomain} ${NC}"
+                    echo -e "${RED}=== ${dns_external}.${mcdomain} IP and DNS not matched ${NC}"
                 fi
                 waiting 10
             done
