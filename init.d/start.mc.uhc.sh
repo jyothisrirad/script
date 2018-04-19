@@ -3,8 +3,8 @@
 . /home/sita/script/minecraft/alias.minecraft
 . /home/sita/script/init.d/start.mc.sh
 
-mcdns=uhc
-hostnames=($mcdns)
+dns_external=uhc
+dns_updates=($mcdns)
 servers=(s74)
 
 run $*
