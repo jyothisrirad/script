@@ -84,11 +84,11 @@ run() {
                 if checkip $dns_external; then
                     echo -e "${GREEN}=== IP and DNS matched for $dns_external ${NC}"
                     if testconnect $mchub $mchubport; then
-                        echo -e "${GREEN}=== Hub ${mchub}: ${mchubport} connected ${NC}"
+                        echo -e "${GREEN}=== Hub ${mchub}:${mchubport} connected ${NC}"
                         echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
                         break
                     else
-                        echo -e "${RED}=== Hub not ${mchub}: ${mchubport} connected ${NC}"
+                        echo -e "${RED}=== Hub not ${mchub}:${mchubport} connected ${NC}"
                     fi
                 else
                     echo -e "${RED}=== IP and DNS not matched for $dns_external ${NC}"
