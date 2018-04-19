@@ -1,0 +1,44 @@
+﻿# 排除檔案
+- .DS_Store
+- commit.push.*
+- *.log
+- *.bak
+- xaeroworldmap.txt
+- xrayversion.dat
+- user*.json
+- proxy.log.*
+- server.properties
+- locations.yml
+- RedisBungee/config.yml
+
+# 排除目錄
+- DEL/
+- recycle/
+- asm/
+- config/
+- crash-reports/
+- fonts/
+- logs/
+- mods/ngt/
+- mods/mcte/
+- mods/XaeroWaypoints/
+- mods/XaeroWorldMap/
+- resourcepacks/
+- saves/
+- server-resource-packs/
+- local/
+- screenshots/
+- backup/
+- cache/
+- PluginMetrics/
+- bStats/
+- Skins/
+
+# 包含檔案
++ *.*
+
+# 包含目錄
++ */
+
+# 禁止傳輸其他
+- *
