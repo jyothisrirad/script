@@ -4,7 +4,7 @@
 . /home/sita/script/init.d/start.mc.sh
 
 dns_external=uhc
-dns_updates=($mcdns)
+dns_updates=($dns_external)
 servers=(s74)
 
 run $*
