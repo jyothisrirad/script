@@ -82,7 +82,7 @@ run() {
         mcstart)
             while [ 1 ]; do
                 if checkip $dns_external; then
-                    echo -e "${GREEN}=== IP and DNS matched ${NC}"
+                    echo -e "${GREEN}=== IP and DNS matched for $dns_external ${NC}"
                     if testconnect $mchub $mchubport; then
                         echo -e "${GREEN}=== Hub connected ${NC}"
                         echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
@@ -91,7 +91,7 @@ run() {
                         echo -e "${RED}=== Hub not connected ${NC}"
                     fi
                 else
-                    echo -e "${RED}=== IP and DNS not matched ${NC}"
+                    echo -e "${RED}=== IP and DNS not matched for $dns_external ${NC}"
                 fi
                 waiting 10
             done
