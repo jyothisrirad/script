@@ -3,6 +3,7 @@
 . /home/sita/script/minecraft/alias.minecraft
 
 mchome=tp1
+mcdomain=creeper.tw
 mchub=tp1.creeper.tw
 mchubport=20468
 # dns_external=uhc
@@ -52,7 +53,7 @@ checkclag() {
 checkip() {
     # echo Checking $1
     thisip=$(curl -s https://api.ipify.org)
-    thisdns=$(dig $1.creeper.tw | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
+    thisdns=$(dig $1.${mcdomain} | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
     # echo $thisip $thisdns
     [ $thisip == $thisdns ] && return 0 || return 1
 }
@@ -82,7 +83,7 @@ run() {
         mcstart)
             while [ 1 ]; do
                 if checkip $dns_external; then
-                    echo -e "${GREEN}=== IP and DNS matched for $dns_external ${NC}"
+                    echo -e "${GREEN}=== IP and DNS matched for ${dns_external}.${mcdomain} ${NC}"
                     if testconnect $mchub $mchubport; then
                         echo -e "${GREEN}=== Hub ${mchub}:${mchubport} connected ${NC}"
                         echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
@@ -91,7 +92,7 @@ run() {
                         echo -e "${RED}=== Hub not ${mchub}:${mchubport} connected ${NC}"
                     fi
                 else
-                    echo -e "${RED}=== IP and DNS not matched for $dns_external ${NC}"
+                    echo -e "${RED}=== IP and DNS not matched for ${dns_external}.${mcdomain} ${NC}"
                 fi
                 waiting 10
             done
