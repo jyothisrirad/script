@@ -89,7 +89,7 @@ run() {
                         echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
                         break
                     else
-                        echo -e "${RED}=== Hub not ${mchub}:${mchubport} connected ${NC}"
+                        echo -e "${RED}=== Hub ${mchub}:${mchubport} not connected ${NC}"
                     fi
                 else
                     echo -e "${RED}=== IP and DNS not matched for ${dns_external}.${mcdomain} ${NC}"
