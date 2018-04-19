@@ -1,0 +1,30 @@
+#!/bin/bash
+
+### 
+addto_crontab() {
+	(crontab -l; echo "$*") | crontab -
+}
+
+delfrom_crontab() {
+	line=$*
+	line=$(echo "$line" | sed 's/\//\\\//g')
+	crontab -l | sed "/$line/d" | crontab -
+}
+
+case "$1" in
+  install)
+	addto_crontab "#gcloud DNS update $(basename $0)"
+    addto_crontab "10 6 * * * /bin/bash $(readlink -e $0)"
+    exit
+    ;;
+  remove)
+    delfrom_crontab "$(basename $0)"
+    exit
+    ;;
+esac
+
+###
+HOST=$(basename $0)
+
+/home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 3hour
+# /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 1min 1min
