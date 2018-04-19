@@ -87,6 +87,8 @@ run() {
                         echo -e "${GREEN}=== Hub connected ${NC}"
                         echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
                         break
+                    else
+                        echo -e "${RED}=== Hub not connected ${NC}"
                     fi
                 else
                     echo -e "${RED}=== IP and DNS not matched ${NC}"
