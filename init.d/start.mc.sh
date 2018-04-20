@@ -15,7 +15,7 @@ mcstart() {
 
 start() {
     echo -e "${GREEN}=== gitsync ${NC}"
-    cd ~/script && ./gitsync.sh
+    cd /home/sita/script && ./gitsync.sh
     
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
