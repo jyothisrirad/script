@@ -100,6 +100,7 @@ update_CNAME() {
   dns_commit
 }
 
+pushd "/tmp" >/dev/null
 case "$1" in
   A)
 	# update_A foo-bar-com foo.bar.com my-vm 5min

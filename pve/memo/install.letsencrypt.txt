@@ -1,0 +1,5 @@
+go get -u github.com/xenolf/lego
+
+sudo /opt/bitnami/letsencrypt/lego --path "/opt/bitnami/letsencrypt" --email="${email}" --domains="${domain}" run
+
+sudo /opt/bitnami/letsencrypt/lego --path "/opt/bitnami/letsencrypt" --email="chsliu@gmail.com" --domains="www.creeper.tw" renew --days 30
