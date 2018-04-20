@@ -5,6 +5,7 @@
 mcdomain=creeper.tw
 mchub=tp1.${mcdomain}
 mchubport=20468
+RUNAS=sita
 
 mcstart() {
 	for srv in ${servers[*]}
@@ -15,11 +16,11 @@ mcstart() {
 
 start() {
     echo -e "${GREEN}=== gitsync ${NC}"
-    cd /home/sita/script && ./gitsync.sh
+    cd /home/sita/script && su -c "./gitsync.sh" $RUNAS
     
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
-        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; $runscript )
+        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; su -c "$runscript" $RUNAS )
     done
     
     is_my_ip_match_to_dns ${mchub} && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
