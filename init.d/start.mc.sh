@@ -19,7 +19,7 @@ mcstart() {
 	for srv in ${servers[*]}
 	do
 		$srv && [ -f update.sh ] && echo -e "${GREEN}=== Running $mcver/update.sh${NC}" && ./update.sh
-		$srv && mcserver start
+		mcserver start
 	done
 }
 
