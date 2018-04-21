@@ -10,7 +10,7 @@ USERNAME=sita
 as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
 
 as_user() {
-  if [ "$ME" == "$USERNAME" ] ; then
+  if [ "$(whoami)" == "$USERNAME" ] ; then
     bash -c "$1"
   else
     su - $USERNAME -c "$1"
