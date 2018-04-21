@@ -7,8 +7,6 @@ mchub=tp1.${mcdomain}
 mchubport=20468
 USERNAME=sita
 
-as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
-
 as_user() {
   if [ "$(whoami)" == "$USERNAME" ] ; then
     bash -c "$1"
