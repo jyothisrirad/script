@@ -5,7 +5,17 @@
 mcdomain=creeper.tw
 mchub=tp1.${mcdomain}
 mchubport=20468
-RUNAS=sita
+USERNAME=sita
+
+as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
+
+as_user() {
+  if [ "$ME" == "$USERNAME" ] ; then
+    bash -c "$1"
+  else
+    su - $USERNAME -c "$1"
+  fi
+}
 
 mcstart() {
 	for srv in ${servers[*]}
@@ -16,11 +26,13 @@ mcstart() {
 
 start() {
     echo -e "${GREEN}=== gitsync ${NC}"
-    cd /home/sita/script && su -c "./gitsync.sh" $RUNAS
+    # cd /home/sita/script && su -c "./gitsync.sh" $USERNAME
+    cd /home/sita/script && as_user "./gitsync.sh"
     
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
-        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; su -c "$runscript" $RUNAS )
+        # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; su -c "$runscript" $USERNAME )
+        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript" )
     done
     
     is_my_ip_match_to_dns ${mchub} && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
