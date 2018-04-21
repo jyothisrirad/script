@@ -127,6 +127,7 @@ uhcteamcreate() {
 	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
 	# mcdo list | grep.player | team.select >>$tmpscrpit
 	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select >>$tmpscrpit
+	echo "=== $tmpscrpit"
 	cat $tmpscrpit
 	mcdo gamerule sendCommandFeedback false
 	. $tmpscrpit

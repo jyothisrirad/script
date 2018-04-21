@@ -6,5 +6,6 @@
 dns_external=uhc
 dns_updates=($dns_external)
 servers=(s74)
+servers2=
 
 run $*

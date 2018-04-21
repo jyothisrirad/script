@@ -44,6 +44,13 @@ stop() {
 	done
 }
 
+stopsome() {
+	for srv in ${servers2[*]}
+	do
+		$srv && mcserver halt
+	done
+}
+
 checklag() {
 	for srv in ${servers[*]}
 	do
@@ -108,6 +115,9 @@ run() {
             ;;
         stop)
             stop
+            ;;
+        stopsome)
+            stopsome
             ;;
         restart)
             stop
