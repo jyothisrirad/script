@@ -444,6 +444,8 @@ alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
 # alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
 help_add 'uhcfinal.<ticks>' 'UHC最後戰場倒數'
 alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalWar $*'
+help_add 'lag' '顯示lag'
+help_add 'clag' '顯示clag'
 
 #=================================
 help_hline1 'UHC紀錄分析'

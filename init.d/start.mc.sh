@@ -57,7 +57,7 @@ is_my_ip_match_to_dns() {
 
 waiting() {
     waitmax=${1:-10}
-    printf "Waiting"
+    printf "[$(date +%H:%M:%S)] Waiting"
     for ((i=1;i<=${waitmax};i++)); do
         printf "."
         sleep 1
@@ -80,16 +80,16 @@ run() {
         mcstart)
             while [ 1 ]; do
                 if is_my_ip_match_to_dns ${dns_external}.${mcdomain}; then
-                    echo -e "${GREEN}=== ${dns_external}.${mcdomain} DNS and current IP matched ${NC}"
+                    echo -e "${GREEN}[$(date +%H:%M:%S)] === ${dns_external}.${mcdomain} DNS and current IP matched ${NC}"
                     if testconnect $mchub $mchubport; then
-                        echo -e "${GREEN}=== ${mchub}:${mchubport} Hub connected ${NC}"
-                        echo -e "${GREEN}=== Starting Minecraft Server ${NC}"
+                        echo -e "${GREEN}[$(date +%H:%M:%S)] === ${mchub}:${mchubport} Hub connected ${NC}"
+                        echo -e "${GREEN}[$(date +%H:%M:%S)] === Starting Minecraft Server ${NC}"
                         break
                     else
-                        echo -e "${RED}=== ${mchub}:${mchubport} Hub not connected ${NC}"
+                        echo -e "${RED}[$(date +%H:%M:%S)] === ${mchub}:${mchubport} Hub not connected ${NC}"
                     fi
                 else
-                    echo -e "${RED}=== ${dns_external}.${mcdomain} DNS and current IP not matched ${NC}"
+                    echo -e "${RED}[$(date +%H:%M:%S)] === ${dns_external}.${mcdomain} DNS and current IP not matched ${NC}"
                 fi
                 waiting 10
             done
