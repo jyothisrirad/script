@@ -44,7 +44,7 @@ stop() {
 	done
 }
 
-stopsome() {
+stop2() {
 	for srv in ${servers2[*]}
 	do
 		$srv && mcserver halt
@@ -113,8 +113,8 @@ run() {
             done
             mcstart
             ;;
-        stop)
-            stop
+        stop2)
+            stop2
             ;;
         stopsome)
             stopsome
