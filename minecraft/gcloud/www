@@ -26,4 +26,4 @@ esac
 ###
 HOST=$(basename $0)
 
-/home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 3hour
+/home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1hour 1hour
