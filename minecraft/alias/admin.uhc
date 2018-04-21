@@ -372,11 +372,11 @@ log_parse_uhc() {
     echo 戰敗順序:
     log_parse_slain $* false
     echo 頭銜:
-    echo '  * 最後贏家:'
-    echo '  * 殺人王:'
-    echo '  * 鬼見愁:'
-    echo '  * 幸運星: (礦石比 xxx/xxx=xxx%)'
-    echo '  * 金好命:'  
+    echo "  * 最後贏家:"
+    echo "  * 殺人王:  ''人''"
+    echo "  * 鬼見愁:  ''隻怪''"
+    echo "  * 幸運星: ''顆鑽石(礦石比 xxx/xxx=xxx%)''"
+    echo "  * 金好命: ''顆金蘋果''  "
     echo 
     log_parse_winner $*
     echo Lag:
