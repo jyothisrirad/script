@@ -18,7 +18,7 @@ as_user() {
 mcstart() {
 	for srv in ${servers[*]}
 	do
-		$srv && [ -f update.sh ] && echo -e "${GREEN}=== Running $mcver/update.sh${NC}" && ./update.sh
+		$srv && [ -f update.sh ] && echo -e "${GREEN}=== $mcver/update.sh Updating ${NC}" && ./update.sh
 		mcserver start
 	done
 }
