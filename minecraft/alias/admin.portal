@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+help_hline3 '伺服器設定調整'
+
+#=================================
 setmcport() {
     [ -f config.sh ] && echo "server-port=$1" && echo "echo server-port=$1>>server.properties">>config.sh
 }
@@ -8,6 +11,12 @@ setmcport() {
 #=================================
 clearmcport() {
     [ -f config.sh ] && sed -i "/^.*server\.properties$/d" config.sh
+}
+
+#=================================
+maxplayers() {
+    [ -z "$1" ] && [ -f server.properties ] && cat server.properties | grep 'max-players'
+    [ ! -z "$1" ] && [ -f config.sh ] && echo "echo max-players=$1>>server.properties">>config.sh
 }
 
 #=================================
@@ -20,3 +29,7 @@ alias pp4='setmcport 20606'
 alias pp5='setmcport 20607'
 alias pp6='setmcport 20608'
 alias pp7='setmcport 20609'
+
+#=================================
+help_add 'p' '查詢/設定人數上限'
+alias p='maxplayers'
