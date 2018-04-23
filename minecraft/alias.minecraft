@@ -64,6 +64,16 @@ pause() {
 }
 
 #=================================
+game_list_maxplayer() {
+    basedir=$1
+    for dir in "$basedir"/*; do
+        if test -d "$dir"; then            
+            [ -f $dir/server.properties ] && echo $dir && cat $dir/server.properties | grep 'max-players'
+        fi
+    done
+}
+
+#=================================
 utf8
 load_alias
 # [ $mcver ] || mc1112uc
@@ -84,3 +94,8 @@ alias stop='sudo echo && ~/start.mc.sh stop && sudo screen -dmS off shutdown -h 
 
 help_add 'cc' '檢查DNS'
 alias cc='echo myIP=$(curl -s https://api.ipify.org) && dig mc.creeper.tw | grep IN | grep -v ";" && dig uhc.creeper.tw | grep IN | grep -v ";"'
+
+help_add 'gl' 'Gamelist'
+alias gl='ls /mnt/runtimes/'
+help_add 'ggl' 'Gamelist.maxplayers'
+alias ggl='game_list_maxplayer /mnt/runtimes'
