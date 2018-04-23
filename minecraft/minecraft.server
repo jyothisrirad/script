@@ -533,6 +533,7 @@ case "$1" in
 			# echo kill -9 $pid
 			echo kill -9 $cmdline
 			kill -9 $pid
+            screen -wipe
 		done
 	fi
 	[ ! $archives ] || $0 remove_cron
