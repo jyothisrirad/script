@@ -58,7 +58,7 @@ lag_check() {
 	~/start.mc.sh lag
     echo ================
     echo $(cat /proc/cpuinfo | grep 'model name' | wc -l) cores
-    cat /proc/cpuinfo | grep 'model name\|bogomips' | sort | uniq
+    cat /proc/cpuinfo | grep 'model name\|bogomips\|MHz\|cache size' | sort | uniq
     echo ================
     free -h
     echo ================
