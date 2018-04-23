@@ -61,6 +61,7 @@ lag_check() {
     cat /proc/cpuinfo | grep 'model name\|bogomips' | sort | uniq
     echo ================
     free -h
+    echo ================
 }
 
 #=================================
