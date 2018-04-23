@@ -113,11 +113,11 @@ run() {
             done
             mcstart
             ;;
+        stop)
+            stop
+            ;;
         stop2)
             stop2
-            ;;
-        stopsome)
-            stopsome
             ;;
         restart)
             stop
@@ -130,6 +130,6 @@ run() {
             checkclag
             ;;
         *)
-            start
+            echo "Usage: $0 {start|mcstart|stop|stop2|restart|lag|clag}"
     esac
 }
