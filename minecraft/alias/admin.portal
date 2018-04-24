@@ -16,6 +16,7 @@ clearmcport() {
 #=================================
 maxplayers() {
     [ -z "$1" ] && [ -f server.properties ] && cat server.properties | grep 'max-players'
+    [ -z "$1" ] && [ -f server.properties ] && cat server.properties | grep 'server-port'
     [ ! -z "$1" ] && [ -f config.sh ] && echo "echo max-players=$1>>server.properties">>config.sh
 }
 

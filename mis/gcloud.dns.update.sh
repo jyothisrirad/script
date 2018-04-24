@@ -83,6 +83,7 @@ update_A() {
   TTL2=$5
   dns_start
   dns_del ${HOST} ${TTL1} A `lookup_dns_ip "${HOST}.${ZONE}."`
+  dns_del ${HOST} ${TTL2} A `lookup_dns_ip "${HOST}.${ZONE}."`
   dns_add ${HOST} ${TTL2} A `my_ip`
   dns_commit
 }
@@ -96,6 +97,7 @@ update_CNAME() {
   TTL2=$6
   dns_start
   dns_del ${HOST} ${TTL1} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
+  dns_del ${HOST} ${TTL2} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
   dns_add ${HOST} ${TTL2} CNAME ${CNAME}
   dns_commit
 }
