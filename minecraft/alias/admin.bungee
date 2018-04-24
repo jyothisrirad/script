@@ -2,11 +2,11 @@
 
 #=================================
 bungee_online_mode() {
-	echo online_mode: true >>config.yml
+	[ -f config.yml ] && echo online_mode: true >>config.yml
 }
 
 bungee_offline_mode() {
-	echo online_mode: false >>config.yml
+	[ -f config.yml ] && echo online_mode: false >>config.yml
 
 }
 
