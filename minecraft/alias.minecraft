@@ -74,6 +74,12 @@ game_list_maxplayer() {
 }
 
 #=================================
+geolocation() {
+    myIP=$(curl -s https://api.ipify.org)
+    echo -e ${GREEN}$(curl freegeoip.net/xml/$myIP 2>/dev/null | grep RegionName | sed 's/<[\/]*\w*>//g' | xargs), myIP=${myIP} ${NC}
+}
+
+#=================================
 utf8
 load_alias
 # [ $mcver ] || mc1112uc
@@ -93,7 +99,7 @@ help_add 'stop' '關閉主機'
 alias stop='sudo echo && ~/start.mc.sh stop && sudo screen -dmS off shutdown -h now && exit'
 
 help_add 'cc' '檢查DNS'
-alias cc='echo -e ${GREEN}myIP=$(curl -s https://api.ipify.org)${NC} && dig mc.creeper.tw | grep IN | grep -v ";" && dig uhc.creeper.tw | grep IN | grep -v ";"'
+alias cc='geolocation && dig mc.creeper.tw | grep IN | grep -v ";" && dig uhc.creeper.tw | grep IN | grep -v ";"'
 
 help_add 'gl' 'Gamelist'
 alias gl='ls /mnt/runtimes/'
