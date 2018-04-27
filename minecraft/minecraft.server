@@ -24,9 +24,9 @@ VERSION=$(basename $0)
 # USERNAME="vagrant"
 MCSTORE="/mnt/runtimes/$VERSION"
 # MCPATH="/tmp/$VERSION"
-MCPATH=$MCSTORE
+[ $MCPATH ] || MCPATH=$MCSTORE
 USERNAME=$(whoami)
-[ ! -f $MCSTORE/config.sh ] || . $MCSTORE/config.sh
+[ ! -f $MCPATH/config.sh ] || . $MCPATH/config.sh
 # CPU_COUNT=1
 [ "$INVOCATION" ] || INVOCATION="java $JAVAARGS -server -jar $JARFILE -o false"
 # BACKUPPATH="/vagrant/backup"
@@ -34,7 +34,7 @@ WORLD=world
 # LOG="$MCPATH/logs/latest.log"
 RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak"
 ME=`whoami`
-DIRTYBIT="$MCSTORE/logs/mc_playeronline"
+DIRTYBIT="$MCPATH/logs/mc_playeronline"
 
 as_user() {
   if [ "$ME" == "$USERNAME" ] ; then
@@ -54,7 +54,7 @@ mc_start() {
   if mc_status; then
     echo "Tried to start but $JARFILE was already running!"
   else
-	[ -d $MCSTORE ] || { echo $MCSTORE, Path not found.; return; }
+	[ -d $MCPATH ] || { echo $MCPATH, Path not found.; return; }
 	
 	[ ! -f "$LOOPSTOP" ] || rm "$LOOPSTOP" #remove loopstop flag
 	
@@ -224,7 +224,7 @@ mc_backup() {
 	# as_user "tar zcf $BACKUPPATH/MCBKUP_`date "+%Y.%m.%d-%H"`.tar.gz $MCSTORE"
 	# as_user "$MCSTORE/backup.sh"
 	ZIPOPT="-x@$DP0/minecraft.exclude.txt"; export ZIPOPT
-	as_user "$DP0/backup.sh $MCSTORE $1"
+	as_user "$DP0/backup.sh $MCPATH $1"
 	echo "Backup complete"
   else
     echo "$JARFILE was not running. No need to backup."
@@ -237,7 +237,7 @@ mc_backup_ex() {
   if mc_status; then mc_saveoff; fi
   
   ZIPTAIL="seal"; export ZIPTAIL
-  as_user "$DP0/backup.sh $MCSTORE $1"
+  as_user "$DP0/backup.sh $MCPATH $1"
   unset ZIPTAIL
   echo "Backup complete"
   

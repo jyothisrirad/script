@@ -27,11 +27,11 @@ esac
 HOST=$(basename $0)
 
 if [ $(date +%w) == 6 ]; then
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 1min
+    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 1min
     /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 3hour 1min
     /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw pe creeper.tw $HOST.creeper.tw. 3hour 1min
 else
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 3hour
+    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 1min
     /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 1min 3hour
     /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw pe creeper.tw $HOST.creeper.tw. 1min 3hour
 fi
