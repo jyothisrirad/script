@@ -161,10 +161,10 @@ log_parse_seed() {
     logfile=$(pwd)/teams.log
     tmp=/tmp/teams.log
     rm $tmp
-    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' | uniq >>$tmp
-    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $11) }' | uniq >>$tmp
+    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' >>$tmp
+    cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $11) }' >>$tmp
     file.replace.escape $tmp
-    cat $tmp | grep -v start | sed "s/)//g" >$logfile
+    cat $tmp | grep -v start | sed "s/)//g" | sed '/^\s*$/d' | sort | uniq >$logfile
     
     cat $logfile
 }

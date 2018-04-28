@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. /home/sita/script/include/console.color
+
 ### 
 addto_crontab() {
 	(crontab -l; echo "$*") | crontab -
@@ -27,5 +29,5 @@ esac
 HOST=$(basename $0)
 
 
-echo -e ${GREEN} Updating A $HOST.creeper.tw 1min ${NC}
+echo -e ${GREEN}=== Updating A $HOST.creeper.tw 1min ${NC}
 /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 1min

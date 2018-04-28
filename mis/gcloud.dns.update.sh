@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. /home/sita/script/include/console.color
+
 PROJECT=creeper-196707
 
 ttlify() {
@@ -44,7 +46,7 @@ dns_add() {
   local -r ttl="$(ttlify "$2")"
   local -r type="$3"
   shift 3
-  echo -e ${GREEN}gcloud dns record-sets transaction add -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT ${NC}
+  echo -e gcloud dns record-sets transaction ${GREEN}add${NC} -z "${ZONENAME}" --name "${name}" --ttl ${GREEN}"${ttl}"${NC} --type ${GREEN}"${type}" "$@"${NC} --project $PROJECT 
   gcloud dns record-sets transaction add      -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
 }
 
@@ -57,7 +59,7 @@ dns_del() {
   local -r ttl="$(ttlify "$2")"
   local -r type="$3"
   shift 3
-  echo -e ${GREEN}gcloud dns record-sets transaction remove -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT ${NC}
+  echo -e gcloud dns record-sets transaction ${GREEN}remove${NC} -z "${ZONENAME}" --name "${name}" --ttl ${GREEN}"${ttl}"${NC} --type ${GREEN}"${type}" "$@"${NC} --project $PROJECT 
   gcloud dns record-sets transaction remove   -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
 }
 

@@ -54,13 +54,23 @@ rematch() {
 #=================================
 lag_check() {
     echo -e "${GREEN}=== $mcver lag ${NC}"
-	logs | grep.lag
+	logs | grep 'overloaded\|TPS has dropped\|free memory pool\|服務器'
+
+    timings_report
+
+    echo ================
 	~/start.mc.sh lag
+    
     echo ================
     echo $(cat /proc/cpuinfo | grep 'model name' | wc -l) cores
     cat /proc/cpuinfo | grep 'model name\|bogomips\|MHz\|cache size' | sort | uniq
+    
     echo ================
     free -h
+    
+    echo ================
+    df -h
+    
     echo ================
 }
 
