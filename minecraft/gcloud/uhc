@@ -26,8 +26,6 @@ esac
 ###
 HOST=$(basename $0)
 
-if [ $(date +%w) == 6 ]; then
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 1min
-else
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 3hour
-fi
+
+echo -e ${GREEN} Updating A $HOST.creeper.tw 1min ${NC}
+/home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 1min
