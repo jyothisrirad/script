@@ -73,6 +73,16 @@ clag_check() {
 }
 
 #=================================
+timings_report() {
+    export LOG_DELAY=1
+    mcdo timings paste
+    export LOG_DELAY=.1
+    mcdo timings report
+    mcdo timings merged
+    mcdo timings separate
+}
+
+#=================================
 alias sls='screen -ls'
 alias swp='screen -wipe'
 alias sr='screen -r $mcver'
@@ -127,3 +137,7 @@ help_add 'lag' '顯示lag'
 alias lag='lag_check'
 help_add 'clag' '顯示clag'
 alias clag='clag_check'
+help_add 'tmo' '計時開始'
+alias tmo='mcdo timings on'
+help_add 'tmr' '計時報告'
+alias tmr='timings_report'

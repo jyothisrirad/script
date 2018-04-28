@@ -35,6 +35,7 @@ WORLD=world
 RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak"
 ME=`whoami`
 DIRTYBIT="$MCPATH/logs/mc_playeronline"
+[ $LOG_DELAY ] || LOG_DELAY=.1
 
 as_user() {
   if [ "$ME" == "$USERNAME" ] ; then
@@ -285,7 +286,7 @@ mc_command() {
     [ $mcecho_off ] || echo "$JARFILE is running... executing command"
     # echo as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
     as_user "screen -p 0 -S $VERSION -X eval 'stuff \"$command\"\015'"
-    sleep .2 # assumes that the command will run and print to the log file in less than .1 seconds
+    sleep $LOG_DELAY # assumes that the command will run and print to the log file in less than .1 seconds
     # print output
     [ ! -f "$LOG" ] || tail -n $[`wc -l "$LOG" | awk '{print $1}'`-$pre_log_len] "$LOG" | sed "s/$yellow//g"
   fi

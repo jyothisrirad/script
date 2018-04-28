@@ -10,4 +10,3 @@ logs/*.gz
 mcMMO/backup/*
 orebfuscator_cache/*
 plugins.tried/*
-timings/*
