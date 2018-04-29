@@ -54,7 +54,7 @@ rematch() {
 #=================================
 lag_check() {
     echo -e "${GREEN}=== $mcver lag ${NC}"
-	logs | grep 'overloaded\|TPS has dropped\|free memory pool\|服務器'
+	logs | grep 'overloaded\|TPS has dropped\|free memory pool\|服務器\|Timings'
 
     timings_report
 

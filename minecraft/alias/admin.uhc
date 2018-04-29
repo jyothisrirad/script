@@ -273,6 +273,8 @@ log_parse_lag() {
         cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - Shutdown %s%s\n",$1,gt,$9,$10) }' >>$tmpfile
     fi
     
+    cat $1 | grep Timings >>$tmpfile
+    
     cat $1 | grep 物品！ | grep -v 清除0個 >>$tmpfile
     cat $tmpfile | sort >>$logfile
     
