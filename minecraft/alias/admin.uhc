@@ -204,9 +204,9 @@ log_parse_winner() {
     logfile=$(pwd)/winner.log
     tmp=/tmp/winner.log
     rm $tmp
+    echo ================================= >>$tmp
     winner=$(cat $1 | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
     echo 最後贏家 $winner >>$tmp
-    echo ================================= >>$tmp
     cat $1 | grep '\[0;30;1' | egrep 'm([0-9]+,|=)' | awk '{ printf ("%s %s\n",$4,$5) }' >>$tmp
     file.replace.escape $tmp
     cat $tmp >$logfile
@@ -351,6 +351,36 @@ num2roman() { # NUM
     echo $output
 }
 
+list_top() {
+    grep -A 10 $1 | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
+      if (!top||$1==top) {
+        printf("%s\t%s\n",$1,$2)
+        top=$1
+      }
+    } '
+}
+
+list_top_by() {
+    grep -A 60 $1 | grep $2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
+      if (!top||$1==top) {
+        printf("%s\t%s\n",$1,$2)
+        top=$1
+      }
+    } '
+}
+
+list_name() {
+    awk '{printf("%s ",$2)}'
+}
+
+list_count() {
+    awk '{printf("%s\n",$1)}' | uniq
+}
+
+list_team() {
+    remove_ansi_color | egrep '\[*隊\]' | awk '{ printf ("%s\n", $4) }'
+}
+
 log_parse_uhc() {
     num=$(echo $(date +%m -r $1)+5 | bc)
     dates=$(date '+%Y/%m/%d' -r $1)
@@ -374,11 +404,24 @@ log_parse_uhc() {
     echo 戰敗順序:
     log_parse_slain $* false
     echo 頭銜:
-    echo "  * 最後贏家:"
-    echo "  * 殺人王:  ''人''"
-    echo "  * 鬼見愁:  ''隻怪''"
-    echo "  * 幸運星: ''顆鑽石(礦石比 xxx/xxx=xxx%)''"
-    echo "  * 金好命: ''顆金蘋果''  "
+    winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
+    winteamname=$(cat $1 | list_team | grep $winner | cut -d "[" -f2 | cut -d "]" -f1)
+    winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | tr '\n' ' ' | sed "s/$winner/\'\'$winner\'\'/g")
+    echo "  * 最後贏家: [$winteamname]$winteamplayer"
+    kill=$(cat $1|list_top FinalKill|list_name)
+    kill_count=$(cat $1|list_top FinalKill|list_count)
+    echo "  * 殺人王: $kill''$kill_count人''"
+    mobs=$(cat $1|list_top FinalEntity|list_name)
+    mobs_count=$(cat $1|list_top FinalEntity|list_count)
+    echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
+    diamond=$(cat $1|list_top FinalDiamond|list_name)
+    diamond_count=$(cat $1|list_top FinalDiamond|list_count)
+    rock_count=$(cat $1|list_top_by FinalStone $diamond|list_count)
+    ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
+    echo "  * 幸運星: $diamond''$diamond_count顆鑽石(礦石比$diamond_count/$rock_count=$ratio%)''"
+    apple=$(cat $1|list_top FinalEat|list_name)
+    apple_count=$(cat $1|list_top FinalEat|list_count)
+    echo "  * 金好命: $apple''$apple_count顆金蘋果''"
     echo 
     log_parse_winner $*
     echo Lag:
