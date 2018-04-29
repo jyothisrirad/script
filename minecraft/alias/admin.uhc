@@ -123,15 +123,13 @@ uhcinit() {
 
 #=================================
 uhcteamcreate() {
-	tmpscrpit=/tmp/teamcreate
-	# echo . /home/sita/script/minecraft/alias.minecraft >$tmpscrpit
-	# mcdo list | grep.player | team.select >>$tmpscrpit
-	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select >>$tmpscrpit
+	tmpscrpit=/tmp/uhccreate
+	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select >$tmpscrpit
 	echo "=== $tmpscrpit"
 	cat $tmpscrpit
 	mcdo gamerule sendCommandFeedback false
 	. $tmpscrpit
-	rm $tmpscrpit
+	# rm $tmpscrpit
 }
 
 #=================================
@@ -411,8 +409,9 @@ help_add 'teams.<team>' '列出隊伍team內玩家'
 alias teams='mcdo scoreboard teams list'
 help_add 'playertag.<player>' '列出玩家標籤'
 alias playertag='playertaglist $*'
-help_add 'onlineplayerlist' '列出線上玩家名稱'
-alias onlineplayerlist='echo 玩家ID: && mcdo list | grep.player | sort'
+help_add 'list' '列出線上玩家名稱'
+# alias list='echo 玩家ID: && mcdo list | grep.player | sort'
+alias list='echo 玩家ID: && mcdo list | grep.player'
 help_add 'teamjoin.<team>.<id>' '加入隊伍'
 alias teamjoin='teamlist && onlineplayerlist && mcdo scoreboard teams join $1 $2'
 
