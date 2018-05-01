@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+help_hline3 '權限'
+
+#=================================
 idlist=~/idlist
 
 #=================================
@@ -10,7 +13,9 @@ group_list() {
     while test ${#} -gt 0
     do
         echo -e "${GREEN}=== $mcver pex group $1 users ${NC}"
+        export LOG_DELAY=.3
         mcserver do pex group $1 users | tail -n +4 | awk 'BEGIN {FS="/"}; {printf("%s\n", $3)}' | sed 's/\[m//g' >>$idlist
+        export LOG_DELAY=.1
         shift
     done
     
@@ -123,10 +128,12 @@ alias wladd='whitelist_add $*'
 alias wlclear='whitelist_clear $*'
 
 #=================================
+help_add 'grouplist.<grp>' '列出權限群組成員'
 alias grouplist='group_list $*'
 alias grouplistall='group_list vip youtuber admin owner'
 alias groupadd='group_add $*'
 alias groupremove='group_clear $*'
+help_add 'groupset.<grp>.<lst>' '設定權限群組成員清單'
 alias groupset='group_set $*'
 
 #=================================
