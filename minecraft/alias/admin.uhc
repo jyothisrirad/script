@@ -430,12 +430,12 @@ log_parse_uhc() {
 }
 
 #=================================
-help_hline1 'UHC地圖設定'
+# help_hline1 'UHC地圖設定'
 help_add 'ruleinit' 'UHC初始'
 alias ruleinit=uhcinit
 help_add 'ruleset' 'UHC設定規則'
 alias ruleset='/home/sita/script/minecraft/uhc.rules $*'
-help_add 'ruleotg' 'OTG地圖'
+# help_add 'ruleotg' 'OTG地圖'
 alias ruleotg='otglist'
 # alias uhcstart='/home/sita/script/minecraft/uhc.start'
 # alias uhcend='/home/sita/script/minecraft/uhc.end'
@@ -467,9 +467,9 @@ help_add 'uhccreate' 'UHC隨機分隊'
 alias uhccreate=uhcteamcreate
 help_add 'uhcjoin.<team>.<id>' 'UHC加入隊伍'
 alias uhcjoin='uhcteams && onlineplayerlist && mcdo scoreboard teams join $1 $2'
-help_add 'uhcsolo.<id>' 'UHC加入單人隊伍'
+help_add 'uhcsolo' 'UHC取消全部隊伍'
 alias uhcsolo='mcserver do scoreboard teams join 1 @a'
-help_add 'uhcchoice' 'UHC開啟加入隊伍權限'
+help_add 'uhcchoice.[off]' 'UHC開啟/關閉加入隊伍權限'
 alias uhcchoice='uhcteamchoice $*'
 
 #=================================
@@ -482,7 +482,7 @@ alias mcfff='team_all_set friendlyfire false' #同隊傷害關閉
 
 help_hline1 'UHC控制'
 
-help_add 'uhctime.<minutes>' 'UHC設定時間'
+# help_add 'uhctime.<minutes>' 'UHC設定時間'
 alias uhctime='mcdo scoreboard players set @e[tag=N] minute $*'
 help_add 'uhcshrink' 'UHC開始縮地圖'
 alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
@@ -491,17 +491,17 @@ alias uhcshrink='mcdo scoreboard players set @e[tag=N] b 0'
 help_add 'uhcfinal.<ticks>' 'UHC最後戰場倒數'
 alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalWar $*'
 help_add 'lag' '顯示lag'
-help_add 'clag' '顯示clag'
+# help_add 'clag' '顯示clag'
 
 #=================================
 help_hline1 'UHC紀錄分析'
-help_add 'logteams.<log>' 'UHC分析參賽名單'
+# help_add 'logteams.<log>' 'UHC分析參賽名單'
 alias logteams='log_parse_teams $*'
-help_add 'logslain.<log>' 'UHC分析殺人紀錄'
+# help_add 'logslain.<log>' 'UHC分析殺人紀錄'
 alias logslain='log_parse_slain $*'
-help_add 'logwinner.<log>' 'UHC分析贏家'
+# help_add 'logwinner.<log>' 'UHC分析贏家'
 alias logwinner='log_parse_winner $*'
-help_add 'loglag.<log>' 'UHC分析延遲'
+# help_add 'loglag.<log>' 'UHC分析延遲'
 alias loglag='log_parse_lag $*'
 help_add 'loguhc.<log>' 'UHC賽後分析'
 alias loguhc='log_parse_uhc $*'
