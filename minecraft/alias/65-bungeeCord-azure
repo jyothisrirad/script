@@ -7,8 +7,9 @@ s65() {
 }
 
 alias 65=s65
-alias ghub='65 && mcdo send all hub'
-alias guhc='65 && mcdo send all uhc'
-alias glist='65 && mcdo glist showall'
-alias send='65 && mcdo viaversion probe && mcdo send all $*'
 alias probe='65 && mcdo viaversion probe'
+# alias ghub='65 && mcdo send all hub'
+# alias guhc='65 && mcdo send all uhc'
+alias send='65 && mcdo viaversion probe && mcdo send all $*'
+alias glist='65 && mcdo glist showall'
+alias greload='65 && mcdo greload'
