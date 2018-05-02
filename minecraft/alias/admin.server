@@ -87,9 +87,9 @@ timings_report() {
     export LOG_DELAY=1
     mcdo timings paste
     export LOG_DELAY=.1
-    mcdo timings report
+    # mcdo timings report
     mcdo timings merged
-    mcdo timings separate
+    # mcdo timings separate
 }
 
 #=================================
