@@ -4,7 +4,7 @@
 
 mcdomain=creeper.tw
 mchub=tp1.${mcdomain}
-mchubport=20468
+mchubport=20668
 USERNAME=sita
 
 as_user() {
@@ -70,7 +70,7 @@ is_my_ip_match_to_dns() {
     my_ip=$(curl -s https://api.ipify.org)
     matching_dns=$(dig $1 | grep IN | grep -v ";" | awk '{ printf ("%s\n", $5) }')
     # echo $my_ip $matching_dns
-    [ $my_ip == $matching_dns ] && return 0 || return 1
+    [ "$my_ip" == "$matching_dns" ] && return 0 || return 1
 }
 
 waiting() {
