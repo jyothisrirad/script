@@ -445,26 +445,12 @@ help_hline2 '記分板'
 
 help_add 'teams.[team]' '列出隊伍名稱/隊伍內玩家'
 alias teams='mcdo scoreboard teams list'
-<<<<<<< HEAD
-help_add 'objs' '列出變數'
-alias objs='mcdo scoreboard objectives list'
-help_add 'players.<player>' '列出玩家'
-alias players='mcdo scoreboard players list'
-help_add 'playertag.<player>' '列出玩家標籤'
-alias playertag='playertaglist $*'
-help_add 'list' '列出線上玩家名稱'
-# alias list='echo 玩家ID: && mcdo list | grep.player | sort'
-alias list='echo 玩家ID: && mcdo list | grep.player'
-help_add 'teamjoin.<team>.<id>' '加入隊伍'
-alias teamjoin='teamlist && onlineplayerlist && mcdo scoreboard teams join $1 $2'
-=======
 help_add 'obj' '列出變數'
 alias obj='mcdo scoreboard objectives list'
 help_add 'players.[player]' '列出玩家/玩家目標'
 alias players='mcdo scoreboard players list'
 help_add 'tag.<player>' '列出玩家標籤'
 alias tag='playertaglist $*'
->>>>>>> 7be71b1ab46371f6335d72fb851fd54448c76298
 
 #=================================
 help_hline1 '隊伍/UHC分隊'
