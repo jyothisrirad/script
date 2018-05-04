@@ -84,7 +84,7 @@ clag_check() {
 
 #=================================
 timings_report() {
-    export LOG_DELAY=1
+    export LOG_DELAY=2
     mcdo timings paste
     export LOG_DELAY=.1
     # mcdo timings report

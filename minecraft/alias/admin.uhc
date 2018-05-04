@@ -122,6 +122,20 @@ uhcinit() {
 }
 
 #=================================
+uhctitle() {
+    num=$(echo $(date +%m)+5 | bc)
+    dates=$(date '+%Y/%m/%d')
+    weekBegin=$(date --date "$dates -`date +%d` days +1 days" +%U)
+    lastSatofMon=$(ncal -h |awk '/Sa/ {print $(NF)}')
+    weekEnd=$(date --date "$dates -`date +%d` days +$lastSatofMon days" +%U)
+    weekNow=$(date +%U)
+    weekDiff=$(echo $weekNow - $weekBegin + 1 | bc)
+    # headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
+    title=$([ $weekNow == $weekEnd ] && echo 決賽 || echo 歡樂場$(num2roman $weekDiff))
+    echo 第$num屆uhc苦力怕盃$title
+}
+
+#=================================
 uhcteamcreate() {
 	tmpscrpit=/tmp/uhccreate
 	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select >$tmpscrpit
@@ -431,6 +445,8 @@ log_parse_uhc() {
 
 #=================================
 # help_hline1 'UHC地圖設定'
+help_add 'uhctitle' 'UHC標題'
+alias uhctitle=uhctitle
 help_add 'ruleinit' 'UHC初始'
 alias ruleinit=uhcinit
 help_add 'ruleset' 'UHC設定規則'
@@ -482,8 +498,8 @@ alias mcfff='team_all_set friendlyfire false' #同隊傷害關閉
 
 help_hline1 'UHC控制'
 
-# help_add 'uhctime.<minutes>' 'UHC設定時間'
-alias uhctime='mcdo scoreboard players set @e[tag=N] minute $*'
+help_add 'ut.<minutes>' 'UHC設定時間'
+alias ut='mcdo scoreboard players set @e[tag=N] minute $*'
 help_add 'ush' 'UHC開始縮地圖'
 alias ush='mcdo scoreboard players set @e[tag=N] b 0'
 # help_add 'uhcfinal' 'UHC最後決戰'
