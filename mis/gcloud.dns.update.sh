@@ -83,11 +83,11 @@ update_A() {
   ZONE=$3
   TTL1=$4
   TTL2=$5
-  dns_start
+  # dns_start
   dns_del ${HOST} ${TTL1} A `lookup_dns_ip "${HOST}.${ZONE}."`
   dns_del ${HOST} ${TTL2} A `lookup_dns_ip "${HOST}.${ZONE}."`
   dns_add ${HOST} ${TTL2} A `my_ip`
-  dns_commit
+  # dns_commit
 }
 
 update_CNAME() {
@@ -97,11 +97,11 @@ update_CNAME() {
   CNAME=$4
   TTL1=$5
   TTL2=$6
-  dns_start
+  # dns_start
   dns_del ${HOST} ${TTL1} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
   dns_del ${HOST} ${TTL2} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
   dns_add ${HOST} ${TTL2} CNAME ${CNAME}
-  dns_commit
+  # dns_commit
 }
 
 pushd "/tmp" >/dev/null
@@ -126,7 +126,9 @@ case "$1" in
     TTL=$6
     TYPE=$7
     shift 7
+    # dns_start
     dns_add ${HOST} ${TTL} ${TYPE} $@
+    # dns_commit
     exit
     ;;
     
@@ -139,7 +141,9 @@ case "$1" in
     TTL=$6
     TYPE=$7
     shift 7
-    dns_del ${HOST} ${TTL} ${TYPE} `lookup_dns_ip "${4}.${5}."`
+    # dns_start
+    dns_del ${HOST} ${TTL} ${TYPE} `lookup_dns_ip "${HOST}.${ZONE}."`
+    # dns_commit
     # dns_del ${HOST} ${TTL} ${TYPE} $@
     exit
     ;;
@@ -187,10 +191,10 @@ case "$1" in
     newip=$(echo "${newip[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')
     # echo $newip
     
-    dns_start
+    # dns_start
     dns_del ${HOST} ${TTL} ${TYPE} $ip
     dns_add ${HOST} ${TTL} ${TYPE} $newip
-    dns_commit
+    # dns_commit
     ;;
     
   remove)
@@ -208,10 +212,10 @@ case "$1" in
     newip=$(echo ${ip[@]/$delete})
     # echo $newip
     
-    dns_start
+    # dns_start
     dns_del ${HOST} ${TTL} ${TYPE} $ip
     dns_add ${HOST} ${TTL} ${TYPE} $newip
-    dns_commit
+    # dns_commit
     ;;
     
   *)

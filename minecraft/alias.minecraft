@@ -85,6 +85,20 @@ digthis() {
 }
 
 #=================================
+check_creeper_ip() {
+    geolocation
+    digthis mc.creeper.tw
+    # digthis tp1.creeper.tw
+    digthis gem.creeper.tw
+    digthis r53.creeper.tw
+    # digthis uhc.creeper.tw
+    # digthis www.creeper.tw
+    # digthis sita.ddns.net
+    echo =================================
+    digthis home.changen.com.tw
+}
+
+#=================================
 utf8
 load_alias
 # [ $mcver ] || mc1112uc
@@ -104,7 +118,7 @@ help_add 'stop' '關閉主機'
 alias stop='sudo echo && ~/start.mc.sh stop && sudo screen -dmS off shutdown -h now && exit'
 
 help_add 'cc' '檢查DNS'
-alias cc='geolocation && digthis mc.creeper.tw && digthis uhc.creeper.tw && digthis tp1.creeper.tw && digthis gem.creeper.tw && digthis sita.ddns.net && digthis home.changen.com.tw'
+alias cc='check_creeper_ip'
 
 help_add 'gl' 'Gamelist'
 alias gl='ls /mnt/runtimes/'
