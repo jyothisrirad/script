@@ -54,7 +54,9 @@ start() {
         # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript" )
     done
     
+    echo autostart=$autostart
     is_my_ip_match_to_dns ${mchub} && autostart=1
+    echo autostart=$autostart
     [ -z $autostart ] && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart_nocheck ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
 }
 
