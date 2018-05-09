@@ -45,19 +45,15 @@ mcstart() {
 
 start() {
     echo -e "${GREEN}=== gitsync ${NC}"
-    # cd /home/sita/script && su -c "./gitsync.sh" $USERNAME
     cd /home/sita/script && as_user "./gitsync.sh"
     
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
-        # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; su -c "$runscript" $USERNAME )
-        # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript" )
+        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript" )
     done
     
-    echo autostart=$autostart
     is_my_ip_match_to_dns ${mchub} && autostart=1
-    echo autostart=$autostart
-    [ -z $autostart ] && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart_nocheck ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
+    [ ! -z $autostart ] && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart_nocheck ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
 }
 
 stop() {
