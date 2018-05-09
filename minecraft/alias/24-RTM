@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s24=24-RTM
+
+s24() {
+	chmc $s24
+}
+
+alias 24=s24

@@ -7,7 +7,7 @@ from subprocess import call
 
 
 max_team=14
-least_team_players=3
+least_team_players=5
 teamnames = ['R','Y','G','A','B','P','E','r','y','g','a','b','p','e']
 preset_teams = {}
 presets = {

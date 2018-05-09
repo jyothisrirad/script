@@ -27,6 +27,7 @@ esac
 
 ###
 HOST=$(basename $0)
+# HOST=$(hostname)
 
 
 echo -e ${GREEN}=== Updating A $HOST.creeper.tw 1min ${NC}

@@ -15,6 +15,8 @@ dnssetup() {
 # alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 alias gkey='mkdir /home/sita/.gcloud && rsync -az rsync://sita.ddns.net/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/ '
 alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
+help_add 'glog.<start/stop>' 'fluentd'
+alias glog='sudo service google-fluentd $*'
 
 #=================================
 # alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'

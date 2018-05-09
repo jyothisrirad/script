@@ -111,12 +111,112 @@ case "$1" in
     update_A $2 $3 $4 $5 $6
     exit
     ;;
+    
   CNAME)
     update_CNAME $2 $3 $4 $5 $6 $7
     exit
     ;;
+    
+  add)
+	# add creeper-196707 foo-bar-com foo bar.com 5min A 1.2.3.4
+    PROJECT=$2
+    ZONENAME=$3
+    ZONE=$5
+    HOST=$4
+    TTL=$6
+    TYPE=$7
+    shift 7
+    dns_add ${HOST} ${TTL} ${TYPE} $@
+    exit
+    ;;
+    
+  del)
+	# del creeper-196707 foo-bar-com foo bar.com 5min A
+    PROJECT=$2
+    ZONENAME=$3
+    ZONE=$5
+    HOST=$4
+    TTL=$6
+    TYPE=$7
+    shift 7
+    dns_del ${HOST} ${TTL} ${TYPE} `lookup_dns_ip "${4}.${5}."`
+    # dns_del ${HOST} ${TTL} ${TYPE} $@
+    exit
+    ;;
+    
+  start)
+    PROJECT=$2
+    ZONENAME=$3
+    dns_start
+    exit
+    ;;
+    
+  info)
+    PROJECT=$2
+    ZONENAME=$3
+    dns_info
+    exit
+    ;;
+    
+  abort)
+    PROJECT=$2
+    ZONENAME=$3
+    dns_abort
+    exit
+    ;;
+    
+  commit)
+    PROJECT=$2
+    ZONENAME=$3
+    dns_commit
+    exit
+    ;;
+    
+  append)
+    PROJECT=$2
+    ZONENAME=$3
+    ZONE=$5
+    HOST=$4
+    TTL=$6
+    TYPE=$7
+    
+    ip=$(echo `lookup_dns_ip "${HOST}.${ZONE}."` | tr ' ' '\n' | sort -u | tr '\n' ' ')
+    newip=$(echo `lookup_dns_ip "${HOST}.${ZONE}."` | tr ' ' '\n' | sort -u | tr '\n' ' ')
+    # echo $ip
+    newip+=" `my_ip`"
+    newip=$(echo "${newip[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+    # echo $newip
+    
+    dns_start
+    dns_del ${HOST} ${TTL} ${TYPE} $ip
+    dns_add ${HOST} ${TTL} ${TYPE} $newip
+    dns_commit
+    ;;
+    
+  remove)
+    PROJECT=$2
+    ZONENAME=$3
+    ZONE=$5
+    HOST=$4
+    TTL=$6
+    TYPE=$7
+    
+    ip=$(echo `lookup_dns_ip "${HOST}.${ZONE}."` | tr ' ' '\n' | sort -u | tr '\n' ' ')
+    # echo $ip
+    delete=`my_ip`
+    # delete=2.2.2.2
+    newip=$(echo ${ip[@]/$delete})
+    # echo $newip
+    
+    dns_start
+    dns_del ${HOST} ${TTL} ${TYPE} $ip
+    dns_add ${HOST} ${TTL} ${TYPE} $newip
+    dns_commit
+    ;;
+    
   *)
-	echo "Usage: $0 {A|CNAME}"
+	echo "Usage: $0 {A|CNAME|add|del}"
 	exit 1
 	;;
+    
 esac
