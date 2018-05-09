@@ -15,7 +15,7 @@ as_user() {
   fi
 }
 
-mcstart() {
+mcstart_nocheck() {
 	for srv in ${servers[*]}
 	do
 		$srv && [ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && ./update.sh
@@ -23,7 +23,7 @@ mcstart() {
 	done
 }
 
-mcstart_check() {
+mcstart() {
     while [ 1 ]; do
         if is_my_ip_match_to_dns ${dns_external}.${mcdomain}; then
             echo -e "${GREEN}[$(date +%H:%M:%S)] === ${dns_external}.${mcdomain} DNS and current IP matched ${NC}"
@@ -40,7 +40,7 @@ mcstart_check() {
         waiting 10
     done
 
-    mcstart
+    mcstart_nocheck
 }
 
 start() {
@@ -51,11 +51,11 @@ start() {
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
         # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; su -c "$runscript" $USERNAME )
-        [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript" )
+        # [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript" )
     done
     
     is_my_ip_match_to_dns ${mchub} && autostart=1
-    [ -z $autostart ] && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
+    [ -z $autostart ] && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart_nocheck ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
 }
 
 stop() {
@@ -117,7 +117,7 @@ run() {
             start
             ;;
         mcstart)
-            mcstart_check
+            mcstart
             ;;
         stop)
             stop
