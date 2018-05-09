@@ -3,7 +3,7 @@
 . /home/sita/script/minecraft/alias.minecraft
 
 mcdomain=creeper.tw
-mchub=tp1.${mcdomain}
+mchub=gem.${mcdomain}
 mchubport=20668
 USERNAME=sita
 
@@ -18,9 +18,29 @@ as_user() {
 mcstart() {
 	for srv in ${servers[*]}
 	do
-		$srv && [ -f update.sh ] && echo -e "${GREEN}=== $mcver/update.sh Updating ${NC}" && ./update.sh
+		$srv && [ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && ./update.sh
 		mcserver start
 	done
+}
+
+mcstart_check() {
+    while [ 1 ]; do
+        if is_my_ip_match_to_dns ${dns_external}.${mcdomain}; then
+            echo -e "${GREEN}[$(date +%H:%M:%S)] === ${dns_external}.${mcdomain} DNS and current IP matched ${NC}"
+            if testconnect $mchub $mchubport; then
+                echo -e "${GREEN}[$(date +%H:%M:%S)] === ${mchub}:${mchubport} Hub connected ${NC}"
+                echo -e "${GREEN}[$(date +%H:%M:%S)] === Starting Minecraft Server ${NC}"
+                break
+            else
+                echo -e "${RED}[$(date +%H:%M:%S)] === ${mchub}:${mchubport} Hub not connected ${NC}"
+            fi
+        else
+            echo -e "${RED}[$(date +%H:%M:%S)] === ${dns_external}.${mcdomain} DNS and current IP not matched ${NC}"
+        fi
+        waiting 10
+    done
+
+    mcstart
 }
 
 start() {
@@ -34,7 +54,8 @@ start() {
         [ -f $runscript ] && ( echo -e "${GREEN}=== gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript" )
     done
     
-    is_my_ip_match_to_dns ${mchub} && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
+    is_my_ip_match_to_dns ${mchub} && autostart=1
+    [ -z $autostart ] && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
 }
 
 stop() {
@@ -96,22 +117,7 @@ run() {
             start
             ;;
         mcstart)
-            while [ 1 ]; do
-                if is_my_ip_match_to_dns ${dns_external}.${mcdomain}; then
-                    echo -e "${GREEN}[$(date +%H:%M:%S)] === ${dns_external}.${mcdomain} DNS and current IP matched ${NC}"
-                    if testconnect $mchub $mchubport; then
-                        echo -e "${GREEN}[$(date +%H:%M:%S)] === ${mchub}:${mchubport} Hub connected ${NC}"
-                        echo -e "${GREEN}[$(date +%H:%M:%S)] === Starting Minecraft Server ${NC}"
-                        break
-                    else
-                        echo -e "${RED}[$(date +%H:%M:%S)] === ${mchub}:${mchubport} Hub not connected ${NC}"
-                    fi
-                else
-                    echo -e "${RED}[$(date +%H:%M:%S)] === ${dns_external}.${mcdomain} DNS and current IP not matched ${NC}"
-                fi
-                waiting 10
-            done
-            mcstart
+            mcstart_check
             ;;
         stop)
             stop
