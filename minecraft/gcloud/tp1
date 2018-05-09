@@ -31,7 +31,7 @@ HOST=$(basename $0)
 echo -e ${YELLOW}=== Starting DNS Changes: creeper.tw ${NC}
 /home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw
 
-if [ $(date +%p) == 'AM' ]; then
+if [ $(date +%H) == '06' ]; then
     echo -e ${GREEN}=== Deleting A r53.creeper.tw ${NC}
     /home/sita/script/mis/gcloud.dns.update.sh del creeper-196707 creeper-tw r53 creeper.tw 3hour A
 fi
