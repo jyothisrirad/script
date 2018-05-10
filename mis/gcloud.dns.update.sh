@@ -22,18 +22,22 @@ ttlify() {
 }
 
 dns_start() {
+  echo -e gcloud dns record-sets transaction ${GREEN}start${NC} -z "${ZONENAME}" --project $PROJECT
   gcloud dns record-sets transaction start    -z "${ZONENAME}" --project $PROJECT
 }
 
 dns_info() {
+  echo -e gcloud dns record-sets transaction ${GREEN}describe${NC} -z "${ZONENAME}" --project $PROJECT
   gcloud dns record-sets transaction describe -z "${ZONENAME}" --project $PROJECT
 }
 
 dns_abort() {
+  echo -e gcloud dns record-sets transaction ${GREEN}abort${NC} -z "${ZONENAME}" --project $PROJECT
   gcloud dns record-sets transaction abort    -z "${ZONENAME}" --project $PROJECT
 }
 
 dns_commit() {
+  echo -e gcloud dns record-sets transaction ${GREEN}execute${NC} -z "${ZONENAME}" --project $PROJECT
   gcloud dns record-sets transaction execute  -z "${ZONENAME}" --project $PROJECT
 }
 
