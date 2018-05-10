@@ -87,9 +87,14 @@ update_A() {
   ZONE=$3
   TTL1=$4
   TTL2=$5
+  if [[ -n "$1" && "${HOST}" != '@' ]]; then
+    local -r name="${HOST}.${ZONE}."
+  else
+    local -r name="${ZONE}."
+  fi
   # dns_start
-  dns_del ${HOST} ${TTL1} A `lookup_dns_ip "${HOST}.${ZONE}."`
-  dns_del ${HOST} ${TTL2} A `lookup_dns_ip "${HOST}.${ZONE}."`
+  dns_del ${HOST} ${TTL1} A `lookup_dns_ip "$name"`
+  dns_del ${HOST} ${TTL2} A `lookup_dns_ip "$name"`
   dns_add ${HOST} ${TTL2} A `my_ip`
   # dns_commit
 }
