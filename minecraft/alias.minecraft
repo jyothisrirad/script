@@ -88,7 +88,7 @@ digthis() {
 check_creeper_ip() {
     geolocation
     digthis mc.creeper.tw
-    # digthis tp1.creeper.tw
+    digthis tp1.creeper.tw
     digthis gem.creeper.tw
     digthis r53.creeper.tw
     digthis uhc.creeper.tw
