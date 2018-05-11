@@ -151,7 +151,8 @@ case "$1" in
     TYPE=$7
     shift 7
     # dns_start
-    dns_del ${HOST} ${TTL} ${TYPE} `lookup_dns_ip "${HOST}.${ZONE}."`
+    ip=$(echo `lookup_dns_ip "${HOST}.${ZONE}."` | tr ' ' '\n' | sort -u | tr '\n' ' ')
+    dns_del ${HOST} ${TTL} ${TYPE} $ip
     # dns_commit
     # dns_del ${HOST} ${TTL} ${TYPE} $@
     exit

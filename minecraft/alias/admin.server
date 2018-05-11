@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #=================================
-help_hline3 '伺服器管理'
+help_hline3 '伺服器管理(server)'
 
 #=================================
 server.prep() {
@@ -147,7 +147,7 @@ alias debugoff='export mc_debug_mode='
 alias lag='lag_check'
 # help_add 'clag' '顯示clag'
 alias clag='clag_check'
-help_add 'tmo' '計時開始'
+help_add 'tmo' 'Spigot計時開始'
 alias tmo='mcdo timings on'
 # help_add 'tmr' '計時報告'
 alias tmr='timings_report'

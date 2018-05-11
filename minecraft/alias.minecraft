@@ -110,7 +110,7 @@ alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
-help_hline3 '其他'
+help_hline3 '其他(alias)'
 help_add 'jsu' '同步伺服器javascript'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 

@@ -138,7 +138,7 @@ uhctitle() {
 #=================================
 uhcteamcreate() {
 	tmpscrpit=/tmp/uhccreate
-	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select >$tmpscrpit
+	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select $1 >$tmpscrpit
 	echo "=== $tmpscrpit"
 	cat $tmpscrpit
 	mcdo gamerule sendCommandFeedback false
@@ -483,7 +483,7 @@ alias list='echo 線上玩家ID: && mcdo list | grep.player'
 help_add 'uj.[on]' 'UHC關閉/開啟加入隊伍權限'
 alias uj='uhcteamchoice $*'
 help_add 'ur' 'UHC隨機分隊'
-alias ur=uhcteamcreate
+alias ur='uhcteamcreate $*'
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
 help_add 'uc' 'UHC取消全部隊伍/全部未分隊'
 alias tc='mcserver do scoreboard teams join 1 @a'

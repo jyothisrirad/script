@@ -29,7 +29,7 @@ esac
 # HOST=$(basename $0)
 HOST=$(hostname)
 
-echo -e ${YELLOW}=== Starting DNS Changes: creeper.tw ${NC}
+echo -e ${YELLOW}=== Starting DNS Changes: $(basename $0).creeper.tw ${NC}
 /home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw
 
 echo -e ${GREEN}=== Appending A r53.creeper.tw ${NC}
@@ -61,5 +61,5 @@ else
     # /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw pe creeper.tw $HOST.creeper.tw. 1min 3hour
 fi
 
-echo -e ${YELLOW}=== Commiting DNS Changes: creeper.tw ${NC}
+echo -e ${YELLOW}=== Commiting DNS Changes: $(basename $0).creeper.tw ${NC}
 /home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 creeper-tw
