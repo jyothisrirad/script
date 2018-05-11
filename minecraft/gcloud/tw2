@@ -32,9 +32,6 @@ HOST=$(hostname)
 echo -e ${YELLOW}=== Starting DNS Changes: $(basename $0).creeper.tw ${NC}
 /home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw
 
-echo -e ${GREEN}=== Appending A r53.creeper.tw ${NC}
-/home/sita/script/mis/gcloud.dns.update.sh append creeper-196707 creeper-tw r53 creeper.tw 3hour A
-
 if [ $(date +%w) == 6 ]; then
     # echo -e ${GREEN}=== Updating CNAME mc.creeper.tw = $HOST.creeper.tw 3hour to 1min ${NC}
     # /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 3hour 1min
@@ -47,6 +44,9 @@ if [ $(date +%w) == 6 ]; then
     
     # echo -e ${GREEN}=== Updating CNAME pe.creeper.tw = $HOST.creeper.tw 3hour to 1min ${NC}
     # /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw pe creeper.tw $HOST.creeper.tw. 3hour 1min
+
+    echo -e ${GREEN}=== Appending A r53.creeper.tw 1min ${NC}
+    /home/sita/script/mis/gcloud.dns.update.sh append creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
 else
     # echo -e ${GREEN}=== Updating CNAME mc.creeper.tw = $HOST.creeper.tw 1min to 3hour ${NC}
     # /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 1min 3hour
@@ -59,6 +59,9 @@ else
     
     # echo -e ${GREEN}=== Updating CNAME pe.creeper.tw = $HOST.creeper.tw 1min to 3hour ${NC}
     # /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw pe creeper.tw $HOST.creeper.tw. 1min 3hour
+
+    echo -e ${GREEN}=== Appending A r53.creeper.tw 3hour ${NC}
+    /home/sita/script/mis/gcloud.dns.update.sh append creeper-196707 creeper-tw r53 creeper.tw 1min 3hour A
 fi
 
 echo -e ${YELLOW}=== Commiting DNS Changes: $(basename $0).creeper.tw ${NC}
