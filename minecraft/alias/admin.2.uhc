@@ -427,7 +427,7 @@ log_parse_uhc() {
     echo 頭銜:
     winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
     winteamname=$(cat $1 | list_team | grep $winner | cut -d "[" -f2 | cut -d "]" -f1)
-    winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | tr '\n' ' ' | sed "s/$winner/\'\'$winner\'\'/g")
+    winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | tr '\n' ' ' | sed "s/$winner/\*\*$winner\*\*/g")
     echo "  * 最後贏家: [$winteamname]$winteamplayer"
     kill=$(cat $1|list_top FinalKill|list_name)
     kill_count=$(cat $1|list_top FinalKill|list_count)
