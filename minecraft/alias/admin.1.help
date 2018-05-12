@@ -3,7 +3,7 @@
 #=================================
 helpArgs=()
 helpLines=()
-totalcnt=60
+totalcnt=$(echo "$COLUMNS-16"|bc)
 #=================================
 hline() {
     printf "%$1s" | tr ' ' $2
@@ -12,27 +12,36 @@ hline() {
 #=================================
 help_hline1() {
     [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
-    len=${#1}
+    len1=${#1}
+    len2=$(echo $1|wc -c)
+    len=$(echo "($len2-1+$len1)/2"|bc)
     cnt=$(echo \($totalcnt-$len\)/2 | bc)
-    helpArgs+=("$(hline $cnt \.)""$1""$(hline $cnt \.)")
+    (( $len & 1 )) && extra='' || extra='.'
+    helpArgs+=("$(hline $cnt \.)""$1""$(hline $cnt \.)""$extra")
     helpLines+=('') 
 }
 
 #=================================
 help_hline2() {
     [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
-    len=${#1}
+    len1=${#1}
+    len2=$(echo $1|wc -c)
+    len=$(echo "($len2-1+$len1)/2"|bc)
     cnt=$(echo \($totalcnt-$len\)/2 | bc)
-    helpArgs+=("$(hline $cnt -)""$1""$(hline $cnt -)")
+    (( $len & 1 )) && extra='' || extra='-'
+    helpArgs+=("$(hline $cnt -)""$1""$(hline $cnt -)""$extra")
     helpLines+=('') 
 }
 
 #=================================
 help_hline3() {
     [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
-    len=${#1}
+    len1=${#1}
+    len2=$(echo $1|wc -c)
+    len=$(echo "($len2-1+$len1)/2"|bc)
     cnt=$(echo \($totalcnt-$len\)/2 | bc)
-    helpArgs+=("$(hline $cnt =)""$1""$(hline $cnt =)")
+    (( $len & 1 )) && extra='' || extra='='
+    helpArgs+=("$(hline $cnt =)""$1""$(hline $cnt =)""$extra")
     helpLines+=('') 
 }
 
@@ -45,7 +54,7 @@ help_add() {
 
 #=================================
 help_alias() {
-    maxlines=30
+    maxlines=$(echo "$LINES-2"|bc)
     # for line in "${helpLines[@]}"
     # do
         # echo $line
