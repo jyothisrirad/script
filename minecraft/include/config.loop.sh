@@ -3,6 +3,7 @@
 . /home/sita/script/minecraft/include/java_args.sh
 
 USERNAME="sita"
+[ ! -z ${RUNINRAM+x} ] && MCPATH="/tmp/${VERSION}_DIR" || MCPATH=${MCSTORE}
 ZIPDIR=/mnt/backup
 BACKUPPATH="/mnt/backup"
 # JARFILE="minecraft_server.1.12.2.jar"
