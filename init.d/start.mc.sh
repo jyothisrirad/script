@@ -16,6 +16,8 @@ as_user() {
 }
 
 mcstart_nocheck() {
+    [ ! -z $rematch ] && gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup
+    
 	for srv in ${servers[*]}
 	do
 		$srv && [ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && as_user "./update.sh"
