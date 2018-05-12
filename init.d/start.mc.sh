@@ -19,6 +19,7 @@ mcstart_nocheck() {
 	for srv in ${servers[*]}
 	do
 		$srv && [ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && as_user "./update.sh"
+        [ ! -z $rematch ] && mcserver pre_restore && mcserver restore && server.prep
 		mcserver start
 	done
 }
@@ -53,6 +54,7 @@ start() {
     done
     
     is_my_ip_match_to_dns ${mchub} && autostart=1
+    [ ! -z $rematch_hour ] && [ $(date +%H) == $rematch_hour ] && autostart=1 && rematch=1
     [ ! -z $autostart ] && ( echo -e "${GREEN}=== autorun mcstart for home server ${NC}"; mcstart_nocheck ) || echo -e "${YELLOW}=== manual run $0 mcstart to start server ${NC}"
 }
 

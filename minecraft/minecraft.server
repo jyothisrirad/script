@@ -32,7 +32,7 @@ USERNAME=$(whoami)
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
-RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak"
+RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak --exclude=plugins.tried"
 ME=`whoami`
 DIRTYBIT="$MCPATH/logs/mc_playeronline"
 [ $LOG_DELAY ] || LOG_DELAY=.1
@@ -158,9 +158,11 @@ mc_savetodisk_offline() {
 
 		 echo "Saving, screen session closed"
 		 # as_user "cp -R $MCPATH/* $MCSTORE/"
-         echo -e ${YELLOW}== rsync $MCPATH/ to $MCSTORE/
-		 as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
-         echo -e ${NC}
+         if [ ! "$MCSTORE" == "$MCPATH" ]; then
+             echo -e ${YELLOW}== rsync $MCPATH/ to $MCSTORE/
+             as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
+             echo -e ${NC}
+         fi
 
 		 if [ -d $MCSTORE/$WORLD.bak ]; then
 		   as_user "rm -r $MCSTORE/$WORLD.bak"
@@ -190,9 +192,11 @@ mc_savetodisk_online() {
 		  as_user "$TO_SCREEN \"save-off\"\015'"
 		  as_user "$TO_SCREEN \"save-all\"\015'" 
 		  # as_user "cp -R $MCPATH/* $MCSTORE/"
-          echo -e ${YELLOW}== rsync $MCPATH/ to $MCSTORE/
-		  as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
-          echo -e ${NC}
+          if [ ! "$MCSTORE" == "$MCPATH" ]; then
+              echo -e ${YELLOW}== rsync $MCPATH/ to $MCSTORE/
+              as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
+              echo -e ${NC}
+          fi
 		  as_user "$TO_SCREEN \"save-on\"\015'"
 
 		  if [ -d $MCSTORE/$WORLD.bak ]; then
@@ -236,9 +240,11 @@ mc_backup() {
   if mc_status; then
     echo "Backing up minecraft files"
 	# as_user "tar zcf $BACKUPPATH/MCBKUP_`date "+%Y.%m.%d-%H"`.tar.gz $MCSTORE"
-    echo -e ${YELLOW}== rsync $MCPATH/ to $MCSTORE/
-	as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
-    echo -e ${NC}
+    if [ ! "$MCSTORE" == "$MCPATH" ]; then
+        echo -e ${YELLOW}== rsync $MCPATH/ to $MCSTORE/
+        as_user "rsync $RSYNCOPT $MCPATH/ $MCSTORE/"
+        echo -e ${NC}
+    fi
 	# as_user "$MCSTORE/backup.sh"
 	ZIPOPT="-x@$DP0/minecraft.exclude.txt"; export ZIPOPT
 	as_user "$DP0/backup.sh $MCSTORE $1"
@@ -289,7 +295,7 @@ mc_load() {
 	   echo "Loading minecraft files to Ramdisk"
 	   # as_user "cp -R $MCSTORE/* $MCPATH/"
        echo -e ${YELLOW}== rsync $MCSTORE/ to $MCPATH/
-	   as_user "rsync $RSYNCOPT $MCSTORE/ $MCPATH/"
+       as_user "rsync $RSYNCOPT $MCSTORE/ $MCPATH/"
        echo -e ${NC}
 	   echo "Load complete"
   else

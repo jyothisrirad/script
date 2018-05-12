@@ -122,6 +122,13 @@ uhcinit() {
 }
 
 #=================================
+uhcset2() {
+	mcdo wb set 504 player chsliu
+	mcdo wb world fill
+	mcdo wb fill confirm
+}
+
+#=================================
 uhctitle() {
     num=$(echo $(date +%m)+5 | bc)
     dates=$(date '+%Y/%m/%d')
@@ -451,6 +458,8 @@ help_add 'ruleinit' 'UHC初始'
 alias ruleinit=uhcinit
 help_add 'ruleset' 'UHC設定規則'
 alias ruleset='/home/sita/script/minecraft/uhc.rules $*'
+help_add 'ruleset2' 'UHC設定規則2'
+alias ruleset2=uhcset2
 # help_add 'ruleotg' 'OTG地圖'
 alias ruleotg='otglist'
 # alias uhcstart='/home/sita/script/minecraft/uhc.start'
