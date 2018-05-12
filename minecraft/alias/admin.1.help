@@ -68,7 +68,8 @@ help_alias() {
     # echo $length
     # do the loop
     # for ((i=0;i<=$length;i++)); do
-    echo Page $page/$(echo "$length/$maxlines"|bc)
+    maxpage=$(echo "$length/$maxlines"|bc)
+    [ "$page" -gt "$maxpage" ] || echo Page $page/$maxpage
     for ((i=$num;i<$numEnd;i++)); do
         [ "$i" -gt "$length" ] && break
         pos=$(echo \($totalcnt\)/2 | bc)
