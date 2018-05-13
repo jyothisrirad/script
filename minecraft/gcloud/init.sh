@@ -31,7 +31,9 @@ mkdir /home/sita/.gcloud && rsync -az rsync://sita.ddns.net/NetBackup/rsync/gclo
 addto_fstab creeper-tw-backup /mnt/backup gcsfuse rw,noauto,user,key_file=/home/sita/.gcloud/chsliu@gmail.com.json
 
 cd /tmp
-curl -sSO https://repo.stackdriver.com/stack-install.sh
-sudo bash stack-install.sh --write-gcm
+# google-fluentd google-fluentd-catch-all-config
 curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
 sudo bash install-logging-agent.sh
+# stackdriver-agent
+# curl -sSO https://repo.stackdriver.com/stack-install.sh
+# sudo bash stack-install.sh --write-gcm

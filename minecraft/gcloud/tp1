@@ -13,6 +13,93 @@ delfrom_crontab() {
 	crontab -l | sed "/$line/d" | crontab -
 }
 
+###
+start() {
+    HOST=$(basename $0)
+
+    # DNS transaction start
+    echo -e ${YELLOW}=== Starting DNS Changes: $HOST.creeper.tw ${NC}
+    /home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw
+
+    if [ $(date +%H) == '06' ]; then
+        # del A home.changen.com.tw 3hour 1min
+        echo -e ${GREEN}=== Deleting A r53.creeper.tw ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh del creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
+    fi
+
+    if [ $(date +%w) == 6 ]; then
+        # A tp1.creeper.tw 1min
+        echo -e ${GREEN}=== Updating A $HOST.creeper.tw 3hour to 1min ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 1min
+        
+        # A gem.creeper.tw 1min
+        echo -e ${GREEN}=== Updating A gem.creeper.tw 3hour to 1min ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw gem creeper.tw 3hour 1min
+        
+        # CNAME mc.creeper.tw = tp1.creeper.tw 1min
+        echo -e ${GREEN}=== Updating CNAME mc.creeper.tw = $HOST.creeper.tw 3hour to 1min ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 3hour 1min
+        
+        # A wiki.creeper.tw 1min
+        echo -e ${GREEN}=== Updating A wiki.creeper.tw 3hour to 1min ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw wiki creeper.tw 3hour 1min
+
+        # append A r53.creeper.tw 1min
+        echo -e ${GREEN}=== Appending A r53.creeper.tw 1min ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh append creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
+    else
+        # A tp1.creeper.tw 3hour
+        echo -e ${GREEN}=== Updating A $HOST.creeper.tw 1min to 3hour ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 3hour
+        
+        # A gem.creeper.tw 3hour
+        echo -e ${GREEN}=== Updating A gem.creeper.tw 1min to 3hour ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw gem creeper.tw 1min 3hour
+        
+        # CNAME mc.creeper.tw = tp1.creeper.tw 3hour
+        echo -e ${GREEN}=== Updating CNAME mc.creeper.tw = $HOST.creeper.tw 1min to 3hour ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 1min 3hour
+        
+        # A wiki.creeper.tw 1min
+        echo -e ${GREEN}=== Updating A wiki.creeper.tw 1min to 3hour ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw wiki creeper.tw 1min 3hour
+
+        # append A r53.creeper.tw 3hour
+        echo -e ${GREEN}=== Appending A r53.creeper.tw 3hour ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh append creeper-196707 creeper-tw r53 creeper.tw 1min 3hour A
+    fi
+
+    # DNS transaction commit
+    echo -e ${YELLOW}=== Commiting DNS Changes: $HOST.creeper.tw ${NC}
+    /home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 creeper-tw
+}
+
+start2() {
+    ### 
+    # DNS transaction start
+    echo -e ${YELLOW}=== Starting DNS Changes: home.changen.com.tw ${NC}
+    /home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 changen-com-tw
+
+    if [ $(date +%w) == 6 ]; then
+        # A home.changen.com.tw 1min
+        echo -e ${GREEN}=== Updating A home.changen.com.tw 3hour to 1min ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A changen-com-tw home changen.com.tw 3hour 1min
+    else
+        # A home.changen.com.tw 3hour
+        echo -e ${GREEN}=== Updating A home.changen.com.tw 1min to 3hour ${NC}
+        /home/sita/script/mis/gcloud.dns.update.sh A changen-com-tw home changen.com.tw 1min 3hour
+    fi
+
+    # DNS transaction commit
+    echo -e ${YELLOW}=== Commiting DNS Changes: home.changen.com.tw ${NC}
+    /home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 changen-com-tw
+}
+
+stop() {
+    echo $(basename $0) stopping ...
+}
+
+###
 case "$1" in
   install)
 	addto_crontab "#gcloud DNS update $(basename $0)"
@@ -23,72 +110,15 @@ case "$1" in
     delfrom_crontab "$(basename $0)"
     exit
     ;;
+  start)
+    start
+    start2
+    exit
+    ;;
+  stop)
+    stop
+    exit
+    ;;
+  *)
+    start
 esac
-
-###
-HOST=$(basename $0)
-
-echo -e ${YELLOW}=== Starting DNS Changes: $HOST.creeper.tw ${NC}
-/home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw
-
-if [ $(date +%H) == '06' ]; then
-    echo -e ${GREEN}=== Deleting A r53.creeper.tw ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh del creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
-fi
-
-if [ $(date +%w) == 6 ]; then
-    echo -e ${GREEN}=== Updating A $HOST.creeper.tw 3hour to 1min ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 1min
-    
-    echo -e ${GREEN}=== Updating A gem.creeper.tw 3hour to 1min ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw gem creeper.tw 3hour 1min
-    
-    echo -e ${GREEN}=== Updating CNAME mc.creeper.tw = $HOST.creeper.tw 3hour to 1min ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 3hour 1min
-    
-    # echo -e ${GREEN}=== Updating CNAME pe.creeper.tw = $HOST.creeper.tw 3hour to 1min ${NC}
-    # /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw pe creeper.tw $HOST.creeper.tw. 3hour 1min
-    
-    echo -e ${GREEN}=== Updating A wiki.creeper.tw 3hour to 1min ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw wiki creeper.tw 3hour 1min
-
-    echo -e ${GREEN}=== Appending A r53.creeper.tw 1min ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh append creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
-else
-    echo -e ${GREEN}=== Updating A $HOST.creeper.tw 1min to 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 1min 3hour
-    
-    echo -e ${GREEN}=== Updating A gem.creeper.tw 1min to 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw gem creeper.tw 1min 3hour
-    
-    echo -e ${GREEN}=== Updating CNAME mc.creeper.tw = $HOST.creeper.tw 1min to 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw mc creeper.tw $HOST.creeper.tw. 1min 3hour
-    
-    # echo -e ${GREEN}=== Updating CNAME pe.creeper.tw = $HOST.creeper.tw 1min to 3hour ${NC}
-    # /home/sita/script/mis/gcloud.dns.update.sh CNAME creeper-tw pe creeper.tw $HOST.creeper.tw. 1min 3hour
-    
-    echo -e ${GREEN}=== Updating A wiki.creeper.tw 1min to 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw wiki creeper.tw 1min 3hour
-
-    echo -e ${GREEN}=== Appending A r53.creeper.tw 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh append creeper-196707 creeper-tw r53 creeper.tw 1min 3hour A
-fi
-
-echo -e ${YELLOW}=== Commiting DNS Changes: $HOST.creeper.tw ${NC}
-/home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 creeper-tw
-
-
-### 
-echo -e ${YELLOW}=== Starting DNS Changes: home.changen.com.tw ${NC}
-/home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 changen-com-tw
-
-if [ $(date +%w) == 6 ]; then
-    echo -e ${GREEN}=== Updating A home.changen.com.tw 3hour to 1min ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A changen-com-tw home changen.com.tw 3hour 1min
-else
-    echo -e ${GREEN}=== Updating A home.changen.com.tw 1min to 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A changen-com-tw home changen.com.tw 1min 3hour
-fi
-
-echo -e ${YELLOW}=== Commiting DNS Changes: home.changen.com.tw ${NC}
-/home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 changen-com-tw

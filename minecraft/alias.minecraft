@@ -122,5 +122,5 @@ alias cc='check_creeper_ip'
 
 help_add 'gl' 'Gamelist'
 alias gl='ls /mnt/runtimes/'
-help_add 'ggl' 'Gamelist.maxplayers'
+# help_add 'ggl' 'Gamelist.maxplayers'
 alias ggl='game_list_maxplayer /mnt/runtimes'

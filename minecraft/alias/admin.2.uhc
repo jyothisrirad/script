@@ -81,6 +81,15 @@ uhcteams() {
 }
 
 #=================================
+list_players() {
+    # players=$(mcdo list | grep.player)
+    echo 線上玩家ID\($(mcdo list | grep.player | wc -l)\): 
+    # echo $players | wc -l
+    # echo $players
+    mcdo list | grep.player
+}
+
+#=================================
 # playerlist() {
 	# echo 玩家ID:
 	# mcdo list | grep.player
@@ -488,7 +497,7 @@ alias tj='mcdo scoreboard teams join $1 $2'
 # help_add 'ui' 'UHC隊伍和玩家清單'
 # alias ui='uhcteams && list'
 # help_add 'list' '列出線上玩家名稱'
-alias list='echo 線上玩家ID: && mcdo list | grep.player'
+alias list='list_players'
 help_add 'uj.[on]' 'UHC關閉/開啟加入隊伍權限'
 alias uj='uhcteamchoice $*'
 help_add 'ur' 'UHC隨機分隊'
