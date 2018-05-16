@@ -168,8 +168,8 @@ mc_savetodisk_offline() {
 		   as_user "rm -r $MCSTORE/$WORLD.bak"
 		 fi
 	   fi
-  else
-	  echo "Not on ramdrive, No need to save."
+  # else
+	  # echo "Not on ramdrive, No need to save."
   fi
 }
 
@@ -206,8 +206,8 @@ mc_savetodisk_online() {
 	  else
 		echo "Service is not running"
 	 fi
-  else
-	  echo "Not on ramdrive, No need to save."
+  # else
+	  # echo "Not on ramdrive, No need to save."
   fi
 }
 
@@ -298,8 +298,8 @@ mc_load() {
        as_user "rsync $RSYNCOPT $MCSTORE/ $MCPATH/"
        echo -e ${NC}
 	   echo "Load complete"
-  else
-	  echo "Not on ramdrive, No need to load."
+  # else
+	  # echo "Not on ramdrive, No need to load."
   fi
 }
 
@@ -322,8 +322,8 @@ mc_save_crashreport() {
     echo -e ${YELLOW}== rsync $MCPATH/crash-reports/ to $MCSTORE/crash-reports/
 	as_user "rsync $RSYNCOPT $MCPATH/crash-reports/ $MCSTORE/crash-reports/"
     echo -e ${NC}
-  else
-	  echo "Not on ramdrive, No need to save report."
+  # else
+	  # echo "Not on ramdrive, No need to save report."
   fi
 }
 

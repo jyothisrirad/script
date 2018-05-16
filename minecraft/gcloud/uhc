@@ -14,9 +14,9 @@ delfrom_crontab() {
 }
 
 ###
-start() {
-    HOST=$(basename $0)
+HOST=$(basename $0)
 
+start() {
     # DNS transaction start
     echo -e ${YELLOW}=== Starting DNS Changes: $HOST.creeper.tw ${NC}
     /home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw
@@ -31,7 +31,7 @@ start() {
 }
 
 stop() {
-    echo $(basename $0) stopping ...
+    echo Stopping $(basename $0) ...
 }
 
 ###

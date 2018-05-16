@@ -47,7 +47,7 @@ chmc() {
 		
 		mcpath=/mnt/runtimes/$mcver
 		[ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; }
-		[   -d "$mcpath" ] && { echo mcver=$mcver; cd $mcpath; }
+		[   -d "$mcpath" ] && { echo -e ${YELLOW}mcver=$mcver${NC}; cd $mcpath; }
 	fi
 }
 
@@ -87,15 +87,17 @@ digthis() {
 #=================================
 check_creeper_ip() {
     geolocation
+    digthis home.changen.com.tw
+    echo =================================
     digthis mc.creeper.tw
     digthis tp1.creeper.tw
     digthis gem.creeper.tw
+    digthis wiki.creeper.tw
     digthis r53.creeper.tw
+    echo =================================
+    digthis lb.creeper.tw
     digthis uhc.creeper.tw
     digthis www.creeper.tw
-    # digthis sita.ddns.net
-    echo =================================
-    digthis home.changen.com.tw
 }
 
 #=================================
