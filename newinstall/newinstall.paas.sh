@@ -41,7 +41,7 @@ BASEDIR=$(dirname $0)
 #-------------------------------------------------
 sudo apt update
 # sudo apt-get install -y git ntpdate samba tmux at libnss-winbind
-sudo apt-get install -y git ntpdate tmux at screen
+sudo apt-get install -y git ntpdate tmux at screen bc
 
 #-------------------------------------------------
 sh ${BASEDIR}/../gitconf.sh
@@ -51,6 +51,12 @@ sh ${BASEDIR}/../gitsync.sh
 # sh ${BASEDIR}/install_sshkey.sh
 
 sh ${BASEDIR}/timezone.fix.sh
+
+#-------------------------------------------------
+# To install the Stackdriver logging agent:
+cd /tmp
+curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
+sudo bash install-logging-agent.sh
 
 #-------------------------------------------------
 #crontab jobs
