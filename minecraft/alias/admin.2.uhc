@@ -184,6 +184,28 @@ otglist() {
 }
 
 #=================================
+molemode() {
+    if [ -z "$moleMode" ]; then
+        # echo moleMode off
+        moleMode=1; export moleMode
+        mcdo scoreboard objectives add moleMode dummy
+        mcdo scoreboard players set @e[tag=L] moleMode 1
+        mcdo scoreboard objectives add moleTime dummy
+        mcdo scoreboard players set @e[tag=L] moleTime 30
+    else
+        # echo moleMode on
+        unset moleMode
+        mcdo scoreboard players set @e[tag=L] moleMode 0
+    fi
+}
+
+#=================================
+moletime() {
+    # echo moletime 
+    [ ! -z "$1" ] && mcdo scoreboard players set @e[tag=L] moleTime $1
+}
+
+#=================================
 log_parse_seed() {
     [ ! -f "$1" ] && return
     logfile=$(pwd)/teams.log
@@ -467,7 +489,7 @@ help_add 'ruleinit' 'UHC初始'
 alias ruleinit=uhcinit
 help_add 'ruleset' 'UHC設定規則'
 alias ruleset='/home/sita/script/minecraft/uhc.rules $*'
-help_add 'ruleset2' 'UHC設定規則2'
+help_add 'ruleset2' 'UHC跑圖'
 alias ruleset2=uhcset2
 # help_add 'ruleotg' 'OTG地圖'
 alias ruleotg='otglist'
@@ -526,6 +548,10 @@ help_add 'uf.<ticks>' 'UHC最後戰場倒數'
 alias uf='mcdo scoreboard players set @e[tag=N] FinalWar $*'
 help_add 'lag' '顯示lag'
 # help_add 'clag' '顯示clag'
+help_add 'molemode' 'UHC間諜模式開關'
+alias molemode='molemode'
+help_add 'moletime.<minutes>' 'UHC間諜模式時間設定'
+alias moletime='moletime'
 
 #=================================
 help_hline1 'UHC紀錄分析'

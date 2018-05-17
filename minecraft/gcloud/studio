@@ -25,10 +25,6 @@ start() {
     echo -e ${GREEN}=== Updating A $HOST.creeper.tw 3hour ${NC}
     /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 3hour
 
-    # A creeper.tw 1hour
-    echo -e ${GREEN}=== Updating A creeper.tw 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw @ creeper.tw 3hour 3hour
-
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: $HOST.creeper.tw ${NC}
     /home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 creeper-tw
