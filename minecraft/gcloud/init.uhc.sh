@@ -18,7 +18,7 @@ addto_root_crontab "0 23 * * * /sbin/shutdown -h now"
 ### 
 # sudo mkdir /mnt/backup/74-UHC
 # sudo chown sita:sita /mnt/backup/74-UHC
-gcsfuse --key-file /home/sita/script/minecraft/gcloud/key.json creeper-tw-backup /mnt/backup
+gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup
 
 ### 
 . /home/sita/script/minecraft/alias.minecraft

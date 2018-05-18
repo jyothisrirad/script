@@ -26,7 +26,7 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 sudo apt update
 sudo apt install -y oracle-java8-installer gcsfuse
 
-mkdir /home/sita/.gcloud && rsync -az rsync://sita.ddns.net/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/
+mkdir /home/sita/.gcloud && rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/
 # gcloud iam service-accounts keys create /home/sita/script/minecraft/gcloud/key.json --iam-account=594227564613-compute@developer.gserviceaccount.com
 addto_fstab creeper-tw-backup /mnt/backup gcsfuse rw,noauto,user,key_file=/home/sita/.gcloud/chsliu@gmail.com.json
 

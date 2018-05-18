@@ -18,19 +18,14 @@ addto_root_crontab() {
 ### 
 # sudo mkdir /mnt/backup/74-UHC
 # sudo chown sita:sita /mnt/backup/74-UHC
-gcsfuse --key-file /home/sita/script/minecraft/gcloud/key.json creeper-tw-backup /mnt/backup
-
-### 
-# . /home/sita/script/minecraft/alias.minecraft
-# s74
-# mcserver restore
+gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup
 
 ### 
 gcloud auth login
 
 ### 
 echo !!!!!!!!!!!!!!
+echo ~/script/newinstall/newinstall.ssl.sh <domain>
+echo !!!!!!!!!!!!!!
 echo vi ~/start.mc.sh
-# echo 74
-# echo mcrestore
 echo !!!!!!!!!!!!!!

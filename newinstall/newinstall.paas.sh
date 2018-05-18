@@ -43,7 +43,11 @@ sudo apt update
 # sudo apt-get install -y git ntpdate samba tmux at libnss-winbind
 sudo apt-get install -y git ntpdate tmux at screen bc
 
-#-------------------------------------------------
+######################################################################
+# To install the Stackdriver monitoring agent:
+# $ curl -sSO https://repo.stackdriver.com/stack-install.sh
+# $ sudo bash stack-install.sh --write-gcm
+
 # To install the Stackdriver logging agent:
 cd /tmp
 curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
