@@ -93,6 +93,7 @@ update_A() {
     local -r name="${ZONE}."
   fi
   # dns_start
+  [ $(lookup_dns_ip "$name") == $(my_ip) ] && echo ip already the same, skipping ... && return
   dns_del ${HOST} ${TTL1} A `lookup_dns_ip "$name"`
   dns_del ${HOST} ${TTL2} A `lookup_dns_ip "$name"`
   dns_add ${HOST} ${TTL2} A `my_ip`
