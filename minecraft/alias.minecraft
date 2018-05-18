@@ -101,6 +101,19 @@ check_creeper_ip() {
 }
 
 #=================================
+ping_accept_onoff() {
+    if [ -z "$ping_accept" ]; then
+        ping_accept=1; export ping_accept
+        echo -e ${GREEN}Disable ping response${NC}
+        sudo iptables -I INPUT -p icmp --icmp-type echo-request -j DROP
+    else
+        unset ping_accept
+        echo -e ${YELLOW}Enable ping response${NC}
+        sudo iptables -D INPUT -p icmp --icmp-type echo-request -j DROP
+    fi
+}
+
+#=================================
 utf8
 load_alias
 # [ $mcver ] || mc1112uc
@@ -126,3 +139,6 @@ help_add 'gl' 'Gamelist'
 alias gl='ls /mnt/runtimes/'
 # help_add 'ggl' 'Gamelist.maxplayers'
 alias ggl='game_list_maxplayer /mnt/runtimes'
+
+help_add 'ppp' 'ping回應開關'
+alias ppp='ping_accept_onoff'
