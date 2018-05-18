@@ -107,7 +107,7 @@ update_CNAME() {
   CNAME=$4
   TTL1=$5
   TTL2=$6
-  [ $(lookup_dns_cname "${HOST}.${ZONE}.) == ${CNAME} ] && echo DNS record CNAME already the same, skipping ... && return
+  [ $(lookup_dns_cname "${HOST}.${ZONE}.") == ${CNAME} ] && echo DNS record CNAME already the same, skipping ... && return
   # dns_start
   dns_del ${HOST} ${TTL1} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
   dns_del ${HOST} ${TTL2} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
