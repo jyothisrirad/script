@@ -2,7 +2,7 @@
 
 ### 
 addto_root_crontab() {
-	su - root -c "(crontab -l; echo \"$*\") | crontab -"
+	! sudo crontab -l | grep -Fxq "$*" && su - root -c "(crontab -l; echo \"$*\") | crontab -"
 }
 
 ### 
