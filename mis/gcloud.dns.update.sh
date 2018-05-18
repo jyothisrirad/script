@@ -92,8 +92,8 @@ update_A() {
   else
     local -r name="${ZONE}."
   fi
+  [ $(lookup_dns_ip "$name") == $(my_ip) ] && echo DNS record A already the same, skipping ... && return
   # dns_start
-  [ $(lookup_dns_ip "$name") == $(my_ip) ] && echo ip already the same, skipping ... && return
   dns_del ${HOST} ${TTL1} A `lookup_dns_ip "$name"`
   dns_del ${HOST} ${TTL2} A `lookup_dns_ip "$name"`
   dns_add ${HOST} ${TTL2} A `my_ip`
@@ -107,6 +107,7 @@ update_CNAME() {
   CNAME=$4
   TTL1=$5
   TTL2=$6
+  [ $(lookup_dns_cname "${HOST}.${ZONE}.) == ${CNAME} ] && echo DNS record CNAME already the same, skipping ... && return
   # dns_start
   dns_del ${HOST} ${TTL1} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
   dns_del ${HOST} ${TTL2} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
