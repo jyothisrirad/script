@@ -25,7 +25,7 @@ gcloud auth login
 
 ### 
 echo !!!!!!!!!!!!!!
-echo ~/script/newinstall/install_ssl.sh <domain>
+echo sudo ~/script/newinstall/install_ssl.sh <domain>
 echo !!!!!!!!!!!!!!
 echo vi ~/start.mc.sh
 echo !!!!!!!!!!!!!!
