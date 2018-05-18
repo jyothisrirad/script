@@ -9,6 +9,9 @@ user$>	~/script/minecraft/gcloud/init.bungee.sh
 ###uhc
 user$>	~/script/minecraft/gcloud/init.uhc.sh
 
+###uhc
+user$>	~/script/minecraft/gcloud/init.www.sh
+
 
 ######################################################################
 # To install the Stackdriver monitoring agent:

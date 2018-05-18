@@ -44,6 +44,12 @@ sudo apt update
 sudo apt-get install -y git ntpdate tmux at screen bc
 
 #-------------------------------------------------
+# To install the Stackdriver logging agent:
+cd /tmp
+curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
+sudo bash install-logging-agent.sh
+
+#-------------------------------------------------
 sh ${BASEDIR}/../gitconf.sh
 
 sh ${BASEDIR}/../gitsync.sh
@@ -51,12 +57,6 @@ sh ${BASEDIR}/../gitsync.sh
 # sh ${BASEDIR}/install_sshkey.sh
 
 sh ${BASEDIR}/timezone.fix.sh
-
-#-------------------------------------------------
-# To install the Stackdriver logging agent:
-cd /tmp
-curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
-sudo bash install-logging-agent.sh
 
 #-------------------------------------------------
 #crontab jobs
