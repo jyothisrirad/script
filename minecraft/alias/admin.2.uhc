@@ -186,15 +186,15 @@ otglist() {
 #=================================
 molemode() {
     if [ -z "$moleMode" ]; then
-        # echo moleMode off
         moleMode=1; export moleMode
+        echo -e ${YELLOW}moleMode on, time 30${NC}
         mcdo scoreboard objectives add moleMode dummy
         mcdo scoreboard players set @e[tag=L] moleMode 1
         mcdo scoreboard objectives add moleTime dummy
         mcdo scoreboard players set @e[tag=L] moleTime 30
     else
-        # echo moleMode on
         unset moleMode
+        echo -e ${GREEN}moleMode off${NC}
         mcdo scoreboard players set @e[tag=L] moleMode 0
     fi
 }
