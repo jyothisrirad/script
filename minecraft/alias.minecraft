@@ -102,16 +102,20 @@ check_creeper_ip() {
 
 #=================================
 ping_accept_onoff() {
+    [ -f /etc/iptables.conf ] && ping_accept=1
+    
     if [ -z "$ping_accept" ]; then
         ping_accept=1; export ping_accept
         echo -e ${GREEN}Disable ping response${NC}
-        sudo iptables -I INPUT -p icmp --icmp-type echo-request -j DROP
-        sudo ip6tables -I INPUT -p icmpv6 --icmpv6-type echo-request -j DROP
+        sudo iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+        sudo ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j DROP
+        sudo iptables-save | sudo tee /etc/iptables.conf
     else
         unset ping_accept
         echo -e ${YELLOW}Enable ping response${NC}
         sudo iptables -D INPUT -p icmp --icmp-type echo-request -j DROP
         sudo ip6tables -D INPUT -p icmpv6 --icmpv6-type echo-request -j DROP
+        sudo rm /etc/iptables.conf
     fi
 }
 

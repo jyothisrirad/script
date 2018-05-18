@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### 
+###
 addto_root_crontab() {
 	! sudo crontab -l | grep -Fxq "$*" && su - root -c "(crontab -l; echo \"$*\") | crontab -"
 }
