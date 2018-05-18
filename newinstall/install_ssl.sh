@@ -27,5 +27,6 @@ if [ ! -z "$1" ]; then
     # Register New Domain certificate
     [ ! -f /opt/bitnami/letsencrypt/certificates/$1.crt ] && sudo /opt/bitnami/letsencrypt/lego --path "/opt/bitnami/letsencrypt" --email="chsliu@gmail.com" --domains="$1" run
     # Monthly Update Domain certificate
+    [ -f /opt/bitnami/letsencrypt/certificates/$1.crt ] && addto_root_crontab "#update SSL certificate"
     [ -f /opt/bitnami/letsencrypt/certificates/$1.crt ] && addto_root_crontab "0 0 * * * /opt/bitnami/letsencrypt/lego --path '/opt/bitnami/letsencrypt' --email='chsliu@gmail.com' --domains=\"$1\" renew --days 30"
 fi

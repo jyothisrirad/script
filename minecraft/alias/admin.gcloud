@@ -8,7 +8,7 @@ dnssetup() {
     file=/home/sita/script/minecraft/gcloud/$1
     # [ ! -z "$1" ] && . /home/sita/script/minecraft/gcloud/$1
     [ -f "$file" ] && echo Running $file $2 && $file $2
-    [ ! -f "$file" ] && echo -e ${RED}$file not found
+    [ ! -f "$file" ] && echo -e ${RED}$file not found${NC}
 }
 
 #=================================
