@@ -16,11 +16,13 @@ case "$1" in
   save)
     echo Saving iptables
     sudo iptables-save | sudo tee /etc/iptables.conf
+    sudo ip6tables-save | sudo tee /etc/ip6tables.conf
     exit
     ;;
     
   load)
     [ -f /etc/iptables.conf ] && echo Loading iptables && sudo iptables-restore < /etc/iptables.conf
+    [ -f /etc/ip6tables.conf ] && echo Loading ip6tables && sudo ip6tables-restore < /etc/ip6tables.conf
     exit
     ;;
     

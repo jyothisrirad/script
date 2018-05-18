@@ -110,12 +110,14 @@ ping_accept_onoff() {
         sudo iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
         sudo ip6tables -A INPUT -p icmpv6 --icmpv6-type echo-request -j DROP
         sudo iptables-save | sudo tee /etc/iptables.conf
+        sudo ip6tables-save | sudo tee /etc/ip6tables.conf
     else
         unset ping_accept
         echo -e ${YELLOW}Enable ping response${NC}
         sudo iptables -D INPUT -p icmp --icmp-type echo-request -j DROP
         sudo ip6tables -D INPUT -p icmpv6 --icmpv6-type echo-request -j DROP
         sudo rm /etc/iptables.conf
+        sudo rm /etc/ip6tables.conf
     fi
 }
 
