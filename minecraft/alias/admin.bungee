@@ -11,5 +11,29 @@ bungee_offline_mode() {
 }
 
 #=================================
+bungee_send() {
+    mcdo viaversion probe
+    export LOG_DELAY=.5
+    mcdo send all $*
+    export LOG_DELAY=.1
+}
+
+bungee_sendall_send() {
+    mcdo viaversion probe
+    export LOG_DELAY=.5
+    mcdo sendtoall send all $*
+    export LOG_DELAY=.1
+}
+
+#=================================
 alias offline='68 && mcwo && 65 && bungee_offline_mode && mcdo greload && sleep 10 && online'
 alias online='68 && mcwf && 65 && bungee_online_mode && mcdo greload'
+
+#=================================
+alias probe='65 && mcdo viaversion probe'
+# alias ghub='65 && mcdo send all hub'
+# alias guhc='65 && mcdo send all uhc'
+alias send='65 && bungee_sendall_send'
+alias ssend='65 && bungee_send'
+alias glist='65 && export LOG_DELAY=.5 && mcdo glist showall && export LOG_DELAY=.1'
+alias greload='65 && export LOG_DELAY=.5 && mcdo greload && export LOG_DELAY=.1'
