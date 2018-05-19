@@ -42,6 +42,7 @@ is_load_balancer_already_start() {
     lbip=$(lookup_lb_ip)
     # Checking if Load Balancer already started
     echo -e ${YELLOW}=== Load Balancer Status: ${GREEN}DNS=$dnsip,IP=$lbip ${NC}
+    [ -z "$dnsip" ] && return 1
     [ "$dnsip" == "$lbip" ]
     return $?
 }
