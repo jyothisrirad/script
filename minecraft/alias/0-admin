@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ss0=admin
+
+ss0() {
+	chmc $ss0
+}
+
+alias 0=ss0

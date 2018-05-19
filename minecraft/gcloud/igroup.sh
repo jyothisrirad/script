@@ -90,7 +90,7 @@ dns_remove() {
 case "$1" in
   install)
 	addto_crontab "#Instances Group DNS update $(basename $0)"
-    addto_crontab "* 19-20 * * 6 /bin/bash $(readlink -e $0) dns"
+    addto_crontab "* 19-20 * * 6 $runscreen $(readlink -e $0) dns"
     exit
     ;;
   remove)

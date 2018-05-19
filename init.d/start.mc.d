@@ -9,7 +9,7 @@
 ### END INIT INFO
 
 APP=start.mc.sh
-SCRIPT=/home/sita/$APP
+SCRIPT="/home/sita/script/mis/run_in_screen.sh /home/sita/$APP"
 RUNAS=root
 
 PIDFILE=/var/run/$APP.pid

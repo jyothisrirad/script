@@ -1,6 +1,17 @@
 #!/bin/bash
 
 ###
+dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
+igctrl=/home/sita/script/minecraft/gcloud/igroup.sh
+
+###
+export dns_account=chsliu@gmail.com
+export lb_account=sita@changen.com.tw
+export ig_account=sita@changen.com.tw
+export PROJECT=creeper-199909
+export REGION=asia-east1
+
+###
 get_account() {
     gcloud config get-value account
 }
@@ -13,10 +24,3 @@ set_account() {
         [ ! -z "$1" ] && gcloud config set account $1
     fi
 }
-
-###
-export dns_account=chsliu@gmail.com
-export lb_account=sita@changen.com.tw
-export ig_account=sita@changen.com.tw
-export PROJECT=creeper-199909
-export REGION=asia-east1

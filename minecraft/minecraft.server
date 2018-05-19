@@ -23,7 +23,8 @@ VERSION=$(basename $0)
 [ $JARFILE ] || JARFILE="$VERSION.jar"
 # USERNAME="vagrant"
 MCSTORE="/mnt/runtimes/$VERSION"
-USERNAME=$(whoami)
+# USERNAME=$(whoami)
+USERNAME=sita
 [ ! -f $MCSTORE/config.sh ] || . $MCSTORE/config.sh
 # MCPATH="/tmp/$VERSION"
 [ $MCPATH ] || MCPATH=$MCSTORE

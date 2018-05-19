@@ -1,5 +1,12 @@
 #!/bin/bash
 
+###
+runscreen=/home/sita/script/mis/run_in_screen.sh
+
+### 
+USERNAME=sita
+ME=`whoami`
+
 ### 
 addto_crontab() {
 	(crontab -l; echo "$*") | crontab -
@@ -9,4 +16,13 @@ delfrom_crontab() {
 	line=$*
 	line=$(echo "$line" | sed 's/\//\\\//g')
 	crontab -l | sed "/$line/d" | crontab -
+}
+
+### 
+as_user() {
+  if [ "$ME" == "$USERNAME" ] ; then
+    bash -c "$1"
+  else
+    su - $USERNAME -c "$1"
+  fi
 }
