@@ -1,0 +1,12 @@
+#!/bin/bash
+
+### 
+addto_crontab() {
+	(crontab -l; echo "$*") | crontab -
+}
+
+delfrom_crontab() {
+	line=$*
+	line=$(echo "$line" | sed 's/\//\\\//g')
+	crontab -l | sed "/$line/d" | crontab -
+}

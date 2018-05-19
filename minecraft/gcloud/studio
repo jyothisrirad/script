@@ -1,6 +1,14 @@
 #!/bin/bash
 
 . /home/sita/script/include/console.color
+. /home/sita/script/include/gcloud_helper
+
+###
+dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
+
+###
+dns_account=chsliu@gmail.com
+default_account=$(get_account)
 
 ### 
 addto_crontab() {
@@ -17,17 +25,21 @@ delfrom_crontab() {
 HOST=$(basename $0)
 
 start() {
+    set_account $dns_account
+    
     # DNS transaction start
-    echo -e ${YELLOW}=== Starting DNS Changes: $HOST.creeper.tw ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw
+    echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$HOST.creeper.tw ${NC}
+    $dnsupdate start creeper-196707 creeper-tw
 
     # A www.creeper.tw 1hour
-    echo -e ${GREEN}=== Updating A $HOST.creeper.tw 3hour ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh A creeper-tw $HOST creeper.tw 3hour 3hour
+    echo -e ${GREEN}Updating ${YELLOW}$HOST.creeper.tw IN A ... 3hour ${NC}
+    $dnsupdate A creeper-tw $HOST creeper.tw 3hour 3hour
 
     # DNS transaction commit
-    echo -e ${YELLOW}=== Commiting DNS Changes: $HOST.creeper.tw ${NC}
-    /home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 creeper-tw
+    echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$HOST.creeper.tw ${NC}
+    $dnsupdate commit creeper-196707 creeper-tw
+    
+    set_account $default_account
 }
 
 stop() {

@@ -5,9 +5,10 @@ help_hline3 'gcloud'
 
 #=================================
 dnssetup() {
+    # echo Runngin $1 $2
     file=/home/sita/script/minecraft/gcloud/$1
     # [ ! -z "$1" ] && . /home/sita/script/minecraft/gcloud/$1
-    [ -f "$file" ] && echo Running $file $2 && $file $2
+    [ -f "$file" ] && echo -e ${GREEN}=== Running $file ${YELLOW}$2 ${NC} && $file $2
     [ ! -f "$file" ] && echo -e ${RED}$file not found${NC}
 }
 
@@ -15,13 +16,24 @@ dnssetup() {
 # alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 alias gkey='mkdir /home/sita/.gcloud && rsync -az rsync://sita.ddns.net/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/ '
 alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
-help_add 'glog.<start/stop>' 'fluentd'
+help_add 'glog.<start|stop>' 'fluentd開始|結束'
 alias glog='sudo service google-fluentd $*'
+
+#=================================
+help_add 'gid' 'gcloud身份'
+alias gid='gcloud config set account chsliu@gmail.com'
+alias gid2='gcloud config set account sita@changen.com.tw'
 
 #=================================
 # alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
 # alias dns.uhc='/home/sita/script/minecraft/gcloud/uhc'
-help_add 'dnsset.<hostname>' 'DNS設定'
-alias dnsset='dnssetup $*'
+help_add 'dns.<hostname>' 'DNS設定'
+alias dns='dnssetup $*'
+help_add 'dnss' 'DNS設定開始'
 alias dnss='/home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw'
+help_add 'dnsc' 'DNS設定結束'
 alias dnsc='/home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 creeper-tw'
+
+#=================================
+help_add 'lb.<start|stop>' '負載平衡器開始|結束'
+alias lb='/home/sita/script/minecraft/gcloud/loadbalancer.sh'

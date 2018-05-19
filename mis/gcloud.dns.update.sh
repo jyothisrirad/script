@@ -92,11 +92,13 @@ update_A() {
   else
     local -r name="${ZONE}."
   fi
-  [ $(lookup_dns_ip "$name") == $(my_ip) ] && echo DNS record A already the same, skipping ... && return
+  shift 5
+  [ ! -z "$1" ] && newip=$* || newip=$(my_ip) 
+  [ $(lookup_dns_ip "$name") == $newip ] && echo -e ${YELLOW}"$name" IN A $newip${GREEN}, DNS record already the same, skipping ...${NC} && return
   # dns_start
   dns_del ${HOST} ${TTL1} A `lookup_dns_ip "$name"`
   dns_del ${HOST} ${TTL2} A `lookup_dns_ip "$name"`
-  dns_add ${HOST} ${TTL2} A `my_ip`
+  dns_add ${HOST} ${TTL2} A $newip
   # dns_commit
 }
 
@@ -107,7 +109,7 @@ update_CNAME() {
   CNAME=$4
   TTL1=$5
   TTL2=$6
-  [ $(lookup_dns_cname "${HOST}.${ZONE}.") == ${CNAME} ] && echo DNS record CNAME already the same, skipping ... && return
+  [ $(lookup_dns_cname "${HOST}.${ZONE}.") == ${CNAME} ] && echo -e ${YELLOW}"${HOST}.${ZONE}." IN CNAME ${CNAME}${GREEN}, DNS record already the same, skipping ...${NC} && return
   # dns_start
   dns_del ${HOST} ${TTL1} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
   dns_del ${HOST} ${TTL2} CNAME `lookup_dns_cname "${HOST}.${ZONE}."`
@@ -118,13 +120,16 @@ update_CNAME() {
 pushd "/tmp" >/dev/null
 case "$1" in
   A)
-	# update_A foo-bar-com foo.bar.com my-vm 5min
-    update_A $2 $3 $4 $5 $6
+	# update_A foo-bar-com foo.bar.com my-vm 5min 5min [newip..]
+    shift 1
+    update_A $*
     exit
     ;;
     
   CNAME)
-    update_CNAME $2 $3 $4 $5 $6 $7
+	# update_CNAME foo-bar-com foo bar.com my-vm.bar.com 5min 5min
+    shift 1
+    update_CNAME $*
     exit
     ;;
     

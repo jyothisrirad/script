@@ -1,0 +1,22 @@
+#!/bin/bash
+
+###
+get_account() {
+    gcloud config get-value account
+}
+
+###
+set_account() {
+    if [ "$(get_account)" != "$1" ]; then
+        # Switching Account
+        echo -e ${GREEN}=== Switching to Account: ${YELLOW}$1 ${NC}
+        [ ! -z "$1" ] && gcloud config set account $1
+    fi
+}
+
+###
+export dns_account=chsliu@gmail.com
+export lb_account=sita@changen.com.tw
+export ig_account=sita@changen.com.tw
+export PROJECT=creeper-199909
+export REGION=asia-east1
