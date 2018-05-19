@@ -20,7 +20,7 @@ alias gumnt='fusermount -u /mnt/backup'
 help_add 'glog.<start|stop>' 'fluentd開始|結束'
 alias glog='sudo service google-fluentd $*'
 help_add 'gname' '自訂主機名'
-alias gname='echo $(curl --silent "http://metadata.google.internal /computeMetadata/v1/instance/attributes/hostname" -H "Metadata-Flavor: Google")'
+alias gname='echo $(curl --silent "http://metadata.google.internal/computeMetadata/v1/instance/attributes/hostname" -H "Metadata-Flavor: Google")'
 
 #=================================
 help_add 'gid' 'gcloud身份顯示'
