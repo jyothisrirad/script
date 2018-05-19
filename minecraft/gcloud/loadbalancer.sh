@@ -102,11 +102,18 @@ dns_update() {
     last_account=$(get_account)
     set_account $dns_account
     
+    # DNS transaction start
+    echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
     $dnsupdate start creeper-196707 creeper-tw
-    echo -e ${GREEN}=== Updating ${YELLOW}$LB.creeper.tw IN A $1 ${NC}
+    
+    echo -e ${GREEN}== Updating ${YELLOW}$LB.creeper.tw IN A $1 ${NC}
     $dnsupdate A creeper-tw $LB creeper.tw 1min 1min $1
-    echo -e ${GREEN}=== Updating ${YELLOW}mc.creeper.tw IN CNAME $LB.creeper.tw ${NC}
+    
+    echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $LB.creeper.tw ${NC}
     $dnsupdate CNAME creeper-tw mc creeper.tw $LB.creeper.tw. 3hour 1min
+    
+    # DNS transaction commit
+    echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
     $dnsupdate commit creeper-196707 creeper-tw
     
     set_account $last_account
@@ -117,11 +124,18 @@ dns_remove() {
     last_account=$(get_account)
     set_account $dns_account
     
+    # DNS transaction start
+    echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
     $dnsupdate start creeper-196707 creeper-tw
-    echo -e ${GREEN}=== Removing ${YELLOW}$LB.creeper.tw IN A ... ${NC}
+    
+    echo -e ${GREEN}== Removing ${YELLOW}$LB.creeper.tw IN A ... ${NC}
     $dnsupdate del creeper-196707 creeper-tw $LB creeper.tw 1min 3hour A
-    echo -e ${GREEN}=== Updating ${YELLOW}mc.creeper.tw IN CNAME $default_HOST.creeper.tw ${NC}
+    
+    echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $default_HOST.creeper.tw ${NC}
     $dnsupdate CNAME creeper-tw mc creeper.tw $default_HOST.creeper.tw. 1min 3hour
+    
+    # DNS transaction commit
+    echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
     $dnsupdate commit creeper-196707 creeper-tw
     
     set_account $last_account

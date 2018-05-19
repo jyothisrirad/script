@@ -54,9 +54,15 @@ dns_update() {
     last_account=$(get_account)
     set_account $dns_account
     
-    echo -e ${GREEN}=== Updating ${YELLOW}r53.creeper.tw IN A $* ${GREEN}1min ${NC}
+    # DNS transaction start
+    echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
     $dnsupdate start creeper-196707 creeper-tw
+    
+    echo -e ${GREEN}== Updating ${YELLOW}$HOSTS.creeper.tw IN A $* ${GREEN}1min ${NC}
     $dnsupdate A creeper-tw $HOSTS creeper.tw 1min 1min $*
+    
+    # DNS transaction commit
+    echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
     $dnsupdate commit creeper-196707 creeper-tw
     
     set_account $last_account
@@ -66,9 +72,15 @@ dns_remove() {
     last_account=$(get_account)
     set_account $dns_account
     
-    echo -e ${GREEN}=== Removing ${YELLOW}r53.creeper.tw IN A $* ${GREEN}1min ${NC}
+    # DNS transaction start
+    echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
     $dnsupdate start creeper-196707 creeper-tw
+    
+    echo -e ${GREEN}== Removing ${YELLOW}$HOSTS.creeper.tw IN A $* ${GREEN}1min ${NC}
     $dnsupdate del creeper-196707 creeper-tw $HOSTS creeper.tw 1min 3hour A $*
+    
+    # DNS transaction commit
+    echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
     $dnsupdate commit creeper-196707 creeper-tw
     
     set_account $last_account

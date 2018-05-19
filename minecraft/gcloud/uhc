@@ -32,7 +32,7 @@ start() {
     $dnsupdate start creeper-196707 creeper-tw
 
     # A uhc.creeper.tw 1min
-    echo -e ${GREEN}Updating ${YELLOW}$HOST.creeper.tw IN A ... 1min ${NC}
+    echo -e ${GREEN}== Updating ${YELLOW}$HOST.creeper.tw 1min IN A ... ${NC}
     $dnsupdate A creeper-tw $HOST creeper.tw 1min 1min
 
     # DNS transaction commit

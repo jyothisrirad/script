@@ -93,9 +93,9 @@ check_creeper_ip() {
     digthis tp1.creeper.tw
     digthis gem.creeper.tw
     digthis wiki.creeper.tw
-    digthis r53.creeper.tw
+    # digthis r53.creeper.tw
     echo =================================
-    digthis lb.creeper.tw
+    # digthis lb.creeper.tw
     digthis uhc.creeper.tw
     digthis www.creeper.tw
 }
