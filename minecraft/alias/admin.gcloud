@@ -21,7 +21,8 @@ alias glog='sudo service google-fluentd $*'
 
 #=================================
 help_add 'gid' 'gcloud身份'
-alias gid='gcloud config set account chsliu@gmail.com'
+alias gid='gcloud config get-value account'
+alias gid1='gcloud config set account chsliu@gmail.com'
 alias gid2='gcloud config set account sita@changen.com.tw'
 
 #=================================
