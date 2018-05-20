@@ -141,7 +141,7 @@ help_add 'jsu' '同步伺服器javascript'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 
 help_add 'stop' '關閉主機'
-alias stop='sudo echo && ~/start.mc.sh stop && sudo screen -dmS off shutdown -h now && exit'
+alias stop='sudo echo && ~/script/init.d/hosts/$(hostname) stop && sudo screen -dmS off shutdown -h now && exit'
 
 help_add 'cc' '檢查DNS'
 alias cc='check_creeper_ip'
