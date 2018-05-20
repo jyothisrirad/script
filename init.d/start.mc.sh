@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# exec > >(tee -i /tmp/$(basename $0).$(date +%F_%T).log)
-# exec 2>&1
-
 . /home/sita/script/include/common_helper
 . /home/sita/script/minecraft/alias.minecraft
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ###
+[ ! -d /tmp/log ] && mkdir /tmp/log
 exec > >(tee -i /tmp/$(basename $0).$(date +%F_%T).log)
 exec 2>&1
 
