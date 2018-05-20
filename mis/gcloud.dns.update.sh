@@ -94,7 +94,7 @@ update_A() {
   fi
   shift 5
   [ ! -z "$1" ] && newip=$* || newip=$(my_ip) 
-  [ $(lookup_dns_ip "$name") == $newip ] && echo -e ${YELLOW}"$name" IN A $newip${GREEN}, DNS record already the same, skipping ...${NC} && return
+  [ "$(lookup_dns_ip "$name" | tr '\n' ' ' | sed -e 's/[[:space:]]*$//')" == "$newip" ] && echo -e ${YELLOW}"$name" IN A $newip${GREEN}, DNS record already the same, skipping ...${NC} && return
   # dns_start
   dns_del ${HOST} ${TTL1} A `lookup_dns_ip "$name"`
   dns_del ${HOST} ${TTL2} A `lookup_dns_ip "$name"`

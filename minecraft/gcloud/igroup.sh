@@ -15,7 +15,7 @@ PROJECT=creeper-199909
 REGION=asia-east1
 instances_group=bc
 instances_group_region=bc2
-instances_count_min=2
+instances_count_min=1
 instances_count_max=9
 HOSTS=r53
 
