@@ -2,8 +2,12 @@
 
 ###
 [ ! -d /tmp/log ] && mkdir /tmp/log && sudo chown sita:sita /tmp/log
-exec > >(tee -i /tmp/log/$(basename $0).$(date +%F_%T).log)
+exec > >(tee -i /tmp/log/$(basename $0).log)
 exec 2>&1
+
+echo ===================
+echo $(date +%F_%T)
+echo ===================
 
 ###
 runscreen=/home/sita/script/mis/run_in_screen.sh
