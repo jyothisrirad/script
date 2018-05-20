@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. /home/sita/script/minecraft/alias.minecraft
+. /home/sita/script/init.d/start.mc.sh
+
+dns_external=www
+dns_updates=($dns_external)
+servers=
+
+#yes | sudo /opt/bitnami/letsencrypt/scripts/generate-certificate.sh -m chsliu@gmail.com -d www.creeper.tw
+sudo /opt/bitnami/letsencrypt/lego --path "/opt/bitnami/letsencrypt" --email="chsliu@gmail.com" --domains="www.creeper.tw" renew --days 30
+
+run $*
