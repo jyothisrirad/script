@@ -39,6 +39,8 @@ help_add 'dnss' 'DNS設定開始'
 alias dnss='/home/sita/script/mis/gcloud.dns.update.sh start creeper-196707 creeper-tw'
 help_add 'dnsc' 'DNS設定結束'
 alias dnsc='/home/sita/script/mis/gcloud.dns.update.sh commit creeper-196707 creeper-tw'
+help_add 'dnsa' 'DNS設定取消'
+alias dnsa='/home/sita/script/mis/gcloud.dns.update.sh abort creeper-196707 creeper-tw'
 
 #=================================
 help_add 'lb.<start|stop>' '負載平衡器開始|結束'
