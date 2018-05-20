@@ -60,7 +60,7 @@ lag_check() {
 	logs | grep 'overloaded\|TPS has dropped\|free memory pool\|服務器\|Timings'
 
     echo ================
-	~/start.mc.sh lag
+	~/script/init.d/hosts/$(hostname) lag
     
     echo ================
     echo $(cat /proc/cpuinfo | grep 'model name' | wc -l) cores
@@ -79,7 +79,7 @@ lag_check() {
 clag_check() {
     echo -e "${GREEN}=== $mcver clag ${NC}"
 	logs | grep '服務器'
-	~/start.mc.sh clag
+	~/script/init.d/hosts/$(hostname) clag
     free -h
 }
 

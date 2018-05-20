@@ -83,6 +83,7 @@ stop2() {
 checklag() {
 	for srv in ${servers[*]}
 	do
+		echo -e ${YELLOW}mcver=$mcver${NC}
 		$srv && logs | grep.lag
 	done
 }
@@ -90,6 +91,7 @@ checklag() {
 checkclag() {
 	for srv in ${servers[*]}
 	do
+		echo -e ${YELLOW}mcver=$mcver${NC}
 		$srv && logs | grep '服務器'
 	done
 }

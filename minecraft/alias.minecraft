@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+. /home/sita/script/include/console.color
+
+#=================================
 utf8() {
 	export LC_ALL=en_US.UTF-8
 	export LANG=en_US.UTF-8
@@ -47,7 +50,8 @@ chmc() {
 		
 		mcpath=/mnt/runtimes/$mcver
 		[ ! -d "$mcpath" ] && { echo -e "${YELLOW}$mcpath not installed${NC}"; }
-		[   -d "$mcpath" ] && { echo -e ${YELLOW}mcver=$mcver${NC}; cd $mcpath; }
+		# [   -d "$mcpath" ] && { echo -e ${YELLOW}mcver=$mcver${NC}; cd $mcpath; }
+		[   -d "$mcpath" ] && { cd $mcpath; }
 	fi
 }
 
