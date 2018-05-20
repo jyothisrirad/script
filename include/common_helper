@@ -1,6 +1,10 @@
 #!/bin/bash
 
 ###
+exec > >(tee -i /tmp/$(basename $0).$(date +%F_%T).log)
+exec 2>&1
+
+###
 runscreen=/home/sita/script/mis/run_in_screen.sh
 
 ### 
