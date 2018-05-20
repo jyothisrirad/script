@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. /home/sita/script/minecraft/alias.minecraft
+. /home/sita/script/init.d/start.mc.sh
+
+dns_external=tp1
+#dns_updates=($dns_external uhc)
+dns_updates=($dns_external)
+servers=(s32 s65 s68 s91 s99)
+servers2=(s32 s91 s99)
+# autostart=1
+# rematch_hour=19
+
+run $*

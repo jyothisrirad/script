@@ -8,8 +8,8 @@
 # Description:       start minecraft server
 ### END INIT INFO
 
-APP=start.mc.sh
-SCRIPT="/home/sita/script/mis/run_in_screen.sh /home/sita/$APP"
+APP=$(hostname)
+SCRIPT="/home/sita/script/mis/run_in_screen.sh /home/sita/script/init.d/hosts/$APP"
 RUNAS=root
 
 PIDFILE=/var/run/$APP.pid

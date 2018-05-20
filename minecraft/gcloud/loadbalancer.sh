@@ -75,6 +75,7 @@ start() {
         
         [ ! -z "$ip" ] && dns_update $ip
     
+        $igctrl dns
     fi
     
     set_account $default_account
