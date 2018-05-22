@@ -49,6 +49,8 @@ alias gname='echo $(curl --silent "http://metadata.google.internal/computeMetada
 #=================================
 help_add 'gid.[id]' 'gcloud身份顯示|切換'
 alias gid='gcloud_id'
+help_add 'gauth' 'gcloud登入'
+alias gauth='gcloud auth login'
 
 #=================================
 # alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
