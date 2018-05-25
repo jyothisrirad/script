@@ -508,10 +508,10 @@ case "$1" in
 	$0 remove_cron
 	# sudo cp $0 /etc/init.d/
 	# sudo chmod a+x /etc/init.d/$(basename $0)
-	# addto_crontab "#$VERSION server"
+	# addto_crontab "# $VERSION server"
 	# addto_crontab "*/5 * * * * /etc/init.d/$(basename $0) save"
 	# addto_crontab "24 */6 * * * /etc/init.d/$(basename $0) backup"
-	addto_crontab "#$VERSION server"
+	addto_crontab "# $VERSION server"
 	addto_crontab "*/5 * * * * /bin/bash $(readlink -e $0) save"
 	# addto_crontab "24 */6 * * * $(readlink -e $0) backup"
 	addto_crontab "$(shuf -i 1-60 -n 1) * * * * /bin/bash $(readlink -e $0) archive"
@@ -519,7 +519,7 @@ case "$1" in
 	;;
   remove_cron)
 	echo delfrom_crontab "$(basename $0)"
-	delfrom_crontab "#$VERSION server"
+	delfrom_crontab "# $VERSION server"
 	delfrom_crontab "$(basename $0)"
 	# crontab -l
     ;;

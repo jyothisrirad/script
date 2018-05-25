@@ -6,6 +6,7 @@ addto_root_crontab() {
 }
 
 ### 
+addto_root_crontab "# reboot daily"
 # addto_root_crontab "0 23 * * * /sbin/poweroff"
 addto_root_crontab "0 23 * * * /sbin/shutdown -h now"
 ~/script/init.d/inst.as.sh ~/script/init.d/start.mc.d startmc

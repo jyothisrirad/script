@@ -15,7 +15,7 @@ PROJECT=creeper-199909
 REGION=asia-east1
 instances_group=bc
 instances_group_region=bc2
-instances_count_min=1
+instances_count_min=2
 instances_count_max=9
 HOSTS=r53
 
@@ -89,7 +89,7 @@ dns_remove() {
 ###
 case "$1" in
   install)
-	addto_crontab "#Instances Group DNS update $(basename $0)"
+	addto_crontab "# Instances Group DNS update $(basename $0)"
     addto_crontab "* 19-20 * * 6 $runscreen $(readlink -e $0) dns"
     exit
     ;;

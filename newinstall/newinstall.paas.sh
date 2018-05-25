@@ -64,13 +64,13 @@ sh ${BASEDIR}/timezone.fix.sh
 
 #-------------------------------------------------
 #crontab jobs
-addto_crontab "#server maintenance"
+addto_crontab "# server maintenance"
 addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/update.sh"
 addto_crontab "0 6 * * 1 /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
 addto_crontab "#0 6 * * * /usr/bin/batch < /home/$(whoami)/script/backup.sh"
 
 #anacron jobs
-# addto_anacrontab "#server maintenance"
+# addto_anacrontab "# server maintenance"
 # addto_anacrontab "7 20 update /usr/bin/batch < /home/$(whoami)/script/update.sh"
 # addto_anacrontab "7 25 cleanup /usr/bin/batch < /home/$(whoami)/script/cleanup.sh"
 # addto_anacrontab "#7 30 backup /usr/bin/batch < /home/$(whoami)/script/backup.sh"

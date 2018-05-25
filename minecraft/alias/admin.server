@@ -100,6 +100,19 @@ ncp_report() {
 }
 
 #=================================
+cheat_report() {
+	mcdo ncp top 10 Blockbreak
+	mcdo ncp top 10 Blockplace
+	mcdo ncp top 10 Chat
+	mcdo ncp top 10 Combined
+	mcdo ncp top 10 Fight
+	mcdo ncp top 10 Blockinteract
+	mcdo ncp top 10 Inventory
+	mcdo ncp top 10 Moving
+	mcdo ncp top 10 Net
+}
+
+#=================================
 alias sls='screen -ls'
 alias swp='screen -wipe'
 alias sr='screen -r $mcver'
@@ -150,7 +163,7 @@ alias debugoff='export mc_debug_mode='
 
 #=================================
 # alias lag='logs | grep.lag && ~/start.mc.sh lag'
-# help_add 'lag' '顯示lag'
+help_add 'lag' '顯示lag'
 alias lag='lag_check'
 # help_add 'clag' '顯示clag'
 alias clag='clag_check'
@@ -158,3 +171,5 @@ help_add 'tmo' 'Spigot計時開始'
 alias tmo='mcdo timings on'
 # help_add 'tmr' '計時報告'
 alias tmr='timings_report'
+help_add 'cheat' '顯示犯規紀錄'
+alias cheat='cheat_report'

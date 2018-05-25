@@ -147,7 +147,7 @@ dns_remove() {
 ###
 case "$1" in
   install)
-	addto_crontab "#Load Balancer Start $(basename $0)"
+	addto_crontab "# Load Balancer Start $(basename $0)"
     addto_crontab "35 19 * * 6 $runscreen $(readlink -e $0) start"
 	# addto_crontab "#Load Balancer Stop $(basename $0)"
     # addto_crontab "0 21 * * 6 $runscreen $(readlink -e $0) stop"
