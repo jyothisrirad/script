@@ -28,11 +28,12 @@ default_HOST=tp1
 bc_single_host="bungeecord-tw2"
 
 start() {
+	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
     
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction start
-        echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$(basename $0).creeper.tw ${NC}
+        echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
         $dnsupdate start creeper-196707 creeper-tw
     fi
 
@@ -85,19 +86,21 @@ start() {
 
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction commit
-        echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$(basename $0).creeper.tw ${NC}
+        echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
         $dnsupdate commit creeper-196707 creeper-tw
     fi
     
     set_account $default_account
+	echo -e ${GREEN}=========================${NC}
 }
 
 stop() {
+	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
     
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction start
-        echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$(basename $0).creeper.tw ${NC}
+        echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
         $dnsupdate start creeper-196707 creeper-tw
     fi
     
@@ -142,11 +145,12 @@ stop() {
 
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction commit
-        echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$(basename $0).creeper.tw ${NC}
+        echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
         $dnsupdate commit creeper-196707 creeper-tw
     fi
     
     set_account $default_account
+	echo -e ${GREEN}=========================${NC}
 }
 
 ###
