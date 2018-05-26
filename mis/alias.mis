@@ -20,6 +20,7 @@ alias ph='cd ~/script/ssh'
 alias pm='cd ~/script/mis'
 alias pp='cd ~/script/pve'
 alias pl='cd /tmp/log'
+alias pc='cd ~/script/minecraft/gcloud'
 
 alias gs='cd ~/script && ./gitsync.sh'
 

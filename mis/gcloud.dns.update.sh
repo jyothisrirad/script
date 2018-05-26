@@ -63,6 +63,7 @@ dns_del() {
   local -r ttl="$(ttlify "$2")"
   local -r type="$3"
   shift 3
+  [ -z "$@" ] && echo -e gcloud dns record-sets transaction remove ${RED}cancelled${NC} because of null ip && return
   echo -e gcloud dns record-sets transaction ${GREEN}remove${NC} -z "${ZONENAME}" --name "${name}" --ttl ${GREEN}"${ttl}"${NC} --type ${GREEN}"${type}" "$@"${NC} --project $PROJECT 
   gcloud dns record-sets transaction remove   -z "${ZONENAME}" --name "${name}" --ttl "${ttl}" --type "${type}" "$@" --project $PROJECT
 }

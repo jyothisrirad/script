@@ -16,7 +16,7 @@ bungee_send() {
     export LOG_DELAY=.5
     mcdo send all $*
     export LOG_DELAY=.1
-    [ ! -z "$temp" ] && chmc $temp
+    [ ! -z "$tempver" ] && chmc $tempver
 }
 
 bungee_sendall_send() {
@@ -24,18 +24,18 @@ bungee_sendall_send() {
     export LOG_DELAY=.5
     mcdo sendtoall send all $*
     export LOG_DELAY=.1
-    [ ! -z "$temp" ] && chmc $temp
+    [ ! -z "$tempver" ] && chmc $tempver
 }
 
 #=================================
-alias offline='temp=$mcver && 68 && mcwo && 65 && bungee_offline_mode && mcdo greload && sleep 10 && online && chmc $temp'
-alias online='temp=$mcver && 68 && mcwf && 65 && bungee_online_mode && mcdo greload && chmc $temp'
+alias offline='tempver=$mcver && 68 && mcwo && 65 && bungee_offline_mode && mcdo greload && sleep 10 && online && chmc $tempver'
+alias online='tempver=$mcver && 68 && mcwf && 65 && bungee_online_mode && mcdo greload && chmc $tempver'
 
 #=================================
-alias probe='temp=$mcver && 65 && mcdo viaversion probe && chmc $temp'
-# alias ghub='temp=$mcver && 65 && mcdo send all hub && chmc $temp'
-# alias guhc='temp=$mcver && 65 && mcdo send all uhc && chmc $temp'
-alias ssend='temp=$mcver && 65 && bungee_sendall_send $*'
-alias send='temp=$mcver && 65 && bungee_send $*'
-alias glist='temp=$mcver && 65 && export LOG_DELAY=.5 && mcdo glist showall && export LOG_DELAY=.1 && chmc $temp'
-alias greload='temp=$mcver && 65 && export LOG_DELAY=.5 && mcdo greload && export LOG_DELAY=.1 && chmc $temp'
+alias probe='tempver=$mcver && 65 && mcdo viaversion probe && chmc $tempver'
+# alias ghub='tempver=$mcver && 65 && mcdo send all hub && chmc $tempver'
+# alias guhc='tempver=$mcver && 65 && mcdo send all uhc && chmc $tempver'
+alias ssend='tempver=$mcver && 65 && bungee_sendall_send $*'
+alias send='tempver=$mcver && 65 && bungee_send $*'
+alias glist='tempver=$mcver && 65 && export LOG_DELAY=.5 && mcdo glist showall && export LOG_DELAY=.1 && chmc $tempver'
+alias greload='tempver=$mcver && 65 && export LOG_DELAY=.5 && mcdo greload && export LOG_DELAY=.1 && chmc $tempver'
