@@ -316,7 +316,7 @@ logs.grep() {
     winner)
 		logs | grep.winner
 		;;
-    cheater)
+    cheat)
 		logs | grep.cheater
 		;;
     lag)

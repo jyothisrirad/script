@@ -267,6 +267,15 @@ log_parse_winner() {
 }
 
 #=================================
+log_parse_cheater() {
+    logfile=$(pwd)/cheat.log
+	
+    cat $1 | grep 'BLOCKBREAK_\|BLOCKPLACE_\|CHAT_\|COMBINED_\|FIGHT_\|BLOCKINTERACT_\|INVENTORY_\|MOVING_\|NET_' | sort >>$logfile
+    
+    cat $logfile
+}
+
+#=================================
 second_diff() {
 # Convert the times to seconds from the Epoch
 SEC1=`date +%s -d ${1}`
@@ -478,6 +487,8 @@ log_parse_uhc() {
     log_parse_winner $*
     echo Lag:
     log_parse_lag $*
+    echo Cheaters:
+    log_parse_cheater $*
     echo 紀錄檔: $(readlink -e $1)
 }
 
@@ -562,5 +573,7 @@ alias logslain='log_parse_slain $*'
 alias logwinner='log_parse_winner $*'
 # help_add 'loglag.<log>' 'UHC分析延遲'
 alias loglag='log_parse_lag $*'
+# help_add 'loglag.<log>' 'UHC分析作弊'
+alias logcheat='log_parse_cheater $*'
 help_add 'loguhc.<log>' 'UHC賽後分析'
 alias loguhc='log_parse_uhc $*'

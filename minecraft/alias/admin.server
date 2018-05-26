@@ -97,10 +97,12 @@ timings_report() {
 ncp_report() {
     mcdo ncp lag
     mcdo ncp log counters
+	cheat_report
 }
 
 #=================================
 cheat_report() {
+    export LOG_DELAY=.4
 	mcdo ncp top 10 Blockbreak
 	mcdo ncp top 10 Blockplace
 	mcdo ncp top 10 Chat
@@ -110,6 +112,7 @@ cheat_report() {
 	mcdo ncp top 10 Inventory
 	mcdo ncp top 10 Moving
 	mcdo ncp top 10 Net
+    export LOG_DELAY=.1
 }
 
 #=================================
