@@ -176,6 +176,14 @@ uhcteamchoice() {
 }
 
 #=================================
+uhcteammax() {
+    if [ ! -z ${1+x} ]; then
+		echo -e "${GREEN}隊伍人數上限改為 $1 ${NC}"
+        mcdo scoreboard players set @e[tag=N] team_max $1
+    fi
+}
+
+#=================================
 otglist() {
 	mcdo otg biome -f
 	mcdo otg biome -s
@@ -189,20 +197,20 @@ molemode() {
         moleMode=1; export moleMode
         echo -e ${YELLOW}moleMode on, time 30${NC}
         mcdo scoreboard objectives add moleMode dummy
-        mcdo scoreboard players set @e[tag=L] moleMode 1
+        mcdo scoreboard players set @e[tag=N] moleMode 1
         mcdo scoreboard objectives add moleTime dummy
-        mcdo scoreboard players set @e[tag=L] moleTime 30
+        mcdo scoreboard players set @e[tag=N] moleTime 30
     else
         unset moleMode
         echo -e ${GREEN}moleMode off${NC}
-        mcdo scoreboard players set @e[tag=L] moleMode 0
+        mcdo scoreboard players set @e[tag=N] moleMode 0
     fi
 }
 
 #=================================
 moletime() {
     # echo moletime 
-    [ ! -z "$1" ] && mcdo scoreboard players set @e[tag=L] moleTime $1
+    [ ! -z "$1" ] && mcdo scoreboard players set @e[tag=N] moleTime $1
 }
 
 #=================================
@@ -455,9 +463,11 @@ log_parse_uhc() {
     echo $headline 第$num屆UHC苦力怕盃$title 比賽紀錄 $dates $headline
     echo 感言:\\\\
     echo 生物群系:\\\\
+    echo 中心點: \(0,0\)\\\\
     echo 種子碼:
     log_parse_seed $*
     echo \\\\
+    echo 下次賽後賽:\\\\
     echo \\\\
     echo 影片:\\\\
     echo 參賽名單:
@@ -533,6 +543,8 @@ alias tj='mcdo scoreboard teams join $1 $2'
 alias list='list_players'
 help_add 'uj.[on]' 'UHC關閉/開啟加入隊伍權限'
 alias uj='uhcteamchoice $*'
+help_add 'um.<num>' 'UHC隊伍人數上限'
+alias um='uhcteammax $*'
 help_add 'ur' 'UHC隨機分隊'
 alias ur='uhcteamcreate $*'
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
@@ -557,7 +569,7 @@ alias ush='mcdo scoreboard players set @e[tag=N] b 0'
 # alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
 help_add 'uf.<ticks>' 'UHC最後戰場倒數'
 alias uf='mcdo scoreboard players set @e[tag=N] FinalWar $*'
-help_add 'molemode' 'UHC間諜模式開關'
+help_add 'molemode' 'UHC間諜模式On/Off'
 alias molemode='molemode'
 help_add 'moletime.<minutes>' 'UHC間諜模式時間設定'
 alias moletime='moletime'

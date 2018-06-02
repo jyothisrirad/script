@@ -117,6 +117,7 @@ whitelist_clear() {
 }
 
 #=================================
+help_add 'mcw.<on|off>' '白清單On/Off'
 alias mcw='mcdo whitelist $*'
 alias mcwa='mcdo whitelist add $*'
 alias mcwo='mcdo whitelist on'
