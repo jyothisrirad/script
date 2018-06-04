@@ -8,8 +8,15 @@
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 
 ###
-dns_account=chsliu@gmail.com
 default_account=$(get_account)
+
+###
+# dns_account=chsliu@gmail.com
+# dns_project=creeper-196707
+
+###
+dns_account=sita@changen.com.tw
+dns_project=creeper-199909
 
 ### 
 addto_crontab() {
@@ -35,7 +42,7 @@ start() {
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction start
         echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
-        $dnsupdate start creeper-196707 creeper-tw
+        $dnsupdate start $dns_project creeper-tw
     fi
 
     if [ $(date +%w) == 6 ]; then
@@ -60,7 +67,7 @@ start() {
 
         # append A r53.creeper.tw 1min
         # echo -e ${GREEN}=== Appending A ${YELLOW}r53.creeper.tw 1min ${NC}
-        # $dnsupdate append creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
+        # $dnsupdate append $dns_project creeper-tw r53 creeper.tw 3hour 1min A
     else
         # Not Saturday
         if [ $(hostname) == $bc_single_host ]; then
@@ -82,13 +89,13 @@ start() {
         
         # append A r53.creeper.tw 3hour
         # echo -e ${GREEN}=== Appending A ${YELLOW}r53.creeper.tw 3hour ${NC}
-        # $dnsupdate append creeper-196707 creeper-tw r53 creeper.tw 1min 3hour A
+        # $dnsupdate append $dns_project creeper-tw r53 creeper.tw 1min 3hour A
     fi
 
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction commit
         echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
-        $dnsupdate commit creeper-196707 creeper-tw
+        $dnsupdate commit $dns_project creeper-tw
     fi
     
     set_account $default_account
@@ -102,7 +109,7 @@ stop() {
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction start
         echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
-        $dnsupdate start creeper-196707 creeper-tw
+        $dnsupdate start $dns_project creeper-tw
     fi
     
     # if [ $(date +%w) == 6 ]; then
@@ -112,12 +119,12 @@ stop() {
             # hostname is tw2
             # del A tw2.creeper.tw 3hour 1min
             # echo -e ${GREEN}=== Deleting A ${YELLOW}$HOST.creeper.tw ${NC}
-            # $dnsupdate del creeper-196707 creeper-tw $HOST creeper.tw 3hour 1min A
+            # $dnsupdate del $dns_project creeper-tw $HOST creeper.tw 3hour 1min A
         # fi
         
         # remove A r53.creeper.tw 1min
         # echo -e ${GREEN}=== Removing A ${YELLOW}r53.creeper.tw 1min ${NC}
-        # $dnsupdate remove creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
+        # $dnsupdate remove $dns_project creeper-tw r53 creeper.tw 3hour 1min A
     # else
         # Not Saturday
 
@@ -125,19 +132,19 @@ stop() {
             # hostname is tw2
             # del A tw2.creeper.tw 3hour 1min
             # echo -e ${GREEN}=== Deleting A ${YELLOW}$HOST.creeper.tw ${NC}
-            # $dnsupdate del creeper-196707 creeper-tw $HOST creeper.tw 3hour 1min A
+            # $dnsupdate del $dns_project creeper-tw $HOST creeper.tw 3hour 1min A
         # fi
         
         # remove A r53.creeper.tw 3hour
         # echo -e ${GREEN}=== Removing A ${YELLOW}r53.creeper.tw 3hour ${NC}
-        # $dnsupdate remove creeper-196707 creeper-tw r53 creeper.tw 1min 3hour A
+        # $dnsupdate remove $dns_project creeper-tw r53 creeper.tw 1min 3hour A
     # fi
 
     if [ $(hostname) == $bc_single_host ]; then
         # hostname is tw2
         # del A tw2.creeper.tw 3hour 1min
         echo -e ${GREEN}== Deleting ${YELLOW}$HOST.creeper.tw 1min IN A ... ${NC}
-        $dnsupdate del creeper-196707 creeper-tw $HOST creeper.tw 3hour 1min A
+        $dnsupdate del $dns_project creeper-tw $HOST creeper.tw 3hour 1min A
 
         # CNAME mc.creeper.tw = tw2.creeper.tw 3hour
         echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw ${GREEN}1min to ${YELLOW}3hour IN CNAME $default_HOST.creeper.tw ${NC}
@@ -147,7 +154,7 @@ stop() {
     if [ $(hostname) == $bc_single_host ]; then
         # DNS transaction commit
         echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$(basename $0).creeper.tw ${NC}
-        $dnsupdate commit creeper-196707 creeper-tw
+        $dnsupdate commit $dns_project creeper-tw
     fi
     
     set_account $default_account

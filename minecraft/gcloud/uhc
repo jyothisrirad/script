@@ -8,8 +8,15 @@
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 
 ###
-dns_account=chsliu@gmail.com
 default_account=$(get_account)
+
+###
+# dns_account=chsliu@gmail.com
+# dns_project=creeper-196707
+
+###
+dns_account=sita@changen.com.tw
+dns_project=creeper-199909
 
 ### 
 addto_crontab() {
@@ -31,7 +38,7 @@ start() {
     
     # DNS transaction start
     echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
-    $dnsupdate start creeper-196707 creeper-tw
+    $dnsupdate start $dns_project creeper-tw
 
     # A uhc.creeper.tw 1min
     echo -e ${GREEN}== Updating ${YELLOW}$HOST.creeper.tw 1min IN A ... ${NC}
@@ -39,7 +46,7 @@ start() {
 
     # DNS transaction commit
     echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
-    $dnsupdate commit creeper-196707 creeper-tw
+    $dnsupdate commit $dns_project creeper-tw
     
     set_account $default_account
 	echo -e ${GREEN}=========================${NC}

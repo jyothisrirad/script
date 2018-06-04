@@ -463,7 +463,8 @@ log_parse_uhc() {
     echo $headline 第$num屆UHC苦力怕盃$title 比賽紀錄 $dates $headline
     echo 感言:\\\\
     echo 生物群系:\\\\
-    echo 中心點: \(0,0\)\\\\
+    $(cat $1 | remove_ansi_color | grep 中心點)
+    echo \\\\
     echo 種子碼:
     log_parse_seed $*
     echo \\\\

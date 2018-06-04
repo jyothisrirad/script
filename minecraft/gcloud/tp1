@@ -8,8 +8,15 @@
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 
 ###
-dns_account=chsliu@gmail.com
 default_account=$(get_account)
+
+###
+# dns_account=chsliu@gmail.com
+# dns_project=creeper-196707
+
+###
+dns_account=sita@changen.com.tw
+dns_project=creeper-199909
 
 ### 
 addto_crontab() {
@@ -31,13 +38,13 @@ start() {
     
     # DNS transaction start
     echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
-    $dnsupdate start creeper-196707 creeper-tw
+    $dnsupdate start $dns_project creeper-tw
 
     if [ $(date +%H) == '06' ]; then
         # On 6am
         # del A r53.creeper.tw 3hour 1min
         echo -e ${GREEN}== Deleting ${YELLOW}r53.creeper.tw 1min IN A ... ${NC}
-        $dnsupdate del creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
+        $dnsupdate del $dns_project creeper-tw r53 creeper.tw 3hour 1min A
     fi
 
     if [ $(date +%w) == 6 ]; then
@@ -60,7 +67,7 @@ start() {
 
         # append A r53.creeper.tw 1min
         # echo -e ${GREEN}=== Appending A r53.creeper.tw 1min ${NC}
-        # $dnsupdate append creeper-196707 creeper-tw r53 creeper.tw 3hour 1min A
+        # $dnsupdate append $dns_project creeper-tw r53 creeper.tw 3hour 1min A
     else
         # Not Saturday
         # A tp1.creeper.tw 3hour
@@ -86,7 +93,7 @@ start() {
 
     # DNS transaction commit
     echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
-    $dnsupdate commit creeper-196707 creeper-tw
+    $dnsupdate commit $dns_project creeper-tw
     
     set_account $default_account
 	echo -e ${GREEN}=========================${NC}
@@ -98,7 +105,7 @@ start2() {
     
     # DNS transaction start
     echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}home.changen.com.tw ${NC}
-    $dnsupdate start creeper-196707 changen-com-tw
+    $dnsupdate start $dns_project changen-com-tw
 
     if [ $(date +%w) == 6 ]; then
         # On Saturday
@@ -114,7 +121,7 @@ start2() {
 
     # DNS transaction commit
     echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}home.changen.com.tw ${NC}
-    $dnsupdate commit creeper-196707 changen-com-tw
+    $dnsupdate commit $dns_project changen-com-tw
     
     set_account $default_account
 	echo -e ${GREEN}=========================${NC}
