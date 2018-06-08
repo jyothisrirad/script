@@ -284,7 +284,8 @@ uhc_nset() {
 #=================================
 log_parse_seed() {
     [ ! -f "$1" ] && return
-    logfile=$(pwd)/teams.log
+    # logfile=$(pwd)/teams.log
+    logfile=$(dirname $(readlink -e $1))/teams.log
     tmp=/tmp/teams.log
     rm $tmp
     cat $1 | grep 'Seed:' | awk '{ printf ("%s\n", $5) }' >>$tmp
@@ -298,7 +299,8 @@ log_parse_seed() {
 #=================================
 log_parse_teams() {
     [ ! -f "$1" ] && return
-    logfile=$(pwd)/teams.log
+    # logfile=$(pwd)/teams.log
+    logfile=$(dirname $(readlink -e $1))/teams.log
     tmp=/tmp/teams.log
     cat $1 | egrep '\[*隊\]' | awk '{ printf ("  * %s\n", $4) }' >$tmp
     file.replace.escape $tmp
@@ -311,7 +313,8 @@ log_parse_teams() {
 log_parse_slain() {
     [ ! -f "$1" ] && return
     logfile=/tmp/slain.log
-    logfile2=$(pwd)/slain.log
+    # logfile2=$(pwd)/slain.log
+    logfile2=$(dirname $(readlink -e $1))/slain.log
     rm $logfile2
     cat $1 | grep.slain | grep -v DiscordSRV | sed 's/^/  * /'  >$logfile
     file.cleanup $logfile
@@ -329,7 +332,8 @@ log_parse_slain() {
 #=================================
 log_parse_winner() {
     [ ! -f "$1" ] && return
-    logfile=$(pwd)/winner.log
+    # logfile=$(pwd)/winner.log
+    logfile=$(dirname $(readlink -e $1))/winner.log
     tmp=/tmp/winner.log
     rm $tmp
     echo ================================= >>$tmp
@@ -346,7 +350,9 @@ log_parse_winner() {
 
 #=================================
 log_parse_cheater() {
-    logfile=$(pwd)/cheat.log
+    [ ! -f "$1" ] && return
+    # logfile=$(pwd)/cheat.log
+    logfile=$(dirname $(readlink -e $1))/cheat.log
     rm $logfile
 	
     cat $1 | grep 'BLOCKBREAK_\|BLOCKPLACE_\|CHAT_\|COMBINED_\|FIGHT_\|BLOCKINTERACT_\|INVENTORY_\|MOVING_\|NET_' | sort >>$logfile
@@ -375,6 +381,7 @@ list_top_by() {
 
 #=================================
 log_parse_tops() {
+    [ ! -f "$1" ] && return
     winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
     if [ ! -z "$winner" ]; then
 		winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
@@ -387,20 +394,20 @@ log_parse_tops() {
 	fi
     kill=$(cat $1|list_top FinalKill|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     kill_count=$(cat $1|list_top FinalKill|list_count)
-    [ "$kill" != "殺怪數 " ] && echo "  * 殺人王: $kill''$kill_count人''"
+    [ ! -z "$kill" ] && [ "$kill" != "殺怪數 " ] && echo "  * 殺人王: $kill''$kill_count人''"
     mobs=$(cat $1|list_top FinalEntity|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     mobs_count=$(cat $1|list_top FinalEntity|list_count)
-    [ "$mobs" != "挖掘鑽石礦 " ] && echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
+    [ ! -z "$mobs" ] && [ "$mobs" != "挖掘鑽石礦 " ] && echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
     diamond=$(cat $1|list_top FinalDiamond|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     diamond_count=$(cat $1|list_top FinalDiamond|list_count)
-    if [ "$diamond" != "挖掘黃金礦 " ]; then
+    if [ ! -z "$diamond" ] && [ "$diamond" != "挖掘黃金礦 " ]; then
 		rock_count=$(cat $1|list_top_by FinalStone $diamond|list_count)
 		ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
 		echo "  * 幸運星: $diamond''$diamond_count顆鑽石(礦石比$diamond_count/$rock_count=$ratio%)''"
 	fi
     apple=$(cat $1|list_top FinalEat|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     apple_count=$(cat $1|list_top FinalEat|list_count)
-    [[ "$apple" != "遊戲結束"* ]] && echo "  * 金好命: $apple''$apple_count顆金蘋果''"
+    [ ! -z "$apple" ] && [[ "$apple" != "遊戲結束"* ]] && echo "  * 金好命: $apple''$apple_count顆金蘋果''"
 }
 
 #=================================
@@ -426,6 +433,7 @@ list_top_byV2() {
 
 #=================================
 log_parse_topsV2() {
+    [ ! -f "$1" ] && return
     winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
     if [ ! -z "$winner" ]; then
 		winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
@@ -476,13 +484,13 @@ echo ${DIFFSEC}
 
 log_parse_lag() {
     [ ! -f "$1" ] && return
-    logfile=$(pwd)/lag.log
+    # logfile=$(pwd)/lag.log
+    logfile=$(dirname $(readlink -e $1))/lag.log
     tmpfile=/tmp/lag.tmp
     delayLimitms=1000
     rm $logfile $tmpfile
     cat $1 | grep.lag >$tmpfile
 	if [ -s $tmpfile ]; then
-		echo "log_parse_lag"
 		totalms=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
 		totaltick=$(cat $tmpfile | awk '{ printf ("%s\n", $21) }' | sed '/^\s*$/d' | paste -sd+ - | bc)
 		TIME1=$(cat $1 | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
@@ -650,6 +658,7 @@ log_parse_uhcV2() {
     echo 戰敗順序:
     log_parse_slain $* false
     echo 頭銜:
+	# log_parse_tops $*
 	log_parse_topsV2 $*
     echo 
     log_parse_winner $*
