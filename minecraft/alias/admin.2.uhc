@@ -146,9 +146,23 @@ uhctitle() {
     weekEnd=$(date --date "$dates -`date +%d` days +$lastSatofMon days" +%U)
     weekNow=$(date +%U)
     weekDiff=$(echo $weekNow - $weekBegin + 1 | bc)
-    # headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
+    headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
     title=$([ $weekNow == $weekEnd ] && echo 決賽 || echo 歡樂場$(num2roman $weekDiff))
     echo 第$num屆uhc苦力怕盃$title
+}
+
+#=================================
+uhctitle_byfile() {
+    num=$(echo $(date +%m -r $1)+5 | bc)
+    dates=$(date '+%Y/%m/%d' -r $1)
+    weekBegin=$(date --date "$dates -`date +%d -r $1` days +1 days" +%U)
+    lastSatofMon=$(ncal -h |awk '/Sa/ {print $(NF)}')
+    weekEnd=$(date --date "$dates -`date +%d -r $1` days +$lastSatofMon days" +%U)
+    weekNow=$(date +%U -r $1)
+    weekDiff=$(echo $weekNow - $weekBegin + 1 | bc)
+    headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
+    title=$([ $weekNow == $weekEnd ] && echo 決賽 || echo 歡樂場$(num2roman $weekDiff))
+    echo $headline 第$num屆UHC苦力怕盃$title 比賽紀錄 $dates $headline
 }
 
 #=================================
@@ -208,9 +222,63 @@ molemode() {
 }
 
 #=================================
-moletime() {
+# time_reminder=1         //時間提醒
+# time_shown=1            //名條顯示
+# time_game=0             //時間停止(程式內部外加112秒)
+# time_shrink=1           //漸縮/傳送/控制開始
+# time_shrink_duration=1  //漸縮時間長度
+# time_nomob=1            //清除怪物
+# time_total=1            //最後戰場
+# pvpTime=1               //PvP開啟時間
+# moleTime=1              //選間諜時間
+uhctime() {
+	[ ! $1 ] && return
+	
+	time_total=$1
+
+	time_reminder=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}' | awk '{print ($0<2)?1:$0}' | awk '{print ($0>20)?20:$0}')
+	time_shown=$(echo $time_total/3 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+	# 60*2/3 - 0.03(112sec)
+	time_game=$(echo $time_total*.67-112/60 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}' | awk '{print ($0<0)?0:$0}')
+	# 60*2/3
+	time_shrink_duration=$(echo $time_total*.67 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}' | awk '{print ($0<1)?1:$0}')
+	# 60/3 - 5
+	time_shrink=$(echo $time_total*.25 | bc | awk '{print ($0-int($0)<0.499)?int($0):int($0)+1}')
+	time_nomob=$(($time_shrink+$time_shrink_duration))
+	pvpTime=$time_shown
+	moleTime=$(($time_total/2))
+
+	echo $time_reminder 時間提醒間隔
+	echo $time_shrink 地圖漸縮/傳送/控制開始
+	echo $time_shown 名條顯示
+	echo $pvpTime PvP開啟時間
+	echo $moleTime 選間諜時間
+	echo $time_game 時間停止
+	echo $(($time_shrink+$time_shrink_duration)) 地圖漸縮停止
+	echo $time_nomob 清除怪物
+	echo $time_total 最後戰場
+	
+	uhc_nset 'u' $time_reminder
+	uhc_nset 'b' $time_shrink
+	uhc_nset 'j' $time_shown
+	uhc_nset 'pvpTime' $pvpTime
+	uhc_nset 'moleTime' $moleTime
+	uhc_nset 'g' $time_game
+	uhc_nset 'e' $time_shrink_duration
+	uhc_nset 'l' $time_nomob
+	uhc_nset 'FinalTime' $time_total
+}
+
+#=================================
+# moletime() {
     # echo moletime 
-    [ ! -z "$1" ] && mcdo scoreboard players set @e[tag=N] moleTime $1
+    # [ ! -z "$1" ] && mcdo scoreboard players set @e[tag=N] moleTime $1
+# }
+
+#=================================
+uhc_nset() {
+    # echo @e[tag=N] $1=$2 
+    [ ! -z "$1" ] && mcdo scoreboard players set @e[tag=N] $1 $2
 }
 
 #=================================
@@ -277,10 +345,107 @@ log_parse_winner() {
 #=================================
 log_parse_cheater() {
     logfile=$(pwd)/cheat.log
+    rm $logfile
 	
     cat $1 | grep 'BLOCKBREAK_\|BLOCKPLACE_\|CHAT_\|COMBINED_\|FIGHT_\|BLOCKINTERACT_\|INVENTORY_\|MOVING_\|NET_' | sort >>$logfile
     
     cat $logfile
+}
+
+#=================================
+list_top() {
+    grep -A 10 $1 | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
+      if (!top||$1==top) {
+        printf("%s\t%s\n",$1,$2)
+        top=$1
+      }
+    } '
+}
+
+list_top_by() {
+    grep -A 60 $1 | grep $2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
+      if (!top||$1==top) {
+        printf("%s\t%s\n",$1,$2)
+        top=$1
+      }
+    } '
+}
+
+#=================================
+log_parse_tops() {
+    winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
+    winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
+	for winteamname in $winteamnames
+	do
+		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sed 's/(間諜)//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+		echo "  * 最後贏家: [$winteamname]$winteamplayer"
+	done
+    kill=$(cat $1|list_top FinalKill|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    kill_count=$(cat $1|list_top FinalKill|list_count)
+    [ "$kill" != "殺怪數 " ] && echo "  * 殺人王: $kill''$kill_count人''"
+    mobs=$(cat $1|list_top FinalEntity|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    mobs_count=$(cat $1|list_top FinalEntity|list_count)
+    [ "$mobs" != "挖掘鑽石礦 " ] && echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
+    diamond=$(cat $1|list_top FinalDiamond|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    diamond_count=$(cat $1|list_top FinalDiamond|list_count)
+    if [ "$diamond" != "挖掘黃金礦 " ]; then
+		rock_count=$(cat $1|list_top_by FinalStone $diamond|list_count)
+		ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
+		echo "  * 幸運星: $diamond''$diamond_count顆鑽石(礦石比$diamond_count/$rock_count=$ratio%)''"
+	fi
+    apple=$(cat $1|list_top FinalEat|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    apple_count=$(cat $1|list_top FinalEat|list_count)
+    [[ "$apple" != "遊戲結束"* ]] && echo "  * 金好命: $apple''$apple_count顆金蘋果''"
+}
+
+#=================================
+list_topV2() {
+    # grep -A 10 $1 | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
+      # if (!top||$1==top) {
+        # printf("%s\t%s\n",$1,$2)
+        # top=$1
+      # }
+    # } '
+	# echo grep "[$1]"
+	grep "\[$1\]" | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' '{printf "%s\t%s\n", $1,$2}'
+}
+
+list_top_byV2() {
+    grep "\[$1\]" | grep $2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
+      if (!top||$1==top) {
+        printf("%s\t%s\n",$1,$2)
+        top=$1
+      }
+    } '
+}
+
+#=================================
+log_parse_topsV2() {
+    winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
+    winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
+	for winteamname in $winteamnames
+	do
+		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sed 's/(間諜)//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+		echo "  * 最後贏家: [$winteamname]$winteamplayer"
+	done
+    kill=$(cat $1|list_topV2 FinalKill|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    kill_count=$(cat $1|list_topV2 FinalKill|list_count)
+    [ ! -z $kill ] && echo "  * 殺人王: $kill''$kill_count人''"
+    mobs=$(cat $1|list_topV2 FinalEntity|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    mobs_count=$(cat $1|list_topV2 FinalEntity|list_count)
+    [ ! -z $mobs ] && echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
+    diamond=$(cat $1|list_topV2 FinalDiamond|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    diamond_count=$(cat $1|list_topV2 FinalDiamond|list_count)
+    if [ ! -z $diamond ]; then
+		rock_count=$(cat $1|list_top_byV2 FinalStone $diamond|list_count)
+		ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
+		echo "  * 幸運星: $diamond''$diamond_count顆鑽石(礦石比$diamond_count/$rock_count=$ratio%)''"
+	fi
+    apple=$(cat $1|list_topV2 FinalEat|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
+    apple_count=$(cat $1|list_topV2 FinalEat|list_count)
+    [ ! -z $apple ] && echo "  * 金好命: $apple''$apple_count顆金蘋果''"
 }
 
 #=================================
@@ -308,37 +473,40 @@ log_parse_lag() {
     logfile=$(pwd)/lag.log
     tmpfile=/tmp/lag.tmp
     delayLimitms=1000
-    rm $logfile
+    rm $logfile $tmpfile
     cat $1 | grep.lag >$tmpfile
-    totalms=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
-    totaltick=$(cat $tmpfile | awk '{ printf ("%s\n", $21) }' | sed '/^\s*$/d' | paste -sd+ - | bc)
-    TIME1=$(cat $1 | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
-    TIME2=$(cat $1 | tail -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
-    sec=$(second_diff $TIME1 $TIME2)
-    per=$(echo "scale=2;100*$totalms/1000/$sec" | bc -l)
-    max=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 1)
-    # tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 20)
-    tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | sed '/^\s*$/d' | sed 's/[^0-9]*//g' | awk '$1>'"$delayLimitms")
-    count=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | sort -nr | wc -l)
-    avg=$(echo "scale=0;$totalms/$count" | bc -l)
-    # echo ================================= >>$logfile
-    echo Running total ${totalms}ms behind, skipping ${totaltick} tick\(s\), ${totalms}ms/${sec}sec=${per}%, with ${count} times, max delay is ${max}ms. avg delay is ${avg}ms. >>$logfile
-    echo [$TIME1] to [$TIME2] for `date +%H:%M:%S -ud @${sec}` >$tmpfile
-    gamestart=$(cat $1 | grep '傳送倒數計時\|lost the achievement' | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
-    for top in $tops; do
-        delaytimes=$(cat $1 | grep ${top}ms | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
-        for delaytime in $delaytimes; do
-            gametime=$(second_diff $gamestart $delaytime)
-            echo [${delaytime}] `date +%H:%M:%S -ud @${gametime}` - Lag ${top}ms >>$tmpfile
-        done
-    done
-    
-    delaytime=$(cat $1 | grep 'max 0.05' | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
-    if [ ! -z "$delaytime" ]; then
-        gametime=$(second_diff $gamestart $delaytime)
-        gametimeH=$(date +%H:%M:%S -ud @${gametime})
-        cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - Shutdown %s%s\n",$1,gt,$9,$10) }' >>$tmpfile
-    fi
+	if [ -s $tmpfile ]; then
+		echo "log_parse_lag"
+		totalms=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | paste -sd+ - | bc)
+		totaltick=$(cat $tmpfile | awk '{ printf ("%s\n", $21) }' | sed '/^\s*$/d' | paste -sd+ - | bc)
+		TIME1=$(cat $1 | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+		TIME2=$(cat $1 | tail -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+		sec=$(second_diff $TIME1 $TIME2)
+		per=$(echo "scale=2;100*$totalms/1000/$sec" | bc -l)
+		max=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 1)
+		# tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | head -n 20)
+		tops=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sort -nr | sed '/^\s*$/d' | sed 's/[^0-9]*//g' | awk '$1>'"$delayLimitms")
+		count=$(cat $tmpfile | awk '{ printf ("%s\n", $18) }' | sed "s/ms//g" | sed '/^\s*$/d' | sort -nr | wc -l)
+		avg=$(echo "scale=0;$totalms/$count" | bc -l)
+		# echo ================================= >>$logfile
+		echo Running total ${totalms}ms behind, skipping ${totaltick} tick\(s\), ${totalms}ms/${sec}sec=${per}%, with ${count} times, max delay is ${max}ms. avg delay is ${avg}ms. >>$logfile
+		echo [$TIME1] to [$TIME2] for `date +%H:%M:%S -ud @${sec}` >$tmpfile
+		gamestart=$(cat $1 | grep '傳送倒數計時\|lost the achievement' | head -n 1 | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+		for top in $tops; do
+			delaytimes=$(cat $1 | grep ${top}ms | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+			for delaytime in $delaytimes; do
+				gametime=$(second_diff $gamestart $delaytime)
+				echo [${delaytime}] `date +%H:%M:%S -ud @${gametime}` - Lag ${top}ms >>$tmpfile
+			done
+		done
+		
+		delaytime=$(cat $1 | grep 'max 0.05' | awk '{ printf ("%s\n", $1) }' | sed "s/\[//g" | sed "s/\]//g")
+		if [ ! -z "$delaytime" ]; then
+			gametime=$(second_diff $gamestart $delaytime)
+			gametimeH=$(date +%H:%M:%S -ud @${gametime})
+			cat $1 | grep 'max 0.05' | awk -v gt="$gametimeH" '{printf ("%s %s - Shutdown %s%s\n",$1,gt,$9,$10) }' >>$tmpfile
+		fi
+	fi
     
     cat $1 | grep Timings >>$tmpfile
     
@@ -420,24 +588,6 @@ num2roman() { # NUM
     echo $output
 }
 
-list_top() {
-    grep -A 10 $1 | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
-      if (!top||$1==top) {
-        printf("%s\t%s\n",$1,$2)
-        top=$1
-      }
-    } '
-}
-
-list_top_by() {
-    grep -A 60 $1 | grep $2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
-      if (!top||$1==top) {
-        printf("%s\t%s\n",$1,$2)
-        top=$1
-      }
-    } '
-}
-
 list_name() {
     awk '{printf("%s ",$2)}'
 }
@@ -451,19 +601,10 @@ list_team() {
 }
 
 log_parse_uhc() {
-    num=$(echo $(date +%m -r $1)+5 | bc)
-    dates=$(date '+%Y/%m/%d' -r $1)
-    weekBegin=$(date --date "$dates -`date +%d -r $1` days +1 days" +%U)
-    lastSatofMon=$(ncal -h |awk '/Sa/ {print $(NF)}')
-    weekEnd=$(date --date "$dates -`date +%d -r $1` days +$lastSatofMon days" +%U)
-    weekNow=$(date +%U -r $1)
-    weekDiff=$(echo $weekNow - $weekBegin + 1 | bc)
-    headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
-    title=$([ $weekNow == $weekEnd ] && echo 決賽 || echo 歡樂場$(num2roman $weekDiff))
-    echo $headline 第$num屆UHC苦力怕盃$title 比賽紀錄 $dates $headline
+	uhctitle_byfile $*
     echo 感言:\\\\
     echo 生物群系:\\\\
-    $(cat $1 | remove_ansi_color | grep 中心點)
+    echo $(cat $1 | remove_ansi_color | grep 中心點 | tail -n 1 | awk '{ printf ("%s %s %s\n",$4,$5,$6) }')
     echo \\\\
     echo 種子碼:
     log_parse_seed $*
@@ -476,24 +617,8 @@ log_parse_uhc() {
     echo 戰敗順序:
     log_parse_slain $* false
     echo 頭銜:
-    winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
-    winteamname=$(cat $1 | list_team | grep $winner | cut -d "[" -f2 | cut -d "]" -f1)
-    winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | tr '\n' ' ' | sed "s/$winner/\*\*$winner\*\*/g")
-    echo "  * 最後贏家: [$winteamname]$winteamplayer"
-    kill=$(cat $1|list_top FinalKill|list_name)
-    kill_count=$(cat $1|list_top FinalKill|list_count)
-    echo "  * 殺人王: $kill''$kill_count人''"
-    mobs=$(cat $1|list_top FinalEntity|list_name)
-    mobs_count=$(cat $1|list_top FinalEntity|list_count)
-    echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
-    diamond=$(cat $1|list_top FinalDiamond|list_name)
-    diamond_count=$(cat $1|list_top FinalDiamond|list_count)
-    rock_count=$(cat $1|list_top_by FinalStone $diamond|list_count)
-    ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
-    echo "  * 幸運星: $diamond''$diamond_count顆鑽石(礦石比$diamond_count/$rock_count=$ratio%)''"
-    apple=$(cat $1|list_top FinalEat|list_name)
-    apple_count=$(cat $1|list_top FinalEat|list_count)
-    echo "  * 金好命: $apple''$apple_count顆金蘋果''"
+	log_parse_tops $*
+	log_parse_topsV2 $*
     echo 
     log_parse_winner $*
     echo Lag:
@@ -570,10 +695,18 @@ alias ush='mcdo scoreboard players set @e[tag=N] b 0'
 # alias uhcfinal='mcdo scoreboard players set @e[tag=N] FinalTime 0'
 help_add 'uf.<ticks>' 'UHC最後戰場倒數'
 alias uf='mcdo scoreboard players set @e[tag=N] FinalWar $*'
-help_add 'molemode' 'UHC間諜模式On/Off'
-alias molemode='molemode'
-help_add 'moletime.<minutes>' 'UHC間諜模式時間設定'
-alias moletime='moletime'
+help_add 'uhcmole' 'UHC間諜模式On/Off'
+alias uhcmole='molemode'
+help_add 'uhctime.<minutes>' 'UHC時間長度'
+alias uhctime='uhctime'
+# help_add 'moletime.<minutes>' 'UHC間諜模式時間設定'
+# alias moletime='moletime'
+help_add 'nset.<value>' 'UHC變數設定'
+alias nset='uhc_nset'
+help_add 'uhcp' 'UHC.profiler.On/Off'
+alias uhcp='mcdo run p'
+help_add 'uhce' 'UHC.eventHandler.On/Off'
+alias uhce='mcdo run e'
 
 #=================================
 help_hline1 'UHC紀錄分析'

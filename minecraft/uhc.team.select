@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 from __future__ import print_function
 import sys
@@ -9,6 +10,23 @@ from subprocess import call
 max_team=14
 least_team_players=3
 teamnames = ['R','Y','G','A','B','P','E','r','y','g','a','b','p','e']
+team_display_names = {
+    '1':'§f單人§r',
+    'R':'§c紅隊§r',
+    'Y':'§e黃隊§r',
+    'G':'§a綠隊§r',
+    'A':'§b青隊§r',
+    'B':'§9藍隊§r',
+    'P':'§d亮紫隊§r',
+    'E':'§7灰隊§r',
+    'r':'§4深紅隊§r',
+    'y':'§6橘隊§r',
+    'g':'§2深綠隊§r',
+    'a':'§3深青隊§r',
+    'b':'§1深藍隊§r',
+    'p':'§5深紫隊§r',
+    'e':'§8深灰隊§r',
+}
 preset_teams = {}
 presets = {
 	0: ['qqua630512'],
@@ -91,14 +109,18 @@ def parse(f):
 
 
 def team_print(teams):
+	# print("mcdo say 隊伍名單:")
 	for team in teams:
+		msg="mcdo say "+team_display_names[team]+":"
 		for player in teams[team]:
 			# if player.strip() != None:
 				cmd="mcdo scoreboard teams join",team,player
 				print(' '.join(cmd))
+				msg+=" "+player
 				# call(["ls", "-l"])
 				# call([cmd,""])
-			
+		print(msg)
+		
 
 def main():
     global least_team_players

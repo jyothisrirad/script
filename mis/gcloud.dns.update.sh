@@ -2,7 +2,7 @@
 
 . /home/sita/script/include/console.color
 
-PROJECT=creeper-196707
+# PROJECT=creeper-196707
 
 ttlify() {
   local i
@@ -170,7 +170,7 @@ case "$1" in
     ;;
     
   start)
-    PROJECT=$2
+    export PROJECT=$2
     ZONENAME=$3
     dns_start
     exit

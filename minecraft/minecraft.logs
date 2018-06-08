@@ -258,7 +258,7 @@ grep.slain() {
 ## was killed by Witch using magic
 ## was blown up by Creeper 
     # grep left\|
-	grep 'blew\|burned\|fell from\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain\|drowned\|using magic\|blown up\|傳送倒數計時'
+	grep 'blew\|burned\|fell from\|hit the ground\|suffocated\|swim\|burnt\|killed by magic\|pricked\|shot\|slain\|drowned\|using magic\|blown up\|傳送倒數計時\|最後戰場傳送\|同隊傷害'
 }
 
 grep.winner() {

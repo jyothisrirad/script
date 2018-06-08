@@ -9,7 +9,10 @@ dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 
 ###
 ig_account=sita@changen.com.tw
-dns_account=chsliu@gmail.com
+# dns_account=chsliu@gmail.com
+# dns_project=creeper-196707
+dns_account=sita@changen.com.tw
+dns_project=creeper-199909
 default_account=$(get_account)
 PROJECT=creeper-199909
 REGION=asia-east1
@@ -56,14 +59,14 @@ dns_update() {
     
     # DNS transaction start
     echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
-    $dnsupdate start creeper-196707 creeper-tw
+    $dnsupdate start $dns_project creeper-tw
     
     echo -e ${GREEN}== Updating ${YELLOW}$HOSTS.creeper.tw IN A $* ${GREEN}1min ${NC}
     $dnsupdate A creeper-tw $HOSTS creeper.tw 1min 1min $*
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
-    $dnsupdate commit creeper-196707 creeper-tw
+    $dnsupdate commit $dns_project creeper-tw
     
     set_account $last_account
 }
@@ -74,14 +77,14 @@ dns_remove() {
     
     # DNS transaction start
     echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
-    $dnsupdate start creeper-196707 creeper-tw
+    $dnsupdate start $dns_project creeper-tw
     
     echo -e ${GREEN}== Removing ${YELLOW}$HOSTS.creeper.tw IN A $* ${GREEN}1min ${NC}
-    $dnsupdate del creeper-196707 creeper-tw $HOSTS creeper.tw 1min 3hour A $*
+    $dnsupdate del $dns_project creeper-tw $HOSTS creeper.tw 1min 3hour A $*
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$HOSTS.creeper.tw ${NC}
-    $dnsupdate commit creeper-196707 creeper-tw
+    $dnsupdate commit $dns_project creeper-tw
     
     set_account $last_account
 }

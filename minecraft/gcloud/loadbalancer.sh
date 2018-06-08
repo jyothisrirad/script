@@ -11,7 +11,10 @@ runscreen=/home/sita/script/mis/run_in_screen.sh
 
 ###
 lb_account=sita@changen.com.tw
-dns_account=chsliu@gmail.com
+# dns_account=chsliu@gmail.com
+# dns_project=creeper-196707
+dns_account=sita@changen.com.tw
+dns_project=creeper-199909
 default_account=$(get_account)
 PROJECT=creeper-199909
 REGION=asia-east1
@@ -107,7 +110,7 @@ dns_update() {
     
     # DNS transaction start
     echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
-    $dnsupdate start creeper-196707 creeper-tw
+    $dnsupdate start $dns_project creeper-tw
     
     echo -e ${GREEN}== Updating ${YELLOW}$LB.creeper.tw IN A $1 ${NC}
     $dnsupdate A creeper-tw $LB creeper.tw 1min 1min $1
@@ -117,7 +120,7 @@ dns_update() {
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
-    $dnsupdate commit creeper-196707 creeper-tw
+    $dnsupdate commit $dns_project creeper-tw
     
     set_account $last_account
 }
@@ -129,17 +132,17 @@ dns_remove() {
     
     # DNS transaction start
     echo -e ${YELLOW}=== Starting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
-    $dnsupdate start creeper-196707 creeper-tw
+    $dnsupdate start $dns_project creeper-tw
     
     echo -e ${GREEN}== Removing ${YELLOW}$LB.creeper.tw IN A ... ${NC}
-    $dnsupdate del creeper-196707 creeper-tw $LB creeper.tw 1min 3hour A
+    $dnsupdate del $dns_project creeper-tw $LB creeper.tw 1min 3hour A
     
     echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $default_HOST.creeper.tw ${NC}
     $dnsupdate CNAME creeper-tw mc creeper.tw $default_HOST.creeper.tw. 1min 3hour
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
-    $dnsupdate commit creeper-196707 creeper-tw
+    $dnsupdate commit $dns_project creeper-tw
     
     set_account $last_account
 }
