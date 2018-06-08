@@ -334,7 +334,9 @@ log_parse_winner() {
     rm $tmp
     echo ================================= >>$tmp
     winner=$(cat $1 | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
-    echo 最後贏家 $winner >>$tmp
+    if [ ! -z "$winner" ]; then
+		echo 最後贏家 $winner >>$tmp
+	fi
     cat $1 | grep '\[0;30;1' | egrep 'm([0-9]+,|=)' | awk '{ printf ("%s %s\n",$4,$5) }' >>$tmp
     file.replace.escape $tmp
     cat $tmp >$logfile
@@ -374,13 +376,15 @@ list_top_by() {
 #=================================
 log_parse_tops() {
     winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
-    winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
-	for winteamname in $winteamnames
-	do
-		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sed 's/(間諜)//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
-		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
-		echo "  * 最後贏家: [$winteamname]$winteamplayer"
-	done
+    if [ ! -z "$winner" ]; then
+		winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
+		for winteamname in $winteamnames
+		do
+			winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sed 's/(間諜)//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+			winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+			echo "  * 最後贏家: [$winteamname]$winteamplayer"
+		done
+	fi
     kill=$(cat $1|list_top FinalKill|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     kill_count=$(cat $1|list_top FinalKill|list_count)
     [ "$kill" != "殺怪數 " ] && echo "  * 殺人王: $kill''$kill_count人''"
@@ -423,13 +427,15 @@ list_top_byV2() {
 #=================================
 log_parse_topsV2() {
     winner=$(cat $1 | remove_ansi_color | grep 最後贏家 | tail -n 1 | awk '{ printf ("%s\n", $4) }' | sed "s/最後贏家是//g")
-    winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
-	for winteamname in $winteamnames
-	do
-		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sed 's/(間諜)//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
-		winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
-		echo "  * 最後贏家: [$winteamname]$winteamplayer"
-	done
+    if [ ! -z "$winner" ]; then
+		winteamnames=$(cat $1 | list_team | grep -w $winner | cut -d "[" -f2 | cut -d "]" -f1 | sort | uniq)
+		for winteamname in $winteamnames
+		do
+			winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sed 's/(間諜)//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+			winteamplayer=$(cat $1 | list_team | grep $winteamname | sed 's/\[[^]]*\]//g' | sort | uniq | tr '\r' ' ' | tr '\n' ' ' | sed 's/  / /g'| sed "s/\<$winner\>/\*\*$winner\*\*/g")
+			echo "  * 最後贏家: [$winteamname]$winteamplayer"
+		done
+	fi
     kill=$(cat $1|list_topV2 FinalKill|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     kill_count=$(cat $1|list_topV2 FinalKill|list_count)
     [ ! -z $kill ] && echo "  * 殺人王: $kill''$kill_count人''"
@@ -618,6 +624,32 @@ log_parse_uhc() {
     log_parse_slain $* false
     echo 頭銜:
 	log_parse_tops $*
+    echo 
+    log_parse_winner $*
+    echo Lag:
+    log_parse_lag $*
+    echo Cheaters:
+    log_parse_cheater $*
+    echo 紀錄檔: $(readlink -e $1)
+}
+
+log_parse_uhcV2() {
+	uhctitle_byfile $*
+    echo 感言:\\\\
+    echo 生物群系:\\\\
+    echo $(cat $1 | remove_ansi_color | grep 中心點 | tail -n 1 | awk '{ printf ("%s %s %s\n",$4,$5,$6) }')
+    echo \\\\
+    echo 種子碼:
+    log_parse_seed $*
+    echo \\\\
+    echo 下次賽後賽:\\\\
+    echo \\\\
+    echo 影片:\\\\
+    echo 參賽名單:
+    log_parse_teams $*
+    echo 戰敗順序:
+    log_parse_slain $* false
+    echo 頭銜:
 	log_parse_topsV2 $*
     echo 
     log_parse_winner $*
@@ -632,11 +664,11 @@ log_parse_uhc() {
 # help_hline1 'UHC地圖設定'
 help_add 'uhctitle' 'UHC標題'
 alias uhctitle=uhctitle
-help_add 'ruleinit' 'UHC初始'
+# help_add 'ruleinit' 'UHC初始'
 alias ruleinit=uhcinit
-help_add 'ruleset' 'UHC設定規則'
+# help_add 'ruleset' 'UHC設定規則'
 alias ruleset='/home/sita/script/minecraft/uhc.rules $*'
-help_add 'ruleset2' 'UHC跑圖'
+# help_add 'ruleset2' 'UHC跑圖'
 alias ruleset2=uhcset2
 # help_add 'ruleotg' 'OTG地圖'
 alias ruleotg='otglist'
@@ -721,5 +753,6 @@ alias logwinner='log_parse_winner $*'
 alias loglag='log_parse_lag $*'
 # help_add 'loglag.<log>' 'UHC分析作弊'
 alias logcheat='log_parse_cheater $*'
-help_add 'loguhc.<log>' 'UHC賽後分析'
+help_add 'loguhc2.<log>' 'UHC賽後分析'
 alias loguhc='log_parse_uhc $*'
+alias loguhc2='log_parse_uhcV2 $*'

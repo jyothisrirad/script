@@ -318,9 +318,18 @@ logs.grep() {
 		;;
     cheat)
 		logs | grep.cheater
+		
+		. /home/sita/script/minecraft/alias.minecraft
+		cheat_report
 		;;
     lag)
 		logs | grep.lag
+		;;
+    wiki)
+		. /home/sita/script/minecraft/alias/admin.1.help
+		. /home/sita/script/minecraft/alias/admin.2.uhc
+		cd $MCPATH/logs
+		log_parse_uhcV2 $MCPATH/logs/latest.log
 		;;
     *)
     ;;
