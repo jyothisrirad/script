@@ -255,7 +255,7 @@ uhctime() {
 	echo $moleTime 選間諜時間
 	echo $time_game 時間停止
 	echo $(($time_shrink+$time_shrink_duration)) 地圖漸縮停止
-	echo $time_nomob 清除怪物
+	echo $time_nomob 玩家發光/清除怪物
 	echo $time_total 最後戰場
 	
 	uhc_nset 'u' $time_reminder
@@ -266,6 +266,7 @@ uhctime() {
 	uhc_nset 'g' $time_game
 	uhc_nset 'e' $time_shrink_duration
 	uhc_nset 'l' $time_nomob
+	uhc_nset 'ClearTime' $time_nomob
 	uhc_nset 'FinalTime' $time_total
 }
 
