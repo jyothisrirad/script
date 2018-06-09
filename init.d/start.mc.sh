@@ -22,8 +22,8 @@ mcstart_nocheck() {
 	for srv in ${servers[*]}
 	do
 		$srv && [ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && as_user "./update.sh"
-        [ ! -z $rematch ] && mcserver pre_restore && mcserver restore && server.prep
-		mcserver start
+        [ ! -z $rematch ] && mcserver pre_restore && mcserver restore
+		server.prep && mcserver start
 	done
 }
 
