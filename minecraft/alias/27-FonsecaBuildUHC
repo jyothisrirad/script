@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s27=27-FonsecaBuildUHC
+
+s27() {
+	chmc $s27
+}
+
+alias 27=s27

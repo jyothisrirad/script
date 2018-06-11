@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+help_hline3 '作弊(cheats)'
+
+#=================================
 alias day='mcserver do time set day'
 alias night='mcserver do time set night'
 alias rain='mcserver do toggledownfall'

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s26=26-BuildUHC
+
+s26() {
+	chmc $s26
+}
+
+alias 26=s26

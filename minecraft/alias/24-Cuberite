@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s24=24-RTM
+s24=24-Cuberite
 
 s24() {
 	chmc $s24

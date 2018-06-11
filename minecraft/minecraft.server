@@ -423,9 +423,11 @@ case "$1" in
 		mc_backup_ex $2
 		if mc_status; then mc_stop; fi
 		
-		tempdir=/tmp/$RANDOM
+		tempparent=/tmp/DEL
+		tempdir=/tmp/DEL/$RANDOM
 		echo Moving $MCSTORE to $tempdir
 		[ ! -d $tempdir/$MCSTORE ] || rm -rf $tempdir/$MCSTORE
+		[ -d $tempparent ] || mkdir $tempparent
 		[ -d $tempdir ] || mkdir $tempdir
 		[ ! -d $MCSTORE ] || mv -f $MCSTORE $tempdir
 	else

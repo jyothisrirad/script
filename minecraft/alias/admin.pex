@@ -1,4 +1,8 @@
 #!/bin/bash
+# https://github.com/PEXPlugins/PermissionsEx/wiki/Commands
+# pex user <user> list
+# pex user <user> add <permission> [world]
+# pex user <user> remove <permission> [world]
 
 #=================================
 help_hline3 '權限(pex)'
@@ -25,8 +29,11 @@ group_list() {
 group_add() {
     [ -z "$2" ] && echo need groupname and idlist && return
     idfile=$idlist
+    # [ ! -z "$2" ] && echo true
+    # [ -f "$2" ] && echo true
     [ ! -z "$2" ] && [ -f "$2" ] && idfile=$2
     [ -f $idfile ] && ids=`cat $idfile`
+    # echo Using listfile $idfile = $2 ?
     for id in $ids
     do
         mcserver do pex group $1 user add $id
@@ -45,11 +52,13 @@ group_clear() {
 }
 
 group_set() {
+    export LOG_DELAY=1
     [ -z "$1" ] && echo need groupname && return
-    [ ! -f ~/$1 ] && echo need preset list ~/$1 && return
+    [ ! -f $2 ] && echo need preset list $2 && return
     group_list $1
     group_clear $1 $idlist
-    group_add $1 ~/$1
+    group_add $1 $2
+    export LOG_DELAY=.1
 }
 
 #=================================
