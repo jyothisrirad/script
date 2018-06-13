@@ -94,14 +94,14 @@ check_creeper_ip() {
     digthis home.changen.com.tw
     echo =================================
     digthis mc.creeper.tw
-    digthis tp1.creeper.tw
+    # digthis tp1.creeper.tw
     digthis gem.creeper.tw
     digthis wiki.creeper.tw
     # digthis r53.creeper.tw
-    echo =================================
+    # echo =================================
     # digthis lb.creeper.tw
-    digthis uhc.creeper.tw
-    digthis www.creeper.tw
+    # digthis uhc.creeper.tw
+    # digthis www.creeper.tw
 }
 
 #=================================

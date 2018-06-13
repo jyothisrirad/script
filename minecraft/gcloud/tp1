@@ -30,7 +30,9 @@ delfrom_crontab() {
 }
 
 ###
-HOST=$(basename $0)
+# HOST=$(basename $0)
+num=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
+HOST=tp$num
 
 start() {
 	echo -e ${GREEN}=========================${NC}
