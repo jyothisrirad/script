@@ -51,6 +51,8 @@ HOST=tp$num
 start() {
     is_tp_already_set && return
 
+    bungee_restart
+    
 	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
     
@@ -148,7 +150,7 @@ start2() {
 }
 
 bungee_restart() {
-    is_tp_already_set && return
+    # is_tp_already_set && return
 	
 	. /home/sita/script/minecraft/alias.minecraft
 	
@@ -175,7 +177,7 @@ case "$1" in
     exit
     ;;
   start)
-	bungee_restart
+	# bungee_restart
     start
     start2
     exit

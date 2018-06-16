@@ -85,7 +85,7 @@ get_myip() {
 #=================================
 geolocation() {
     myIP=$1
-    echo -e ${GREEN}$(curl freegeoip.net/xml/$myIP 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), myIP=${myIP} ${NC}
+    echo -e ${GREEN}$(curl freegeoip.net/xml/$myIP 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), IP=${myIP} ${NC}
 }
 
 #=================================
@@ -160,6 +160,8 @@ alias stop2='~/script/init.d/hosts/$(hostname) stop2'
 
 help_add 'cc' '檢查DNS'
 alias cc='check_creeper_ip'
+help_add 'geo.<ip>' '檢查IP位置'
+alias geo='geolocation'
 
 help_add 'gl' 'Gamelist'
 alias gl='ls /mnt/runtimes/'
