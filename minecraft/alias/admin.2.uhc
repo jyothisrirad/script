@@ -302,7 +302,7 @@ log_parse_slain() {
     # logfile2=$(pwd)/slain.log
     logfile2=$(dirname $(readlink -e $1))/slain.log
     rm $logfile2
-    cat $1 | grep.slain | grep -v DiscordSRV | sed 's/^/  * /'  >$logfile
+    cat $1 | grep.slain | remove_ansi_color | grep -v DiscordSRV | sed 's/^/  * /'  >$logfile
     file.cleanup $logfile
     file.replace.escape $logfile
     file.replace.teamtag $logfile
@@ -349,7 +349,8 @@ log_parse_cheater() {
 #=================================
 list_top() {
     grep -A 10 $1 | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
-      if (!top||$1==top) {
+      # if (!top||$1==top) {
+      if (!top) {
         printf("%s\t%s\n",$1,$2)
         top=$1
       }
@@ -405,7 +406,12 @@ list_topV2() {
       # }
     # } '
 	# echo grep "[$1]"
-	grep "\[$1\]" | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' '{printf "%s\t%s\n", $1,$2}'
+	grep "\[$1\]" | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
+      if (!top||$1==top) {
+        printf("%s\t%s\n",$1,$2)
+        top=$1
+      }
+    } '
 }
 
 list_top_byV2() {
@@ -432,20 +438,20 @@ log_parse_topsV2() {
 	fi
     kill=$(cat $1|list_topV2 FinalKill|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     kill_count=$(cat $1|list_topV2 FinalKill|list_count)
-    [ ! -z $kill ] && echo "  * 殺人王: $kill''$kill_count人''"
+    [ ! -z "$kill" ] && echo "  * 殺人王: $kill''$kill_count人''"
     mobs=$(cat $1|list_topV2 FinalEntity|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     mobs_count=$(cat $1|list_topV2 FinalEntity|list_count)
-    [ ! -z $mobs ] && echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
+    [ ! -z "$mobs" ] && echo "  * 鬼見愁: $mobs''$mobs_count隻怪''"
     diamond=$(cat $1|list_topV2 FinalDiamond|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     diamond_count=$(cat $1|list_topV2 FinalDiamond|list_count)
-    if [ ! -z $diamond ]; then
+    if [ ! -z "$diamond" ]; then
 		rock_count=$(cat $1|list_top_byV2 FinalStone $diamond|list_count)
 		ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
 		echo "  * 幸運星: $diamond''$diamond_count顆鑽石(礦石比$diamond_count/$rock_count=$ratio%)''"
 	fi
     apple=$(cat $1|list_topV2 FinalEat|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     apple_count=$(cat $1|list_topV2 FinalEat|list_count)
-    [ ! -z $apple ] && echo "  * 金好命: $apple''$apple_count顆金蘋果''"
+    [ ! -z "$apple" ] && echo "  * 金好命: $apple''$apple_count顆金蘋果''"
 }
 
 #=================================
@@ -748,6 +754,6 @@ alias logwinner='log_parse_winner $*'
 alias loglag='log_parse_lag $*'
 # help_add 'loglag.<log>' 'UHC分析作弊'
 alias logcheat='log_parse_cheater $*'
-help_add 'loguhc2.<log>' 'UHC賽後分析'
-alias loguhc='log_parse_uhc $*'
-alias loguhc2='log_parse_uhcV2 $*'
+help_add 'loguhc.<log>' 'UHC賽後分析'
+alias loguhc0='log_parse_uhc $*'
+alias loguhc='log_parse_uhcV2 $*'

@@ -116,6 +116,19 @@ cheat_report() {
 }
 
 #=================================
+log_find() {
+	echo -e ${GREEN}=== bungeeCord ===${NC}
+	cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -C 1 $*
+	# ips=$(cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -C 1 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	# echo -e ${RED}ip: ${ips}${NC}
+
+	echo -e ${GREEN}=== $mcver ===${NC}
+	cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 3 $*
+	ips=$(cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 3 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	echo -e ${RED}ip: ${ips}${NC}
+}
+
+#=================================
 alias sls='screen -ls'
 alias swp='screen -wipe'
 alias sr='screen -r $mcver'
@@ -134,7 +147,8 @@ alias mced='vi /home/sita/script/minecraft/minecraft.server'
 # alias gamestop='mcserver backup && mcserver stop'
 # alias mcstart='mcserver start'
 alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog'
-alias mcww='mcprep && mcserver start && mcw off && mclf && mcserver do seed'
+# alias mcww='mcprep && mcserver start && mcw off && mclf && mcserver do seed'
+alias mcww='mcprep && mcserver start && mcw off && mclf'
 alias mcstop='mcdo end && mcserver stop'
 alias mclog='mcserver log $*'
 alias mcload='mcserver load'
@@ -176,3 +190,8 @@ alias tmo='mcdo timings on'
 alias tmr='timings_report'
 help_add 'cheat' '顯示犯規紀錄'
 alias cheat='cheat_report'
+#=================================
+# help_add 'mcip.<id>' '找出登入ip'
+# alias mcip='cat /mnt/runtimes/$mcver/logs/latest.log | grep -A 3 $*'
+help_add 'lf.<keyword>' '搜尋紀錄'
+alias lf='log_find $*'

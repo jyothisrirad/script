@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#=================================
+# help_hline3 '伺服器管理(server)'
+
+#=================================
+# help_add 'lag' '顯示lag'
+# alias lag='lag_check'
+
+# a2enmod
+# a2dismod
+
+# a2ensite
+# a2dissite
+
+# a2enconf
+# a2disconf

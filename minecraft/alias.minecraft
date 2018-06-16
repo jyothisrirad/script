@@ -78,9 +78,14 @@ game_list_maxplayer() {
 }
 
 #=================================
+get_myip() {
+	echo $(curl -s https://api.ipify.org)
+}
+
+#=================================
 geolocation() {
-    myIP=$(curl -s https://api.ipify.org)
-    echo -e ${GREEN}$(curl freegeoip.net/xml/$myIP 2>/dev/null | grep RegionName | sed 's/<[\/]*\w*>//g' | xargs), myIP=${myIP} ${NC}
+    myIP=$1
+    echo -e ${GREEN}$(curl freegeoip.net/xml/$myIP 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), myIP=${myIP} ${NC}
 }
 
 #=================================
@@ -90,7 +95,7 @@ digthis() {
 
 #=================================
 check_creeper_ip() {
-    geolocation
+    geolocation $(get_myip)
     digthis home.changen.com.tw
     echo =================================
     digthis mc.creeper.tw

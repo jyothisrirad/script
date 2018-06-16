@@ -22,6 +22,7 @@ ttlify() {
 }
 
 dns_start() {
+  gcloud dns record-sets transaction abort    -z "${ZONENAME}" --project $PROJECT
   echo -e gcloud dns record-sets transaction ${GREEN}start${NC} -z "${ZONENAME}" --project $PROJECT
   gcloud dns record-sets transaction start    -z "${ZONENAME}" --project $PROJECT
 }

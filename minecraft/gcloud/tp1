@@ -23,10 +23,24 @@ addto_crontab() {
 	(crontab -l; echo "$*") | crontab -
 }
 
+lookup_dns_ip() {
+    host "$1" | sed -rn 's@^.* has address @@p'
+}
+
 delfrom_crontab() {
 	line=$*
 	line=$(echo "$line" | sed 's/\//\\\//g')
 	crontab -l | sed "/$line/d" | crontab -
+}
+
+is_tp_already_set() {
+    dnsip=$(lookup_dns_ip mc.creeper.tw)
+    lbip=$(curl -s https://api.ipify.org)
+    # Checking if Load Balancer already started
+    # echo -e ${YELLOW}=== DNS Status: ${GREEN}DNS=$dnsip,IP=$lbip ${NC}
+    [ -z "$dnsip" ] && return 1
+    [ "$dnsip" == "$lbip" ]
+    return $?
 }
 
 ###
@@ -35,6 +49,8 @@ num=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1
 HOST=tp$num
 
 start() {
+    is_tp_already_set && return
+
 	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
     
@@ -102,6 +118,8 @@ start() {
 }
 
 start2() {
+    is_tp_already_set && return
+    
 	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
     
@@ -129,6 +147,18 @@ start2() {
 	echo -e ${GREEN}=========================${NC}
 }
 
+bungee_restart() {
+    is_tp_already_set && return
+	
+	. /home/sita/script/minecraft/alias.minecraft
+	
+	s65
+	mcserver halt
+	[ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && as_user "./update.sh"
+	server.prep
+	mcserver start
+}
+
 stop() {
     echo Stopping $(basename $0) ...
 }
@@ -145,12 +175,17 @@ case "$1" in
     exit
     ;;
   start)
+	bungee_restart
     start
     start2
     exit
     ;;
   stop)
     stop
+    exit
+    ;;
+  test)
+    # bungee_restart
     exit
     ;;
   *)
