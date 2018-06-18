@@ -144,17 +144,16 @@ log_find() {
 
 #=================================
 log_find_geo_mc() {
-    # log=/mnt/runtimes/$mcver/logs/latest.log
-    log=/mnt/runtimes/$mcver/logs/2018-06-18-6.log.gz
+    log=/mnt/runtimes/$mcver/logs/latest.log
+    # log=/mnt/runtimes/$mcver/logs/2018-06-18-6.log.gz
 
-	# ips=$(cat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
-	ips=$(zcat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	ips=$(cat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
     geolines=()
 	for ip in $ips
 	do
 		newip=$(geo $ip)
-		names=$(zcat $log | grep $ip | grep -v banned | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
-		banned=$(zcat $log | grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
+		names=$(cat $log | grep $ip | grep -v banned | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
+		banned=$(cat $log | grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
         
         names=$(echo ${names}|tr -d '\n')
         banned=$(echo ${banned}|tr -d '\n')
