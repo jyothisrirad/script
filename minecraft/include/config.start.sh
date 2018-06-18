@@ -67,4 +67,5 @@ online-mode=false
 op-permission-level=2
 snooper-enabled=false
 white-list=false
+prevent-proxy-connections=true
 EOM

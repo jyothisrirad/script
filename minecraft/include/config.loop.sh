@@ -67,4 +67,5 @@ op-permission-level=2
 snooper-enabled=false
 spawn-protection=0
 white-list=false
+prevent-proxy-connections=true
 EOM

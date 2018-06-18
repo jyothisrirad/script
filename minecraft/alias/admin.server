@@ -6,16 +6,25 @@ help_hline3 '伺服器管理(server)'
 #=================================
 server.prep() {
 	# echo server.prep
+    
+    #save changed files to backup path
+    SAVE=/mnt/runtimes/$mcver/save.sh
+    [ -f $SAVE ] && . $SAVE
+    
+    #download files from backup path
     SYNC=/mnt/runtimes/$mcver/sync.sh
     [ -f $SYNC ] && . $SYNC
     
+    #config server
 	config=/mnt/runtimes/$mcver/config.sh
 	[ ! -f $config ] || . $config
 
+    #config server.properties
 	properties=/mnt/runtimes/$mcver/server.properties
 	[ ! $onlinemode ] 			|| echo online-mode=$onlinemode >> $properties
 	[ ! $serverport ] 			|| echo server-port=$serverport >> $properties
 	
+    #config server.properties
 	echo "$server_properties" >> $properties
 }
 
@@ -124,8 +133,62 @@ log_find() {
 
 	echo -e ${GREEN}=== $mcver ===${NC}
 	cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 3 $*
-	ips=$(cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 3 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
-	echo -e ${RED}ip: ${ips}${NC}
+	
+	ips=$(cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 0 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	# echo -e ${RED}ip: ${ips}${NC}
+	for ip in $ips
+	do
+		geo $ip
+	done
+}
+
+#=================================
+log_find_geo_mc() {
+    log=/mnt/runtimes/$mcver/logs/latest.log
+
+	ips=$(cat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+    geolines=()
+	for ip in $ips
+	do
+		newip=$(geo $ip)
+		banned=$(cat $log | grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
+		names=$(cat $log | grep $ip | grep -v banned | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
+        
+        echo $newip $banned $names
+        geolines+=("$newip $banned $names")
+	done
+    
+    IFS=$'\n' sorted=($(sort <<<"${geolines[*]}"))
+    unset IFS
+    
+    printf "%s\n" "${sorted[@]}"
+}
+
+#=================================
+log_find_geo_bc() {
+    log=/mnt/runtimes/$mcver/proxy.log.0
+
+	ips=$(cat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+    geolines=()
+	for ip in $ips
+	do
+        newip=$(geo $ip)
+        # echo $newip
+        geolines+=("$newip")
+        printf "."
+	done
+    printf "\n"
+    
+    IFS=$'\n' sorted=($(sort <<<"${geolines[*]}"))
+    unset IFS
+    
+    printf "%s\n" "${sorted[@]}"
+}
+
+#=================================
+log_find_geo() {
+    log=/mnt/runtimes/$mcver/proxy.log.0
+    [ -f $log ] && log_find_geo_bc || log_find_geo_mc
 }
 
 #=================================
@@ -195,3 +258,5 @@ alias cheat='cheat_report'
 # alias mcip='cat /mnt/runtimes/$mcver/logs/latest.log | grep -A 3 $*'
 help_add 'lf.<keyword>' '搜尋紀錄'
 alias lf='log_find $*'
+help_add 'lfg' '搜尋所有id,location'
+alias lfg='log_find_geo'
