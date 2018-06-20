@@ -253,8 +253,6 @@ log_find_general() {
 #=================================
 for_log() {
 	tmp=/tmp/logfind.tmp
-        
-	# echo "$*" >/tmp/debug
 	
 	mode=$1
 	logs=$2
@@ -263,14 +261,17 @@ for_log() {
 	
 	for log in $logs; do
 		if [ $mode == "normal" ]; then
-			# echo normal
+			arg1="$1"
+			# echo normal, $arg1
 			$find $log $* | grep 'INFO' | grep -v 'ViaBackwards\|UpstreamBridge\|disconnected\|DiscordSRV\|UUID\|FairPlayMinecraft\|lost\|left\|default' >$tmp
 			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename $log), $* ============================${NC}
 			[ -s $tmp ] && cat $tmp
 				
 			if is_ip_address "$arg1"; then
+				# echo ip_address
 				cat $tmp | usernamelocate
 			elif is_minecraft_id "$arg1"; then
+				# echo minecraft_id
 				cat $tmp | geolocate
 			fi
 		elif [ $mode == "keyword" ]; then
@@ -279,6 +280,7 @@ for_log() {
 			[ -s $tmp ] && echo -e ${YELLOW}================= $(basename $log), keyword: $* =================${NC}
 			[ -s $tmp ] && find_keyword $log $*
 		elif [ $mode == "ip" ]; then
+			# echo ip
 			dcat $log | geolocate >$tmp
 			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename $log) ============================${NC}
 			[ -s $tmp ] && cat $tmp
