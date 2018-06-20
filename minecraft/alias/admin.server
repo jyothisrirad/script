@@ -35,7 +35,7 @@ mcwaituntilready() {
 	mcserver status > $mcresult
 	if ! filehas $mcresult 'not running'; then
 		# echo 'running'
-		for i in $(seq 1 100)       
+		for i in $(seq 1 100)
 		do
 			mcserver do list > $mcresult
 			if filehas $mcresult 'players'; then
@@ -125,78 +125,6 @@ cheat_report() {
 }
 
 #=================================
-log_find() {
-	echo -e ${GREEN}=== bungeeCord ===${NC}
-	cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -C 1 $*
-	# ips=$(cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -C 1 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
-	# echo -e ${RED}ip: ${ips}${NC}
-
-	echo -e ${GREEN}=== $mcver ===${NC}
-	cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 3 $*
-	
-	ips=$(cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 0 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
-	# echo -e ${RED}ip: ${ips}${NC}
-	for ip in $ips
-	do
-		geo $ip
-	done
-}
-
-#=================================
-log_find_geo_mc() {
-    log=/mnt/runtimes/$mcver/logs/latest.log
-    # log=/mnt/runtimes/$mcver/logs/2018-06-18-6.log.gz
-
-	ips=$(cat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
-    geolines=()
-	for ip in $ips
-	do
-		newip=$(geo $ip)
-		names=$(cat $log | grep $ip | grep -v banned | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
-		banned=$(cat $log | grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
-        
-        names=$(echo ${names}|tr -d '\n')
-        banned=$(echo ${banned}|tr -d '\n')
-        # echo $newip $banned $names
-        printf "."
-        [ -z "$banned" ] && geolines+=("${newip}: $names") || geolines+=("${newip}: $names | $banned")
-	done
-    printf "\n"
-    
-    IFS=$'\n' sorted=($(sort <<<"${geolines[*]}"))
-    unset IFS
-    
-    printf "%s\n" "${sorted[@]}"
-}
-
-#=================================
-log_find_geo_bc() {
-    log=/mnt/runtimes/$mcver/proxy.log.0
-
-	ips=$(cat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
-    geolines=()
-	for ip in $ips
-	do
-        newip=$(geo $ip)
-        # echo $newip
-        geolines+=("$newip")
-        printf "."
-	done
-    printf "\n"
-    
-    IFS=$'\n' sorted=($(sort <<<"${geolines[*]}"))
-    unset IFS
-    
-    printf "%s\n" "${sorted[@]}"
-}
-
-#=================================
-log_find_geo() {
-    log=/mnt/runtimes/$mcver/proxy.log.0
-    [ -f $log ] && log_find_geo_bc || log_find_geo_mc
-}
-
-#=================================
 alias sls='screen -ls'
 alias swp='screen -wipe'
 alias sr='screen -r $mcver'
@@ -258,10 +186,3 @@ alias tmo='mcdo timings on'
 alias tmr='timings_report'
 help_add 'cheat' '顯示犯規紀錄'
 alias cheat='cheat_report'
-#=================================
-# help_add 'mcip.<id>' '找出登入ip'
-# alias mcip='cat /mnt/runtimes/$mcver/logs/latest.log | grep -A 3 $*'
-help_add 'lf.<keyword>' '搜尋紀錄'
-alias lf='log_find $*'
-help_add 'lfg' '搜尋所有id,location'
-alias lfg='log_find_geo'

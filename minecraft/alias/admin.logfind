@@ -1,0 +1,351 @@
+#!/bin/bash
+
+#=================================
+help_hline3 '紀錄搜尋(logfind)'
+
+#=================================
+xxlog_find() {
+	log=/mnt/runtimes/$mcver/logs/latest.log
+
+	echo -e ${GREEN}=== bungeeCord ===${NC}
+	cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -C 1 $*
+	# ips=$(cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -C 1 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	# echo -e ${RED}ip: ${ips}${NC}
+
+	echo -e ${GREEN}=== $mcver ===${NC}
+	# cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 3 $*
+	dcat $log | grep -C 3 $*
+	
+	# ips=$(cat /mnt/runtimes/$mcver/logs/latest.log | grep -C 0 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	ips=$(dcat $log | grep -C 0 $* | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	# echo -e ${RED}ip: ${ips}${NC}
+	for ip in $ips
+	do
+		geo $ip
+	done
+}
+
+#=================================
+log_find_geo_mc() {
+    # log=/mnt/runtimes/$mcver/logs/latest.log
+    # log=/mnt/runtimes/$mcver/logs/2018-06-18-6.log.gz
+
+	printf "[$1] "
+
+	ips=$(dcat $1 | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+    geolines=()
+	for ip in $ips
+	do
+		newip=$(geo $ip)
+		names=$(dcat $1 | grep $ip | grep -v banned | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
+		banned=$(dcat $1 | grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
+        
+        names=$(echo ${names}|tr -d '\n')
+        banned=$(echo ${banned}|tr -d '\n')
+        # echo $newip $banned $names
+        printf "."
+        [ -z "$banned" ] && geolines+=("${newip}: $names") || geolines+=("${newip}: $names | $banned")
+	done
+    printf "\n"
+    
+    IFS=$'\n' sorted=($(sort <<<"${geolines[*]}"))
+    unset IFS
+    
+    printf "%s\n" "${sorted[@]}"
+}
+
+#=================================
+log_find_geo_bc() {
+    log=/mnt/runtimes/$mcver/proxy.log.0
+	[ -f $1 ] && log=$1
+
+	printf "[$log] "
+	
+	ips=$(dcat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+    geolines=()
+	for ip in $ips
+	do
+        newip=$(geo $ip)
+        # echo $newip
+        geolines+=("$newip")
+        printf "."
+	done
+    printf "\n"
+    
+    IFS=$'\n' sorted=($(sort <<<"${geolines[*]}"))
+    unset IFS
+    
+    printf "%s\n" "${sorted[@]}"
+}
+
+#=================================
+log_find_geo() {
+    if [ ! -z "$1" ]; then
+		[[ $1 = *"proxy"* ]] && log_find_geo_bc $1 || log_find_geo_mc $1
+		return
+	else
+		log=/mnt/runtimes/$mcver/proxy.log.0
+		[ -f $log ] && log_find_geo_bc $log || log_find_geo_mc /mnt/runtimes/$mcver/logs/latest.log
+	fi
+}
+
+#=================================
+xxlog_find_all_bc() {
+	uniqips=()
+	geolines=()
+	for log in proxy.log.*; 
+	do
+		printf "[$log] "
+		ips=$(dcat $log | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+		for ip in $ips
+		do
+			uniqips+=("$ip")
+			# echo $ip
+			printf "."
+		done
+		printf "\n"
+	done
+    
+    IFS=$'\n' sorted=($(sort -u <<<"${uniqips[*]}"))
+    unset IFS
+	
+	printf "[geo] "
+	for ip in ${sorted[@]}
+	do
+		geoip=$(geo $ip)
+		geolines+=("$geoip")
+		# echo $ip
+		printf "."
+	done
+	printf "\n"
+    
+    IFS=$'\n' sorted=($(sort -u <<<"${geolines[*]}"))
+    unset IFS
+    
+    printf "%s\n" "${sorted[@]}"
+}
+
+#=================================
+xxlog_find_all_mc() {
+    geolines=()
+	printf "log_find_all_mc: "
+	for log in /mnt/runtimes/$mcver/logs/*.log*; 
+	do
+		# echo "[$log]"
+		# printf "[$log] "
+		names=$(dcat $log | grep $* | grep -v 'anned\|protocolsupport' | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
+		banned=$(dcat $log | grep $* | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
+		
+        names=$(echo ${names}|tr -d '\n')
+        banned=$(echo ${banned}|tr -d '\n')
+        printf "."
+        [ -z "$banned" ] && line="[$(basename $log)] $*: $names" || line="[$(basename $log)] $*: $names | $banned"
+		# [ ! -z "$names" ] && echo "[$(basename $log)] $names"
+		# [ ! -z "$names" ] && echo "[$(basename $log)] $banned"
+        [ ! -z "$names" ] && geolines+=("$line")
+	done
+    printf "\n"
+    
+    IFS=$'\n' sorted=($(sort -u <<<"${geolines[*]}"))
+    unset IFS
+    
+    printf "%s\n" "${sorted[@]}"
+}
+
+#=================================
+help_add 'lf.<keyword>' '搜尋紀錄中keyword'
+alias lf='log_find $*'
+help_add 'lfg.[log]' '搜尋所有ip,city,id'
+alias lfg='log_find_geo'
+help_add 'lfg.[log]' '搜尋所有log'
+alias lfa='log_find_all_mc'
+
+#=================================
+is_ip_address() {
+	[[ $1 =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]] && return 0 || return 1
+}
+
+is_minecraft_id() {
+	[[ $1 =~ ^[a-zA-Z0-9_]{3,16}$ ]] && return 0 || return 1
+}
+
+is_files_existed() {
+	for i in $1; do test -f "$i" && return 0; done
+	return 1
+}
+
+#=================================
+dcat() {
+	[ ! -z "$1" ] && logfile=$1
+	[ -z "$logfile" ] && logfile=/mnt/runtimes/$mcver/logs/latest.log
+	extension="${logfile##*.}"
+	[ $extension == "gz" ] && zcat $logfile || cat $logfile
+}
+
+geolocate() {
+	inputlog=`cat`
+	
+	ips=$(echo "${inputlog[*]}" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	for ip in $ips
+	do
+		geo $ip
+	done
+}
+
+usernamelocate() {
+	# usernames=$(grep 'ServerConnector\|logged\|banned' | grep -E "\b[a-zA-Z0-9_]{3,16}\b" )
+	grep 'ServerConnector\|logged\|banned' | grep -E "[a-zA-Z0-9_]{3,16}" 
+	# IFS=$'\n';
+	# for username in $usernames
+	# do
+		# echo -e ${GREEN}$username${NC}
+	# done
+	# unset IFS
+}
+
+#=================================
+log_all_find_general() {
+	mode=$1
+	shift 1
+	for_all_logs $mode find_general "$1" "$2" "$3"
+}
+
+log_file_find_general() {
+	mode=$1
+	file=$2
+	shift 2
+	for_log $mode $file find_general "$1" "$2" "$3"
+}
+
+log_find_general() {
+	mode=$1
+	shift 1
+	for_latest_log $mode find_general "$1" "$2" "$3"
+}
+
+log_all_find_ip() {
+	for_all_logs find_ip geolocate
+}
+
+#=================================
+for_log() {
+	tmp=/tmp/logfind.tmp
+	
+	mode=$1
+	log=$2
+	find=$3
+	shift 3
+	
+	if [ $mode == "normal" ]; then
+		# echo normal
+		$find $log $* | grep 'INFO' | grep -v 'ViaBackwards\|UpstreamBridge\|disconnected\|DiscordSRV\|UUID\|FairPlayMinecraft\|lost\|left\|default' >$tmp
+		[ -s $tmp ] && echo -e ${YELLOW}============================== $(basename $log), $* ==============================${NC}
+		[ -s $tmp ] && cat $tmp
+			
+		if is_ip_address "$arg1"; then
+			cat $tmp | usernamelocate
+		elif is_minecraft_id "$arg1"; then
+			cat $tmp | geolocate
+		fi
+	elif [ $mode == "keyword" ]; then
+		# echo keyword
+		find_keyword $log $* >$tmp
+		[ -s $tmp ] && echo -e ${YELLOW}=================== $(basename $log), keyword: $* ====================${NC}
+		[ -s $tmp ] && find_keyword $log $*
+	elif [ $mode == "ip" ]; then
+		dcat $log | geolocate >$tmp
+		[ -s $tmp ] && echo -e ${YELLOW}============================== $(basename $log) ==============================${NC}
+		[ -s $tmp ] && cat $tmp
+	fi
+}
+
+#=================================
+for_latest_log() {
+	tmp=/tmp/logfind.tmp
+	log=/mnt/runtimes/$mcver/proxy.log.0
+	[ ! -f "$log" ] && log=/mnt/runtimes/$mcver/logs/latest.log
+	
+	mode=$1
+	shift 1
+	
+	for_log $mode $log $*
+}
+
+#=================================
+for_all_logs() {
+	tmp=/tmp/logfind.tmp
+	tmp2=/tmp/logfind.2.tmp
+	logs=/mnt/runtimes/$mcver/proxy.log.*;
+	is_files_existed $logs || logs=/mnt/runtimes/$mcver/logs/*.log*
+	
+	mode=$1
+	# find=$1
+	# arg1="$2"
+	shift 1
+	
+	for log in $logs;
+	do
+		for_log $mode $log $*
+	done
+}
+
+#=================================
+find_general() {
+	file="$1"
+	arg1="$2"
+	if is_ip_address "$arg1"; then
+		find_ip $*
+	elif is_minecraft_id "$arg1"; then
+		find_username $*
+	else
+		find_keyword $*
+	fi
+}
+
+find_ip() {
+	log=$1
+	ip=$2
+	[ -z "$3" ] && range=0 || range=$3
+	
+	# echo log=$log
+	# echo ip=$ip
+	# echo range=$range
+	
+	dcat $log | grep -C $range $ip
+}
+
+find_username() {
+	log=$1
+	username=$2
+	[ -z "$3" ] && range=0 || range=$3
+	
+	# echo log=$log
+	# echo username=$username
+	# echo range=$range
+	
+	dcat $log | grep -C $range $username
+}
+
+find_keyword() {
+	log=$1
+	shift 1
+	keyword="$*"
+	range=3
+	
+	# echo log=$log
+	# echo keyword=$keyword
+	# echo range=$range
+	
+	dcat $log | grep -v 'ViaBackwards' | grep -C $range "$keyword"
+}
+
+#=================================
+alias lff='log_file_find_general "normal"'
+alias lfa='log_all_find_general "normal"'
+alias lf='log_find_general "normal"'
+alias lffk='log_file_find_general "keyword"'
+alias lfak='log_all_find_general "keyword"'
+alias lfk='log_find_general "keyword"'
+alias lffip='log_file_find_general "ip"'
+alias lfaip='log_all_find_general "ip"'
+alias lfip='log_find_general "ip"'
