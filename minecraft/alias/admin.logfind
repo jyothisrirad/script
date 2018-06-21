@@ -368,12 +368,15 @@ find_keyword() {
 }
 
 #=================================
+help_add 'lff.<keyword>' '搜尋指定紀錄ip/username/keyword'
 alias lff='log_file_find_general "normal"'
-alias lfa='log_all_find_general "normal"'
-alias lf='log_find_general "normal"'
 alias lffk='log_file_find_general "keyword"'
-alias lfak='log_all_find_general "keyword"'
-alias lfk='log_find_general "keyword"'
 alias lffip='log_file_find_general "ip"'
-alias lfaip='log_all_find_general "ip"'
+help_add 'lf.<keyword>' '搜尋目前紀錄ip/username/keyword'
+alias lf='log_find_general "normal"'
+alias lfk='log_find_general "keyword"'
 alias lfip='log_find_general "ip"'
+help_add 'lfa.<keyword>' '搜尋全部紀錄ip/username/keyword'
+alias lfa='log_all_find_general "normal"'
+alias lfak='log_all_find_general "keyword"'
+alias lfaip='log_all_find_general "ip"'

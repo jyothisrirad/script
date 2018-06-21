@@ -7,10 +7,14 @@ help_hline3 'gcloud'
 gcloud_id() {
     case "$1" in
       0)
+      1)
         id="chsliu@gmail.com"
         ;;
-      1)
+      2)
         id="sita@changen.com.tw"
+        ;;
+      3)
+        id="creeper.workshop@gmail.com"
         ;;
       *)
         gcloud config get-value account
@@ -20,6 +24,66 @@ gcloud_id() {
 
     echo -e ${GREEN}=== Switching to Account: $id ${NC}
     gcloud config set account $id
+}
+
+#=================================
+gmount() {
+    case "$1" in
+      0)
+      1)
+        id="chsliu@gmail.com"
+		gstorage="creeper-tw-backup"
+		localpath="/mnt/backup"
+        ;;
+      2)
+        id="sita@changen.com.tw"
+		gstorage="creeper-tw2"
+		localpath="/mnt/$gstorage"
+        ;;
+      3)
+        id="creeper.workshop@gmail.com"
+		gstorage="creeper-tw3"
+		localpath="/mnt/$gstorage"
+        ;;
+      *)
+		echo Please input an account number.
+        return
+        ;;
+    esac
+
+	keyfile="/home/sita/.gcloud/$id.json"
+	[ ~ -d "$localpath" ] && sudo mkdir $localpath && sudo chown sita:sita $localpath
+    [ -f "$keyfile" ] && echo -e ${GREEN}=== Mounting: $localpath ${NC}
+	[ -f "$keyfile" ] && gcsfuse --key-file $keyfile $gstorage $localpath
+}
+
+#=================================
+gumount() {
+    case "$1" in
+      0)
+      1)
+        id="chsliu@gmail.com"
+		gstorage="creeper-tw-backup"
+		localpath="/mnt/backup"
+        ;;
+      2)
+        id="sita@changen.com.tw"
+		gstorage="creeper-tw2"
+		localpath="/mnt/$gstorage"
+        ;;
+      3)
+        id="creeper.workshop@gmail.com"
+		gstorage="creeper-tw3"
+		localpath="/mnt/$gstorage"
+        ;;
+      *)
+		echo Please input an account number.
+        return
+        ;;
+    esac
+	
+    [ -d "$localpath" ] && echo -e ${GREEN}=== Umounting: $localpath ${NC}
+	[ -d "$localpath" ] && fusermount -u $localpath
 }
 
 #=================================
@@ -37,10 +101,12 @@ dnsctl() {
 }
 
 #=================================
-# alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 alias gkey='[ ! -d /home/sita/.gcloud ] && mkdir /home/sita/.gcloud || rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/ '
-alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
-alias gumnt='fusermount -u /mnt/backup'
+# alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
+# alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
+alias gmnt='gmount'
+# alias gumnt='fusermount -u /mnt/backup'
+alias gumnt='gumount'
 help_add 'glog.<start|stop>' 'fluentd開始|結束'
 alias glog='sudo service google-fluentd $*'
 help_add 'gname' '顯示自訂主機名'
