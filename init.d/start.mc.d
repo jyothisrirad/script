@@ -9,7 +9,9 @@
 ### END INIT INFO
 
 APP=$(hostname)
-SCRIPT="/home/sita/script/mis/run_in_screen.sh /home/sita/script/init.d/hosts/$APP"
+PREFIX="/home/sita/script"
+[ ! -f "$PREFIX/init.d/hosts/$APP" ] && APP="default"
+SCRIPT="$PREFIX/mis/run_in_screen.sh $PREFIX/init.d/hosts/$APP"
 RUNAS=root
 
 PIDFILE=/var/run/$APP.pid

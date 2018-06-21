@@ -33,23 +33,7 @@ delfrom_crontab() {
 HOST=$(basename $0)
 
 start() {
-	echo -e ${GREEN}=========================${NC}
-    set_account $dns_account
-    
-    # DNS transaction start
-    echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
-    $dnsupdate start $dns_project creeper-tw
-
-    # A uhc.creeper.tw 1min
-    echo -e ${GREEN}== Updating ${YELLOW}$HOST.creeper.tw 1min IN A ... ${NC}
-    $dnsupdate A creeper-tw $HOST creeper.tw 1min 1min
-
-    # DNS transaction commit
-    echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
-    $dnsupdate commit $dns_project creeper-tw
-    
-    set_account $default_account
-	echo -e ${GREEN}=========================${NC}
+    echo Starting $(basename $0) ...
 }
 
 stop() {
