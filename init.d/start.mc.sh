@@ -53,6 +53,7 @@ start() {
     
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
+		[ ! -f $runscript ] && runscript=/home/sita/script/minecraft/gcloud/default
         [ -f $runscript ] && ( echo -e "${GREEN}=== Starting gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript start" )
     done
     
