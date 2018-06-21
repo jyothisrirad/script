@@ -1,4 +1,5 @@
 #!/bin/sh
+
 ### BEGIN INIT INFO
 # Provides:          start.mc.d
 # Required-Start:    
@@ -8,8 +9,8 @@
 # Description:       start minecraft server
 ### END INIT INFO
 
-APP=$(hostname)
 PREFIX="/home/sita/script"
+APP=$(hostname)
 [ ! -f "$PREFIX/init.d/hosts/$APP" ] && APP="default"
 SCRIPT="$PREFIX/mis/run_in_screen.sh $PREFIX/init.d/hosts/$APP"
 RUNAS=root

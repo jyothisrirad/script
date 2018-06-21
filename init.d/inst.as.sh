@@ -1,3 +1,8 @@
+#!/bin/sh
+#
+# ./inst.as.sh start.mc.d startmc
+#
+
 [ $1 ] || echo "usage: $0 <script> <service_name>"
 [ $1 ] || exit
 [ $2 ] || exit
