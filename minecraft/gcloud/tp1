@@ -44,6 +44,7 @@ is_tp_already_set() {
 }
 
 ###
+DBFILE=~/script/db/dnsdb.txt
 # HOST=$(basename $0)
 num=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
 HOST=tp$num
@@ -51,8 +52,12 @@ HOST=tp$num
 start() {
     is_tp_already_set && return
 
-    bungee_restart
+    # bungee_restart
     
+	declare -A dnsdb
+    [ -f $DBFILE ] && source $DBFILE
+	LAST=${dnsdb[$(basename $0)]}
+	
 	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
     
@@ -68,11 +73,15 @@ start() {
     fi
 
     if [ $(date +%w) == 6 ]; then
+        
+        [ ! -z "$LAST" ] && echo -e ${GREEN}== Deleting ${YELLOW}$LAST.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN A ... ${NC}
+        [ ! -z "$LAST" ] && $dnsupdate del $dns_project creeper-tw $LAST creeper.tw 3hour 1min A
+		
         # On Saturday
         # A tp1.creeper.tw 1min
         echo -e ${GREEN}== Updating ${YELLOW}$HOST.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN A ... ${NC}
         $dnsupdate A creeper-tw $HOST creeper.tw 3hour 1min
-        
+		
         # A gem.creeper.tw 1min
         echo -e ${GREEN}== Updating ${YELLOW}gem.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN A ... ${NC}
         $dnsupdate A creeper-tw gem creeper.tw 3hour 1min
@@ -89,6 +98,10 @@ start() {
         # echo -e ${GREEN}=== Appending A r53.creeper.tw 1min ${NC}
         # $dnsupdate append $dns_project creeper-tw r53 creeper.tw 3hour 1min A
     else
+        
+        [ ! -z "$LAST" ] && echo -e ${GREEN}== Deleting ${YELLOW}$LAST.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN A ... ${NC}
+        [ ! -z "$LAST" ] && $dnsupdate del $dns_project creeper-tw $LAST creeper.tw 3hour 1min A
+		
         # Not Saturday
         # A tp1.creeper.tw 3hour
         echo -e ${GREEN}== Updating ${YELLOW}$HOST.creeper.tw ${GREEN}1min to ${YELLOW}3hour IN A ... ${NC}
@@ -117,6 +130,9 @@ start() {
     
     set_account $default_account
 	echo -e ${GREEN}=========================${NC}
+	
+	dnsdb[$(basename $0)]=$HOST
+    [ ! -z "${!dnsdb[*]}" ] && declare -p dnsdb >$DBFILE
 }
 
 start2() {
