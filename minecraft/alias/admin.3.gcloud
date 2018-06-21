@@ -7,6 +7,7 @@ help_hline3 'gcloud'
 gcloud_id() {
     case "$1" in
       0)
+		;;
       1)
         id="chsliu@gmail.com"
         ;;
@@ -30,6 +31,7 @@ gcloud_id() {
 gmount() {
     case "$1" in
       0)
+		;;
       1)
         id="chsliu@gmail.com"
 		gstorage="creeper-tw-backup"
@@ -61,6 +63,7 @@ gmount() {
 gumount() {
     case "$1" in
       0)
+		;;
       1)
         id="chsliu@gmail.com"
 		gstorage="creeper-tw-backup"
