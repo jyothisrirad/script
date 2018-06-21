@@ -8,19 +8,21 @@
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 
 ###
-ig_account=sita@changen.com.tw
+default_account=$(get_account)
+
 # dns_account=chsliu@gmail.com
 # dns_project=creeper-196707
 dns_account=sita@changen.com.tw
 dns_project=creeper-199909
-default_account=$(get_account)
-PROJECT=creeper-199909
-REGION=asia-east1
-instances_group=bc
-instances_group_region=bc2
-instances_count_min=1
-instances_count_max=9
-HOSTS=r53
+
+[ -z "$ig_account" ] && ig_account=sita@changen.com.tw
+[ -z "$ig_project" ] && ig_project=creeper-199909
+[ -z "$ig_region" ] && ig_region=asia-east1
+[ -z "$instances_group" ] && instances_group=bc
+[ -z "$instances_group_region" ] && instances_group_region=bc2
+[ -z "$instances_count_min" ] && instances_count_min=1
+[ -z "$instances_count_max" ] && instances_count_max=9
+[ -z "$HOSTS" ] && HOSTS=r53
 
 ###
 start() {
@@ -28,7 +30,7 @@ start() {
     
     # Start Autoscaling
     echo -e ${GREEN}=== Start Autoscaling: ${YELLOW}$instances_group_region, min $instances_count_min, max $instances_count_max ${NC}
-    gcloud --project creeper-199909 compute instance-groups managed set-autoscaling $instances_group_region --max-num-replicas=$instances_count_max --min-num-replicas=$instances_count_min --region asia-east1
+    gcloud --project $ig_project compute instance-groups managed set-autoscaling $instances_group_region --max-num-replicas=$instances_count_max --min-num-replicas=$instances_count_min --region $ig_region
     
     set_account $default_account
 }
@@ -39,15 +41,15 @@ stop() {
     
     # Stop Autoscaling
     echo -e ${GREEN}=== Stop Autoscaling: ${YELLOW}$instances_group_region ${NC}
-    gcloud --project $PROJECT compute instance-groups managed stop-autoscaling $instances_group_region --region $REGION
+    gcloud --project $ig_project compute instance-groups managed stop-autoscaling $instances_group_region --region $ig_region
     
-    group=$(gcloud --project $PROJECT compute instance-groups managed list-instances $instances_group_region --region $REGION | tail -n +2 | awk '{ printf ("%s,", $1) }')
+    group=$(gcloud --project $ig_project compute instance-groups managed list-instances $instances_group_region --region $ig_region | tail -n +2 | awk '{ printf ("%s,", $1) }')
     
     # Delete instances
     echo -e ${GREEN}=== Delete instances: ${YELLOW}${group%?} ${NC}
-    gcloud --project $PROJECT compute instance-groups managed delete-instances $instances_group_region --instances=${group%?} --region $REGION
+    gcloud --project $ig_project compute instance-groups managed delete-instances $instances_group_region --instances=${group%?} --region $ig_region
     
-    dns_remove $(gcloud --project $PROJECT compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u | tr '\n' ' ')
+    dns_remove $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u | tr '\n' ' ')
     
     set_account $default_account
 }
@@ -110,7 +112,7 @@ case "$1" in
     ;;
   dns)
     set_account $ig_account
-    dns_update $(gcloud --project $PROJECT compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u | tr '\n' ' ')
+    dns_update $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u | tr '\n' ' ')
     exit
     ;;
   *)

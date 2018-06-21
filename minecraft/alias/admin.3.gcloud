@@ -10,12 +10,15 @@ gcloud_id() {
 		;;
       1)
         id="chsliu@gmail.com"
+		project="creeper-196707"
         ;;
       2)
         id="sita@changen.com.tw"
+		project="creeper-199909"
         ;;
       3)
         id="creeper.workshop@gmail.com"
+		project="creeperworkshop-web"
         ;;
       *)
         gcloud config get-value account
@@ -25,6 +28,7 @@ gcloud_id() {
 
     echo -e ${GREEN}=== Switching to Account: $id ${NC}
     gcloud config set account $id
+	gcloud config set project $project
 }
 
 #=================================
