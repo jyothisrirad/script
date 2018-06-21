@@ -145,21 +145,22 @@ alias aed='vi ~/script/minecraft/alias.minecraft; are'
 alias are='. ~/script/minecraft/alias.minecraft'
 
 #=================================
+MCSCRIPT=~/script/init.d/hosts/$(hostname)
+[ ! -f $MCSCRIPT ] && MCSCRIPT=~/script/init.d/hosts/default
+
+help_add 'start' '開啟主機'
+alias start='$MCSCRIPT start'
+help_add 'mcstart' '開啟主機'
+alias mcstart='$MCSCRIPT mcstart'
+help_add 'stop' '關閉主機'
+alias stop='sudo echo && $MCSCRIPT stop && sudo screen -dmS off shutdown -h now && exit'
+help_add 'stop2' '關閉主機2'
+alias stop2='$MCSCRIPT stop2'
+
+#=================================
 help_hline3 '其他(alias)'
 help_add 'jsu' '同步伺服器javascript'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
-
-SCRIPT=~/script/init.d/hosts/$(hostname)
-[ ! -f $SCRIPT ] && SCRIPT=~/script/init.d/hosts/default
-
-help_add 'start' '開啟主機'
-alias start='$SCRIPT start'
-help_add 'mcstart' '開啟主機'
-alias mcstart='$SCRIPT mcstart'
-help_add 'stop' '關閉主機'
-alias stop='sudo echo && $SCRIPT stop && sudo screen -dmS off shutdown -h now && exit'
-help_add 'stop2' '關閉主機2'
-alias stop2='$SCRIPT stop2'
 
 help_add 'cc' '檢查DNS'
 alias cc='check_creeper_ip'

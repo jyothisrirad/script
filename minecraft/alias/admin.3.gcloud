@@ -139,3 +139,5 @@ alias dnst='dnsctl'
 #=================================
 help_add 'lb.<start|stop>' '負載平衡器開始|結束'
 alias lb='/home/sita/script/minecraft/gcloud/loadbalancer.sh'
+help_add 'ig3.<start|stop>' '負載平衡器開始|結束'
+alias ig3='/home/sita/script/minecraft/gcloud/igroup3.sh'

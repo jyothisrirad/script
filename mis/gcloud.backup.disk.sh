@@ -1,4 +1,5 @@
 #!/bin/bash
+# !!! not working yet... !!!
 
 . /home/sita/script/include/console.color
 
