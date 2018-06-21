@@ -14,4 +14,4 @@ sudo dd if=$SOURCEDISK of=$RAWDISK bs=4M conv=sparse
 echo -e ${GREEN}Comressing $RAWDISK to $GZDISK ... ${NC}
 sudo tar -Sczf $GZDISK $RAWDISK
 
-chown sita:sita $GZDISK
+sudo chown sita:sita $GZDISK
