@@ -54,7 +54,7 @@ gmount() {
     esac
 
 	keyfile="/home/sita/.gcloud/$id.json"
-	[ ~ -d "$localpath" ] && sudo mkdir $localpath && sudo chown sita:sita $localpath
+	[ ! -d "$localpath" ] && sudo mkdir $localpath && sudo chown sita:sita $localpath
     [ -f "$keyfile" ] && echo -e ${GREEN}=== Mounting: $localpath ${NC}
 	[ -f "$keyfile" ] && gcsfuse --key-file $keyfile $gstorage $localpath
 }
@@ -63,11 +63,14 @@ gmount() {
 gumount() {
     case "$1" in
       0)
+        id="chsliu@gmail.com"
+		gstorage="creeper-tw-backup"
+		localpath="/mnt/backup"
 		;;
       1)
         id="chsliu@gmail.com"
 		gstorage="creeper-tw-backup"
-		localpath="/mnt/backup"
+		localpath="/mnt/$gstorage"
         ;;
       2)
         id="sita@changen.com.tw"
@@ -104,7 +107,7 @@ dnsctl() {
 }
 
 #=================================
-alias gkey='[ ! -d /home/sita/.gcloud ] && mkdir /home/sita/.gcloud || rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/ '
+alias gkey='[ ! -d /home/sita/.gcloud ] && mkdir /home/sita/.gcloud || rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/*.json /home/sita/.gcloud/ '
 # alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 # alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
 alias gmnt='gmount'
