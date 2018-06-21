@@ -8,9 +8,10 @@
 [ $2 ] || exit
 
 YOUR_SERVICE_NAME=$2
+SCRIPT="/etc/init.d/$YOUR_SERVICE_NAME"
 
 # replace "$YOUR_SERVICE_NAME" with your service's name
-sudo rm "/etc/init.d/$YOUR_SERVICE_NAME"
+[ -f "$SCRIPT" ] && sudo rm "$SCRIPT"
 # sudo cp "$1" "/etc/init.d/$YOUR_SERVICE_NAME"
 sudo ln -s "$(readlink -e $1)" "/etc/init.d/$YOUR_SERVICE_NAME"
 sudo chmod +x /etc/init.d/$YOUR_SERVICE_NAME

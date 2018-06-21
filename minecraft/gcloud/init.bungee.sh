@@ -14,7 +14,7 @@ addto_root_crontab "0 23 * * * /sbin/shutdown -h now"
 ### 
 ~/script/minecraft/gcloud/init.sh
 
-[ ! -f ~/start.mc.sh ] && cp ~/script/init.d/start.mc.bungee.sh ~/start.mc.sh
+[ ! -f ~/start.mc.sh ] && cp ~/script/init.d/start.mc.bungee.sh ~/script/init.d/hosts/$(hostname)
 
 ### 
 # sudo mkdir /mnt/backup/74-UHC
@@ -47,7 +47,7 @@ sudo logrotate -d /etc/logrotate.d/bungeecord
 gcloud auth login
 
 ### 
-echo !!!!!!!!!!!!!!
-echo vi ~/start.mc.sh
-echo vi /mnt/runtimes/65-bungeeCord-azure/plugins/RedisBungee/config.yml
-echo !!!!!!!!!!!!!!
+# echo !!!!!!!!!!!!!!
+# echo vi ~/start.mc.sh
+# echo vi /mnt/runtimes/65-bungeeCord-azure/plugins/RedisBungee/config.yml
+# echo !!!!!!!!!!!!!!
