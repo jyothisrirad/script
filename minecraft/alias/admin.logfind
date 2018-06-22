@@ -20,6 +20,10 @@ is_files_existed() {
 	return 1
 }
 
+is_bc_log() {
+	[[ $1 = *"proxy"* ]] && return 0 || return 1
+}
+
 #=================================
 dcat() {
 	[ ! -z "$1" ] && logfile="$1"
@@ -28,10 +32,10 @@ dcat() {
 	[ $extension == "gz" ] && gzip -cd "$logfile" || cat "$logfile"
 }
 
-geolocate() {
-	inputlog=/tmp/geolocate.tmp
+geolocate_mc() {
+	inputlog=/tmp/geolocate_mc.tmp
 	cat >$inputlog
-	echo generating $inputlog ...
+	# echo generating $inputlog ...
 	
 	declare -A iplocations
     [ -f $DBFILE ] && source $DBFILE
@@ -61,10 +65,53 @@ geolocate() {
     
 	# declare -p iplocations
     [ ! -z "${!iplocations[*]}" ] && declare -p iplocations >$DBFILE
+	# echo generating $DBFILE ...
 }
 
-usernamelocate() {
-	grep 'ServerConnector\|logged\|banned' | grep -E "[a-zA-Z0-9_]{3,16}"
+geolocate_bc() {
+	# echo geolocate_bc ...
+	# echo .
+	inputlog=/tmp/geolocate_bc.tmp
+	cat >$inputlog
+	
+	declare -A iplocations
+    [ -f $DBFILE ] && source $DBFILE
+	# declare -p iplocations
+	
+	ips=$(cat $inputlog|grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	for ip in $ips;	do
+        key=$(echo $ip|tr -d '.')
+        if [ -z "${iplocations[$key]}" ]; then
+            echo -e ${YELLOW}Querying...${NC}
+            result=$(geolocation $ip)
+            iplocations[$key]=$result
+        fi
+		
+		names=$(cat $inputlog| grep -C 1 $ip | grep 'ServerConnector' | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F']' '{ printf ("%s\n",$1) }' | sort | uniq)
+		# banned=$(cat $inputlog| grep -C 1 $ip | grep banned | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F']' '{ printf ("%s\n",$1) }' | sort | uniq)
+		banned=$(cat $inputlog| grep -C 2 $ip | grep banned | awk '{$1="";$2="";print $0;}' | sort | uniq)
+		
+        names=$(echo ${names}|tr -d '\n')
+        banned=$(echo ${banned}|tr -d '\n')
+		
+        [ -z "$banned" ] && echo "${iplocations[$key]}| $names" || echo -e "${iplocations[$key]}| $names | ${RED}$banned${NC}"
+		
+	done
+	
+	declare -A iplocations
+    [ -f $DBFILE ] && source $DBFILE
+	
+    [ ! -z "${!iplocations[*]}" ] && declare -p iplocations >$DBFILE
+	# echo generating $DBFILE ...
+}
+
+usernamelocate_mc() {
+	grep 'logged\|banned' | grep -E "[a-zA-Z0-9_]{3,16}"
+}
+
+usernamelocate_bc() {
+	# echo usernamelocate_bc ...
+	grep 'ServerConnector' | grep -E "[a-zA-Z0-9_]{3,16}"
 }
 
 #=================================
@@ -119,10 +166,12 @@ for_log() {
 				
 			if is_ip_address "$arg1"; then
 				# echo ip_address
-				cat $tmp | usernamelocate
+				is_bc_log "$log" && cat $tmp | usernamelocate_bc
+				is_bc_log "$log" || cat $tmp | usernamelocate_mc
 			elif is_minecraft_id "$arg1"; then
 				# echo minecraft_id
-				cat $tmp | geolocate
+				is_bc_log "$log" && cat $tmp | geolocate_bc
+				is_bc_log "$log" || cat $tmp | geolocate_mc
 			fi
 		elif [ $mode == "keyword" ]; then
 			# echo keyword
@@ -131,7 +180,8 @@ for_log() {
 			[ -s $tmp ] && find_keyword "$log" $*
 		elif [ $mode == "ip" ]; then
 			# echo ip
-			dcat "$log" | geolocate >$tmp
+			is_bc_log "$log" && dcat "$log" | geolocate_bc >$tmp
+			is_bc_log "$log" || dcat "$log" | geolocate_mc >$tmp
 			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename "$log") ============================${NC} || printf "."
 			[ -s $tmp ] && cat $tmp
 		fi
