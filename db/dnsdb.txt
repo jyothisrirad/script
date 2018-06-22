@@ -1,1 +1,0 @@
-declare -A dnsdb='([tp1]="tp5" )'
