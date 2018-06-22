@@ -47,12 +47,13 @@ is_tp_already_set() {
 DBFILE=~/script/db/dnsdb.txt
 # HOST=$(basename $0)
 num=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
+# num=$(cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1)
 HOST=tp$num
 
 start() {
     is_tp_already_set && return
 
-    # bungee_restart
+    bungee_restart
     
 	declare -A dnsdb
     [ -f $DBFILE ] && source $DBFILE

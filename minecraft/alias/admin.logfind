@@ -172,10 +172,10 @@ is_files_existed() {
 
 #=================================
 dcat() {
-	[ ! -z "$1" ] && logfile=$1
+	[ ! -z "$1" ] && logfile="$1"
 	[ -z "$logfile" ] && logfile=/mnt/runtimes/$mcver/logs/latest.log
 	extension="${logfile##*.}"
-	[ $extension == "gz" ] && zcat $logfile || cat $logfile
+	[ $extension == "gz" ] && gzip -cd "$logfile" || cat "$logfile"
 }
 
 geolocate() {
@@ -198,7 +198,7 @@ geolocate() {
             # echo ${iplocations[$key]} ..
         fi
 		
-		names=$(echo "${inputlog[*]}" | grep $ip | grep -v 'anned\|protocolsupport' | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
+		names=$(echo "${inputlog[*]}" | grep $ip | grep -v 'anned\|protocolsupport\|GameProfile' | grep -E "[a-zA-Z0-9_]{3,16}" | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
 		banned=$(echo "${inputlog[*]}" | grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
 		
         names=$(echo ${names}|tr -d '\n')
@@ -263,8 +263,8 @@ for_log() {
 		if [ $mode == "normal" ]; then
 			arg1="$1"
 			# echo normal, $arg1
-			$find $log $* | grep 'INFO' | grep -v 'ViaBackwards\|UpstreamBridge\|disconnected\|DiscordSRV\|UUID\|FairPlayMinecraft\|lost\|left\|default' >$tmp
-			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename $log), $* ============================${NC}
+			$find "$log" $* | grep 'INFO' | grep -v 'ViaBackwards\|UpstreamBridge\|disconnected\|DiscordSRV\|UUID\|FairPlayMinecraft\|lost\|left\|default' >$tmp
+			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename "$log"), $* ============================${NC}
 			[ -s $tmp ] && cat $tmp
 				
 			if is_ip_address "$arg1"; then
@@ -276,13 +276,13 @@ for_log() {
 			fi
 		elif [ $mode == "keyword" ]; then
 			# echo keyword
-			find_keyword $log $* >$tmp
-			[ -s $tmp ] && echo -e ${YELLOW}================= $(basename $log), keyword: $* =================${NC}
-			[ -s $tmp ] && find_keyword $log $*
+			find_keyword "$log" $* >$tmp
+			[ -s $tmp ] && echo -e ${YELLOW}================= $(basename "$log"), keyword: $* =================${NC}
+			[ -s $tmp ] && find_keyword "$log" $*
 		elif [ $mode == "ip" ]; then
 			# echo ip
-			dcat $log | geolocate >$tmp
-			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename $log) ============================${NC}
+			dcat "$log" | geolocate >$tmp
+			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename "$log") ============================${NC} || printf "."
 			[ -s $tmp ] && cat $tmp
 		fi
 	done
@@ -297,7 +297,7 @@ for_latest_log() {
 	mode=$1
 	shift 1
 	
-	for_log $mode $log $*
+	for_log $mode "$log" $*
 }
 
 #=================================
@@ -313,7 +313,7 @@ for_all_logs() {
 	shift 1
 	
 	for log in $logs; do
-		for_log $mode $log $*
+		for_log $mode "$log" $*
 	done
 }
 
@@ -339,7 +339,7 @@ find_ip() {
 	# echo ip=$ip
 	# echo range=$range
 	
-	dcat $log | grep -C $range $ip
+	dcat "$log" | grep -C $range $ip
 }
 
 find_username() {
@@ -351,7 +351,7 @@ find_username() {
 	# echo username=$username
 	# echo range=$range
 	
-	dcat $log | grep -C $range $username
+	dcat "$log" | grep -C $range $username
 }
 
 find_keyword() {
@@ -364,7 +364,7 @@ find_keyword() {
 	# echo keyword=$keyword
 	# echo range=$range
 	
-	dcat $log | grep -v 'ViaBackwards' | grep -C $range "$keyword"
+	dcat "$log" | grep -v 'ViaBackwards' | grep -C $range "$keyword"
 }
 
 #=================================

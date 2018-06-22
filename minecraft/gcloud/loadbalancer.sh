@@ -10,12 +10,14 @@ igctrl=/home/sita/script/minecraft/gcloud/igroup.sh
 runscreen=/home/sita/script/mis/run_in_screen.sh
 
 ###
-lb_account=sita@changen.com.tw
+default_account=$(get_account)
+
 # dns_account=chsliu@gmail.com
 # dns_project=creeper-196707
 dns_account=sita@changen.com.tw
 dns_project=creeper-199909
-default_account=$(get_account)
+
+lb_account=sita@changen.com.tw
 PROJECT=creeper-199909
 REGION=asia-east1
 POOL=lb
