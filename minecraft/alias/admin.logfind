@@ -179,14 +179,14 @@ dcat() {
 }
 
 geolocate() {
-	inputlog=`cat`
+	inputlog=/tmp/geolocate.tmp
+	cat >$inputlog
 	
 	declare -A iplocations
     [ -f $DBFILE ] && source $DBFILE
-
 	# declare -p iplocations
 	
-	ips=$(echo "${inputlog[*]}" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
+	ips=$(cat $inputlog|grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq)
 	for ip in $ips;	do
         key=$(echo $ip|tr -d '.')
         if [ -z "${iplocations[$key]}" ]; then
@@ -198,8 +198,8 @@ geolocate() {
             # echo ${iplocations[$key]} ..
         fi
 		
-		names=$(echo "${inputlog[*]}" | grep $ip | grep -v 'anned\|protocolsupport\|GameProfile' | grep -E "[a-zA-Z0-9_]{3,16}" | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
-		banned=$(echo "${inputlog[*]}" | grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
+		names=$(cat $inputlog| grep $ip | grep -v 'anned\|protocolsupport\|GameProfile' | grep -E "[a-zA-Z0-9_]{3,16}" | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F':' '{ printf ("%s\n",$2) }' | sort | uniq)
+		banned=$(cat $inputlog| grep $ip | grep banned | awk -F':' '{ printf ("%s %s\n",$6,$9) }' | sort | uniq)
 		
         names=$(echo ${names}|tr -d '\n')
         banned=$(echo ${banned}|tr -d '\n')
@@ -209,7 +209,6 @@ geolocate() {
 	done
     
 	# declare -p iplocations
-    
     [ ! -z "${!iplocations[*]}" ] && declare -p iplocations >$DBFILE
 }
 

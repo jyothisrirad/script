@@ -107,7 +107,8 @@ dnssetup() {
 
 #=================================
 dnsctl() {
-    [ ! -z "$1" ] && /home/sita/script/mis/gcloud.dns.update.sh "$1" creeper-196707 creeper-tw
+    # [ ! -z "$1" ] && /home/sita/script/mis/gcloud.dns.update.sh "$1" creeper-196707 creeper-tw
+    [ ! -z "$1" ] && /home/sita/script/mis/gcloud.dns.update.sh "$1" creeper-199909 creeper-tw
 }
 
 #=================================

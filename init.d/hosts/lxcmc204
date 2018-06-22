@@ -5,9 +5,9 @@
 
 dns_external=tp1
 dns_updates=
-# servers=(s66 s97 s01 s02)
-servers=(s66)
-# servers2=(s97 s01 s02)
-servers2=()
+servers=(s66 s97 s01 s02)
+# servers=(s66)
+servers2=(s97 s01 s02)
+# servers2=()
 
 run $*
