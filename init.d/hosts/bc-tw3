@@ -3,7 +3,8 @@
 . /home/sita/script/minecraft/alias.minecraft
 . /home/sita/script/init.d/start.mc.sh
 
-dns_external=tw3
+# dns_external=tw3
+dns_external=
 dns_updates=($dns_external)
 servers=(s65)
 servers2=
