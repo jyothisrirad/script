@@ -120,7 +120,7 @@ case "$1" in
     ;;
   ip)
 	echo List IPs:
-	gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u
+	gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $10)}' | sort -u
     exit
     ;;
   *)
