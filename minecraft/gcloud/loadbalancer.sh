@@ -1,9 +1,6 @@
 #!/bin/bash
 
 ###
-instances_count_min=1
-
-###
 . /home/sita/script/include/common_helper
 . /home/sita/script/include/console.color
 . /home/sita/script/include/gcloud_helper
