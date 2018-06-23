@@ -7,7 +7,8 @@
 dns_external=lobby
 dns_updates=($dns_external)
 # servers=(s32 s65)
-servers=(s65)
+# servers=(s65)
+servers=(s31)
 servers2=
 autostart=1
 

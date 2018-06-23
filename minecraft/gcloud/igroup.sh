@@ -32,6 +32,9 @@ start() {
     echo -e ${GREEN}=== Start Autoscaling: ${YELLOW}$instances_group_region, min $instances_count_min, max $instances_count_max ${NC}
     gcloud --project $ig_project compute instance-groups managed set-autoscaling $instances_group_region --max-num-replicas=$instances_count_max --min-num-replicas=$instances_count_min --region $ig_region
     
+	# Health Check
+	# gcloud --project $ig_project compute health-checks create tcp tcp-25565 --port=25565 --unhealthy-threshold=6
+	
     set_account $default_account
 }
 
