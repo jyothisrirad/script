@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s31=31-lobby
+
+s31() {
+	chmc $s31
+}
+
+alias 31=s31
