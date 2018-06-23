@@ -3,17 +3,12 @@
 . /home/sita/script/minecraft/alias.minecraft
 . /home/sita/script/init.d/start.mc.sh
 
-<<<<<<< HEAD
+# dns_external=tw1
 dns_external=lobby
 dns_updates=($dns_external)
+# servers=(s32 s65)
 servers=(s65)
 servers2=
 autostart=1
-=======
-dns_external=tw1
-dns_updates=($dns_external)
-servers=(s32 s65)
-servers2=
->>>>>>> 0bbe2285c820e0999015e34907b18a7d054330c4
 
 run $*
