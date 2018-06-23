@@ -1,11 +1,12 @@
 #!/bin/bash
 
+###
+instances_count_min=1
+
+###
 . /home/sita/script/include/common_helper
 . /home/sita/script/include/console.color
 . /home/sita/script/include/gcloud_helper
-
-###
-instances_count_min=1
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
@@ -101,7 +102,7 @@ stop() {
 
     # Delete Load Balancer
     echo -e ${GREEN}=== Delete Load Balancer: ${YELLOW}$POOL ${NC}
-    gcloud --project $PROJECT -q compute target-pools delete $POOL
+    gcloud --project $PROJECT -q compute target-pools delete $POOL --region $REGION
     
     set_account $default_account
     
