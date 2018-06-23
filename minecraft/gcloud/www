@@ -48,9 +48,13 @@ start() {
     echo -e ${GREEN}== Updating ${YELLOW}creeper.tw 3hour IN A ... ${NC}
     $dnsupdate A creeper-tw @ creeper.tw 3hour 3hour
 
-    # A www.creeper.tw 1hour
+    # A file.creeper.tw 1hour
     echo -e ${GREEN}== Updating ${YELLOW}file.creeper.tw 3hour IN A ... ${NC}
     $dnsupdate A creeper-tw file creeper.tw 3hour 3hour
+
+    # A redis.creeper.tw 1hour
+    echo -e ${GREEN}== Updating ${YELLOW}redis.creeper.tw 3hour IN A ... ${NC}
+    $dnsupdate A creeper-tw redis creeper.tw 3hour 3hour
 
     # DNS transaction commit
     echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}

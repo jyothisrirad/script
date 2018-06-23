@@ -86,6 +86,10 @@ start() {
         # A gem.creeper.tw 1min
         echo -e ${GREEN}== Updating ${YELLOW}gem.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN A ... ${NC}
         $dnsupdate A creeper-tw gem creeper.tw 3hour 1min
+		
+        # A db.creeper.tw 1min
+        echo -e ${GREEN}== Updating ${YELLOW}db.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN A ... ${NC}
+        $dnsupdate A creeper-tw db creeper.tw 3hour 1min
         
         # CNAME mc.creeper.tw = tp1.creeper.tw 1min
         echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN CNAME $HOST.creeper.tw ${NC}
@@ -111,6 +115,10 @@ start() {
         # A gem.creeper.tw 3hour
         echo -e ${GREEN}== Updating ${YELLOW}gem.creeper.tw ${GREEN}1min to ${YELLOW}3hour IN A ... ${NC}
         $dnsupdate A creeper-tw gem creeper.tw 1min 3hour
+        
+        # A db.creeper.tw 3hour
+        echo -e ${GREEN}== Updating ${YELLOW}db.creeper.tw ${GREEN}1min to ${YELLOW}3hour IN A ... ${NC}
+        $dnsupdate A creeper-tw db creeper.tw 1min 3hour
         
         # CNAME mc.creeper.tw = tp1.creeper.tw 3hour
         echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw ${GREEN}1min to ${YELLOW}3hour IN CNAME $HOST.creeper.tw ${NC}

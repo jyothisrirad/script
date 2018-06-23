@@ -2,6 +2,7 @@
 
 #=================================
 DBFILE=~/.db/iplocations.txt
+[ ! -d ~/.db ] && mkdir ~/.db
 
 #=================================
 help_hline3 '紀錄搜尋(logfind)'
