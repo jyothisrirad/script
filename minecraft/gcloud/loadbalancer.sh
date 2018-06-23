@@ -5,7 +5,7 @@
 . /home/sita/script/include/gcloud_helper
 
 ###
-[ -z "$instances_count_min" ] && instances_count_min=1
+instances_count_min=1
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
