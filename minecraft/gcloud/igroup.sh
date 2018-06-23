@@ -118,6 +118,10 @@ case "$1" in
     dns_update $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u | tr '\n' ' ')
     exit
     ;;
+  ip)
+	gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u
+    exit
+    ;;
   *)
     start
 esac
