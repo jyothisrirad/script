@@ -8,10 +8,10 @@ addto_fstab() {
 	fi
 }
 
-[ -d /mnt/runtimes ] && sudo mkdir /mnt/runtimes
+[ ! -d /mnt/runtimes ] && sudo mkdir /mnt/runtimes
 sudo chown sita:sita /mnt/runtimes
 
-[ -d /mnt/backup ] && sudo mkdir /mnt/backup
+[ ! -d /mnt/backup ] && sudo mkdir /mnt/backup
 sudo chown sita:sita /mnt/backup
 
 sudo apt install -y zip dnsutils uni2ascii bc

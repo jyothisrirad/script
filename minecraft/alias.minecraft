@@ -102,6 +102,8 @@ check_creeper_ip() {
     # digthis tp1.creeper.tw
     digthis gem.creeper.tw
     digthis wiki.creeper.tw
+    digthis db.creeper.tw
+    digthis redis.creeper.tw
     # digthis r53.creeper.tw
     # echo =================================
     # digthis lb.creeper.tw
