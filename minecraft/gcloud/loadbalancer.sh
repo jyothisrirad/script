@@ -5,6 +5,9 @@
 . /home/sita/script/include/gcloud_helper
 
 ###
+[ -z "$instances_count_min" ] && instances_count_min=1
+
+###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 igctrl=/home/sita/script/minecraft/gcloud/igroup.sh
 runscreen=/home/sita/script/mis/run_in_screen.sh
@@ -27,7 +30,7 @@ instances_group_region=bc2
 RULE=minecraft
 PROTO=TCP
 PORT=25565
-default_HOST=tp1
+# default_HOST=tp1
 
 lookup_dns_ip() {
     host "$1" | sed -rn 's@^.* has address @@p'
@@ -128,7 +131,13 @@ dns_update() {
 }
 
 ###
+DBFILE=~/.db/dnsdb.txt
 dns_remove() {
+    
+	declare -A dnsdb
+    [ -f $DBFILE ] && source $DBFILE
+	LAST=${dnsdb[$(basename $0)]}
+	
     last_account=$(get_account)
     set_account $dns_account
     
@@ -139,8 +148,8 @@ dns_remove() {
     echo -e ${GREEN}== Removing ${YELLOW}$LB.creeper.tw IN A ... ${NC}
     $dnsupdate del $dns_project creeper-tw $LB creeper.tw 1min 3hour A
     
-    echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $default_HOST.creeper.tw ${NC}
-    $dnsupdate CNAME creeper-tw mc creeper.tw $default_HOST.creeper.tw. 1min 3hour
+    [ ! -z "$LAST" ] && echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $LAST.creeper.tw ${NC}
+    [ ! -z "$LAST" ] && $dnsupdate CNAME creeper-tw mc creeper.tw $LAST.creeper.tw. 1min 3hour
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
