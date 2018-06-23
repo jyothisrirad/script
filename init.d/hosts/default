@@ -6,6 +6,7 @@
 dns_external=
 dns_updates=($dns_external)
 servers=(s65)
-autostart=1
+servers2=
+# autostart=1
 
 run $*

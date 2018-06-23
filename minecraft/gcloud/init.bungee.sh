@@ -14,7 +14,7 @@ addto_root_crontab "0 23 * * * /sbin/shutdown -h now"
 ### 
 ~/script/minecraft/gcloud/init.sh
 
-[ ! -f ~/start.mc.sh ] && cp ~/script/init.d/start.mc.bungee.sh ~/script/init.d/hosts/$(hostname)
+[ ! -f ~/script/init.d/hosts/$(hostname) ] && cp ~/script/init.d/hosts/default ~/script/init.d/hosts/$(hostname)
 
 ### 
 # sudo mkdir /mnt/backup/74-UHC
