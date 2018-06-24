@@ -2,7 +2,8 @@
 
 . /home/sita/script/include/console.color
 
-# PROJECT=creeper-196707
+# [ -z "$PROJECT" ] && export PROJECT=creeper-196707
+[ -z "$PROJECT" ] && export PROJECT=creeper-199909
 
 ttlify() {
   local i

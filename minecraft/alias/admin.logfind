@@ -65,8 +65,11 @@ geolocate_mc() {
 	done
     
 	# declare -p iplocations
-    [ ! -z "${!iplocations[*]}" ] && declare -p iplocations >$DBFILE
 	# echo generating $DBFILE ...
+	FILESIZE1=$(stat -c%s "$DBFILE")
+    [ ! -z "${!iplocations[*]}" ] && declare -p iplocations >$DBFILE
+	FILESIZE2=$(stat -c%s "$DBFILE")
+	[ ! -z "$names" ] && echo -e "${YELLOW}Size of $DBFILE = $FILESIZE1 bytes read, $FILESIZE2 bytes written.${NC}"
 }
 
 geolocate_bc() {
@@ -99,11 +102,11 @@ geolocate_bc() {
 		
 	done
 	
-	declare -A iplocations
-    [ -f $DBFILE ] && source $DBFILE
-	
-    [ ! -z "${!iplocations[*]}" ] && declare -p iplocations >$DBFILE
 	# echo generating $DBFILE ...
+	FILESIZE1=$(stat -c%s "$DBFILE")
+    [ ! -z "${!iplocations[*]}" ] && declare -p iplocations >$DBFILE
+	FILESIZE2=$(stat -c%s "$DBFILE")
+	[ ! -z "$names" ] && echo -e "${YELLOW}Size of $DBFILE = $FILESIZE1 bytes read, $FILESIZE2 bytes written.${NC}"
 }
 
 usernamelocate_mc() {
@@ -269,6 +272,11 @@ find_keyword() {
 }
 
 #=================================
+log_bungeecord_analyst() {
+	[ -f "$1" ] && cat $1 | grep 'WARNING\|SEVERE' | grep -v 'ViaBackwards\|ViaVersion\|RedisBungee\|at io.netty\|at java.io\|at net.md_5\|at java.lang'
+}
+
+#=================================
 help_add 'lff.<keyword>' '搜尋指定紀錄ip/username/keyword'
 alias lff='log_file_find_general "normal"'
 alias lffk='log_file_find_general "keyword"'
@@ -281,3 +289,7 @@ help_add 'lfa.<keyword>' '搜尋全部紀錄ip/username/keyword'
 alias lfa='log_all_find_general "normal"'
 alias lfak='log_all_find_general "keyword"'
 alias lfaip='log_all_find_general "ip"'
+
+#=================================
+help_add 'lba.<proxy.log>' '分析bclog'
+alias lba='log_bungeecord_analyst'

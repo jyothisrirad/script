@@ -24,6 +24,15 @@ dns_project=creeper-199909
 [ -z "$instances_count_max" ] && instances_count_max=4
 [ -z "$HOSTS" ] && HOSTS=r53
 
+# echo ig_account=$ig_account
+# echo ig_project=$ig_project
+# echo ig_region=$ig_region
+# echo instances_group_region=$instances_group_region
+# echo instances_count_min=$instances_count_min
+# echo instances_count_max=$instances_count_max
+# echo HOSTS=$HOSTS
+# exit
+
 ###
 start() {
     set_account $ig_account
@@ -52,7 +61,7 @@ stop() {
     echo -e ${GREEN}=== Delete instances: ${YELLOW}${group%?} ${NC}
     gcloud --project $ig_project compute instance-groups managed delete-instances $instances_group_region --instances=${group%?} --region $ig_region
     
-    dns_remove $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $9)}' | sort -u | tr '\n' ' ')
+    dns_remove $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $10)}' | sort -u | tr '\n' ' ')
     
     set_account $default_account
 }

@@ -31,9 +31,9 @@ sudo apt install -y --allow-unauthenticated oracle-java8-installer gcsfuse
 addto_fstab creeper-tw-backup /mnt/backup gcsfuse rw,noauto,user,key_file=/home/sita/.gcloud/chsliu@gmail.com.json
 
 # cd /tmp
-# google-fluentd google-fluentd-catch-all-config
+# apt remove google-fluentd google-fluentd-catch-all-config
 # curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
 # sudo bash install-logging-agent.sh
-# stackdriver-agent
+# apt remove stackdriver-agent
 # curl -sSO https://repo.stackdriver.com/stack-install.sh
 # sudo bash stack-install.sh --write-gcm

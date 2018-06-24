@@ -7,28 +7,36 @@
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
-igctrl=/home/sita/script/minecraft/gcloud/igroup.sh
 runscreen=/home/sita/script/mis/run_in_screen.sh
+[ -z "$igctrl" ] && igctrl=/home/sita/script/minecraft/gcloud/igroup.sh
 
 ###
 default_account=$(get_account)
 
-# dns_account=chsliu@gmail.com
-# dns_project=creeper-196707
-dns_account=sita@changen.com.tw
-dns_project=creeper-199909
+# [ -z "$dns_account" ] && dns_account=chsliu@gmail.com
+# [ -z "$dns_project" ] && dns_project=creeper-196707
+[ -z "$dns_account" ] && dns_account=sita@changen.com.tw
+[ -z "$dns_project" ] && dns_project=creeper-199909
 
-lb_account=sita@changen.com.tw
-PROJECT=creeper-199909
-REGION=asia-east1
-POOL=lb
-LB=$POOL
-instances_group=bc
-instances_group_region=bc2
-RULE=minecraft
-PROTO=TCP
-PORT=25565
-# default_HOST=tp1
+[ -z "$lb_account" ] && lb_account=sita@changen.com.tw
+[ -z "$PROJECT" ] && PROJECT=creeper-199909
+[ -z "$REGION" ] && REGION=asia-east1
+[ -z "$POOL" ] && POOL=lb
+[ -z "$LB" ] && LB=$POOL
+# [ -z "$instances_group" ] && instances_group=bc
+[ -z "$instances_group_region" ] && instances_group_region=bc2
+[ -z "$RULE" ] && RULE=minecraft
+[ -z "$PROTO" ] && PROTO=TCP
+[ -z "$PORT" ] && PORT=25565
+[ -z "$default_HOST" ] && default_HOST=tp1
+
+# echo lb_account=$lb_account
+# echo PROJECT=$PROJECT
+# echo POOL=$POOL
+# echo LB=$LB
+# echo instances_group_region=$instances_group_region
+# echo igctrl=$igctrl
+# exit
 
 lookup_dns_ip() {
     host "$1" | sed -rn 's@^.* has address @@p'
@@ -148,6 +156,7 @@ dns_remove() {
     
     [ ! -z "$LAST" ] && echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $LAST.creeper.tw ${NC}
     [ ! -z "$LAST" ] && $dnsupdate CNAME creeper-tw mc creeper.tw $LAST.creeper.tw. 1min 3hour
+    [ -z "$LAST" ] && $dnsupdate CNAME creeper-tw mc creeper.tw $default_HOST.creeper.tw. 1min 3hour
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
