@@ -64,6 +64,9 @@ alias ddcheck='sudo netstat -antp'
 #=================================
 alias block='blockip $*'
 alias unblock='unblockip $*'
+alias banlist='route_show'
+alias ban='blockip $*'
+alias unban='unblockip $*'
 
 #=================================
 alias stop='sudo echo && sudo screen -dmS off shutdown -h now && exit'
