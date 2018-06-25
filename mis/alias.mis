@@ -55,14 +55,55 @@ install_antiddos() {
 }
 
 check_sysctl() {
+    echo -e ${GREEN}kernel${NC}
 	sudo sysctl kernel.printk
-	sudo sysctl kernel.panic
 	sudo sysctl kernel.sysrq
 	sudo sysctl kernel.shmmax
 	sudo sysctl kernel.shmall
 	sudo sysctl kernel.core_uses_pid
 	sudo sysctl kernel.msgmnb
 	sudo sysctl kernel.msgmax
+    
+    echo -e ${GREEN}Turn on SYN-flood protections.${NC}
+    sudo sysctl net.ipv4.tcp_syncookies
+    
+    echo -e ${GREEN}Ignore source-routed packets${NC}
+    sudo sysctl net.ipv4.conf.all.accept_source_route
+    sudo sysctl net.ipv4.conf.default.accept_source_route
+    
+    echo -e ${GREEN}Ignore ICMP redirects from non-GW hosts${NC}
+    sudo sysctl net.ipv4.conf.all.accept_redirects
+    sudo sysctl net.ipv4.conf.default.accept_redirects
+    sudo sysctl net.ipv4.conf.all.secure_redirects
+    sudo sysctl net.ipv4.conf.default.secure_redirects
+    
+    echo -e ${GREEN}Do not pass traffic between networks or act as a router${NC}
+    sudo sysctl net.ipv4.ip_forward
+    sudo sysctl net.ipv4.conf.all.send_redirects
+    sudo sysctl net.ipv4.conf.default.send_redirects
+    
+    echo -e ${GREEN}Turn on Source Address Verification in all interfaces to prevent some spoofing attacks.${NC}
+    sudo sysctl net.ipv4.conf.all.rp_filter
+    sudo sysctl net.ipv4.conf.default.rp_filter
+    
+    echo -e ${GREEN}Ignore ICMP broadcasts to avoid participating in Smurf attacks${NC}
+    sudo sysctl net.ipv4.icmp_echo_ignore_broadcasts
+    
+    echo -e ${GREEN}Ignore bad ICMP errors${NC}
+    sudo sysctl net.ipv4.icmp_ignore_bogus_error_responses
+
+    echo -e ${GREEN}Log spoofed, source-routed, and redirect packets${NC}
+    sudo sysctl net.ipv4.conf.all.log_martians
+    sudo sysctl net.ipv4.conf.default.log_martians
+
+    echo -e ${GREEN}RFC 1337 fix${NC}
+    sudo sysctl net.ipv4.tcp_rfc1337
+
+    echo -e ${GREEN}Addresses of mmap base, heap, stack and VDSO page are randomized${NC}
+    sudo sysctl kernel.randomize_va_space
+
+    echo -e ${GREEN}Reboot the machine soon after a kernel panic.${NC}
+    sudo sysctl kernel.panic
 }
 
 #=================================
