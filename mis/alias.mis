@@ -48,9 +48,21 @@ findmyip() {
 	curl http://me.gandi.net
 }
 
+#=================================
 install_antiddos() {
 	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
 	ls -la /etc/sysctl.d/
+}
+
+check_sysctl() {
+	sudo sysctl kernel.printk
+	sudo sysctl kernel.panic
+	sudo sysctl kernel.sysrq
+	sudo sysctl kernel.shmmax
+	sudo sysctl kernel.shmall
+	sudo sysctl kernel.core_uses_pid
+	sudo sysctl kernel.msgmnb
+	sudo sysctl kernel.msgmax
 }
 
 #=================================
@@ -63,7 +75,6 @@ alias la='ls -A'
 alias ll='ls -alF'
 alias ls='ls --color=auto'
 alias less='less -R'
-
 
 #=================================
 alias a=alias
@@ -79,7 +90,8 @@ alias pc='cd ~/script/minecraft/gcloud'
 alias gs='cd ~/script && ./gitsync.sh'
 
 #=================================
-alias antiddos='install_antiddos'
+alias aaa='install_antiddos'
+alias ccc='check_sysctl'
 alias ddd='ddos_status'
 alias ddc='sudo netstat -antp | grep "^\|\:80\|\:25565"'
 alias pid='pidinfo $*'
