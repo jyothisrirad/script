@@ -33,6 +33,26 @@ route_show() {
 }
 
 #=================================
+pidinfo() {
+    pid=$1
+    ps aux | grep -v "grep" | grep $pid
+    cat /proc/$pid/environ | tr '\0' '\n' | grep "PWD"
+}
+
+#=================================
+findmyip0() {
+	curl https://api.ipify.org && echo 
+}
+
+findmyip() {
+	curl http://me.gandi.net
+}
+
+install_antiddos() {
+	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
+}
+
+#=================================
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -58,8 +78,10 @@ alias pc='cd ~/script/minecraft/gcloud'
 alias gs='cd ~/script && ./gitsync.sh'
 
 #=================================
-alias ddos='ddos_status'
-alias ddcheck='sudo netstat -antp | grep "^\|\:80\|\:25565"'
+alias antiddos='install_antiddos'
+alias ddd='ddos_status'
+alias ddc='sudo netstat -antp | grep "^\|\:80\|\:25565"'
+alias pid='pidinfo $*'
 
 #=================================
 alias block='blockip $*'
@@ -72,7 +94,7 @@ alias unban='unblockip $*'
 alias stop='sudo echo && sudo screen -dmS off shutdown -h now && exit'
 
 #=================================
-alias ii='curl https://api.ipify.org && echo '
+alias ii='findmyip'
 
 #=================================
 alias cpu='less /proc/cpuinfo |grep "model name"'

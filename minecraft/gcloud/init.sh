@@ -37,3 +37,5 @@ addto_fstab creeper-tw-backup /mnt/backup gcsfuse rw,noauto,user,key_file=/home/
 # apt remove stackdriver-agent
 # curl -sSO https://repo.stackdriver.com/stack-install.sh
 # sudo bash stack-install.sh --write-gcm
+
+sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/

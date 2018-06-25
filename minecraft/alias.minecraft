@@ -84,9 +84,20 @@ get_myip() {
 }
 
 #=================================
-geolocation() {
+geolocation0() {
     ip=$1
     echo -e ${GREEN}$(curl freegeoip.net/xml/$ip 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), IP=${ip} ${NC}
+}
+
+#=================================
+geolocation() {
+    ip=$1
+    echo -e ${GREEN}$(curl -s ipinfo.io/$ip | grep 'hostname\|loc\|city\|region\|country' | sed 's/<[\/]*\w*>//g' | xargs) ip: ${ip} ${NC}
+}
+
+#=================================
+georaw() {
+	curl -s ipinfo.io/$1
 }
 
 #=================================
@@ -191,6 +202,8 @@ help_add 'cc' '檢查DNS'
 alias cc='check_creeper_ip'
 help_add 'geo.<ip>' '檢查IP位置'
 alias geo='geolocateWithCache'
+help_add 'gg.<ip>' '檢查IP位置'
+alias gg='georaw'
 
 help_add 'gl' 'Gamelist'
 alias gl='ls /mnt/runtimes/'
