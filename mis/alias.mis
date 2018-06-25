@@ -50,6 +50,7 @@ findmyip() {
 
 install_antiddos() {
 	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
+	ls -la /etc/sysctl.d/
 }
 
 #=================================
