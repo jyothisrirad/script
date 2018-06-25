@@ -133,6 +133,12 @@ ping_accept_onoff() {
 }
 
 #=================================
+alias_reload() {
+    . ~/script/mis/alias.mis
+    . ~/script/minecraft/alias.minecraft
+}
+
+#=================================
 PS1="${CYAN}[\$mcver]\u@\h:${NC}\n\w\\$ "
 
 #=================================
@@ -144,7 +150,7 @@ load_alias
 #=================================
 alias a=alias
 alias aed='vi ~/script/minecraft/alias.minecraft; are'
-alias are='. ~/script/minecraft/alias.minecraft'
+alias are='alias_reload'
 
 #=================================
 MCSCRIPT=~/script/init.d/hosts/$(hostname)
