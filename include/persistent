@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#=================================
+DBPATH=~/.db
+[ ! -d $DBPATH ] && mkdir $DBPATH
+
+#=================================
+dbload() {
+	dbfile=$DBPATH/$1.txt
+    [ -f $dbfile ] && cat $dbfile
+}
+
+#=================================
+dbsave() {
+	dbfile=$DBPATH/$1.txt
+	shift 1
+    echo "$*" >$dbfile
+}

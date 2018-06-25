@@ -1,8 +1,10 @@
 #!/bin/bash
 
+#=================================
 . /home/sita/script/include/common_helper
 . /home/sita/script/include/console.color
 . /home/sita/script/include/gcloud_helper
+. /home/sita/script/include/persistent
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
@@ -44,7 +46,7 @@ is_tp_already_set() {
 }
 
 ###
-DBFILE=~/.db/dnsdb.txt
+# DBFILE=~/.db/dnsdb.txt
 # HOST=$(basename $0)
 num=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
 # num=$(cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1)
@@ -55,8 +57,9 @@ start() {
 
     bungee_restart
     
-	declare -A dnsdb
-    [ -f $DBFILE ] && source $DBFILE
+	# declare -A dnsdb
+    # [ -f $DBFILE ] && source $DBFILE
+	eval "$(dbload 'dnsdb')"
 	LAST=${dnsdb[$(basename $0)]}
 	
 	echo -e ${GREEN}=========================${NC}
@@ -141,7 +144,8 @@ start() {
 	echo -e ${GREEN}=========================${NC}
 	
 	dnsdb[$(basename $0)]=$HOST
-    [ ! -z "${!dnsdb[*]}" ] && declare -p dnsdb >$DBFILE
+    # [ ! -z "${!dnsdb[*]}" ] && declare -p dnsdb >$DBFILE
+	[ ! -z "${!dnsdb[*]}" ] && dbsave "dnsdb" "$(declare -p dnsdb)"
 }
 
 start2() {
