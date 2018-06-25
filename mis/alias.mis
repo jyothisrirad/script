@@ -100,8 +100,8 @@ alias pid='pidinfo $*'
 alias block='blockip $*'
 alias unblock='unblockip $*'
 alias banlist='route_show'
-alias ban='blockip $*'
-alias unban='unblockip $*'
+alias banip='blockip $*'
+alias unbanip='unblockip $*'
 
 #=================================
 alias stop='sudo echo && sudo screen -dmS off shutdown -h now && exit'
