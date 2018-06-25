@@ -7,12 +7,14 @@ localip() {
 
 ddos_status() {
     echo Live connections: $(sudo netstat -natp | wc -l)
-    count=$(sudo netstat -natp | grep :80 | wc -l)
-    [ ! -z "$count" ] && echo Live port 80 connections: $count
-    count=$(sudo netstat -natp | grep :25565 | wc -l)
-    [ ! -z "$count" ] && echo Live port 25565 connections: $count
+    count=$(sudo netstat -tn | grep :80 | wc -l)
+    [ "$count" != "0" ] && echo Live port 80 connections: $count
+    count=$(sudo netstat -tn | grep :25565 | wc -l)
+    [ "$count" != "0" ] && echo Live port 25565 connections: $count
+    echo "port 80:"
     netstat -tn 2>/dev/null | grep :80 | awk '"'"'{print $5}'"'"' | cut -d: -f1 | sort | uniq -c | sort -nr | head
-    netstat -tn 2>/dev/null | grep :25565 | awk '"'"'{print $5}'"'"' | cut -d: -f1 | sort | uniq -c | sort -nr | head
+    echo "port 25565:"
+    netstat -tn 2>/dev/null | grep :25565 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head
 }
 
 #=================================
