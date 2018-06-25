@@ -2,6 +2,7 @@
 
 #=================================
 . /home/sita/script/include/console.color
+. /home/sita/script/include/persistent
 
 #=================================
 utf8() {
@@ -84,8 +85,24 @@ get_myip() {
 
 #=================================
 geolocation() {
-    myIP=$1
-    echo -e ${GREEN}$(curl freegeoip.net/xml/$myIP 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), IP=${myIP} ${NC}
+    ip=$1
+    echo -e ${GREEN}$(curl freegeoip.net/xml/$ip 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), IP=${ip} ${NC}
+}
+
+#=================================
+geolocateWithCache() {
+    ip=$1
+	eval "$(dbload 'iplocations')"
+    
+    key=$(echo $ip|tr -d '.')
+    if [ -z "${iplocations[$key]}" ]; then
+        echo -e ${YELLOW}Querying...${NC}
+        result=$(geolocation $ip)
+        iplocations[$key]=$result
+    fi
+    echo "${iplocations[$key]}"
+    
+	[ ! -z "${!iplocations[*]}" ] && dbsave "iplocations" "$(declare -p iplocations)"
 }
 
 #=================================
@@ -95,7 +112,7 @@ digthis() {
 
 #=================================
 check_creeper_ip() {
-    geolocation $(get_myip)
+    geolocateWithCache $(get_myip)
     digthis home.changen.com.tw
     echo =================================
     digthis mc.creeper.tw
@@ -173,7 +190,7 @@ alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 help_add 'cc' '檢查DNS'
 alias cc='check_creeper_ip'
 help_add 'geo.<ip>' '檢查IP位置'
-alias geo='geolocation'
+alias geo='geolocateWithCache'
 
 help_add 'gl' 'Gamelist'
 alias gl='ls /mnt/runtimes/'
