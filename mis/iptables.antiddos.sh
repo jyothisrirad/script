@@ -62,8 +62,8 @@ rule5_drop_spoofed() {
 	/sbin/iptables -t mangle -A PREROUTING -s 169.254.0.0/16 -j DROP
 	/sbin/iptables -t mangle -A PREROUTING -s 172.16.0.0/12 -j DROP
 	/sbin/iptables -t mangle -A PREROUTING -s 192.0.2.0/24 -j DROP
-	/sbin/iptables -t mangle -A PREROUTING -s 192.168.0.0/16 -j DROP
-	/sbin/iptables -t mangle -A PREROUTING -s 10.0.0.0/8 -j DROP
+	# /sbin/iptables -t mangle -A PREROUTING -s 192.168.0.0/16 -j DROP
+	# /sbin/iptables -t mangle -A PREROUTING -s 10.0.0.0/8 -j DROP
 	/sbin/iptables -t mangle -A PREROUTING -s 0.0.0.0/8 -j DROP
 	/sbin/iptables -t mangle -A PREROUTING -s 240.0.0.0/5 -j DROP
 	/sbin/iptables -t mangle -A PREROUTING -s 127.0.0.0/8 ! -i lo -j DROP
@@ -116,7 +116,8 @@ rule11_drop_invalid() {
 		# iptables -t raw -A PREROUTING -p tcp --dport $port -m tcp --syn -j CT --notrack
 		# iptables -A INPUT -p tcp --dport $port -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 		
-		[ -z "$drop_invalid_set" ] && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP && echo drop invalid port $port ... && drop_invalid_set=1
+		[ -z "$drop_invalid_set" ] && echo drop invalid port $port ...
+		[ -z "$drop_invalid_set" ] && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP && drop_invalid_set=1
 	fi
 }
 
@@ -148,7 +149,7 @@ rule1_drop_invalid
 rule2_drop_not_syn
 rule3_drop_suspcious_mss
 rule4_drop_bogus_tcp
-#rule5_drop_spoofed
+rule5_drop_spoofed
 rule6_drop_icmp
 rule7_drop_fragments
 rule8_limit_connections 111
