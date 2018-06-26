@@ -176,9 +176,12 @@ load_alias
 # [ $mcver ] || s74
 
 #=================================
+help_hline3 '其他(alias)'
+
+#=================================
 alias a=alias
 alias aed='vi ~/script/minecraft/alias.minecraft; are'
-alias are='alias_reload'
+alias are='help_reset; alias_reload'
 
 #=================================
 MCSCRIPT=~/script/init.d/hosts/$(hostname)
@@ -194,7 +197,6 @@ help_add 'stop2' '關閉主機2'
 alias stop2='$MCSCRIPT stop2'
 
 #=================================
-help_hline3 '其他(alias)'
 help_add 'jsu' '同步伺服器javascript'
 alias jsu='/mnt/runtimes/$mcver/plugins/Buscript/gitsync.sh'
 

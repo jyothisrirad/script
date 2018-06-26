@@ -49,13 +49,19 @@ findmyip() {
 }
 
 #=================================
+check_version() {
+	lsb_release -a
+	uname -a
+}
+
+#=================================
 install_antiddos() {
 	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
 	ls -la /etc/sysctl.d/
 }
 
 check_sysctl() {
-    echo -e ${GREEN}kernel${NC}
+    echo -e ${GREEN}=== kernel${NC}
 	sudo sysctl kernel.printk
 	sudo sysctl kernel.sysrq
 	sudo sysctl kernel.shmmax
@@ -64,47 +70,51 @@ check_sysctl() {
 	sudo sysctl kernel.msgmnb
 	sudo sysctl kernel.msgmax
     
-    echo -e ${GREEN}Turn on SYN-flood protections.${NC}
+    echo -e ${GREEN}=== Turn on SYN-flood protections.${NC}
     sudo sysctl net.ipv4.tcp_syncookies
     
-    echo -e ${GREEN}Ignore source-routed packets${NC}
+    echo -e ${GREEN}=== Ignore source-routed packets${NC}
     sudo sysctl net.ipv4.conf.all.accept_source_route
     sudo sysctl net.ipv4.conf.default.accept_source_route
     
-    echo -e ${GREEN}Ignore ICMP redirects from non-GW hosts${NC}
+    echo -e ${GREEN}=== Ignore ICMP redirects from non-GW hosts${NC}
     sudo sysctl net.ipv4.conf.all.accept_redirects
     sudo sysctl net.ipv4.conf.default.accept_redirects
     sudo sysctl net.ipv4.conf.all.secure_redirects
     sudo sysctl net.ipv4.conf.default.secure_redirects
     
-    echo -e ${GREEN}Do not pass traffic between networks or act as a router${NC}
+    echo -e ${GREEN}=== Do not pass traffic between networks or act as a router${NC}
     sudo sysctl net.ipv4.ip_forward
     sudo sysctl net.ipv4.conf.all.send_redirects
     sudo sysctl net.ipv4.conf.default.send_redirects
     
-    echo -e ${GREEN}Turn on Source Address Verification in all interfaces to prevent some spoofing attacks.${NC}
+    echo -e ${GREEN}=== Turn on Source Address Verification in all interfaces to prevent some spoofing attacks.${NC}
     sudo sysctl net.ipv4.conf.all.rp_filter
     sudo sysctl net.ipv4.conf.default.rp_filter
     
-    echo -e ${GREEN}Ignore ICMP broadcasts to avoid participating in Smurf attacks${NC}
+    echo -e ${GREEN}=== Ignore ICMP broadcasts to avoid participating in Smurf attacks${NC}
     sudo sysctl net.ipv4.icmp_echo_ignore_broadcasts
     
-    echo -e ${GREEN}Ignore bad ICMP errors${NC}
+    echo -e ${GREEN}=== Ignore bad ICMP errors${NC}
     sudo sysctl net.ipv4.icmp_ignore_bogus_error_responses
 
-    echo -e ${GREEN}Log spoofed, source-routed, and redirect packets${NC}
+    echo -e ${GREEN}=== Log spoofed, source-routed, and redirect packets${NC}
     sudo sysctl net.ipv4.conf.all.log_martians
     sudo sysctl net.ipv4.conf.default.log_martians
 
-    echo -e ${GREEN}RFC 1337 fix${NC}
+    echo -e ${GREEN}=== RFC 1337 fix${NC}
     sudo sysctl net.ipv4.tcp_rfc1337
 
-    echo -e ${GREEN}Addresses of mmap base, heap, stack and VDSO page are randomized${NC}
+    echo -e ${GREEN}=== Addresses of mmap base, heap, stack and VDSO page are randomized${NC}
     sudo sysctl kernel.randomize_va_space
 
-    echo -e ${GREEN}Reboot the machine soon after a kernel panic.${NC}
+    echo -e ${GREEN}=== Reboot the machine soon after a kernel panic.${NC}
     sudo sysctl kernel.panic
 }
+
+#=================================
+. ~/script/minecraft/alias/admin.1.help
+# help_hline3 '基本(mis)'
 
 #=================================
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -131,17 +141,27 @@ alias pc='cd ~/script/minecraft/gcloud'
 alias gs='cd ~/script && ./gitsync.sh'
 
 #=================================
+help_add 'aaa' '安裝DDoS保護'
 alias aaa='install_antiddos'
+help_add 'ccc' '檢查sysctl'
 alias ccc='check_sysctl'
+help_add 'ddd' '檢查連線數'
 alias ddd='ddos_status'
+help_add 'ddc' '檢查ddos連線'
 alias ddc='sudo netstat -antp | grep "^\|\:80\|\:25565"'
+help_add 'pid.<pid>' '檢查pid'
 alias pid='pidinfo $*'
+help_add 'ws' '檢查synproxy'
+alias ws='watch -n1 cat /proc/net/stat/synproxy'
 
 #=================================
 alias block='blockip $*'
 alias unblock='unblockip $*'
+help_add 'banlist' '檢查封鎖清單'
 alias banlist='route_show'
+help_add 'banip' '封鎖ip'
 alias banip='blockip $*'
+help_add 'unbanip' '解除封鎖'
 alias unbanip='unblockip $*'
 
 #=================================
@@ -152,3 +172,6 @@ alias ii='findmyip'
 
 #=================================
 alias cpu='less /proc/cpuinfo |grep "model name"'
+
+#=================================
+alias ver='check_version'

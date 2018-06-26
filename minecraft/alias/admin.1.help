@@ -1,9 +1,16 @@
 #!/bin/bash
 
 #=================================
-helpArgs=()
-helpLines=()
+[ -z "$helpArgs" ] && helpArgs=()
+[ -z "$helpLines" ] && helpLines=()
 totalcnt=$(echo "$COLUMNS-16"|bc)
+
+#=================================
+help_reset() {
+	helpArgs=()
+	helpLines=()
+}
+
 #=================================
 hline() {
     printf "%$1s" | tr ' ' $2
