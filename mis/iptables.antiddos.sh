@@ -116,7 +116,7 @@ rule11_drop_invalid() {
 		# iptables -t raw -A PREROUTING -p tcp --dport $port -m tcp --syn -j CT --notrack
 		# iptables -A INPUT -p tcp --dport $port -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 		
-		[ -z "$drop_invalid_set" ] && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP && echo drop invalid ... && drop_invalid_set=1
+		[ -z "$drop_invalid_set" ] && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP && echo drop invalid port $port ... && drop_invalid_set=1
 	fi
 }
 
@@ -155,7 +155,7 @@ rule8_limit_connections 111
 rule9_limit_rst
 rule10_limit_connections_per_sec_and_ip
 rule11_drop_invalid 80
-rule11_drop_invalid 25565
-# bouns1_drop_ssh_brutefore
+#rule11_drop_invalid 25565
+bouns1_drop_ssh_brutefore
 # bouns2_drop_port_scan
 rule_dump
