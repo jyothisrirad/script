@@ -58,7 +58,9 @@ check_version() {
 install_antiddos() {
 	# install iptables firewall rules again DDoS
 	sudo ~/script/mis/iptables.antiddos.sh | sudo tee /etc/iptables.conf
+	cat /etc/iptables.conf
 	sudo ~/script/mis/iptables.sh install
+	sudo crontab -l
 	
 	# install Kernel system variables again DDoS
 	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
