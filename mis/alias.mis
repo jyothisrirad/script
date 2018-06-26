@@ -7,13 +7,17 @@ localip() {
 
 ddos_status() {
     echo -e Live connections: ${GREEN}$(sudo netstat -natp | wc -l)${NC}
+	
+    count=$(sudo netstat -tn | grep :22 | wc -l)
+    [ "$count" != "0" ] && echo -e Live port 22 connections: ${GREEN}$count ${NC}
+    netstat -tn 2>/dev/null | grep :22 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
+	
     count=$(sudo netstat -tn | grep :80 | wc -l)
     [ "$count" != "0" ] && echo -e Live port 80 connections: ${GREEN}$count ${NC}
-    # echo "port 80:"
     netstat -tn 2>/dev/null | grep :80 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
+	
     count=$(sudo netstat -tn | grep :25565 | wc -l)
     [ "$count" != "0" ] && echo -e Live port 25565 connections: ${GREEN}$count ${NC}
-    # echo "port 25565:"
     netstat -tn 2>/dev/null | grep :25565 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
 }
 
@@ -57,13 +61,17 @@ check_version() {
 #=================================
 install_antiddos() {
 	# install iptables firewall rules again DDoS
+	echo -e ${GREEN}iptables.conf${NC}
 	sudo ~/script/mis/iptables.antiddos.sh | sudo tee /etc/iptables.conf
-	cat /etc/iptables.conf
+	ls -la /etc/iptables.conf
+	
+	echo -e ${GREEN}crontab${NC}
 	sudo ~/script/mis/iptables.sh install
 	sudo crontab -l
 	
 	# install Kernel system variables again DDoS
 	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
+	echo -e ${GREEN}sysctl${NC}
 	ls -la /etc/sysctl.d/
 }
 
