@@ -139,7 +139,7 @@ alias pc='cd ~/script/minecraft/gcloud'
 
 #=================================
 # alias gs='cd ~/script && ./gitsync.sh'
-alias gs='./gitsync.sh'
+alias gs='~/script/gitsync.sh'
 
 #=================================
 help_add 'aaa' '安裝DDoS保護'
