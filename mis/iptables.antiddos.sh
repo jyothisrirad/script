@@ -144,7 +144,7 @@ if [ $(id -u) -ne 0 ]; then
 fi
 	
 rule_reset
-# rule1_drop_invalid
+rule1_drop_invalid
 # rule2_drop_not_syn
 # rule3_drop_suspcious_mss
 # rule4_drop_bogus_tcp
