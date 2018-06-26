@@ -153,7 +153,7 @@ rule6_drop_icmp
 rule7_drop_fragments
 rule8_limit_connections 111
 rule9_limit_rst
-# rule10_limit_connections_per_sec_and_ip
+rule10_limit_connections_per_sec_and_ip
 # rule11_drop_invalid 80
 # rule11_drop_invalid 25565
 # bouns1_drop_ssh_brutefore
