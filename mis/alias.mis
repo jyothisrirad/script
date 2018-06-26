@@ -138,7 +138,8 @@ alias pl='cd /tmp/log'
 alias pc='cd ~/script/minecraft/gcloud'
 
 #=================================
-alias gs='cd ~/script && ./gitsync.sh'
+# alias gs='cd ~/script && ./gitsync.sh'
+alias gs='./gitsync.sh'
 
 #=================================
 help_add 'aaa' '安裝DDoS保護'
