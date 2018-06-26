@@ -148,7 +148,7 @@ rule1_drop_invalid
 rule2_drop_not_syn
 rule3_drop_suspcious_mss
 rule4_drop_bogus_tcp
-# rule5_drop_spoofed
+rule5_drop_spoofed
 # rule6_drop_icmp
 # rule7_drop_fragments
 # rule8_limit_connections 111
