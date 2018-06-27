@@ -125,6 +125,9 @@ check_sysctl() {
 
     echo -e ${GREEN}=== Reboot the machine soon after a kernel panic.${NC}
     sudo sysctl kernel.panic
+
+    echo -e ${GREEN}"=== 不為不請自來(沒有經過三次握手)的數據包關聯nf_conntrack表項"${NC}
+    sudo sysctl net.netfilter.nf_conntrack_tcp_loose
 }
 
 #=================================
