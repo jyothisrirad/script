@@ -20,9 +20,16 @@ ddos_status() {
     [ "$count" != "0" ] && echo -e Live port 25565 connections: ${GREEN}$count ${NC}
     netstat -tn 2>/dev/null | grep :25565 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
 	
-	[ -f /proc/net/nf_conntrack ] && count=$(sudo cat /proc/net/nf_conntrack | wc -l) || count=0
+	[ -f /proc/net/nf_conntrack ] && count=$(sudo sysctl net.netfilter.nf_conntrack_count) || count=0
 	[ "$count" != "0" ] && max=$(sudo sysctl net.netfilter.nf_conntrack_max | awk '{printf $3}')
     [ "$count" != "0" ] && echo -e nf_conntrack: ${GREEN}$count/$max ${NC}
+	echo "目前對象 可用對象 對象大小(byte) 分頁數"
+	sudo grep conntrack /proc/slabinfo
+	
+	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '/^.*tcp.*$/ {count[$6]++} END {for(state in count) print state, count[state]}'
+	
+	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '{print $7}' | cut -d "=" -f 2 | sort | uniq -c | sort -nr | head -n 10
+
 }
 
 #=================================
@@ -75,6 +82,12 @@ install_antiddos() {
 	
 	# install Kernel system variables again DDoS
 	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
+	CONNTRACK_MAX=$(echo $(grep MemTotal /proc/meminfo|awk '{print $2}')*1024/16384/2 | bc)
+	HASHSIZE=$(echo $CONNTRACK_MAX/4 | bc)
+	echo $HASHSIZE | sudo tee /sys/module/nf_conntrack/parameters/hashsize
+	file=/etc/sysctl.d/local.antiddos.conf
+	[ -f $file ] && sed -i "s/^net.netfilter.nf_conntrack_max = .*/net.netfilter.nf_conntrack_max = $CONNTRACK_MAX/g" $file
+	[ -f $file ] && sed -i "s/^net.netfilter.nf_conntrack_buckets = .*/net.netfilter.nf_conntrack_buckets = $HASHSIZE/g" $file
 	echo -e ${GREEN}sysctl${NC}
 	ls -la /etc/sysctl.d/
 }
@@ -134,6 +147,8 @@ check_sysctl() {
     sudo sysctl net.netfilter.nf_conntrack_tcp_loose
     sudo sysctl net.netfilter.nf_conntrack_buckets
     sudo sysctl net.netfilter.nf_conntrack_max
+	sudo sysctl -a | grep conntrack
+	sudo sysctl -a | grep conntrack | grep timeout
 }
 
 #=================================
