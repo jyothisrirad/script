@@ -19,6 +19,9 @@ ddos_status() {
     count=$(sudo netstat -tn | grep :25565 | wc -l)
     [ "$count" != "0" ] && echo -e Live port 25565 connections: ${GREEN}$count ${NC}
     netstat -tn 2>/dev/null | grep :25565 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
+	
+	[ -f /proc/net/nf_conntrack ] && count=$(sudo cat /proc/net/nf_conntrack | wc -l) || count=0
+    [ "$count" != "0" ] && echo -e nf_conntrack: ${GREEN}$count ${NC}
 }
 
 #=================================
