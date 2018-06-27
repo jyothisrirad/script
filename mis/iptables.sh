@@ -21,9 +21,6 @@ case "$1" in
     ;;
     
   load)
-	# make sure related kernal variable is set
-	sudo sysctl --system
-	
     [ -f /etc/iptables.conf ] && echo Loading iptables && sudo iptables-restore < /etc/iptables.conf
     [ -f /etc/ip6tables.conf ] && echo Loading ip6tables && sudo ip6tables-restore < /etc/ip6tables.conf
     exit
