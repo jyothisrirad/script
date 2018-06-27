@@ -114,16 +114,19 @@ rule11_drop_invalid() {
 		PORT=$1
 		
 		/sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j CT --notrack
+		
 		/sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 		#/sbin/iptables -A INPUT -p tcp -m tcp --dport $PORT -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
-		
-		[ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
-		[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
-		#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
 	fi
 }
 
-rule11_end_drop_invalid() {
+rule11_end() {
+	# [ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
+	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+	#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
+	
+	/sbin/iptablesiptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+	# /sbin/iptablesiptables -A INPUT -m state --state INVALID -j DROP
 }
 
 #=================================
@@ -141,6 +144,7 @@ bouns2_drop_port_scan() {
 	/sbin/iptables -A port-scanning -j DROP
 }
 
+#=================================
 if [ $(id -u) -ne 0 ]; then
     echo script is not run as root, exiting...
     exit
@@ -160,6 +164,7 @@ rule_reset
 rule11_drop_invalid 80
 rule11_drop_invalid 443
 rule11_drop_invalid 25565
+rule11_end
 #bouns1_drop_ssh_brutefore
 #bouns2_drop_port_scan
 #rule_dump
