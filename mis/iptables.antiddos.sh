@@ -123,7 +123,7 @@ rule11_synproxy() {
 	fi
 }
 
-rule11_end() {
+rule11_drop_invalid_fix() {
 	# [ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
 	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
@@ -158,6 +158,7 @@ rules_enable() {
 	fi
 	
 	rule_reset
+	# rule1_drop_invalid
 	rule2_drop_not_syn
 	rule3_drop_suspcious_mss
 	rule4_drop_bogus_tcp
@@ -170,8 +171,7 @@ rules_enable() {
 	rule11_synproxy 80
 	rule11_synproxy 443
 	rule11_synproxy 25565
-	rule1_drop_invalid
-	# rule11_end
+	rule11_drop_invalid_fix
 	bouns1_drop_ssh_brutefore
 	bouns2_drop_port_scan
 	rule_dump
