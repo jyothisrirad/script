@@ -86,8 +86,8 @@ install_antiddos() {
 	HASHSIZE=$(echo $CONNTRACK_MAX/4 | bc)
 	echo $HASHSIZE | sudo tee /sys/module/nf_conntrack/parameters/hashsize
 	file=/etc/sysctl.d/local.antiddos.conf
-	[ -f $file ] && sed -i "s/^net.netfilter.nf_conntrack_max = .*/net.netfilter.nf_conntrack_max = $CONNTRACK_MAX/g" $file
-	[ -f $file ] && sed -i "s/^net.netfilter.nf_conntrack_buckets = .*/net.netfilter.nf_conntrack_buckets = $HASHSIZE/g" $file
+	[ -f $file ] && sudo sed -i "s/^net.netfilter.nf_conntrack_max = .*/net.netfilter.nf_conntrack_max = $CONNTRACK_MAX/g" $file
+	[ -f $file ] && sudo sed -i "s/^net.netfilter.nf_conntrack_buckets = .*/net.netfilter.nf_conntrack_buckets = $HASHSIZE/g" $file
 	echo -e ${GREEN}sysctl${NC}
 	ls -la /etc/sysctl.d/
 }
@@ -145,10 +145,10 @@ check_sysctl() {
 
     echo -e ${GREEN}"=== 不為不請自來(沒有經過三次握手)的數據包關聯nf_conntrack表項"${NC}
     sudo sysctl net.netfilter.nf_conntrack_tcp_loose
-    sudo sysctl net.netfilter.nf_conntrack_buckets
     sudo sysctl net.netfilter.nf_conntrack_max
-	sudo sysctl -a | grep conntrack
-	sudo sysctl -a | grep conntrack | grep timeout
+    sudo sysctl net.netfilter.nf_conntrack_buckets
+	# sudo sysctl -a | grep conntrack
+	# sudo sysctl -a | grep conntrack | grep timeout
 }
 
 #=================================
