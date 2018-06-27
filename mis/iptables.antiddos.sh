@@ -125,8 +125,8 @@ rule11_end() {
 	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
 	
-	/sbin/iptablesiptables -A INPUT -m conntrack --ctstate INVALID -j DROP
-	# /sbin/iptablesiptables -A INPUT -m state --state INVALID -j DROP
+	/sbin/iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+	# /sbin/iptables -A INPUT -m state --state INVALID -j DROP
 }
 
 #=================================
