@@ -21,7 +21,8 @@ ddos_status() {
     netstat -tn 2>/dev/null | grep :25565 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
 	
 	[ -f /proc/net/nf_conntrack ] && count=$(sudo cat /proc/net/nf_conntrack | wc -l) || count=0
-    [ "$count" != "0" ] && echo -e nf_conntrack: ${GREEN}$count ${NC}
+	[ "$count" != "0" ] && max=$(sudo sysctl net.netfilter.nf_conntrack_max | awk '{printf $3}')
+    [ "$count" != "0" ] && echo -e nf_conntrack: ${GREEN}$count/$max ${NC}
 }
 
 #=================================
