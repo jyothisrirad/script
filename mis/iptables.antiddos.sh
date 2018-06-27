@@ -123,6 +123,9 @@ rule11_drop_invalid() {
 	fi
 }
 
+rule11_end_drop_invalid() {
+}
+
 #=================================
 ### SSH brute-force protection ###
 bouns1_drop_ssh_brutefore() {
