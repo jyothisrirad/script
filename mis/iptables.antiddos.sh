@@ -170,7 +170,11 @@ rule11_drop_invalid 80
 rule11_drop_invalid 443
 rule11_drop_invalid 25565
 rule11_end
+<<<<<<< HEAD
 #rule1_drop_invalid
+=======
+rule1_drop_invalid
+>>>>>>> 863f7be3c0365cc4db5714fb2f320056dc3bdada
 #bouns1_drop_ssh_brutefore
 #bouns2_drop_port_scan
 #rule_dump
