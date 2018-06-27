@@ -111,13 +111,15 @@ rule10_limit_connections_per_sec_and_ip() {
 # against SYN Flood, Transport (4)
 rule11_drop_invalid() {
 	if [ ! -z "$1" ]; then 
-		port=$1
+		PORT=$1
 		
-		/sbin/iptables -t raw -A PREROUTING -p tcp --dport $port -m tcp --syn -j CT --notrack
-		/sbin/iptables -A INPUT -p tcp --dport $port -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		/sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j CT --notrack
+		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		/sbin/iptables -A INPUT -p tcp -m tcp --dport $PORT -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 		
-		[ -z "$drop_invalid_set" ] && echo drop invalid port $port ...
-		[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+		[ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
+		# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+		[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
 	fi
 }
 
@@ -154,7 +156,7 @@ rule9_limit_rst
 rule10_limit_connections_per_sec_and_ip
 # rule11_drop_invalid 80
 # rule11_drop_invalid 443
-# rule11_drop_invalid 25565
+rule11_drop_invalid 25565
 bouns1_drop_ssh_brutefore
 bouns2_drop_port_scan
 rule_dump
