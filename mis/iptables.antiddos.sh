@@ -21,6 +21,7 @@ rule_dump() {
 
 #=================================
 ### 1: Drop invalid packets ###
+# not working with rule 11
 rule1_drop_invalid() {
 	/sbin/iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
 }
@@ -87,6 +88,7 @@ rule7_drop_fragments() {
 rule8_limit_connections() {
 	[ -z "$1" ] && max_connection=111 || max_connection=$1
 	/sbin/iptables -A INPUT -p tcp -m connlimit --connlimit-above $max_connection -j REJECT --reject-with tcp-reset
+	# /sbin/iptables -I INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 20 -j REJECT --reject-with tcp-reset
 }
 
 #=================================
@@ -105,19 +107,19 @@ rule10_limit_connections_per_sec_and_ip() {
 
 #=================================
 ### 11: Use SYNPROXY on all ports (disables connection limiting rule) ###
+# not working with rule 1
+# against SYN Flood, Transport (4)
 rule11_drop_invalid() {
 	if [ ! -z "$1" ]; then 
-		port=$1
-		# port=80
-		iptables -t raw -A PREROUTING -p tcp --dport $port -m tcp --syn -j CT --notrack
-		iptables -A INPUT -p tcp --dport $port -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
-
-		# port=25565
-		# iptables -t raw -A PREROUTING -p tcp --dport $port -m tcp --syn -j CT --notrack
-		# iptables -A INPUT -p tcp --dport $port -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		PORT=$1
 		
-		[ -z "$drop_invalid_set" ] && echo drop invalid port $port ...
-		[ -z "$drop_invalid_set" ] && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP && drop_invalid_set=1
+		/sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j CT --notrack
+		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		/sbin/iptables -A INPUT -p tcp -m tcp --dport $PORT -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		
+		[ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
+		# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+		[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
 	fi
 }
 
