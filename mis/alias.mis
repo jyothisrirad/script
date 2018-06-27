@@ -142,6 +142,11 @@ speed_test() {
 }
 
 #=================================
+speed_host() {
+	iperf -s
+}
+
+#=================================
 . ~/script/minecraft/alias/admin.1.help
 # help_hline3 '基本(mis)'
 

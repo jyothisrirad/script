@@ -123,11 +123,12 @@ rule11_synproxy() {
 		
 		/sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j CT --notrack
 		
-		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
-		#/sbin/iptables -A INPUT -p tcp -m tcp --dport $PORT -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
-		/sbin/iptables -A INPUT -p tcp --dport $PORT -m state --state UNTRACKED,INVALID -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		/sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+		# /sbin/iptables -A INPUT -p tcp --dport $PORT        -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 
-		/sbin/iptables -A INPUT -p tcp --dport $PORT -m state --state INVALID -j DROP
+		/sbin/iptables -A INPUT -p tcp --dport $PORT -m conntrack --ctstate INVALID -j DROP
+		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m state --state INVALID -j DROP
 	fi
 }
 
@@ -136,11 +137,11 @@ rule11_drop_invalid_fix() {
 	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
 	
-	# /sbin/iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+	/sbin/iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	# /sbin/iptables -A INPUT -m state --state INVALID -j DROP
 	
 	# replace rule 1
-	/sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
+	# /sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
 }
 
 #=================================
