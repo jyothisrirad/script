@@ -133,6 +133,11 @@ check_sysctl() {
 }
 
 #=================================
+speed_test() {
+	iperf -c $2 -p $2
+}
+
+#=================================
 . ~/script/minecraft/alias/admin.1.help
 # help_hline3 '基本(mis)'
 
@@ -175,6 +180,8 @@ alias pid='pidinfo $*'
 help_add 'ws' '檢查synproxy'
 alias ws='watch -d -n1 cat /proc/net/stat/synproxy'
 alias ws2='watch -d -n1 netstat -s'
+
+alias speed='speed_test $*'
 
 #=================================
 alias block='blockip $*'

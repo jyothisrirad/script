@@ -1,17 +1,25 @@
 #!/bin/bash
 
 #=================================
+check_root_access() {
+	if [ $(id -u) -ne 0 ]; then
+		echo script is not run as root, exiting...
+		exit
+	fi
+}
+
+#=================================
 rule_reset() {
-	iptables -F
-	iptables -X
-	iptables -t nat -F
-	iptables -t nat -X
-	iptables -t mangle -F
-	iptables -t mangle -X
-	iptables -t raw -F
-	iptables -t raw -X
-	iptables -t security -F
-	iptables -t security -X
+	/sbin/iptables -F
+	/sbin/iptables -X
+	/sbin/iptables -t nat -F
+	/sbin/iptables -t nat -X
+	/sbin/iptables -t mangle -F
+	/sbin/iptables -t mangle -X
+	/sbin/iptables -t raw -F
+	/sbin/iptables -t raw -X
+	/sbin/iptables -t security -F
+	/sbin/iptables -t security -X
 }
 
 #=================================
@@ -152,10 +160,6 @@ bouns2_drop_port_scan() {
 
 #=================================
 rules_enable() {
-	if [ $(id -u) -ne 0 ]; then
-		echo script is not run as root, exiting...
-		exit
-	fi
 	
 	rule_reset
 	# rule1_drop_invalid
@@ -178,6 +182,8 @@ rules_enable() {
 }
 
 #=================================
+check_root_access
+
 case "$1" in
   enable)
 	rules_enable
@@ -186,7 +192,6 @@ case "$1" in
   disable)
 	rule_reset
     exit
-    ;;
   *)
   rules_enable
 esac
