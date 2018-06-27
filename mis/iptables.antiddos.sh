@@ -23,8 +23,7 @@ rule_dump() {
 ### 1: Drop invalid packets ###
 # not working with rule 11
 rule1_drop_invalid() {
-	# /sbin/iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
-	/sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
+	/sbin/iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
 }
 
 #=================================
@@ -110,7 +109,7 @@ rule10_limit_connections_per_sec_and_ip() {
 ### 11: Use SYNPROXY on all ports (disables connection limiting rule) ###
 # not working with rule 1
 # against SYN Flood, Transport (4)
-rule11_drop_invalid() {
+rule11_synproxy() {
 	if [ ! -z "$1" ]; then 
 		PORT=$1
 		
@@ -124,7 +123,7 @@ rule11_drop_invalid() {
 	fi
 }
 
-# rule11_end() {
+rule11_end() {
 	# [ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
 	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
@@ -133,8 +132,8 @@ rule11_drop_invalid() {
 	# /sbin/iptables -A INPUT -m state --state INVALID -j DROP
 	
 	# replace rule 1
-	# /sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
-# }
+	/sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
+}
 
 #=================================
 ### SSH brute-force protection ###
@@ -159,7 +158,6 @@ rules_enable() {
 	fi
 	
 	rule_reset
-	rule1_drop_invalid
 	rule2_drop_not_syn
 	rule3_drop_suspcious_mss
 	rule4_drop_bogus_tcp
@@ -169,9 +167,10 @@ rules_enable() {
 	rule8_limit_connections 111
 	rule9_limit_rst
 	rule10_limit_connections_per_sec_and_ip
-	rule11_drop_invalid 80
-	rule11_drop_invalid 443
-	rule11_drop_invalid 25565
+	rule11_synproxy 80
+	rule11_synproxy 443
+	rule11_synproxy 25565
+	rule1_drop_invalid
 	# rule11_end
 	bouns1_drop_ssh_brutefore
 	bouns2_drop_port_scan
