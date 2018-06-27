@@ -128,6 +128,8 @@ check_sysctl() {
 
     echo -e ${GREEN}"=== 不為不請自來(沒有經過三次握手)的數據包關聯nf_conntrack表項"${NC}
     sudo sysctl net.netfilter.nf_conntrack_tcp_loose
+    sudo sysctl net.netfilter.nf_conntrack_buckets
+    sudo sysctl net.netfilter.nf_conntrack_max
 }
 
 #=================================
@@ -171,7 +173,8 @@ alias ddc='sudo netstat -antp | grep "^\|\:80\|\:25565"'
 help_add 'pid.<pid>' '檢查pid'
 alias pid='pidinfo $*'
 help_add 'ws' '檢查synproxy'
-alias ws='watch -n1 cat /proc/net/stat/synproxy'
+alias ws='watch -d -n1 cat /proc/net/stat/synproxy'
+alias ws2='watch -d -n1 netstat -s'
 
 #=================================
 alias block='blockip $*'

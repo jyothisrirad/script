@@ -23,7 +23,8 @@ rule_dump() {
 ### 1: Drop invalid packets ###
 # not working with rule 11
 rule1_drop_invalid() {
-	/sbin/iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+	# /sbin/iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+	/sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
 }
 
 #=================================
@@ -123,7 +124,7 @@ rule11_drop_invalid() {
 	fi
 }
 
-rule11_end() {
+# rule11_end() {
 	# [ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
 	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
@@ -132,8 +133,8 @@ rule11_end() {
 	# /sbin/iptables -A INPUT -m state --state INVALID -j DROP
 	
 	# replace rule 1
-	/sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
-}
+	# /sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
+# }
 
 #=================================
 ### SSH brute-force protection ###
@@ -158,7 +159,7 @@ rules_enable() {
 	fi
 	
 	rule_reset
-	#rule1_drop_invalid
+	rule1_drop_invalid
 	rule2_drop_not_syn
 	rule3_drop_suspcious_mss
 	rule4_drop_bogus_tcp
@@ -171,7 +172,7 @@ rules_enable() {
 	rule11_drop_invalid 80
 	rule11_drop_invalid 443
 	rule11_drop_invalid 25565
-	rule11_end
+	# rule11_end
 	bouns1_drop_ssh_brutefore
 	bouns2_drop_port_scan
 	rule_dump
