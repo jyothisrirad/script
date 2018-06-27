@@ -192,6 +192,7 @@ case "$1" in
   disable)
 	rule_reset
     exit
+	;;
   *)
   rules_enable
 esac
