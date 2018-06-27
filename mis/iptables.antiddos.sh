@@ -156,25 +156,25 @@ rules_enable() {
 		echo script is not run as root, exiting...
 		exit
 	fi
-		
+	
 	rule_reset
 	#rule1_drop_invalid
-	#rule2_drop_not_syn
-	#rule3_drop_suspcious_mss
-	#rule4_drop_bogus_tcp
+	rule2_drop_not_syn
+	rule3_drop_suspcious_mss
+	rule4_drop_bogus_tcp
 	#rule5_drop_spoofed
-	#rule6_drop_icmp
-	#rule7_drop_fragments
-	#rule8_limit_connections 111
-	#rule9_limit_rst
-	#rule10_limit_connections_per_sec_and_ip
+	rule6_drop_icmp
+	rule7_drop_fragments
+	rule8_limit_connections 111
+	rule9_limit_rst
+	rule10_limit_connections_per_sec_and_ip
 	rule11_drop_invalid 80
 	rule11_drop_invalid 443
 	rule11_drop_invalid 25565
 	rule11_end
-	#bouns1_drop_ssh_brutefore
-	#bouns2_drop_port_scan
-	#rule_dump
+	bouns1_drop_ssh_brutefore
+	bouns2_drop_port_scan
+	rule_dump
 }
 
 #=================================
@@ -182,34 +182,11 @@ case "$1" in
   enable)
 	rules_enable
     exit
-<<<<<<< HEAD
     ;;
-  clear)
+  disable)
 	rule_reset
     exit
     ;;
   *)
   rules_enable
 esac
-=======
-fi
-	
-rule_reset
-#rule1_drop_invalid
-rule2_drop_not_syn
-rule3_drop_suspcious_mss
-rule4_drop_bogus_tcp
-#rule5_drop_spoofed
-rule6_drop_icmp
-rule7_drop_fragments
-rule8_limit_connections 111
-rule9_limit_rst
-rule10_limit_connections_per_sec_and_ip
-rule11_drop_invalid 80
-rule11_drop_invalid 443
-rule11_drop_invalid 25565
-rule11_end
-bouns1_drop_ssh_brutefore
-bouns2_drop_port_scan
-rule_dump
->>>>>>> 5bbcdcbda6f05674450c26256215a12397e195d8
