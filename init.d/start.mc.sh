@@ -57,7 +57,7 @@ start() {
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
 		[ ! -f $runscript ] && runscript=/home/sita/script/minecraft/gcloud/default
-        [ -f $runscript ] && ( echo -e "${GREEN}=== Starting gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript start" )
+        [ -f $runscript ] && ( echo -e "${GREEN}=== Starting gcloud dns for $h.${mcdomain} with script $(basename $runscript) ${NC}"; as_user "$runscript start" )
     done
     
     is_my_ip_match_to_dns ${mchub} && autostart=1
@@ -68,7 +68,7 @@ start() {
 stop() {
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
-        [ -f $runscript ] && ( echo -e "${GREEN}=== Stopping gcloud dns for $h.${mcdomain} ${NC}"; as_user "$runscript stop" )
+        [ -f $runscript ] && ( echo -e "${GREEN}=== Stopping gcloud dns for $h.${mcdomain} with script $(basename $runscript) ${NC}"; as_user "$runscript stop" )
     done
     
 	for srv in ${servers[*]}
