@@ -30,13 +30,13 @@ my_ip_address() {
 
 #=================================
 start() {
-	echo -e Collecting ip: ${GREEN}"localhost"${NC}
-	bcip+=$(my_ip_address)
-	bcip+=" "
+	# echo -e Collecting ip: ${GREEN}"localhost"${NC}
+	# bcip+=$(my_ip_address)
+	# bcip+=" "
 	
-	echo -e Collecting ip: ${GREEN}"gem.creeper.tw"${NC}
-	bcip+=$(lookup_dns_ip gem.creeper.tw)
-	bcip+=" "
+	# echo -e Collecting ip: ${GREEN}"gem.creeper.tw"${NC}
+	# bcip+=$(lookup_dns_ip gem.creeper.tw)
+	# bcip+=" "
 
 	echo -e Collecting ip: ${GREEN}"chsliu@gmail.com"${NC}
 	bcip+=$(gcloud --account "chsliu@gmail.com" --project "creeper-196707" compute instances list | grep RUNNING | grep 'bc\|bungeecord' | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | grep -v '10.1')
