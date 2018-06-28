@@ -8,13 +8,13 @@ dns_updates=($dns_external)
 servers=
 servers2=
 
-[[ $(hostname) == bungeecord* ]] && bungee_instance
-[[ $(hostname) == bc* ]] && bungee_instance
-
 bungee_instance() {
 	dns_updates=(bc)
 	servers=(s65)
 	autostart=1
 }
+
+[[ $(hostname) == bungeecord* ]] && bungee_instance
+[[ $(hostname) == bc* ]] && bungee_instance
 
 run $*
