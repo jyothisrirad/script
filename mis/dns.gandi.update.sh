@@ -98,7 +98,7 @@ case "$1" in
     RECORD=$2
     appendip=$3
     arr=( $(dns_get_a $RECORD | jq -r '.rrset_values' | sed 's/null//' | tr -d '[],\"') )
-    printf '%s\n' "${arr[@]}" | grep -q $appendip && echo ip already existed, quitting && exit
+    printf '%s\n' "${arr[@]}" | grep -q $appendip && echo IP existed already, Quitting && exit
     arr+=("$appendip")
     json=$(printf '%s\n' "${arr[@]}" | jq -R . | jq -s . | tr -d '\n' | sed 's/"",//')
     # echo json=$json
@@ -120,6 +120,15 @@ case "$1" in
     RECORD=$2
 	shift 2
     arr=( $* )
+	
+	newip=${arr[@]}
+	
+	oldip=$(dns_get_a $RECORD | jq -r '.rrset_values' | tr -d '[],\" ' | sed '/^\s*$/d' | sort -u | tr '\n' ' ' | awk '{$1=$1;print}')
+	[ "$oldip" == "$newip" ] && echo IPs set already, Quitting && exit
+	
+	# echo oldip=$oldip
+	# echo arr=${arr[@]}
+	
     json=$(printf '%s\n' "${arr[@]/$deleteip}" | jq -R . | jq -s . | tr -d '\n' | sed 's/"",//')
     # echo json=$json
 	dns_put_a_json $RECORD "$json"
@@ -134,7 +143,7 @@ case "$1" in
   query)
 	# get current ips
     RECORD=$2
-	dns_get_a $RECORD | jq -r '.rrset_values' | tr -d '[],\"'
+	dns_get_a $RECORD | jq -r '.rrset_values' | tr -d '[],\" ' | sed '/^\s*$/d'
     exit
     ;;
 esac
