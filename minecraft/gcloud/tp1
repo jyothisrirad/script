@@ -8,6 +8,8 @@
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
+gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
+RECORD=r53
 
 ###
 default_account=$(get_account)
@@ -43,6 +45,10 @@ is_tp_already_set() {
     [ -z "$dnsip" ] && return 1
     [ "$dnsip" == "$lbip" ]
     return $?
+}
+
+my_ip_address() {
+    curl -s4 http://me.gandi.net
 }
 
 ###
@@ -105,6 +111,11 @@ start() {
         # append A r53.creeper.tw 1min
         # echo -e ${GREEN}=== Appending A r53.creeper.tw 1min ${NC}
         # $dnsupdate append $dns_project creeper-tw r53 creeper.tw 3hour 1min A
+
+        # A redis.creeper.tw 1hour
+        echo -e ${GREEN}== Updating ${YELLOW}redis.creeper.tw 3hour IN A ... ${NC}
+        $dnsupdate A creeper-tw redis creeper.tw 3hour 1min
+    
     else
         
         [ ! -z "$LAST" ] && echo -e ${GREEN}== Deleting ${YELLOW}$LAST.creeper.tw ${GREEN}3hour to ${YELLOW}1min IN A ... ${NC}
@@ -134,6 +145,10 @@ start() {
         # A r53.creeper.tw 3hour
         # echo -e ${GREEN}=== Appending A r53.creeper.tw 3hour ${NC}
         # $dnsupdate A creeper-tw r53 creeper.tw 1min 3hour
+
+        # A redis.creeper.tw 1hour
+        echo -e ${GREEN}== Updating ${YELLOW}redis.creeper.tw 3hour IN A ... ${NC}
+        $dnsupdate A creeper-tw redis creeper.tw 1min 3hour
     fi
 
     # DNS transaction commit
@@ -178,6 +193,24 @@ start2() {
 	echo -e ${GREEN}=========================${NC}
 }
 
+gandi_append() {
+    is_tp_already_set && return
+    
+	eval "$(dbload 'bc')"
+	LAST=${bc[$(basename $0)]}
+    
+    ip=$(my_ip_address)
+    [ "$LAST" == "$ip" ] && return 
+    
+    [ ! -z "$LAST" ] && echo -e ${GREEN}== Removing ${YELLOW}$RECORD.yozliu.pw IN A "$LAST" ... ${NC}
+    [ ! -z "$LAST" ] && $gandi remove $RECORD $LAST
+    
+    $gandi append $RECORD $ip
+    
+	bc[$(basename $0)]=$ip
+	[ ! -z "${!bc[*]}" ] && dbsave "bc" "$(declare -p bc)"
+}
+
 bungee_restart() {
     # is_tp_already_set && return
 	
@@ -192,6 +225,10 @@ bungee_restart() {
 
 stop() {
     echo Stopping $(basename $0) ...
+}
+
+gandi_remove() {
+    $gandi remove $RECORD $(my_ip_address)
 }
 
 ###
@@ -210,10 +247,12 @@ case "$1" in
 	# bungee_restart
     start
     start2
+    gandi_append
     exit
     ;;
   stop)
     stop
+    gandi_remove
     exit
     ;;
   test)
@@ -223,4 +262,5 @@ case "$1" in
   *)
     start
     start2
+    gandi_append
 esac
