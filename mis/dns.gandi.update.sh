@@ -59,6 +59,7 @@ case "$1" in
     RECORD=$2
     deleteip=$3
     arr=( $(dns_get_a $RECORD | jq -r '.rrset_values' | sed 's/null//' | tr -d '[],\"') )
+	echo arr=${arr[@]}
     json=$(printf '%s\n' "${arr[@]/$deleteip}" | jq -R . | jq -s . | tr -d '\n' | sed 's/"",//' | sed 's/""//')
     echo json=$json
     dns_put_a_json $RECORD "$json"
