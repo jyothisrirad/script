@@ -20,14 +20,17 @@ ddos_status() {
     [ "$count" != "0" ] && echo -e Live port 25565 connections: ${GREEN}$count ${NC}
     netstat -tn 2>/dev/null | grep :25565 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
 	
-	[ -f /proc/net/nf_conntrack ] && count=$(sudo sysctl net.netfilter.nf_conntrack_count) || count=0
+	[ -f /proc/net/nf_conntrack ] && count=$(sudo sysctl net.netfilter.nf_conntrack_count | awk '{printf $3}') || count=0
 	[ "$count" != "0" ] && max=$(sudo sysctl net.netfilter.nf_conntrack_max | awk '{printf $3}')
-    [ "$count" != "0" ] && echo -e nf_conntrack: ${GREEN}$count/$max ${NC}
-	echo "目前對象 可用對象 對象大小(byte) 分頁數"
+    [ "$count" != "0" ] && echo -e net.netfilter.nf_conntrack_count: ${GREEN}$count/$max ${NC}
+	
+	echo "目前對象 可用對象 對象大小(byte) 分頁數:"
 	sudo grep conntrack /proc/slabinfo
 	
+	[ -f /proc/net/nf_conntrack ] && echo 連線狀態:
 	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '/^.*tcp.*$/ {count[$6]++} END {for(state in count) print state, count[state]}'
 	
+	[ -f /proc/net/nf_conntrack ] && echo 連線位址 Top 10:
 	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '{print $7}' | cut -d "=" -f 2 | sort | uniq -c | sort -nr | head -n 10
 
 }
@@ -51,7 +54,7 @@ route_show() {
 pidinfo() {
     pid=$1
     ps aux | grep -v "grep" | grep $pid
-    cat /proc/$pid/environ | tr '\0' '\n' | grep "PWD"
+    sudo cat /proc/$pid/environ | tr '\0' '\n' | grep "PWD"
 }
 
 #=================================

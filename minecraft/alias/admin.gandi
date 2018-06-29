@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#=================================
+help_hline3 'gandi'
+
+#=================================
+do_gandi() {
+    /home/sita/script/mis/dns.gandi.yozliu.pw.sh $*
+}
+
+#=================================
+help_add 'gandi.<action>.<record>' 'DNS設定gandi'
+alias gandi='do_gandi $*'
