@@ -29,7 +29,7 @@ gandi_append() {
 }
 
 stop() {
-    echo DNS Deleting: $(basename $0)
+    echo DNS Removing: $(basename $0)
     gandi_remove
 }
 
