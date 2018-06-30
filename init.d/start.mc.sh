@@ -50,6 +50,7 @@ mcstart() {
 start() {
 	# make sure related kernal variable is set
 	sudo sysctl --system
+	# echo 5120 | sudo tee /sys/module/nf_conntrack/parameters/hashsize
 	
     echo -e "${GREEN}=== gitsync ${NC}"
     cd /home/sita/script && as_user "./gitsync.sh"

@@ -132,6 +132,7 @@ rule11_synproxy() {
 	fi
 }
 
+#=================================
 rule11_drop_invalid_fix() {
 	# [ -z "$drop_invalid_set" ] && echo drop invalid port $PORT ...
 	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
@@ -142,6 +143,24 @@ rule11_drop_invalid_fix() {
 	
 	# replace rule 1
 	# /sbin/iptables -A INPUT -p tcp -m state --state INVALID -j DROP
+}
+
+#=================================
+rule_slowloris() {
+	# Firstly, what with the reason Minecraft slowloris exploit, there's a nice little iptables rule here that can prevent this being used:
+	sudo iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --set
+	sudo iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --update --seconds 5 --hitcount 20 -j DROP
+
+	# What this basically does is, if someone tries to connect to your server 20 times from the same IP simultaneously within 5 seconds, it'll simply drop the new connections until the old ones are cleared up.
+}
+
+#=================================
+rule_portscanning() {
+	# Fail2ban to handle bruteforcers and for portscanning just do
+	iptables -A INPUT -m recent --name portscan --rcheck --seconds 172800 -j DROP
+	iptables -A INPUT -m recent --name portscan --remove
+	iptables -A INPUT -p tcp -m tcp --dport 139 -m recent --name portscan --set -j LOG --log-prefix "Portscaner:"
+	iptables -A INPUT -p tcp -m tcp --dport 139 -m recent --name portscan --set -j DROP
 }
 
 #=================================

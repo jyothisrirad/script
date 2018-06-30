@@ -20,13 +20,13 @@ NEWJAR=$BACKUPPATH/server/$JARFILE
 LOOPSTOP="/mnt/runtimes/$mcver/logs/loopstop"
 INVOCATION="$MCPATH/loop.sh"
 # INVOCATION="$MCPATH/start.sh"
-# HOUSEKEEP=="$MCPATH/housekeeping.sh"
+# HOUSEKEEP="$MCPATH/housekeeping.sh"
 
 #
 pre_game_setup() {
 	echo [pre_game_setup]
 	# rm -rf $DP0/plugins/Buscript/scripts/scripts.bin
-    # HOUSEKEEP install
+    # $HOUSEKEEP install
     # rm -rf $DP0/orebfuscator_cache
     rm -rf $DP0/crash-reports
     rm -rf $DP0/timings
@@ -44,7 +44,7 @@ post_game_setup() {
 	# /tmp/$mcver log lag
 	# /tmp/$mcver backup
 	# /tmp/$mcver save off
-    # HOUSEKEEP remove
+    # $HOUSEKEEP remove
 	echo [post_game_setup][end]
 }
 

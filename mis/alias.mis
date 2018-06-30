@@ -85,12 +85,14 @@ install_antiddos() {
 	
 	# install Kernel system variables again DDoS
 	sudo cp ~/script/init.d/sysctl/local.antiddos.conf /etc/sysctl.d/
-	CONNTRACK_MAX=$(echo $(grep MemTotal /proc/meminfo|awk '{print $2}')*1024/16384/2 | bc)
-	HASHSIZE=$(echo $CONNTRACK_MAX/4 | bc)
-	echo $HASHSIZE | sudo tee /sys/module/nf_conntrack/parameters/hashsize
-	file=/etc/sysctl.d/local.antiddos.conf
-	[ -f $file ] && sudo sed -i "s/^net.netfilter.nf_conntrack_max = .*/net.netfilter.nf_conntrack_max = $CONNTRACK_MAX/g" $file
-	[ -f $file ] && sudo sed -i "s/^net.netfilter.nf_conntrack_buckets = .*/net.netfilter.nf_conntrack_buckets = $HASHSIZE/g" $file
+	
+	# CONNTRACK_MAX=$(echo $(grep MemTotal /proc/meminfo|awk '{print $2}')*1024/16384/2 | bc)
+	# HASHSIZE=$(echo $CONNTRACK_MAX/4 | bc)
+	# file=/etc/sysctl.d/local.antiddos.conf
+	# echo $HASHSIZE | sudo tee /sys/module/nf_conntrack/parameters/hashsize
+	# [ -f $file ] && sudo sed -i "s/^net.netfilter.nf_conntrack_buckets = .*/net.netfilter.nf_conntrack_buckets = $HASHSIZE/g" $file
+	# [ -f $file ] && sudo sed -i "s/^net.netfilter.nf_conntrack_max = .*/net.netfilter.nf_conntrack_max = $CONNTRACK_MAX/g" $file
+	
 	echo -e ${GREEN}sysctl${NC}
 	ls -la /etc/sysctl.d/
 }
