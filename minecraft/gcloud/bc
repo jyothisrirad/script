@@ -17,7 +17,7 @@ my_ip_address() {
 
 ###
 start() {
-    echo Starting $(basename $0) ...
+    echo DNS Appending: $(basename $0)
     gandi_append
 }
 
@@ -29,7 +29,7 @@ gandi_append() {
 }
 
 stop() {
-    echo Stopping $(basename $0) ...
+    echo DNS Deleting: $(basename $0)
     gandi_remove
 }
 

@@ -30,6 +30,8 @@ my_ip_address() {
 
 #=================================
 start() {
+    echo DNS Groups: $(basename $0)
+	
 	# echo -e Collecting ip: ${GREEN}"localhost"${NC}
 	# bcip+=$(my_ip_address)
 	# bcip+=" "
@@ -59,7 +61,7 @@ start() {
 
 #=================================
 stop() {
-    echo Stopping $(basename $0) ...
+    echo DNS Deleting: $(basename $0)
 }
 
 #=================================
