@@ -66,6 +66,10 @@ findmyip() {
 	curl http://me.gandi.net
 }
 
+findsrv() {
+	dig srv _minecraft._tcp.$1 | grep IN
+}
+
 #=================================
 check_version() {
 	lsb_release -a
@@ -236,7 +240,7 @@ alias ws2='watch -d -n1 netstat -s'
 alias speed='speed_test $*'
 
 #=================================
-help_add 'def' '檢查synproxy'
+help_add 'def.<ip>' '封包反射'
 alias def='deflect_packet $*'
 
 #=================================
@@ -254,6 +258,7 @@ alias stop='sudo echo && sudo screen -dmS off shutdown -h now && exit'
 
 #=================================
 alias ii='findmyip'
+alias srv='findsrv'
 
 #=================================
 alias cpu='less /proc/cpuinfo |grep "model name"'

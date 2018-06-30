@@ -119,6 +119,7 @@ case "$1" in
     exit
     ;;
   start)
+    [ ! -z "$2" ] && instances_count_min=$2
     start
     exit
     ;;

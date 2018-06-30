@@ -126,8 +126,8 @@ dns_update() {
     echo -e ${GREEN}== Updating ${YELLOW}$LB.creeper.tw IN A $1 ${NC}
     $dnsupdate A creeper-tw $LB creeper.tw 1min 1min $1
     
-    echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $LB.creeper.tw ${NC}
-    $dnsupdate CNAME creeper-tw mc creeper.tw $LB.creeper.tw. 3hour 1min
+    # echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $LB.creeper.tw ${NC}
+    # $dnsupdate CNAME creeper-tw mc creeper.tw $LB.creeper.tw. 3hour 1min
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
@@ -154,9 +154,9 @@ dns_remove() {
     echo -e ${GREEN}== Removing ${YELLOW}$LB.creeper.tw IN A ... ${NC}
     $dnsupdate del $dns_project creeper-tw $LB creeper.tw 1min 3hour A
     
-    [ ! -z "$LAST" ] && echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $LAST.creeper.tw ${NC}
-    [ ! -z "$LAST" ] && $dnsupdate CNAME creeper-tw mc creeper.tw $LAST.creeper.tw. 1min 3hour
-    [ -z "$LAST" ] && $dnsupdate CNAME creeper-tw mc creeper.tw $default_HOST.creeper.tw. 1min 3hour
+    # [ ! -z "$LAST" ] && echo -e ${GREEN}== Updating ${YELLOW}mc.creeper.tw IN CNAME $LAST.creeper.tw ${NC}
+    # [ ! -z "$LAST" ] && $dnsupdate CNAME creeper-tw mc creeper.tw $LAST.creeper.tw. 1min 3hour
+    # [ -z "$LAST" ] && $dnsupdate CNAME creeper-tw mc creeper.tw $default_HOST.creeper.tw. 1min 3hour
     
     # DNS transaction commit
     echo -e ${YELLOW}=== Commiting DNS Changes: ${GREEN}$LB.creeper.tw ${NC}
