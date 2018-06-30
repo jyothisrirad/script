@@ -15,6 +15,10 @@ ddos_status() {
 	[ -f /proc/net/nf_conntrack ] && echo 連線位址 Top 10:
 	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '{print $7}' | cut -d "=" -f 2 | sort | uniq -c | sort -nr | head -n 10
 	
+	[ -f /proc/net/nf_conntrack ] && count=$(sudo sysctl net.netfilter.nf_conntrack_count | awk '{printf $3}') || count=0
+	[ "$count" != "0" ] && max=$(sudo sysctl net.netfilter.nf_conntrack_max | awk '{printf $3}')
+    [ "$count" != "0" ] && echo -e net.netfilter.nf_conntrack_count: ${GREEN}$count/$max ${NC}
+	
     echo -e Live connections: ${GREEN}$(sudo netstat -natp | wc -l)${NC}
 	
     count=$(sudo netstat -tn | grep :22 | wc -l)
@@ -28,10 +32,6 @@ ddos_status() {
     count=$(sudo netstat -tn | grep :25565 | wc -l)
     [ "$count" != "0" ] && echo -e Live port 25565 connections: ${GREEN}$count ${NC}
     netstat -tn 2>/dev/null | grep :25565 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
-	
-	[ -f /proc/net/nf_conntrack ] && count=$(sudo sysctl net.netfilter.nf_conntrack_count | awk '{printf $3}') || count=0
-	[ "$count" != "0" ] && max=$(sudo sysctl net.netfilter.nf_conntrack_max | awk '{printf $3}')
-    [ "$count" != "0" ] && echo -e net.netfilter.nf_conntrack_count: ${GREEN}$count/$max ${NC}
 }
 
 #=================================
