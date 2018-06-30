@@ -95,6 +95,8 @@ install_antiddos() {
 	
 	echo -e ${GREEN}sysctl${NC}
 	ls -la /etc/sysctl.d/
+	
+	sudo sysctl --system
 }
 
 check_sysctl() {
