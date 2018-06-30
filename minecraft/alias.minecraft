@@ -215,5 +215,5 @@ alias gl='ls /mnt/runtimes/'
 # help_add 'ggl' 'Gamelist.maxplayers'
 alias ggl='game_list_maxplayer /mnt/runtimes'
 
-help_add 'ppp' 'ping回應On/Off'
-alias ppp='ping_accept_onoff'
+# help_add 'ppp' 'ping回應On/Off'
+# alias ppp='ping_accept_onoff'

@@ -23,6 +23,7 @@ mcstart_nocheck() {
 	do
 		$srv
         [ ! -z $rematch ] && echo -e "${GREEN}=== Restoring $mcver ${NC}" && mcserver pre_restore && mcserver restore
+		[ ! -z custom_function ] && echo -e "${GREEN}=== $mcver custom_function ${NC}" && custom_function
         [ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && as_user "./update.sh"
 		server.prep
         mcserver start

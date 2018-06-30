@@ -1,12 +1,23 @@
 #!/bin/bash
 
+#=================================
 . /home/sita/script/minecraft/alias.minecraft
 . /home/sita/script/init.d/start.mc.sh
 
+#=================================
 dns_external=uhc
 dns_updates=($dns_external)
 servers=(s74)
 # rematch_hour=19
 autostart=1
 
+#=================================
+custom_function() {
+	DP0="/mnt/runtimes/$mcver"
+	[ -d "$DP0/plugins/Buscript" ] && $DP0/plugins/Buscript/gitsync.sh
+	# [ -f "$DP0/reset.sh" ] && $DP0/reset.sh
+	# [ -f "$DP0/update.sh" ] && $DP0/update.sh
+}
+
+#=================================
 run $*

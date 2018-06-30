@@ -6,6 +6,15 @@ localip() {
 }
 
 ddos_status() {
+	echo "目前對象 可用對象 對象大小(byte) 分頁數:"
+	sudo grep conntrack /proc/slabinfo
+	
+	[ -f /proc/net/nf_conntrack ] && echo 連線狀態:
+	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '/^.*tcp.*$/ {count[$6]++} END {for(state in count) print state, count[state]}'
+	
+	[ -f /proc/net/nf_conntrack ] && echo 連線位址 Top 10:
+	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '{print $7}' | cut -d "=" -f 2 | sort | uniq -c | sort -nr | head -n 10
+	
     echo -e Live connections: ${GREEN}$(sudo netstat -natp | wc -l)${NC}
 	
     count=$(sudo netstat -tn | grep :22 | wc -l)
@@ -23,16 +32,6 @@ ddos_status() {
 	[ -f /proc/net/nf_conntrack ] && count=$(sudo sysctl net.netfilter.nf_conntrack_count | awk '{printf $3}') || count=0
 	[ "$count" != "0" ] && max=$(sudo sysctl net.netfilter.nf_conntrack_max | awk '{printf $3}')
     [ "$count" != "0" ] && echo -e net.netfilter.nf_conntrack_count: ${GREEN}$count/$max ${NC}
-	
-	echo "目前對象 可用對象 對象大小(byte) 分頁數:"
-	sudo grep conntrack /proc/slabinfo
-	
-	[ -f /proc/net/nf_conntrack ] && echo 連線狀態:
-	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '/^.*tcp.*$/ {count[$6]++} END {for(state in count) print state, count[state]}'
-	
-	[ -f /proc/net/nf_conntrack ] && echo 連線位址 Top 10:
-	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '{print $7}' | cut -d "=" -f 2 | sort | uniq -c | sort -nr | head -n 10
-
 }
 
 #=================================
