@@ -58,7 +58,7 @@ mc_start() {
   else
 	[ -d $MCSTORE ] || { echo $MCSTORE, Path not found.; return; }
 	
-	[ ! -f "$LOOPSTOP" ] || rm "$LOOPSTOP" #remove loopstop flag
+	[ -f "$LOOPSTOP" ] && rm "$LOOPSTOP" #remove loopstop flag
 	
     echo "$JARFILE was not running... starting."
     if [ -d $MCSTORE/$WORLD.bak ]; then
@@ -552,7 +552,7 @@ case "$1" in
 	if mc_status; then
 		mc_savetodisk_online
 		
-		[ ! "$LOOPSTOP" ] || touch "$LOOPSTOP" #create loopstop flag for loop.sh
+		[ ! -z "$LOOPSTOP" ] && [ -d "$(dirname $LOOPSTOP)" ] && touch "$LOOPSTOP" #create loopstop flag for loop.sh
 	
 		mc_stop
 		# pids=$(ps aux|grep -F -v grep|grep $VERSION|grep $JARFILE|awk '{print $2}')
