@@ -167,12 +167,15 @@ deflect_packet() {
 	
 	echo -e "=== deflect to ip: "${GREEN}$IP:$PORT${NC}
 	
+	sudo sysctl -w net.ipv4.ip_forward=1
+	
 	sudo /sbin/iptables -t nat -A PREROUTING -p TCP -d $IP --dport $PORT -j REDIRECT
 }
 
 #=================================
 deflect_reset() {
 	echo -e "=== deflect to ip: "${GREEN}off${NC}
+	sudo sysctl -w net.ipv4.ip_forward=0
 	sudo /sbin/iptables -t nat -F
 }
 
