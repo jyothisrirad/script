@@ -7,5 +7,6 @@ dns_external=uhc
 dns_updates=($dns_external)
 servers=(s74)
 # rematch_hour=19
+autostart=1
 
 run $*
