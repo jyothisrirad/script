@@ -138,7 +138,7 @@ check_creeper_ip() {
     # digthis uhc.creeper.tw
     # digthis www.creeper.tw
     echo =================================
-    digthis r53.creeper.tw
+    # digthis r53.creeper.tw
 	/home/sita/script/mis/dns.gandi.yozliu.pw.sh query r53
 }
 
