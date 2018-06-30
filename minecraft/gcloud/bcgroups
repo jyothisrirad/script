@@ -52,7 +52,6 @@ start() {
 	bcip+=$(gcloud --account "creeper.workshop@gmail.com" --project "creeperworkshop-web" compute instances list | grep RUNNING | grep -E "(-[0-9a-z]{4})\b" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | grep -v '10.1')
 	bcip+=" "
 
-	
 	bcip=$(echo $bcip|tr ' ' '\n'|sort -u)
 	echo -e bcip: ${GREEN}$bcip${NC}
 
@@ -61,7 +60,8 @@ start() {
 
 #=================================
 stop() {
-    echo DNS Removing: $(basename $0)
+    # echo DNS Removing: $(basename $0)
+    echo Do nothing: $(basename $0)
 }
 
 #=================================

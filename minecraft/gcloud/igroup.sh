@@ -22,7 +22,7 @@ dns_project=creeper-199909
 [ -z "$instances_group_region" ] && instances_group_region=bc2
 [ -z "$instances_count_min" ] && instances_count_min=1
 [ -z "$instances_count_max" ] && instances_count_max=4
-[ -z "$HOSTS" ] && HOSTS=r53
+[ -z "$HOSTS" ] && HOSTS=r13
 
 # echo ig_account=$ig_account
 # echo ig_project=$ig_project

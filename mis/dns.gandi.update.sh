@@ -73,6 +73,8 @@ case "$1" in
 	
 	newip=${arr[@]}
 	
+	[ -z "$newip" ] && echo IPs set empty, Quitting && exit
+	
 	oldip=$(dns_get_a $RECORD | jq -r '.rrset_values' | tr -d '[],\" ' | sed '/^\s*$/d' | sort -u | tr '\n' ' ' | awk '{$1=$1;print}')
 	[ "$oldip" == "$newip" ] && echo IPs set already, Quitting && exit
 	
@@ -82,7 +84,7 @@ case "$1" in
     json=$(printf '%s\n' "${arr[@]/$deleteip}" | jq -R . | jq -s . | tr -d '\n' | sed 's/"",//')
     # echo json=$json
 	[ ! -z "$newip" ] && dns_put_a_json $RECORD "$json"
-	[ -z "$newip" ] && dns_delete_a $RECORD
+	# [ -z "$newip" ] && dns_delete_a $RECORD
     exit
     ;;
   del)

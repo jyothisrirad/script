@@ -65,7 +65,8 @@ start() {
 
 #=================================
 stop() {
-    echo DNS Removing: $(basename $0)
+    # echo DNS Removing: $(basename $0)
+    echo Do nothing: $(basename $0)
 }
 
 #=================================
