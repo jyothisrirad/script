@@ -29,7 +29,7 @@ my_ip_address() {
 }
 
 #=================================
-start() {
+update() {
     echo DNS Groups: $(basename $0)
 	
 	# echo -e Collecting ip: ${GREEN}"localhost"${NC}
@@ -51,6 +51,9 @@ start() {
 	echo -e Collecting ip: ${GREEN}"creeper.workshop@gmail.com"${NC}
 	bcip+=$(gcloud --account "creeper.workshop@gmail.com" --project "creeperworkshop-web" compute instances list | grep RUNNING | grep -E "(-[0-9a-z]{4})\b" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | grep -v '10.1')
 	bcip+=" "
+	
+	# add some blackhole ips here
+	# bcip+=" "
 
 	bcip=$(echo $bcip|tr ' ' '\n'|sort -u)
 	echo -e bcip: ${GREEN}$bcip${NC}
@@ -77,13 +80,13 @@ case "$1" in
     exit
     ;;
   start)
-    start
+    update
     exit
     ;;
   stop)
-    stop
+    update
     exit
     ;;
   *)
-    start
+    update
 esac

@@ -5,6 +5,10 @@
 . /home/sita/script/include/gcloud_helper
 
 ###
+DIR=$(readlink -e "$0")
+DP0=$(dirname "$DIR")
+
+###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 
 ###
@@ -125,6 +129,8 @@ case "$1" in
   dns)
     set_account $ig_account
     dns_update $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $10)}' | sort -u | tr '\n' ' ')
+	
+	$DP0/bcgroups $1
     exit
     ;;
   ip)

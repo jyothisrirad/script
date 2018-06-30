@@ -159,6 +159,21 @@ check_sysctl() {
 }
 
 #=================================
+deflect_packet() {
+	IP=$1
+	PORT=25565
+	
+	[ -z "$IP" ] && deflect_reset && return
+	
+	sudo /sbin/iptables -t nat -A PREROUTING -p TCP -d $IP --dport $PORT -j REDIRECT
+}
+
+#=================================
+deflect_reset() {
+	sudo /sbin/iptables -t nat -F
+}
+
+#=================================
 speed_test() {
 	iperf -c $1 -p $2
 }
@@ -213,6 +228,10 @@ alias ws='watch -d -n1 cat /proc/net/stat/synproxy'
 alias ws2='watch -d -n1 netstat -s'
 
 alias speed='speed_test $*'
+
+#=================================
+help_add 'def' '檢查synproxy'
+alias def='deflect_packet $*'
 
 #=================================
 alias block='blockip $*'

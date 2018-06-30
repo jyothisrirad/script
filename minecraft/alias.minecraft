@@ -126,7 +126,6 @@ check_creeper_ip() {
     geolocateWithCache $(get_myip)
     digthis home.changen.com.tw
     echo =================================
-    digthis r53.creeper.tw
     digthis mc.creeper.tw
     # digthis tp1.creeper.tw
     digthis gem.creeper.tw
@@ -138,6 +137,9 @@ check_creeper_ip() {
     # digthis lb.creeper.tw
     # digthis uhc.creeper.tw
     # digthis www.creeper.tw
+    echo =================================
+    digthis r53.creeper.tw
+	/home/sita/script/mis/dns.gandi.yozliu.pw.sh query r53
 }
 
 #=================================
