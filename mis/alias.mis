@@ -14,7 +14,7 @@ ddos_status() {
     [ "$count" != "0" ] && echo -e net.netfilter.nf_conntrack_count: ${GREEN}$count/$max ${NC}
 	
 	[ -f /proc/net/nf_conntrack ] && echo 連線狀態:
-	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '/^.*tcp.*$/ {count[$6]++} END {for(state in count) print \tcount[state] state}'
+	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '/^.*tcp.*$/ {count[$6]++} END {for(state in count) print "\t",count[state],state}'
 	
 	[ -f /proc/net/nf_conntrack ] && echo 連線位址 Top 10:
 	[ -f /proc/net/nf_conntrack ] && sudo cat /proc/net/nf_conntrack | awk '{print $7}' | cut -d "=" -f 2 | sort | uniq -c | sort -nr | head -n 10
