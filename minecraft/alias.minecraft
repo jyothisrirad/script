@@ -126,6 +126,7 @@ check_creeper_ip() {
     geolocateWithCache $(get_myip)
     digthis home.changen.com.tw
     echo =================================
+    digthis r53.creeper.tw
     digthis mc.creeper.tw
     # digthis tp1.creeper.tw
     digthis gem.creeper.tw
