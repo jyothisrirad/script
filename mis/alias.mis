@@ -30,7 +30,7 @@ ddos_status() {
     netstat -tn 2>/dev/null | grep :80 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
 	
     count=$(sudo netstat -tn | grep :25565 | wc -l)
-    [ "$count" != "0" ] && echo -e Live port 25565 connections: ${GREEN}$count ${NC}
+    [ "$count" != "0" ] && echo -e Live port 25565 connections: ${RED}$count ${NC}
     netstat -tn 2>/dev/null | grep :25565 | awk '{print $5":"$6}' | cut -d: -f1,3 | sort | uniq -c | sort -nr | head
 }
 
