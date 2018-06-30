@@ -165,11 +165,14 @@ deflect_packet() {
 	
 	[ -z "$IP" ] && deflect_reset && return
 	
+	echo -e "=== deflect to ip: "${GREEN}$IP:$PORT${NC}
+	
 	sudo /sbin/iptables -t nat -A PREROUTING -p TCP -d $IP --dport $PORT -j REDIRECT
 }
 
 #=================================
 deflect_reset() {
+	echo -e "=== deflect to ip: "${GREEN}off${NC}
 	sudo /sbin/iptables -t nat -F
 }
 
