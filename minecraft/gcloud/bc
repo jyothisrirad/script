@@ -8,6 +8,9 @@ gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
 RECORD=r53
 
 ###
+ighost=$(hostname | grep -E "(-[0-9a-z]{4})")
+
+###
 my_ip_address() {
     curl -s4 http://me.gandi.net
 }
@@ -36,6 +39,12 @@ gandi_remove() {
     $gandi remove $RECORD $ip
     # $gandi query $RECORD
 }
+
+###
+DIR=$(readlink -e "$0")
+DP0=$(dirname "$DIR")
+[ -z "$ighost" ] && $DP0/bchome $1
+[ ! -z "$ighost" ] && $DP0/bcscan $1
 
 ###
 case "$1" in
