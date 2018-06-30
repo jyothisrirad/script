@@ -122,6 +122,7 @@ rule11_synproxy() {
 		PORT=$1
 		
 		/sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j CT --notrack
+		# /sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j LOG --log-prefix "rule11_synproxy: "
 		
 		/sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
