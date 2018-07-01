@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+IPLOG=1
+
+#=================================
 check_root_access() {
 	if [ $(id -u) -ne 0 ]; then
 		echo script is not run as root, exiting...
@@ -31,18 +34,21 @@ rule_dump() {
 ### 1: Drop invalid packets ###
 # not working with rule 11
 rule1_drop_invalid() {
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j LOG --log-prefix "rule1_drop_invalid: "
 	/sbin/iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
 }
 
 #=================================
 ### 2: Drop TCP packets that are new and are not SYN ###
 rule2_drop_not_syn() {
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j LOG --log-prefix "rule2_drop_not_syn: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j DROP
 }
 
 #=================================
 ### 3: Drop SYN packets with suspicious MSS value ###
 rule3_drop_suspcious_mss() {
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j LOG --log-prefix "rule3_drop_suspcious_mss: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j DROP
 }
 
@@ -81,6 +87,7 @@ rule5_drop_spoofed() {
 #=================================
 ### 6: Drop ICMP (you usually don't need this protocol) ###
 rule6_drop_icmp() {
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p icmp -j LOG --log-prefix "rule6_drop_icmp: "
 	/sbin/iptables -t mangle -A PREROUTING -p icmp -j DROP
 	#/sbin/iptables -A INPUT -p icmp -m icmp --icmp-type 8 -j DROP
 }
@@ -88,6 +95,7 @@ rule6_drop_icmp() {
 #=================================
 ### 7: Drop fragments in all chains ###
 rule7_drop_fragments() {
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -f -j LOG --log-prefix "rule7_drop_fragments: "
 	/sbin/iptables -t mangle -A PREROUTING -f -j DROP
 }
 
@@ -95,6 +103,7 @@ rule7_drop_fragments() {
 ### 8: Limit connections per source IP ###
 rule8_limit_connections() {
 	[ -z "$1" ] && max_connection=111 || max_connection=$1
+	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp -m connlimit --connlimit-above $max_connection -j LOG --log-prefix "rule8_limit_connections: "
 	/sbin/iptables -A INPUT -p tcp -m connlimit --connlimit-above $max_connection -j REJECT --reject-with tcp-reset
 	# /sbin/iptables -I INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 20 -j REJECT --reject-with tcp-reset
 }
@@ -103,6 +112,7 @@ rule8_limit_connections() {
 ### 9: Limit RST packets ###
 rule9_limit_rst() {
 	/sbin/iptables -A INPUT -p tcp --tcp-flags RST RST -m limit --limit 2/s --limit-burst 2 -j ACCEPT
+	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp --tcp-flags RST RST -j LOG --log-prefix "rule9_limit_rst: "
 	/sbin/iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
 }
 
@@ -110,6 +120,7 @@ rule9_limit_rst() {
 ### 10: Limit new TCP connections per second per source IP ###
 rule10_limit_connections_per_sec_and_ip() {
 	/sbin/iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m limit --limit 60/s --limit-burst 20 -j ACCEPT
+	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp -m conntrack --ctstate NEW -j LOG --log-prefix "rule10_limit_connections_per_sec_and_ip: "
 	/sbin/iptables -A INPUT -p tcp -m conntrack --ctstate NEW -j DROP
 }
 
@@ -122,12 +133,12 @@ rule11_synproxy() {
 		PORT=$1
 		
 		/sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j CT --notrack
-		# /sbin/iptables -t raw -A PREROUTING -p tcp --dport $PORT -m tcp --syn -j LOG --log-prefix "rule11_synproxy: "
 		
 		/sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m conntrack --ctstate INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m tcp -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 		# /sbin/iptables -A INPUT -p tcp --dport $PORT        -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
 
+		[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp --dport $PORT -m conntrack --ctstate INVALID -j LOG --log-prefix "rule11_synproxy: "
 		/sbin/iptables -A INPUT -p tcp --dport $PORT -m conntrack --ctstate INVALID -j DROP
 		# /sbin/iptables -A INPUT -p tcp --dport $PORT -m state --state INVALID -j DROP
 	fi
@@ -139,6 +150,7 @@ rule11_drop_invalid_fix() {
 	# [ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	#[ -z "$drop_invalid_set" ] && drop_invalid_set=1 && iptables -A INPUT -m state --state INVALID -j DROP
 	
+	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -m conntrack --ctstate INVALID -j LOG --log-prefix "rule11_drop_invalid_fix: "
 	/sbin/iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 	# /sbin/iptables -A INPUT -m state --state INVALID -j DROP
 	
@@ -147,27 +159,10 @@ rule11_drop_invalid_fix() {
 }
 
 #=================================
-rule_slowloris() {
-	# Firstly, what with the reason Minecraft slowloris exploit, there's a nice little iptables rule here that can prevent this being used:
-	sudo iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --set
-	sudo iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --update --seconds 5 --hitcount 20 -j DROP
-
-	# What this basically does is, if someone tries to connect to your server 20 times from the same IP simultaneously within 5 seconds, it'll simply drop the new connections until the old ones are cleared up.
-}
-
-#=================================
-rule_portscanning() {
-	# Fail2ban to handle bruteforcers and for portscanning just do
-	iptables -A INPUT -m recent --name portscan --rcheck --seconds 172800 -j DROP
-	iptables -A INPUT -m recent --name portscan --remove
-	iptables -A INPUT -p tcp -m tcp --dport 139 -m recent --name portscan --set -j LOG --log-prefix "Portscaner:"
-	iptables -A INPUT -p tcp -m tcp --dport 139 -m recent --name portscan --set -j DROP
-}
-
-#=================================
 ### SSH brute-force protection ###
 bouns1_drop_ssh_brutefore() {
 	/sbin/iptables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --set
+	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 10 -j LOG --log-prefix "bouns1_drop_ssh_brutefore: "
 	/sbin/iptables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 10 -j DROP
 }
 
@@ -176,7 +171,28 @@ bouns1_drop_ssh_brutefore() {
 bouns2_drop_port_scan() {
 	/sbin/iptables -N port-scanning
 	/sbin/iptables -A port-scanning -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s --limit-burst 2 -j RETURN
+	[ ! -z "$IPLOG" ] && /sbin/iptables -A port-scanning -j LOG --log-prefix "bouns2_drop_port_scan: "
 	/sbin/iptables -A port-scanning -j DROP
+}
+
+#=================================
+rule_slowloris() {
+	# Firstly, what with the reason Minecraft slowloris exploit, there's a nice little iptables rule here that can prevent this being used:
+	sudo /sbin/iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --set
+	[ ! -z "$IPLOG" ] && /sbin/iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --update --seconds 5 --hitcount 20 -j LOG --log-prefix "rule_slowloris: "
+	sudo /sbin/iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --update --seconds 5 --hitcount 20 -j DROP
+
+	# What this basically does is, if someone tries to connect to your server 20 times from the same IP simultaneously within 5 seconds, it'll simply drop the new connections until the old ones are cleared up.
+}
+
+#=================================
+rule_portscanning() {
+	# Fail2ban to handle bruteforcers and for portscanning just do
+	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -m recent --name portscan --rcheck --seconds 172800 -j LOG --log-prefix "rule_portscanning: "
+	/sbin/iptables -A INPUT -m recent --name portscan --rcheck --seconds 172800 -j DROP
+	/sbin/iptables -A INPUT -m recent --name portscan --remove
+	/sbin/iptables -A INPUT -p tcp -m tcp --dport 139 -m recent --name portscan --set -j LOG --log-prefix "Portscaner:"
+	/sbin/iptables -A INPUT -p tcp -m tcp --dport 139 -m recent --name portscan --set -j DROP
 }
 
 #=================================
