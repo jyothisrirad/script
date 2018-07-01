@@ -145,7 +145,7 @@ rule7_drop_fragments() {
 #=================================
 ### 8: Limit connections per source IP ###
 rule8_limit_connections() {
-	[ -z "$1" ] && max_connection=111 || max_connection=$1
+	[ -z "$1" ] && max_connection=80 || max_connection=$1
 	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp -m connlimit --connlimit-above $max_connection -j LOG --log-prefix "rule8_limit_connections: "
 	/sbin/iptables -A INPUT -p tcp -m connlimit --connlimit-above $max_connection -j REJECT --reject-with tcp-reset
 	# /sbin/iptables -I INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 20 -j REJECT --reject-with tcp-reset
@@ -251,6 +251,8 @@ rules_enable() {
 	rule11_drop_invalid_fix
 	bouns1_drop_ssh_brutefore
 	bouns2_drop_port_scan
+	rule_slowloris
+	# rule_portscanning
 	rule_dump
 }
 
