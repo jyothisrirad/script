@@ -233,7 +233,6 @@ rule_portscanning() {
 
 #=================================
 rules_enable() {
-	
 	rule_reset
 	# rule1_drop_invalid
 	rule2_drop_not_syn
