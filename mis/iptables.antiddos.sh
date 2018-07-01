@@ -55,32 +55,75 @@ rule3_drop_suspcious_mss() {
 #=================================
 ### 4: Block packets with bogus TCP flags ###
 rule4_drop_bogus_tcp() {
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j LOG --log-prefix "rule4_drop_bogus_tcp NONE: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -j LOG --log-prefix "rule4_drop_bogus_tcp SYN: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags SYN,RST SYN,RST -j LOG --log-prefix "rule4_drop_bogus_tcp RST: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,RST FIN,RST -j LOG --log-prefix "rule4_drop_bogus_tcp RST: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,RST FIN,RST -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,ACK FIN -j LOG --log-prefix "rule4_drop_bogus_tcp FIN: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,ACK FIN -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,URG URG -j LOG --log-prefix "rule4_drop_bogus_tcp URG: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,URG URG -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,FIN FIN -j LOG --log-prefix "rule4_drop_bogus_tcp FIN: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,FIN FIN -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,PSH PSH -j LOG --log-prefix "rule4_drop_bogus_tcp PSH: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,PSH PSH -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL ALL -j LOG --log-prefix "rule4_drop_bogus_tcp ALL: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL ALL -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL NONE -j LOG --log-prefix "rule4_drop_bogus_tcp NONE: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL NONE -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL FIN,PSH,URG -j LOG --log-prefix "rule4_drop_bogus_tcp URG: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL FIN,PSH,URG -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL SYN,FIN,PSH,URG -j LOG --log-prefix "rule4_drop_bogus_tcp URG: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL SYN,FIN,PSH,URG -j DROP
+
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -j LOG --log-prefix "rule4_drop_bogus_tcp URG: "
 	/sbin/iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -j DROP
 }
 
 #=================================
 ### 5: Block spoofed packets ###
 rule5_drop_spoofed() {
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 224.0.0.0/3 -j LOG --log-prefix "rule5_drop_spoofed 224: "
 	/sbin/iptables -t mangle -A PREROUTING -s 224.0.0.0/3 -j DROP
+	
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 169.254.0.0/16 -j LOG --log-prefix "rule5_drop_spoofed 169: "
 	/sbin/iptables -t mangle -A PREROUTING -s 169.254.0.0/16 -j DROP
+	
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 172.16.0.0/12 -j LOG --log-prefix "rule5_drop_spoofed 172: "
 	/sbin/iptables -t mangle -A PREROUTING -s 172.16.0.0/12 -j DROP
+	
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 192.0.2.0/24 -j LOG --log-prefix "rule5_drop_spoofed 192: "
 	/sbin/iptables -t mangle -A PREROUTING -s 192.0.2.0/24 -j DROP
+	
+	# [ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 192.168.0.0/16 -j LOG --log-prefix "rule5_drop_spoofed 192: "
 	# /sbin/iptables -t mangle -A PREROUTING -s 192.168.0.0/16 -j DROP
+	
+	# [ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 10.0.0.0/8 -j LOG --log-prefix "rule5_drop_spoofed 10: "
 	# /sbin/iptables -t mangle -A PREROUTING -s 10.0.0.0/8 -j DROP
+	
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 0.0.0.0/8 -j LOG --log-prefix "rule5_drop_spoofed 0: "
 	/sbin/iptables -t mangle -A PREROUTING -s 0.0.0.0/8 -j DROP
+	
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 240.0.0.0/5 -j LOG --log-prefix "rule5_drop_spoofed 240: "
 	/sbin/iptables -t mangle -A PREROUTING -s 240.0.0.0/5 -j DROP
+	
+	[ ! -z "$IPLOG" ] && /sbin/iptables -t mangle -A PREROUTING -s 127.0.0.0/8 -j LOG --log-prefix "rule5_drop_spoofed 127: "
 	/sbin/iptables -t mangle -A PREROUTING -s 127.0.0.0/8 ! -i lo -j DROP
 }
 
@@ -112,7 +155,7 @@ rule8_limit_connections() {
 ### 9: Limit RST packets ###
 rule9_limit_rst() {
 	/sbin/iptables -A INPUT -p tcp --tcp-flags RST RST -m limit --limit 2/s --limit-burst 2 -j ACCEPT
-	[ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp --tcp-flags RST RST -j LOG --log-prefix "rule9_limit_rst: "
+	# [ ! -z "$IPLOG" ] && /sbin/iptables -A INPUT -p tcp --tcp-flags RST RST -j LOG --log-prefix "rule9_limit_rst: "
 	/sbin/iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
 }
 
@@ -178,11 +221,11 @@ bouns2_drop_port_scan() {
 #=================================
 rule_slowloris() {
 	# Firstly, what with the reason Minecraft slowloris exploit, there's a nice little iptables rule here that can prevent this being used:
+	# What this basically does is, if someone tries to connect to your server 20 times from the same IP simultaneously within 5 seconds, it'll simply drop the new connections until the old ones are cleared up.
 	sudo /sbin/iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --set
 	[ ! -z "$IPLOG" ] && /sbin/iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --update --seconds 5 --hitcount 20 -j LOG --log-prefix "rule_slowloris: "
 	sudo /sbin/iptables -I INPUT -p tcp --dport 25565 -m state --state NEW -m recent --update --seconds 5 --hitcount 20 -j DROP
 
-	# What this basically does is, if someone tries to connect to your server 20 times from the same IP simultaneously within 5 seconds, it'll simply drop the new connections until the old ones are cleared up.
 }
 
 #=================================
