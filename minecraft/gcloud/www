@@ -56,6 +56,10 @@ start() {
     # echo -e ${GREEN}== Updating ${YELLOW}redis.creeper.tw 3hour IN A ... ${NC}
     # $dnsupdate A creeper-tw redis creeper.tw 3hour 3hour
 
+    # A gre.creeper.tw 1hour
+    echo -e ${GREEN}== Updating ${YELLOW}gre.creeper.tw 3hour IN A ... ${NC}
+    $dnsupdate A creeper-tw gre creeper.tw 3hour 3hour
+
     # DNS transaction commit
     echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
     $dnsupdate commit $dns_project creeper-tw
