@@ -164,10 +164,10 @@ case "$1" in
     shift 8
     # dns_start
     ip=$(echo `lookup_dns_ip "${HOST}.${ZONE}."` | tr ' ' '\n' | sort -u | tr '\n' ' ')
-    dns_del ${HOST} ${TTL} ${TYPE} $ip
-    dns_del ${HOST} ${TTL2} ${TYPE} $ip
+    dns_del ${HOST} ${TTL} ${TYPE} "$ip"
+    dns_del ${HOST} ${TTL2} ${TYPE} "$ip"
     # dns_commit
-    # dns_del ${HOST} ${TTL} ${TYPE} $@
+    # dns_del ${HOST} ${TTL} ${TYPE} "$@"
     exit
     ;;
     
@@ -216,9 +216,9 @@ case "$1" in
     # echo $newip
     
     # dns_start
-    dns_del ${HOST} ${TTL} ${TYPE} $ip
-    dns_del ${HOST} ${TTL2} ${TYPE} $ip
-    dns_add ${HOST} ${TTL2} ${TYPE} $newip
+    dns_del ${HOST} ${TTL} ${TYPE} "$ip"
+    dns_del ${HOST} ${TTL2} ${TYPE} "$ip"
+    dns_add ${HOST} ${TTL2} ${TYPE} "$newip"
     # dns_commit
     ;;
     
@@ -239,9 +239,9 @@ case "$1" in
     # echo $newip
     
     # dns_start
-    dns_del ${HOST} ${TTL} ${TYPE} $ip
-    dns_del ${HOST} ${TTL2} ${TYPE} $ip
-    dns_add ${HOST} ${TTL2} ${TYPE} $newip
+    dns_del ${HOST} ${TTL} ${TYPE} "$ip"
+    dns_del ${HOST} ${TTL2} ${TYPE} "$ip"
+    dns_add ${HOST} ${TTL2} ${TYPE} "$newip"
     # dns_commit
     ;;
     

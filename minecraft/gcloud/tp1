@@ -57,7 +57,7 @@ my_ip_address() {
 
 is_tp_already_set_2() {
 	# echo test if $DNSTOCHECK2 has $(my_ip_address)
-	lookup_dns_ip $DNSTOCHECK2 | grep -F --quiet $(my_ip_address)
+	lookup_dns_ip $DNSTOCHECK2 | grep -F --quiet "$(my_ip_address)"
 	return $?
 }
 
