@@ -5,7 +5,7 @@ lookup_dns_ip() {
 }
 
 findmyip() {
-	curl http://me.gandi.net
+	curl -s http://me.gandi.net
 }
 
 case "$1" in
