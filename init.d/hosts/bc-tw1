@@ -12,5 +12,6 @@ servers=(s65)
 #servers=(s31)
 servers2=
 autostart=1
+antiddos=1
 
 run $*

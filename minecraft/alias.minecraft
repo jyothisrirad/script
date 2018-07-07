@@ -5,6 +5,9 @@
 . /home/sita/script/include/persistent
 
 #=================================
+gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
+
+#=================================
 utf8() {
 	export LC_ALL=en_US.UTF-8
 	export LANG=en_US.UTF-8
@@ -139,7 +142,7 @@ check_creeper_ip() {
     # digthis www.creeper.tw
     echo =================================
     # digthis r53.creeper.tw
-	/home/sita/script/mis/dns.gandi.yozliu.pw.sh query r53
+	$gandi query r53
 }
 
 #=================================

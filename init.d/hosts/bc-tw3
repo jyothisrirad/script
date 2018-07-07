@@ -9,5 +9,6 @@ dns_updates=($dns_external bc)
 servers=(s65)
 servers2=
 autostart=1
+antiddos=1
 
 run $*

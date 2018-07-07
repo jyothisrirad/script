@@ -52,11 +52,14 @@ mcstart() {
 
 start() {
 	# make sure related kernal variable is set
+    echo -e "${GREEN}=== sysctl ${NC}"
 	sudo sysctl --system
 	# echo 5120 | sudo tee /sys/module/nf_conntrack/parameters/hashsize
 	
     echo -e "${GREEN}=== gitsync ${NC}"
     cd /home/sita/script && as_user "./gitsync.sh"
+	
+	[ ! -z $antiddos ] && echo -e "${GREEN}=== iptables ${NC}" && sudo ~/script/mis/iptables.antiddos.sh
     
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h

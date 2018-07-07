@@ -12,6 +12,7 @@ bungee_instance() {
 	dns_updates=(bc)
 	servers=(s65)
 	autostart=1
+	antiddos=1
 }
 
 [[ $(hostname) == bungeecord* ]] && bungee_instance
