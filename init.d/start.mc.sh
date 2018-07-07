@@ -59,7 +59,7 @@ start() {
     echo -e "${GREEN}=== gitsync ${NC}"
     cd /home/sita/script && as_user "./gitsync.sh"
 	
-	[ ! -z $antiddos ] && echo -e "${GREEN}=== iptables ${NC}" && sudo ~/script/mis/iptables.antiddos.sh
+	[ ! -z $antiddos ] && echo -e "${GREEN}=== iptables ${NC}" && sudo ~/script/mis/iptables.antiddos.sh | sudo tee /etc/iptables.conf
     
     for h in ${dns_updates[*]}; do
         runscript=/home/sita/script/minecraft/gcloud/$h
