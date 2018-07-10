@@ -271,6 +271,6 @@ alias unbanip='unblockip $*'
 alias ii='findmyip'
 alias srv='findsrv'
 help_add 'scan' '掃描主機'
-alias scan='nmap -v -A $*'
+alias scan='nmap -v -A -Pn $*'
 
 #=================================
