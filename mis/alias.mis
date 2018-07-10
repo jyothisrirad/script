@@ -222,8 +222,23 @@ alias pc='cd ~/script/minecraft/gcloud'
 alias gs='~/script/gitsync.sh'
 
 #=================================
+alias stop='sudo echo && sudo screen -dmS off shutdown -h now && exit'
+
+#=================================
+alias cpu='less /proc/cpuinfo |grep "model name"'
+
+#=================================
+alias ver='check_version'
+
+#=================================
+# 防禦
 help_add 'aaa' '安裝DDoS保護'
 alias aaa='install_antiddos'
+help_add 'def.<ip>' '封包反射'
+alias def='deflect_packet $*'
+
+#=================================
+# 防禦檢查
 help_add 'ccc' '檢查sysctl'
 alias ccc='check_sysctl'
 help_add 'ddd' '檢查連線數'
@@ -237,14 +252,11 @@ alias ws='watch -d -n1 cat /proc/net/stat/synproxy'
 alias ws2='watch -d -n1 netstat -s'
 help_add 'iplog' '檢查iptables紀錄'
 alias iplog='tail -f /var/log/kern.log'
-
+help_add 'speed' '網路測速'
 alias speed='speed_test $*'
 
 #=================================
-help_add 'def.<ip>' '封包反射'
-alias def='deflect_packet $*'
-
-#=================================
+# 封鎖
 alias block='blockip $*'
 alias unblock='unblockip $*'
 help_add 'banlist' '檢查封鎖清單'
@@ -255,14 +267,10 @@ help_add 'unbanip' '解除封鎖'
 alias unbanip='unblockip $*'
 
 #=================================
-alias stop='sudo echo && sudo screen -dmS off shutdown -h now && exit'
-
-#=================================
+# 掃描
 alias ii='findmyip'
 alias srv='findsrv'
+help_add 'scan' '掃描主機'
+alias scan='nmap -v -A $*'
 
 #=================================
-alias cpu='less /proc/cpuinfo |grep "model name"'
-
-#=================================
-alias ver='check_version'

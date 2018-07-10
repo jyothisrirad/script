@@ -189,6 +189,7 @@ file.replace.mob() {
 	sed -i "s/Zombie/殭屍/g" $1
 	sed -i "s/Creeper/苦力怕/g" $1
 	sed -i "s/Witch/女巫/g" $1
+	sed -i "s/Stray/流浪者/g" $1
 }
 
 file.replace.escape() {
