@@ -708,7 +708,7 @@ help_add 'ur' 'UHC隨機分隊'
 alias ur='uhcteamcreate $*'
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
 help_add 'uc' 'UHC取消全部隊伍/全部未分隊'
-alias tc='mcserver do scoreboard teams join 1 @a'
+alias uc='mcserver do scoreboard teams join 1 @a'
 
 #=================================
 alias mcsb='mcscores 3' #UHC排行榜間隔3秒

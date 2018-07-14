@@ -6,6 +6,7 @@
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
+gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
 
 ###
 default_account=$(get_account)
@@ -27,6 +28,10 @@ delfrom_crontab() {
 	line=$*
 	line=$(echo "$line" | sed 's/\//\\\//g')
 	crontab -l | sed "/$line/d" | crontab -
+}
+
+my_ip_address() {
+    curl -s4 http://me.gandi.net
 }
 
 ###
@@ -68,8 +73,18 @@ start() {
 	echo -e ${GREEN}=========================${NC}
 }
 
+gandi_start() {
+    ip=$(my_ip_address)
+    echo -e ${GREEN}== Set ${YELLOW}$HOST.creeper.tw IN A "$ip" ... ${NC}
+    $gandi set $HOST $ip
+}
+
 stop() {
     echo Stopping $(basename $0) ...
+}
+
+gandi_stop() {
+    echo Gandi Stopping $(basename $0) ...
 }
 
 ###
@@ -85,13 +100,16 @@ case "$1" in
     exit
     ;;
   start)
-    start
+    # start
+    gandi_start
     exit
     ;;
   stop)
-    stop
+    # stop
+    gandi_stop
     exit
     ;;
   *)
-    start
+    # start
+    gandi_start
 esac

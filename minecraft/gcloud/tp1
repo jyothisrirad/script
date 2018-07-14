@@ -8,7 +8,8 @@
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
-gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
+# gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
+gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
 RECORD=r53
 # DNSTOCHECK1="mc.creeper.tw"
 DNSTOCHECK1="gem.creeper.tw"
@@ -203,6 +204,18 @@ start2() {
 	echo -e ${GREEN}=========================${NC}
 }
 
+bungee_restart() {
+    # is_tp_already_set && return
+	
+	. /home/sita/script/minecraft/alias.minecraft
+	
+	s65
+	mcserver halt
+	[ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && as_user "./update.sh"
+	server.prep
+	mcserver start
+}
+
 gandi_append() {
     is_tp_already_set_2 && return
     
@@ -223,16 +236,23 @@ gandi_append() {
 	[ ! -z "${!bc[*]}" ] && dbsave "bc" "$(declare -p bc)"
 }
 
-bungee_restart() {
-    # is_tp_already_set && return
+gandi_start() {
+    ip=$(my_ip_address)
 	
-	. /home/sita/script/minecraft/alias.minecraft
+    # echo -e ${GREEN}== Set ${YELLOW}$HOST.creeper.tw IN A "$ip" ... ${NC}
+    # $gandi set $HOST $ip
 	
-	s65
-	mcserver halt
-	[ -f update.sh ] && echo -e "${GREEN}=== Updating $mcver/update.sh ${NC}" && as_user "./update.sh"
-	server.prep
-	mcserver start
+    echo -e ${GREEN}== Set ${YELLOW}gem.creeper.tw IN A "$ip" ... ${NC}
+    $gandi set gem $ip
+	
+    echo -e ${GREEN}== Set ${YELLOW}wiki.creeper.tw IN A "$ip" ... ${NC}
+    $gandi set wiki $ip
+	
+    echo -e ${GREEN}== Set ${YELLOW}db.creeper.tw IN A "$ip" ... ${NC}
+    $gandi set db $ip
+	
+    echo -e ${GREEN}== Set ${YELLOW}redis.creeper.tw IN A "$ip" ... ${NC}
+    $gandi set redis $ip
 }
 
 stop() {
@@ -241,6 +261,10 @@ stop() {
 
 gandi_remove() {
     $gandi remove $RECORD $(my_ip_address)
+}
+
+gandi_stop() {
+    echo Gandi Stopping $(basename $0) ...
 }
 
 ###
@@ -260,11 +284,13 @@ case "$1" in
     start
     start2
     gandi_append
+    gandi_start
     exit
     ;;
   stop)
     stop
     gandi_remove
+    gandi_stop
     exit
     ;;
   test)
@@ -275,4 +301,5 @@ case "$1" in
     start
     start2
     gandi_append
+    gandi_start
 esac

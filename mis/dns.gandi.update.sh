@@ -23,6 +23,13 @@ dns_get_a() {
 		"$API/domains/$DOMAIN/records/$RECORD/A"
 }
 
+dns_get_srv() {
+	RECORD="$1"
+	curl -s -XGET \
+		-H"X-Api-Key: $APIKEY" \
+		"$API/domains/$DOMAIN/records/$RECORD/SRV"
+}
+
 dns_put_a_json() {
 	RECORD="$1"
     # echo $2
@@ -34,11 +41,29 @@ dns_put_a_json() {
         "$API/domains/$DOMAIN/records/$RECORD/A"
 }
 
+dns_put_srv_json() {
+	RECORD="$1"
+    echo $2
+    DATA='{"rrset_values": '$2',"rrset_ttl": '$TTL'}'
+    echo $DATA
+    curl -s -XPUT -d "$DATA" \
+        -H"X-Api-Key: $APIKEY" \
+        -H"Content-Type: application/json" \
+        "$API/domains/$DOMAIN/records/$RECORD/SRV"
+}
+
 dns_delete_a() {
 	RECORD="$1"
     curl -s -XDELETE \
         -H"X-Api-Key: $APIKEY" \
         "$API/domains/$DOMAIN/records/$RECORD/A"
+}
+
+dns_delete_srv() {
+	RECORD="$1"
+    curl -s -XDELETE \
+        -H"X-Api-Key: $APIKEY" \
+        "$API/domains/$DOMAIN/records/$RECORD/SRV"
 }
 
 case "$1" in
@@ -97,6 +122,27 @@ case "$1" in
 	# get current ips
     RECORD=$2
 	dns_get_a $RECORD | jq -r '.rrset_values' | tr -d '[],\" ' | sed '/^\s*$/d'
+    exit
+    ;;
+  srvquery)
+	# get current ips
+    RECORD=$2
+	dns_get_srv $RECORD | jq -r '.rrset_values' | tr -d '[],\"' | sed '/^\s*$/d' | sed 's/^\s*//g'
+    exit
+    ;;
+  srvdel)
+	# del whole record
+    RECORD=$2
+	dns_delete_srv $RECORD
+    exit
+    ;;
+  srvset)
+    RECORD=$2
+	PRIORITY=$3
+	WEIGHT=$4
+	PORT=$5
+	TARGET=$6
+	dns_put_srv_json $RECORD "[ \"$PRIORITY $WEIGHT $PORT $TARGET\" ]"
     exit
     ;;
 esac
