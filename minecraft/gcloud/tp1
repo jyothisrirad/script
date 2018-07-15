@@ -1,4 +1,5 @@
 #!/bin/bash
+#!/bin/bash -x
 
 #=================================
 . /home/sita/script/include/common_helper
@@ -44,10 +45,13 @@ delfrom_crontab() {
 is_tp_already_set() {
     # dnsip=$(lookup_dns_ip mc.creeper.tw)
     dnsip=$(lookup_dns_ip $DNSTOCHECK1)
-    myip=$(curl -s https://api.ipify.org)
+    # myip=$(curl -s https://api.ipify.org)
+    myip=$(my_ip_address)
     # Checking if Load Balancer already started
     # echo -e ${YELLOW}=== DNS Status: ${GREEN}DNS=$dnsip,IP=$myip ${NC}
     [ -z "$dnsip" ] && return 1
+	echo dnsip=$dnsip
+	echo myip=$myip
     [ "$dnsip" == "$myip" ]
     return $?
 }
@@ -72,7 +76,7 @@ HOST=tp$num
 start() {
     is_tp_already_set && return
 
-    bungee_restart
+    # bungee_restart
     
 	# declare -A dnsdb
     # [ -f $DBFILE ] && source $DBFILE
@@ -205,7 +209,7 @@ start2() {
 }
 
 bungee_restart() {
-    # is_tp_already_set && return
+    is_tp_already_set && return
 	
 	. /home/sita/script/minecraft/alias.minecraft
 	
@@ -280,15 +284,15 @@ case "$1" in
     exit
     ;;
   start)
-	# bungee_restart
-    start
+    # start
+	bungee_restart
     start2
     gandi_append
     gandi_start
     exit
     ;;
   stop)
-    stop
+    # stop
     gandi_remove
     gandi_stop
     exit
@@ -298,7 +302,8 @@ case "$1" in
     exit
     ;;
   *)
-    start
+    # start
+	bungee_restart
     start2
     gandi_append
     gandi_start

@@ -52,8 +52,14 @@ start() {
     # DNS transaction commit
     echo -e ${GREEN}=== Commiting DNS Changes: ${YELLOW}$HOST.creeper.tw ${NC}
     $dnsupdate commit $dns_project creeper-tw
-    
+	
+    set_account $default_account
 	echo -e ${GREEN}=========================${NC}
+}
+
+start2() {
+	echo -e ${GREEN}=========================${NC}
+    set_account $dns_account
     
     # DNS transaction start
     echo -e ${GREEN}=== Starting DNS Changes: ${YELLOW}$HOST.creeperworkshop.tw ${NC}
@@ -103,6 +109,7 @@ case "$1" in
     ;;
   start)
     # start
+	start2
     gandi_start
     exit
     ;;
@@ -113,5 +120,6 @@ case "$1" in
     ;;
   *)
     # start
+	start2
     gandi_start
 esac

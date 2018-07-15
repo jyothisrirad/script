@@ -5,9 +5,6 @@
 . /home/sita/script/include/persistent
 
 #=================================
-gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
-
-#=================================
 utf8() {
 	export LC_ALL=en_US.UTF-8
 	export LANG=en_US.UTF-8
@@ -126,6 +123,11 @@ digthis() {
 
 #=================================
 check_creeper_ip() {
+
+	# gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
+	gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
+	#=================================
+
     geolocateWithCache $(get_myip)
     digthis home.changen.com.tw
     echo =================================

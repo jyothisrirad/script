@@ -96,9 +96,13 @@ case "$1" in
 	shift 2
     arr=( $* )
 	
+	# echo RECORD=$RECORD
+	
 	newip=${arr[@]}
 	
 	[ -z "$newip" ] && echo IPs set empty, Quitting && exit
+	
+	# echo $(dns_get_a $RECORD)
 	
 	oldip=$(dns_get_a $RECORD | jq -r '.rrset_values' | tr -d '[],\" ' | sed '/^\s*$/d' | sort -u | tr '\n' ' ' | awk '{$1=$1;print}')
 	[ "$oldip" == "$newip" ] && echo IPs set already, Quitting && exit
