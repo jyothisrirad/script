@@ -7,8 +7,11 @@
 # gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
 gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
 RECORD=r53
+# DOMAIN=yozliu.pw
+DOMAIN=creeper.tw
 
 ###
+HOST=$(basename $0)
 ighost=$(hostname | grep -E "(-[0-9a-z]{4})")
 
 ###
@@ -19,26 +22,36 @@ my_ip_address() {
 ###
 start() {
     echo DNS Appending: $(basename $0)
-    gandi_append
+    # gandi_append
 }
 
 gandi_append() {
     ip=$(my_ip_address)
-    echo -e ${GREEN}== Appending ${YELLOW}$RECORD.yozliu.pw IN A "$ip" ... ${NC}
+    echo -e ${GREEN}== Appending ${YELLOW}$RECORD.$DOMAIN IN A "$ip" ... ${NC}
     $gandi append $RECORD $ip
     # $gandi query $RECORD
 }
 
+gandi_start() {
+    ip=$(my_ip_address)
+    echo -e ${GREEN}== Set ${YELLOW}$HOST.creeper.tw IN A "$ip" ... ${NC}
+    $gandi set $HOST $ip
+}
+
 stop() {
     echo DNS Removing: $(basename $0)
-    gandi_remove
+    # gandi_remove
 }
 
 gandi_remove() {
     ip=$(my_ip_address)
-    echo -e ${GREEN}== Removing ${YELLOW}$RECORD.yozliu.pw IN A "$ip" ... ${NC}
+    echo -e ${GREEN}== Removing ${YELLOW}$RECORD.$DOMAIN IN A "$ip" ... ${NC}
     $gandi remove $RECORD $ip
     # $gandi query $RECORD
+}
+
+gandi_stop() {
+    echo Gandi Stopping $(basename $0) ...
 }
 
 ###
@@ -50,16 +63,19 @@ DP0=$(dirname "$DIR")
 ###
 case "$1" in
   start)
-    start
+    # start
+    gandi_append
     gandi_start
     exit
     ;;
   stop)
-    stop
+    # stop
+    gandi_remove
     gandi_stop
     exit
     ;;
   *)
-    start
+    # start
+    gandi_append
     gandi_start
 esac

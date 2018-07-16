@@ -12,9 +12,10 @@ dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
 # gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
 gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
 RECORD=r53
+DOMAIN=creeper.tw
 # DNSTOCHECK1="mc.creeper.tw"
-DNSTOCHECK1="gem.creeper.tw"
-DNSTOCHECK2="r53.yozliu.pw"
+# DNSTOCHECK1="gem.creeper.tw"
+# DNSTOCHECK2="r53.yozliu.pw"
 
 ###
 default_account=$(get_account)
@@ -42,27 +43,41 @@ delfrom_crontab() {
 	crontab -l | sed "/$line/d" | crontab -
 }
 
-is_tp_already_set() {
+# is_tp_already_set() {
     # dnsip=$(lookup_dns_ip mc.creeper.tw)
-    dnsip=$(lookup_dns_ip $DNSTOCHECK1)
+    # dnsip=$(lookup_dns_ip $DNSTOCHECK1)
     # myip=$(curl -s https://api.ipify.org)
-    myip=$(my_ip_address)
+    # myip=$(my_ip_address)
     # Checking if Load Balancer already started
     # echo -e ${YELLOW}=== DNS Status: ${GREEN}DNS=$dnsip,IP=$myip ${NC}
-    [ -z "$dnsip" ] && return 1
-	echo dnsip=$dnsip
-	echo myip=$myip
+    # [ -z "$dnsip" ] && return 1
+	# echo dnsip=$dnsip
+	# echo myip=$myip
     [ "$dnsip" == "$myip" ]
-    return $?
-}
+    # return $?
+# }
+
+# is_tp_already_set() {
+    # dnsip=$(lookup_dns_ip $DNSTOCHECK1)
+    # myip=$(my_ip_address)
+    # [ -z "$dnsip" ] && return 1
+    # [ "$dnsip" == "$myip" ]
+    # return $?
+# }
 
 my_ip_address() {
     curl -s4 http://me.gandi.net
 }
 
-is_tp_already_set_2() {
+# is_tp_already_set_2() {
 	# echo test if $DNSTOCHECK2 has $(my_ip_address)
-	lookup_dns_ip $DNSTOCHECK2 | grep -F --quiet "$(my_ip_address)"
+	# lookup_dns_ip $DNSTOCHECK2 | grep -F --quiet "$(my_ip_address)"
+	# return $?
+# }
+
+is_dns_already_set() {
+	# echo test if $DNSTOCHECK2 has $(my_ip_address)
+	lookup_dns_ip $1 | grep -F --quiet "$(my_ip_address)"
 	return $?
 }
 
@@ -74,7 +89,8 @@ num=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1
 HOST=tp$num
 
 start() {
-    is_tp_already_set && return
+    # is_tp_already_set && return
+    is_dns_already_set gem.creeper.tw && echo -e ${YELLOW}=== start abort ... ${NC} && return
 
     # bungee_restart
     
@@ -179,7 +195,8 @@ start() {
 }
 
 start2() {
-    is_tp_already_set && return
+    # is_tp_already_set && return
+    is_dns_already_set gem.creeper.tw && echo -e ${YELLOW}=== start2 abort ... ${NC} && return
     
 	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
@@ -209,7 +226,8 @@ start2() {
 }
 
 bungee_restart() {
-    is_tp_already_set && return
+    # is_tp_already_set && return
+    is_dns_already_set gem.creeper.tw && echo -e ${YELLOW}=== bungee_restart abort ... ${NC} && return
 	
 	. /home/sita/script/minecraft/alias.minecraft
 	
@@ -221,7 +239,8 @@ bungee_restart() {
 }
 
 gandi_append() {
-    is_tp_already_set_2 && return
+    # is_tp_already_set_2 && return
+    is_dns_already_set $RECORD.$DOMAIN && echo -e ${YELLOW}=== gandi_append abort ... ${NC} && return
     
 	# echo $DNSTOCHECK2 doesn not have $(my_ip_address)
 	
@@ -231,7 +250,7 @@ gandi_append() {
     ip=$(my_ip_address)
     [ "$LAST" == "$ip" ] && return 
     
-    [ ! -z "$LAST" ] && echo -e ${GREEN}== Removing ${YELLOW}$RECORD.yozliu.pw IN A "$LAST" ... ${NC}
+    [ ! -z "$LAST" ] && echo -e ${GREEN}== Removing ${YELLOW}$RECORD.$DOMAIN IN A "$LAST" ... ${NC}
     [ ! -z "$LAST" ] && $gandi remove $RECORD $LAST
     
     $gandi append $RECORD $ip
@@ -241,6 +260,8 @@ gandi_append() {
 }
 
 gandi_start() {
+    is_dns_already_set gem.creeper.tw && echo -e ${YELLOW}=== gandi_start abort ... ${NC} && return
+	
     ip=$(my_ip_address)
 	
     # echo -e ${GREEN}== Set ${YELLOW}$HOST.creeper.tw IN A "$ip" ... ${NC}
@@ -264,6 +285,7 @@ stop() {
 }
 
 gandi_remove() {
+    echo Gandi Removing $RECORD.creeper.tw ...
     $gandi remove $RECORD $(my_ip_address)
 }
 
