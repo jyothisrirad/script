@@ -4,6 +4,15 @@
 help_hline3 '伺服器管理(server)'
 
 #=================================
+op_append() {
+    idfile=$1
+    [ -f $idfile ] && ids=`cat $idfile`
+    for id in $ids
+    do
+        mcserver do op $id
+    done
+}
+
 server.prep() {
 	echo -e ${GREEN}=== $mcver server.prep ${NC}
 
@@ -16,6 +25,10 @@ server.prep() {
     #download files from backup path
     SYNC=/mnt/runtimes/$mcver/sync.sh
     [ -f $SYNC ] && echo -e ${YELLOW}== $mcver/sync.sh ${NC} && . $SYNC
+    
+    #apply ops.txt for op
+    OPS=/mnt/runtimes/$mcver/ops.txt
+    [ -f $OPS ] && echo -e ${YELLOW}== $mcver/ops.txt ${NC} && op_append $OPS
     
     #config server
 	config=/mnt/runtimes/$mcver/config.sh
