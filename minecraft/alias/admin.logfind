@@ -290,3 +290,7 @@ alias lfaip='log_all_find_general "ip"'
 #=================================
 help_add 'lba.<proxy.log>' '分析bclog'
 alias lba='log_bungeecord_analyst'
+
+#=================================
+help_add 'ppcount' '計算遊玩人數'
+alias ppcount='echo 遊玩人數: $(lfaip | grep ip | wc -l)'
