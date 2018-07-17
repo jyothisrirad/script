@@ -78,8 +78,8 @@ gandi_start() {
     echo -e ${GREEN}== Set ${YELLOW}$HOST.creeper.tw IN A "$ip" ... ${NC}
     $gandi set $HOST $ip
 	
-    # echo -e ${GREEN}== Set ${YELLOW}creeper.tw IN A "$ip" ... ${NC}
-    # $gandi set @ $ip
+    echo -e ${GREEN}== Set ${YELLOW}creeper.tw IN A "$ip" ... ${NC}
+    $gandi set @ $ip
 	
     echo -e ${GREEN}== Set ${YELLOW}file.creeper.tw IN A "$ip" ... ${NC}
     $gandi set file $ip
