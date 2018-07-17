@@ -28,6 +28,7 @@ INVOCATION="$MCPATH/loop.sh"
 pre_game_setup() {
 	echo [pre_game_setup]
 	server.prep
+    [ -f $HOUSEKEEP ] && $HOUSEKEEP install
 	
     rm -rf $DP0/crash-reports
     rm -rf $DP0/timings
@@ -38,6 +39,7 @@ pre_game_setup() {
 
 post_game_setup() {
 	echo [post_game_setup]
+    [ -f $HOUSEKEEP ] && $HOUSEKEEP remove
 	server.post
 	echo [post_game_setup][end]
 }
