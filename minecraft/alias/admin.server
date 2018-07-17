@@ -4,15 +4,6 @@
 help_hline3 '伺服器管理(server)'
 
 #=================================
-op_append() {
-    idfile=$1
-    [ -f $idfile ] && ids=`cat $idfile`
-    for id in $ids
-    do
-        mcserver do op $id
-    done
-}
-
 server.prep() {
 	echo -e ${GREEN}=== $mcver server.prep ${NC}
 
@@ -39,12 +30,22 @@ server.prep() {
 	echo "$server_properties" >> $properties
 }
 
+#=================================
+op_append() {
+    idfile=$1
+    [ -f $idfile ] && ids=`cat $idfile`
+    for id in $ids
+    do
+        mcserver do op $id
+    done
+}
+
 server.post() {
 	echo -e ${GREEN}=== $mcver server.post ${NC}
     
-    #apply ops.txt for op
-    OPS=/mnt/runtimes/$mcver/ops.txt
-    [ -f $OPS ] && echo -e ${YELLOW}== $mcver/ops.txt ${NC} && op_append $OPS
+    #apply extra_ops.txt for extra ops
+    OPS=/mnt/runtimes/$mcver/extra_ops.txt
+    [ -f $OPS ] && echo -e ${YELLOW}== $mcver/extra_ops.txt ${NC} && op_append $OPS
 }
 
 #=================================
@@ -150,6 +151,7 @@ alias sr='screen -r $mcver'
 
 #=================================
 alias mcprep=server.prep
+alias mcpost=server.post
 
 #=================================
 # alias mctest='mcwaituntilready'
@@ -161,9 +163,9 @@ alias mced='vi /home/sita/script/minecraft/minecraft.server'
 #=================================
 # alias gamestop='mcserver backup && mcserver stop'
 # alias mcstart='mcserver start'
-alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog'
-# alias mcww='mcprep && mcserver start && mcw off && mclf && mcserver do seed'
-alias mcww='mcprep && mcserver start && mcw off && mclf'
+alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog && mcpost'
+# alias mcww='mcprep && mcserver start && mcw off && mclf && mcserver do seed && mcpost'
+alias mcww='mcprep && mcserver start && mcw off && mclf && mcpost'
 alias mcstop='mcdo end && mcserver stop'
 alias mclog='mcserver log $*'
 alias mcload='mcserver load'
@@ -173,12 +175,12 @@ alias mcstat='mcserver status'
 # alias mcreport='mcserver crashreport'
 alias mcbackup='mcserver backup'
 alias mcrestore='mcserver restore $*'
-# alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog'
+# alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog && mcpost'
 # alias mckill='mcserver kill'
 # alias mchalt='mcdo end && mcserver halt && swp'
 #alias mchalt='mcdo end && mcserver halt'
 alias mchalt='mcserver halt'
-alias mcreload='mchalt && mcprep && mcserver start'
+alias mcreload='mchalt && mcprep && mcserver start && mcpost'
 
 #=================================
 alias mcrematch='rematch $*'
