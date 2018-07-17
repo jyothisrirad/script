@@ -69,7 +69,7 @@ start() {
     
     is_my_ip_match_to_dns ${mchub} && autostart=1
     [ ! -z $rematch_hour ] && [ $(date +%H) == $rematch_hour ] && autostart=1 && rematch=1
-    [ ! -z $autostart ] && ( echo -e "${GREEN}=== autostart mcstart_nocheck ${NC}"; mcstart_nocheck ) || echo -e "${GREEN}=== to manual start server:${YELLOW} $0 mcstart ${NC}"
+    [ ! -z $autostart ] && ( echo -e "${GREEN}=== autostart:${YELLOW} mcstart_nocheck ${NC}"; mcstart_nocheck ) || echo -e "${GREEN}=== to manual start server:${YELLOW} $0 mcstart ${NC}"
 }
 
 stop() {
