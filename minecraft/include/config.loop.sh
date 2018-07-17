@@ -1,6 +1,8 @@
 #!/bin/bash
 
 . /home/sita/script/minecraft/include/java_args.sh
+. /home/sita/script/minecraft/alias/admin.1.help
+. /home/sita/script/minecraft/alias/admin.server
 
 USERNAME="sita"
 [ ! -z ${RUNINRAM+x} ] && MCPATH="/tmp/${VERSION}_DIR" || MCPATH=${MCSTORE}
@@ -25,9 +27,8 @@ INVOCATION="$MCPATH/loop.sh"
 #
 pre_game_setup() {
 	echo [pre_game_setup]
-	# rm -rf $DP0/plugins/Buscript/scripts/scripts.bin
-    # $HOUSEKEEP install
-    # rm -rf $DP0/orebfuscator_cache
+	server.prep
+	
     rm -rf $DP0/crash-reports
     rm -rf $DP0/timings
     rm -rf $DP0/world*
@@ -37,14 +38,7 @@ pre_game_setup() {
 
 post_game_setup() {
 	echo [post_game_setup]
-	# /tmp/$mcver log list
-	# /tmp/$mcver log teams
-	# /tmp/$mcver log slain
-	# /tmp/$mcver log winner
-	# /tmp/$mcver log lag
-	# /tmp/$mcver backup
-	# /tmp/$mcver save off
-    # $HOUSEKEEP remove
+	server.post
 	echo [post_game_setup][end]
 }
 
