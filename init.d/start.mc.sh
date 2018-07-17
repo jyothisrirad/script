@@ -27,6 +27,7 @@ mcstart_nocheck() {
         [ -f update.sh ] && echo -e "${GREEN}=== $mcver/update.sh ${NC}" && as_user "./update.sh"
 		server.prep
         mcserver start
+		server.post
 	done
 }
 

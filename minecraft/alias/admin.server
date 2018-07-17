@@ -26,10 +26,6 @@ server.prep() {
     SYNC=/mnt/runtimes/$mcver/sync.sh
     [ -f $SYNC ] && echo -e ${YELLOW}== $mcver/sync.sh ${NC} && . $SYNC
     
-    #apply ops.txt for op
-    OPS=/mnt/runtimes/$mcver/ops.txt
-    [ -f $OPS ] && echo -e ${YELLOW}== $mcver/ops.txt ${NC} && op_append $OPS
-    
     #config server
 	config=/mnt/runtimes/$mcver/config.sh
 	[ -f $config ] && echo -e ${YELLOW}== $mcver/config.sh ${NC} && . $config
@@ -41,6 +37,14 @@ server.prep() {
 	
     #config server.properties
 	echo "$server_properties" >> $properties
+}
+
+server.post() {
+	echo -e ${GREEN}=== $mcver server.post ${NC}
+    
+    #apply ops.txt for op
+    OPS=/mnt/runtimes/$mcver/ops.txt
+    [ -f $OPS ] && echo -e ${YELLOW}== $mcver/ops.txt ${NC} && op_append $OPS
 }
 
 #=================================
