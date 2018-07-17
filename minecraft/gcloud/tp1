@@ -90,7 +90,7 @@ HOST=tp$num
 
 start() {
     # is_tp_already_set && return
-    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== start:${YELLOW} abort ... ${NC} && return
+    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== start:${YELLOW} abort ${NC} && return
 
     # bungee_restart
     
@@ -196,7 +196,7 @@ start() {
 
 start2() {
     # is_tp_already_set && return
-    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== start2:${YELLOW} abort ... ${NC} && return
+    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== start2:${YELLOW} abort ${NC} && return
     
 	echo -e ${GREEN}=========================${NC}
     set_account $dns_account
@@ -227,7 +227,7 @@ start2() {
 
 bungee_restart() {
     # is_tp_already_set && return
-    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== bungee_restart:${YELLOW} abort ... ${NC} && return
+    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== bungee_restart:${YELLOW} abort ${NC} && return
 	
 	. /home/sita/script/minecraft/alias.minecraft
 	
@@ -240,7 +240,7 @@ bungee_restart() {
 
 gandi_append() {
     # is_tp_already_set_2 && return
-    is_dns_already_set $RECORD.$DOMAIN && echo -e ${GREEN}=== gandi_append:${YELLOW} abort ... ${NC} && return
+    is_dns_already_set $RECORD.$DOMAIN && echo -e ${GREEN}=== gandi_append:${YELLOW} abort ${NC} && return
     
 	# echo $DNSTOCHECK2 doesn not have $(my_ip_address)
 	
@@ -260,7 +260,7 @@ gandi_append() {
 }
 
 gandi_start() {
-    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== gandi_start:${YELLOW} abort ... ${NC} && return
+    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== gandi_start:${YELLOW} abort ${NC} && return
 	
     ip=$(my_ip_address)
 	
