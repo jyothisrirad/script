@@ -5,6 +5,8 @@ help_hline3 '伺服器管理(server)'
 
 #=================================
 server.prep() {
+	echo -e ${GREEN}=== $mcver server.prep ${NC}
+
 	# echo server.prep
     
     #save changed files to backup path
