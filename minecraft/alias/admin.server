@@ -11,20 +11,20 @@ server.prep() {
     
     #save changed files to backup path
     SAVE=/mnt/runtimes/$mcver/save.sh
-    [ -f $SAVE ] && . $SAVE
+    [ -f $SAVE ] && echo -e ${GREEN}== $mcver/save.sh ${NC} && . $SAVE
     
     #download files from backup path
     SYNC=/mnt/runtimes/$mcver/sync.sh
-    [ -f $SYNC ] && . $SYNC
+    [ -f $SYNC ] && echo -e ${GREEN}== $mcver/sync.sh ${NC} && . $SYNC
     
     #config server
 	config=/mnt/runtimes/$mcver/config.sh
-	[ ! -f $config ] || . $config
+	[ -f $config ] && echo -e ${GREEN}== $mcver/config.sh ${NC} && . $config
 
     #config server.properties
 	properties=/mnt/runtimes/$mcver/server.properties
-	[ ! $onlinemode ] 			|| echo online-mode=$onlinemode >> $properties
-	[ ! $serverport ] 			|| echo server-port=$serverport >> $properties
+	[ $onlinemode ] && echo online-mode=$onlinemode >> $properties
+	[ $serverport ] && echo server-port=$serverport >> $properties
 	
     #config server.properties
 	echo "$server_properties" >> $properties
