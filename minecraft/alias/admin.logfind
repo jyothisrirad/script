@@ -274,6 +274,14 @@ log_bungeecord_analyst() {
 }
 
 #=================================
+count_players() {
+	total=$(lfaip | grep ip | wc -l)
+	logcount=$(lfa minecraft | grep ===== | wc -l)
+	playerperlog=$(echo "scale=2;$total/$logcount"|bc)
+	echo 遊玩人次: $total/$logcount=$playerperlog
+}
+
+#=================================
 help_add 'lff.<keyword>' '搜尋指定紀錄ip/username/keyword'
 alias lff='log_file_find_general "normal"'
 alias lffk='log_file_find_general "keyword"'
@@ -293,4 +301,4 @@ alias lba='log_bungeecord_analyst'
 
 #=================================
 help_add 'ppcount' '計算遊玩人次'
-alias ppcount='echo 遊玩人次: $(lfaip | grep ip | wc -l)'
+alias ppcount='count_players'
