@@ -45,9 +45,14 @@ post_game_setup() {
 }
 
 # op-permission-level=4
+# 設定OP的權限等級
+# 1 - OP可以無視重生點保護。
 # 1 - OP可以無視spawn保護。
+# 2 - OP可以使用單人遊戲作弊指令（除了/publish，因為不能在伺服器上使用，/debug也是）並使用指令方塊。指令方塊和領域服服主/管理員有此等級權限。
 # 2 - OPS可以使用/clear,  /difficulty, /effect, /gamemode, /gamerule, /give, /tp指令，並且可以編輯命令方塊(伺服器預設禁用)。
+# 3 - OP可以使用幾乎所有多人遊戲限定的指令（除第4級專用指令）
 # 3 - OP 可以使用/ban, /deop,  /kick, and /op指令。
+# 4 - OP可以使用所有指令，包括/stop、/save-all、/save-on和/save-off。
 # 4 - OP可以於遊戲中使用/stop。
 
 # export ZIPDIR
