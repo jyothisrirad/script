@@ -146,6 +146,25 @@ cheat_report() {
 }
 
 #=================================
+mc_start_without_whitelist() {
+	server.prep
+	# echo $mcver
+	mcserver start
+	mcw off
+	mclf
+	# mcserver do seed
+	server.post
+}
+
+#=================================
+mc_reload() {
+	mcserver halt
+	server.prep
+	mcserver start
+	server.post
+}
+
+#=================================
 alias sls='screen -ls'
 alias swp='screen -wipe'
 alias sr='screen -r $mcver'
@@ -165,8 +184,7 @@ alias mced='vi /home/sita/script/minecraft/minecraft.server'
 # alias gamestop='mcserver backup && mcserver stop'
 # alias mcstart='mcserver start'
 alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog && mcpost'
-# alias mcww='mcprep && mcserver start && mcw off && mclf && mcserver do seed && mcpost'
-alias mcww='mcprep && mcserver start && mcw off && mclf && mcpost'
+alias mcww='mc_start_without_whitelist'
 alias mcstop='mcdo end && mcserver stop'
 alias mclog='mcserver log $*'
 alias mcload='mcserver load'
@@ -181,7 +199,8 @@ alias mcrestore='mcserver restore $*'
 # alias mchalt='mcdo end && mcserver halt && swp'
 #alias mchalt='mcdo end && mcserver halt'
 alias mchalt='mcserver halt'
-alias mcreload='mchalt && mcprep && mcserver start && mcpost'
+# alias mcreload='mchalt && mcprep && mcserver start && mcpost'
+alias mcreload='mc_reload'
 
 #=================================
 alias mcrematch='rematch $*'
