@@ -84,10 +84,10 @@ get_myip() {
 }
 
 #=================================
-geolocation0() {
-    ip=$1
-    echo -e ${GREEN}$(curl freegeoip.net/xml/$ip 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), IP=${ip} ${NC}
-}
+# geolocation0() {
+    # ip=$1
+    # echo -e ${GREEN}$(curl freegeoip.net/xml/$ip 2>/dev/null | grep 'RegionName\|CountryName' | sed 's/<[\/]*\w*>//g' | xargs), IP=${ip} ${NC}
+# }
 
 #=================================
 geolocation() {

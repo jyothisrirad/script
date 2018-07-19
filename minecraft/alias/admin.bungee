@@ -23,7 +23,8 @@ bungee_send() {
 }
 
 bungee_sendall_send() {
-    mcdo viaversion probe
+    # mcdo viaversion probe
+    mcdo sendtoall viaversion probe
     export LOG_DELAY=.5
     mcdo sendtoall send all $*
     export LOG_DELAY=.1
@@ -35,7 +36,8 @@ alias offline='tempver=$mcver && 68 && mcwo && 65 && bungee_offline_mode && mcdo
 alias online='tempver=$mcver && 68 && mcwf && 65 && bungee_online_mode && mcdo greload && chmc $tempver'
 
 #=================================
-alias probe='tempver=$mcver && 65 && mcdo viaversion probe && chmc $tempver'
+# alias probe='tempver=$mcver && 65 && mcdo viaversion probe && chmc $tempver'
+alias probe='tempver=$mcver && 65 && mcdo sendtoall viaversion probe && chmc $tempver'
 # alias ghub='tempver=$mcver && 65 && mcdo send all hub && chmc $tempver'
 # alias guhc='tempver=$mcver && 65 && mcdo send all uhc && chmc $tempver'
 alias ssend='tempver=$mcver && 65 && bungee_sendall_send $*'

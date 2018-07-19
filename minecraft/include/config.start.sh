@@ -25,6 +25,7 @@ INVOCATION="$MCPATH/start.sh"
 #
 pre_game_setup() {
 	echo [pre_game_setup]
+	server.prep
 	# rm -rf $DP0/plugins/Buscript/scripts/scripts.bin
     # HOUSEKEEP install
     # rm -rf $DP0/orebfuscator_cache
@@ -45,6 +46,7 @@ post_game_setup() {
 	# /tmp/$mcver backup
 	# /tmp/$mcver save off
     # HOUSEKEEP remove
+	server.post
 	echo [post_game_setup][end]
 }
 
