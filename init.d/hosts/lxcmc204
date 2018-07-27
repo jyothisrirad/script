@@ -6,7 +6,7 @@
 dns_external=tp1
 dns_updates=
 # servers=(s66 s97 s01 s02)
-servers=(s66 s84 s88 s97)
+servers=(s84 s88 s97)
 # servers=(s66)
 # servers2=(s97 s01 s02)
 servers2=(s84 s88 s97)

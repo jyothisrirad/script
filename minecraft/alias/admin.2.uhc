@@ -398,6 +398,38 @@ log_parse_tops() {
 }
 
 #=================================
+log_diamond() {
+	echo "小葉指數:"
+	# names=$(cat $1|grep "\[FinalDiamond\]" | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' '{printf("%s\n",$2)}')
+	# for name in $names; do
+		# diamond_count=$(cat $1|list_top_byV2 FinalDiamond $name|list_count)
+		# if [ ! -z "$name" ]; then
+			# rock_count=$(cat $1|list_top_byV2 FinalStone $name|list_count)
+			# ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
+			# echo "  * $name: $diamond_count顆鑽石(礦石比$diamond_count/$rock_count=**$ratio%**)"
+		# fi
+	# done
+	names=$(cat $1|grep -A 12 FinalDiamond | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' '{printf("%s\t%s\n",$1,$2)}'|list_name)
+	# echo $(cat $1|grep -A 10 FinalDiamond | tail -n +2)
+	for name in $names; do
+		# echo name=$name
+		diamond_count=$(cat $1|grep -A 12 FinalDiamond | grep $name | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' '{printf("%s\t%s\n",$1,$2)}'|head -n 1|list_count)
+		# echo diamond_count=$diamond_count
+		if [ ! -z "$diamond_count" ]; then
+			rock_count=$(cat $1|grep -A 60 FinalStone | grep $name | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' '{printf("%s\n",$1)}'|head -n 1|list_count)
+			# echo rock_count=$rock_count
+			re='^[0-9]+$'
+			if [[ $diamond_count =~ $re ]]; then
+				ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
+				# echo ratio=$ratio
+				echo "  * $name: $diamond_count顆鑽石(礦石比$diamond_count/$rock_count=**$ratio%**)"
+			fi
+		fi
+	done
+	
+}
+
+#=================================
 list_topV2() {
     # grep -A 10 $1 | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' ' {
       # if (!top||$1==top) {
@@ -452,6 +484,24 @@ log_parse_topsV2() {
     apple=$(cat $1|list_topV2 FinalEat|list_name|tr '\r' ' '|tr '\n' ' '|sed 's/  / /g')
     apple_count=$(cat $1|list_topV2 FinalEat|list_count)
     [ ! -z "$apple" ] && echo "  * 金好命: $apple''$apple_count顆金蘋果''"
+}
+
+#=================================
+log_diamondV2() {
+	echo "小葉指數:"
+	names=$(cat $1|grep "\[FinalDiamond\]" | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/://g" | awk -F',' '{printf("%s\n",$2)}')
+	for name in $names; do
+		# echo name=$name
+		diamond_count=$(cat $1|list_top_byV2 FinalDiamond $name|list_count)
+		# echo diamond_count=$diamond_count
+		if [ ! -z "$name" ]; then
+			rock_count=$(cat $1|list_top_byV2 FinalStone $name|list_count)
+			# echo rock_count=$rock_count
+			ratio=$(echo "scale=2;100*$diamond_count/$rock_count"|bc|awk '{printf "%.2f", $0}')
+			# echo ratio=$ratio
+			echo "  * $name: $diamond_count顆鑽石(礦石比$diamond_count/$rock_count=**$ratio%**)"
+		fi
+	done
 }
 
 #=================================
@@ -624,6 +674,7 @@ log_parse_uhc() {
     log_parse_slain $* false
     echo 頭銜:
 	log_parse_tops $*
+	log_diamond $*
     echo 
     log_parse_winner $*
     echo Lag:
@@ -650,8 +701,8 @@ log_parse_uhcV2() {
     echo 戰敗順序:
     log_parse_slain $* false
     echo 頭銜:
-	# log_parse_tops $*
 	log_parse_topsV2 $*
+	log_diamondV2 $*
     echo 
     log_parse_winner $*
     echo Lag:
