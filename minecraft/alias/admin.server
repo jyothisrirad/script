@@ -10,15 +10,15 @@ server.prep() {
 
     #update files from update path
     UPDATE=/mnt/runtimes/$mcver/update.sh
-    [ -f $UPDATE ] && echo -e ${YELLOW}== $mcver/update.sh ${NC} && . $UPDATE
+    [ -f $UPDATE ] && echo -e ${YELLOW}== $mcver/update.sh ${NC} && $UPDATE
     
     #save changed files to backup path
     SAVE=/mnt/runtimes/$mcver/save.sh
-    [ -f $SAVE ] && echo -e ${YELLOW}== $mcver/save.sh ${NC} && . $SAVE
+    [ -f $SAVE ] && echo -e ${YELLOW}== $mcver/save.sh ${NC} && $SAVE
     
     #download files from backup path
     SYNC=/mnt/runtimes/$mcver/sync.sh
-    [ -f $SYNC ] && echo -e ${YELLOW}== $mcver/sync.sh ${NC} && . $SYNC
+    [ -f $SYNC ] && echo -e ${YELLOW}== $mcver/sync.sh ${NC} && $SYNC
 
     #config server.properties
 	properties=/mnt/runtimes/$mcver/server.properties
