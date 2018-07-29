@@ -75,6 +75,19 @@ list_players() {
 }
 
 #=================================
+lockdown_game() {
+    players=$(mcdo list | grep.player);
+    export mcecho_off=1
+    for player in $players
+    do
+        mcdo whitelist add $player
+    done
+	
+	mcdo whitelist on
+    export mcecho_off=
+}
+
+#=================================
 # playerlist() {
 	# echo 玩家ID:
 	# mcdo list | grep.player
@@ -760,6 +773,8 @@ alias ur='uhcteamcreate $*'
 alias uhcselect='/home/sita/script/minecraft/uhc.team.select $*'
 help_add 'uc' 'UHC取消全部隊伍/全部未分隊'
 alias uc='mcserver do scoreboard teams join 1 @a'
+help_add 'lockdown' '限制遊戲只能由現在玩家進入'
+alias lockdown='lockdown_game'
 
 #=================================
 alias mcsb='mcscores 3' #UHC排行榜間隔3秒
