@@ -5,9 +5,12 @@ help_hline3 '伺服器管理(server)'
 
 #=================================
 server.prep() {
+	# echo server.prep
 	echo -e ${GREEN}=== $mcver server.prep, run before server start ${NC}
 
-	# echo server.prep
+    #update files from update path
+    UPDATE=/mnt/runtimes/$mcver/update.sh
+    [ -f $UPDATE ] && echo -e ${YELLOW}== $mcver/update.sh ${NC} && . $UPDATE
     
     #save changed files to backup path
     SAVE=/mnt/runtimes/$mcver/save.sh
