@@ -13,6 +13,8 @@ autostart=1
 
 #=================================
 custom_function() {
+    gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup
+	
 	DP0="/mnt/runtimes/$mcver"
 	[ -d "$DP0/plugins/Buscript" ] && as_user "$DP0/plugins/Buscript/gitsync.sh"
 	# [ -f "$DP0/reset.sh" ] && $DP0/reset.sh

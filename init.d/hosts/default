@@ -9,7 +9,8 @@ servers=
 servers2=
 
 bungee_instance() {
-	dns_updates=(bc)
+	# dns_updates=(bc)
+	dns_updates=(bcgroups)
 	servers=(s65)
 	autostart=1
 	antiddos=1

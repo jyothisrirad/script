@@ -70,7 +70,7 @@ list_players() {
     echo 線上玩家ID\($(mcdo list | grep.player | wc -l)\): 
     # echo $players | wc -l
     # echo $players
-    mcdo list | grep.player
+    mcdo list | grep.player | sort
     export LOG_DELAY=.1
 }
 

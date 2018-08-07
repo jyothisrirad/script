@@ -39,6 +39,7 @@ dns_put_a_json() {
         -H"X-Api-Key: $APIKEY" \
         -H"Content-Type: application/json" \
         "$API/domains/$DOMAIN/records/$RECORD/A"
+	echo
 }
 
 dns_put_srv_json() {
@@ -50,6 +51,7 @@ dns_put_srv_json() {
         -H"X-Api-Key: $APIKEY" \
         -H"Content-Type: application/json" \
         "$API/domains/$DOMAIN/records/$RECORD/SRV"
+	echo
 }
 
 dns_delete_a() {
@@ -57,6 +59,7 @@ dns_delete_a() {
     curl -s -XDELETE \
         -H"X-Api-Key: $APIKEY" \
         "$API/domains/$DOMAIN/records/$RECORD/A"
+	echo
 }
 
 dns_delete_srv() {
@@ -64,6 +67,7 @@ dns_delete_srv() {
     curl -s -XDELETE \
         -H"X-Api-Key: $APIKEY" \
         "$API/domains/$DOMAIN/records/$RECORD/SRV"
+	echo
 }
 
 case "$1" in
