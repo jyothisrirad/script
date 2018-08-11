@@ -72,7 +72,7 @@ mcwaituntilready() {
 }
 
 #=================================
-rematch() {
+mc_rematch() {
 	mcserver halt
 	mcserver pre_restore
 	mcserver restore $*
@@ -82,6 +82,14 @@ rematch() {
 	# sleep 1
 	# mclog
 	# mcserver log $*
+}
+
+#=================================
+mc_rematch_del() {
+	mcserver halt
+	mcserver mc_pre_restore_del
+	mcserver restore $*
+	server.prep
 }
 
 #=================================
@@ -149,12 +157,27 @@ cheat_report() {
 }
 
 #=================================
+mc_start_with_whitelist() {
+    # mcprep
+    server.prep
+    mcserver start
+    # mcw on && 
+    mcdo whitelist on
+    mcdo gamerule logAdminCommands false
+    # sleep 1 && 
+    # mclog && 
+    server.post
+}
+
+#=================================
 mc_start_without_whitelist() {
 	server.prep
 	# echo $mcver
 	mcserver start
-	mcw off
-	mclf
+	# mcw off
+    mcdo whitelist off
+    # mclf
+    mcdo gamerule logAdminCommands false
 	# mcserver do seed
 	server.post
 }
@@ -186,7 +209,9 @@ alias mced='vi /home/sita/script/minecraft/minecraft.server'
 #=================================
 # alias gamestop='mcserver backup && mcserver stop'
 # alias mcstart='mcserver start'
-alias mcss='mcprep && mcserver start && mcw on && sleep 1 && mclog && mcpost'
+help_add 'mcss' '開始遊戲並打開白名單'
+alias mcss='mc_start_with_whitelist'
+help_add 'mcww' '開始遊戲並關閉白名單'
 alias mcww='mc_start_without_whitelist'
 alias mcstop='mcdo end && mcserver stop'
 alias mclog='mcserver log $*'
@@ -197,7 +222,6 @@ alias mcstat='mcserver status'
 # alias mcreport='mcserver crashreport'
 alias mcbackup='mcserver backup'
 alias mcrestore='mcserver restore $*'
-# alias mcrematch='mcserver pre_restore && mcserver restore $* && mcprep && mcserver start && sleep 1 && mclog && mcpost'
 # alias mckill='mcserver kill'
 # alias mchalt='mcdo end && mcserver halt && swp'
 #alias mchalt='mcdo end && mcserver halt'
@@ -206,7 +230,10 @@ alias mchalt='mcserver halt'
 alias mcreload='mc_reload'
 
 #=================================
-alias mcrematch='rematch $*'
+help_add 'mcrematch.<index>' '重新由備份index還原'
+alias mcrematch='mc_rematch $*'
+help_add 'mcrematchdel.<index>' '重新由備份index還原並刪除舊遊戲'
+alias mcrematchdel='mc_rematch_del $*'
 
 #=================================
 alias mclf="mcdo gamerule logAdminCommands false"

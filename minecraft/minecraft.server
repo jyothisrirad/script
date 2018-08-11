@@ -291,6 +291,23 @@ mc_pre_restore() {
    fi
 }
 
+mc_pre_restore_del() {
+   if [ ! -z ${MCSTORE+x} ]; then 
+	   echo "Prepare minecraft files before restore in $MCSTORE "
+	   tempdir=/tmp/$RANDOM
+	   tempsh=/tmp/test.sh
+	   mkdir $MCSTORE/temp >/dev/null
+	   pushd $MCSTORE
+	   echo "shopt -s extglob" >$tempsh
+	   echo "mv !(config.sh|logs|temp) temp" >>$tempsh
+	   echo "shopt -u extglob" >>$tempsh
+	   . $tempsh
+	   # mv -f $MCSTORE/temp $tempdir
+	   rm -rf $MCSTORE/temp
+	   echo "Prepare complete"
+   fi
+}
+
 mc_load() {
   if [ ! "$MCSTORE" == "$MCPATH" ]; then
 	   echo "Loading minecraft files to Ramdisk"
@@ -474,6 +491,15 @@ case "$1" in
 	  mc_start
 	else
 	  mc_pre_restore
+    fi
+    ;;
+  pre_restore_del)
+	if mc_status; then
+      mc_stop
+	  mc_pre_restore_del
+	  mc_start
+	else
+	  mc_pre_restore_del
     fi
     ;;
   do)
