@@ -146,7 +146,7 @@ uhctitle() {
     weekDiff=$(echo $weekNow - $weekBegin + 1 | bc)
     headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
     title=$([ $weekNow == $weekEnd ] && echo 決賽 || echo 歡樂場$(num2roman $weekDiff))
-    echo 第$num屆uhc苦力怕盃$title
+    echo 第$num屆ⓊⒽⒸ苦力怕盃$title
 }
 
 #=================================
@@ -160,7 +160,7 @@ uhctitle_byfile() {
     weekDiff=$(echo $weekNow - $weekBegin + 1 | bc)
     headline=$([ $weekNow == $weekEnd ] && echo ===== || echo ====)
     title=$([ $weekNow == $weekEnd ] && echo 決賽 || echo 歡樂場$(num2roman $weekDiff))
-    echo $headline 第$num屆UHC苦力怕盃$title 比賽紀錄 $dates $headline
+    echo $headline 第$num屆ⓊⒽⒸ苦力怕盃$title 比賽紀錄 $dates $headline
 }
 
 #=================================

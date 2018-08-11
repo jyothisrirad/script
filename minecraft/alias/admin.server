@@ -78,7 +78,7 @@ rematch() {
 	mcserver restore $*
 	# mcprep
 	server.prep
-	mcserver start
+	# mcserver start
 	# sleep 1
 	# mclog
 	# mcserver log $*
