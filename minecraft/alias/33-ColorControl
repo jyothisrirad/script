@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s33=33-ColorControl
+
+s33() {
+	chmc $s33
+}
+
+alias 33=s33

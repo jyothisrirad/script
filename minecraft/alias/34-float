@@ -1,0 +1,9 @@
+#!/bin/bash
+
+s34=34-float
+
+s34() {
+	chmc $s34
+}
+
+alias 34=s34
