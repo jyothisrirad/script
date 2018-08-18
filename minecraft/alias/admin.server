@@ -87,7 +87,7 @@ mc_rematch() {
 #=================================
 mc_rematch_del() {
 	mcserver halt
-	mcserver mc_pre_restore_del
+	mcserver pre_restore_del
 	mcserver restore $*
 	server.prep
 }
