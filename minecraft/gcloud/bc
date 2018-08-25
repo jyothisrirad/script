@@ -57,8 +57,6 @@ gandi_stop() {
 ###
 DIR=$(readlink -e "$0")
 DP0=$(dirname "$DIR")
-[ -z "$ighost" ] && $DP0/bchome $1
-[ ! -z "$ighost" ] && $DP0/bcgroups $1
 
 ###
 case "$1" in
@@ -79,3 +77,6 @@ case "$1" in
     gandi_start
     gandi_append
 esac
+
+[ -z "$ighost" ] && $DP0/bchome $1
+[ ! -z "$ighost" ] && $DP0/bcgroups $1
