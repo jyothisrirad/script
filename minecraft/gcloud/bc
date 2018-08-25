@@ -64,18 +64,18 @@ DP0=$(dirname "$DIR")
 case "$1" in
   start)
     # start
-    gandi_append
     gandi_start
+    gandi_append
     exit
     ;;
   stop)
     # stop
-    gandi_remove
     gandi_stop
+    gandi_remove
     exit
     ;;
   *)
     # start
-    gandi_append
     gandi_start
+    gandi_append
 esac
