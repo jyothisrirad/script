@@ -62,20 +62,20 @@ DP0=$(dirname "$DIR")
 case "$1" in
   start)
     # start
-    gandi_start
     gandi_append
+    gandi_start
     exit
     ;;
   stop)
     # stop
-    gandi_stop
     gandi_remove
+    gandi_stop
     exit
     ;;
   *)
     # start
-    gandi_start
     gandi_append
+    gandi_start
 esac
 
 [ -z "$ighost" ] && $DP0/bchome $1
