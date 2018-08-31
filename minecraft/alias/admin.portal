@@ -5,19 +5,29 @@ help_hline3 '伺服器設定調整(portal)'
 
 #=================================
 setmcport() {
-    [ -f config.sh ] && echo "server-port=$1" && echo "echo server-port=$1>>server.properties">>config.sh
+    # [ -f config.sh ] && echo "server-port=$1" && echo "echo server-port=$1>>server.properties">>config.sh
+    [ -f config.sh ] && echo "server-port=$1" && sed -i "/^EOM/i server-port=$1" config.sh
 }
 
 #=================================
 clearmcport() {
     [ -f config.sh ] && sed -i "/^.*server\.properties$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20402$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20403$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20404$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20405$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20606$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20607$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20608$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=20609$/d" config.sh
 }
 
 #=================================
 maxplayers() {
     [ -z "$1" ] && [ -f server.properties ] && cat server.properties | grep 'max-players'
     [ -z "$1" ] && [ -f server.properties ] && cat server.properties | grep 'server-port'
-    [ ! -z "$1" ] && [ -f config.sh ] && echo "echo max-players=$1>>server.properties">>config.sh
+    # [ ! -z "$1" ] && [ -f config.sh ] && echo "echo max-players=$1>>server.properties">>config.sh
+    [ ! -z "$1" ] && [ -f config.sh ] && sed -i "/^EOM/i max-players=$1" config.sh
 }
 
 #=================================

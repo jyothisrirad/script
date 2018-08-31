@@ -30,7 +30,7 @@ server.prep() {
 	[ $serverport ] && echo server-port=$serverport >> $properties
 	
     #config server.properties
-	echo "$server_properties" >> $properties
+	echo -e ${YELLOW}== apply server_properties${NC} && echo "$server_properties" >> $properties
 }
 
 #=================================

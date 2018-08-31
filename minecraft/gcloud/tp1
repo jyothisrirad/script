@@ -9,8 +9,8 @@
 
 ###
 dnsupdate=/home/sita/script/mis/gcloud.dns.update.sh
-# gandi=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
-gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
+yozliu=/home/sita/script/mis/dns.gandi.yozliu.pw.sh
+creeper=/home/sita/script/mis/dns.gandi.creeper.tw.sh
 RECORD=r53
 DOMAIN=creeper.tw
 # DNSTOCHECK1="mc.creeper.tw"
@@ -238,9 +238,9 @@ bungee_restart() {
 	mcserver start
 }
 
-gandi_append() {
+creeper_append() {
     # is_tp_already_set_2 && return
-    is_dns_already_set $RECORD.$DOMAIN && echo -e ${GREEN}=== gandi_append:${YELLOW} abort ${NC} && return
+    is_dns_already_set $RECORD.$DOMAIN && echo -e ${GREEN}=== creeper_append:${YELLOW} abort ${NC} && return
     
 	# echo $DNSTOCHECK2 doesn not have $(my_ip_address)
 	
@@ -251,45 +251,54 @@ gandi_append() {
     [ "$LAST" == "$ip" ] && return 
     
     [ ! -z "$LAST" ] && echo -e ${GREEN}== Removing ${YELLOW}$RECORD.$DOMAIN IN A "$LAST" ... ${NC}
-    [ ! -z "$LAST" ] && $gandi remove $RECORD $LAST
+    [ ! -z "$LAST" ] && $creeper remove $RECORD $LAST
     
-    $gandi append $RECORD $ip
+    $creeper append $RECORD $ip
     
 	bc[$(basename $0)]=$ip
 	[ ! -z "${!bc[*]}" ] && dbsave "bc" "$(declare -p bc)"
 }
 
-gandi_start() {
-    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== gandi_start:${YELLOW} abort ${NC} && return
+creeper_start() {
+    is_dns_already_set gem.creeper.tw && echo -e ${GREEN}=== creeper_start:${YELLOW} abort ${NC} && return
 	
     ip=$(my_ip_address)
 	
     # echo -e ${GREEN}== Set ${YELLOW}$HOST.creeper.tw IN A "$ip" ... ${NC}
-    # $gandi set $HOST $ip
+    # $creeper set $HOST $ip
 	
     echo -e ${GREEN}== Set ${YELLOW}gem.creeper.tw IN A "$ip" ... ${NC}
-    $gandi set gem $ip
+    $creeper set gem $ip
 	
     echo -e ${GREEN}== Set ${YELLOW}wiki.creeper.tw IN A "$ip" ... ${NC}
-    $gandi set wiki $ip
+    $creeper set wiki $ip
 	
     echo -e ${GREEN}== Set ${YELLOW}db.creeper.tw IN A "$ip" ... ${NC}
-    $gandi set db $ip
+    $creeper set db $ip
 	
     echo -e ${GREEN}== Set ${YELLOW}redis.creeper.tw IN A "$ip" ... ${NC}
-    $gandi set redis $ip
+    $creeper set redis $ip
+}
+
+yozliu_start() {
+    is_dns_already_set play.yozliu.pw && echo -e ${GREEN}=== yozliu_start:${YELLOW} abort ${NC} && return
+	
+    ip=$(my_ip_address)
+	
+    echo -e ${GREEN}== Set ${YELLOW}play.yozliu.pw IN A "$ip" ... ${NC}
+    $yozliu set play $ip
 }
 
 stop() {
     echo Stopping $(basename $0) ...
 }
 
-gandi_remove() {
+creeper_remove() {
     echo Gandi Removing $RECORD.creeper.tw ...
-    $gandi remove $RECORD $(my_ip_address)
+    $creeper remove $RECORD $(my_ip_address)
 }
 
-gandi_stop() {
+creeper_stop() {
     echo Gandi Stopping $(basename $0) ...
 }
 
@@ -309,14 +318,15 @@ case "$1" in
     # start
 	bungee_restart
     start2
-    gandi_append
-    gandi_start
+    creeper_append
+    creeper_start
+    yozliu_start
     exit
     ;;
   stop)
     # stop
-    gandi_remove
-    gandi_stop
+    creeper_remove
+    creeper_stop
     exit
     ;;
   test)
@@ -327,6 +337,7 @@ case "$1" in
     # start
 	bungee_restart
     start2
-    gandi_append
-    gandi_start
+    creeper_append
+    creeper_start
+    yozliu_start
 esac
