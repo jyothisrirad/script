@@ -30,7 +30,7 @@ pre_game_setup() {
 	server.prep
     [ ! -z $HOUSEKEEP ] && [ -f $HOUSEKEEP ] && $HOUSEKEEP install
 	
-    rm -rf $DP0/crash-reports
+    # rm -rf $DP0/crash-reports
     rm -rf $DP0/timings
     rm -rf $DP0/world*
     [ -d $DP0/GameWorld ] && cp -rf $DP0/GameWorld $DP0/world

@@ -67,10 +67,10 @@ uhcteams() {
 list_players() {
     export LOG_DELAY=.5
     # players=$(mcdo list | grep.player)
-    echo 線上玩家ID\($(mcdo list | grep.player | wc -l)\): 
+    echo 線上玩家ID\($(mcdo list | grep.player | sort -u | wc -l)\): 
     # echo $players | wc -l
     # echo $players
-    mcdo list | grep.player | sort
+    mcdo list | grep.player | sort -u
     export LOG_DELAY=.1
 }
 
@@ -678,6 +678,7 @@ log_parse_uhc() {
     echo 種子碼:
     log_parse_seed $*
     echo \\\\
+    echo 本次賽後賽:\\\\
     echo 下次賽後賽:\\\\
     echo \\\\
     echo 影片:\\\\
@@ -706,6 +707,7 @@ log_parse_uhcV2() {
     echo 種子碼:
     log_parse_seed $*
     echo \\\\
+    echo 本次賽後賽:\\\\
     echo 下次賽後賽:\\\\
     echo \\\\
     echo 影片:\\\\

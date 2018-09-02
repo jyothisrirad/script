@@ -65,7 +65,7 @@ stop() {
     echo -e ${GREEN}=== Delete instances: ${YELLOW}${group%?} ${NC}
     gcloud --project $ig_project compute instance-groups managed delete-instances $instances_group_region --instances=${group%?} --region $ig_region
     
-    dns_remove $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $10)}' | sort -u | tr '\n' ' ')
+    # dns_remove $(gcloud --project $ig_project compute instances list | grep "${instances_group_region}-" | awk '{printf ("%s\n", $10)}' | sort -u | tr '\n' ' ')
     
     set_account $default_account
 }
