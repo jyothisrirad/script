@@ -104,18 +104,18 @@ remove_ansi_color() {
 }
 
 # 
-grep.player0() {
-	inputlog=`cat`
-	linecnt=$(echo "${inputlog[*]}" | wc -l)
+# grep.player0() {
+	# inputlog=`cat`
+	# linecnt=$(echo "${inputlog[*]}" | wc -l)
 	# echo $linecnt, "${inputlog[*]}"
-	if [ $linecnt -lt 2 ]; then return; fi
+	# if [ $linecnt -lt 2 ]; then return; fi
 
-	players=$(echo "${inputlog[*]}" | grep -A 4 'players online\|玩家在線' | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/[a-zA-Z]*://g" | sed 's/,//g')
-	for player in $players
-	do
-		echo $player
-	done
-}
+	# players=$(echo "${inputlog[*]}" | grep -A 4 'players online\|玩家在線' | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/[a-zA-Z]*://g" | sed 's/,//g')
+	# for player in $players
+	# do
+		# echo $player
+	# done
+# }
 
 grep.player() {
 	inputlog=`cat`
@@ -169,7 +169,6 @@ file.cleanup() {
 
 file.replace.cause() {
 	[ -f $1 ] || { echo no file; return 1; }
-	sed -i "s/ using /，使用/g" $1
 	sed -i "s/ blew up/被炸死了/g" $1
 	sed -i "s/ burned to death/被燒死/g" $1
 	sed -i "s/ fell from a high place/從高處墜落/g" $1
@@ -187,6 +186,7 @@ file.replace.cause() {
 	sed -i "s/ left the game/不玩了/g" $1
 	sed -i "s/ drowned/淹死了/g" $1
 	sed -i "s/ was blown up by Creeper/被苦力怕炸飛了/g" $1
+	sed -i "s/ using /，使用/g" $1
 }
 
 file.replace.mob() {

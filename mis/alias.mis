@@ -193,6 +193,16 @@ speed_host() {
 }
 
 #=================================
+weeks_calc() {
+	date --date "$(date) $1 weeks"
+}
+
+#=================================
+days_calc() {
+	date --date "$(date) -$1 days"
+}
+
+#=================================
 . ~/script/minecraft/alias/admin.1.help
 # help_hline3 '基本(mis)'
 
@@ -274,3 +284,6 @@ help_add 'scan' '掃描主機'
 alias scan='nmap -v -A -Pn $*'
 
 #=================================
+alias days='days_calc $*'
+alias weeks='weeks_calc $*'
+
