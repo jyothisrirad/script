@@ -107,12 +107,13 @@ geolocate_bc() {
 }
 
 usernamelocate_mc() {
-	grep 'logged\|banned' | grep -E "[a-zA-Z0-9_]{3,16}"
+	# grep 'logged\|banned' | grep -E "[a-zA-Z0-9_]{3,16}"
+	grep 'logged\|banned' | awk -F' ' '{ printf ("%s\n",$4) }' | awk -F'[' '{ printf ("%s\n",$1) }' | sort -u | grep -Eo "[a-zA-Z0-9_]{3,16}"
 }
 
 usernamelocate_bc() {
 	# echo usernamelocate_bc ...
-	grep 'ServerConnector' | grep -E "[a-zA-Z0-9_]{3,16}"
+	grep 'ServerConnector' | grep -E "[a-zA-Z0-9_]{3,16}" | awk -F'[' '{ printf ("%s\n",$3) }' | awk -F']' '{ printf ("%s\n",$1) }' | sort -u | grep -Eo "[a-zA-Z0-9_]{3,16}"
 }
 
 #=================================

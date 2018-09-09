@@ -6,45 +6,152 @@
 #=================================
 bungee_online_mode() {
 	[ -f config.yml ] && echo online_mode: true >>config.yml
+    mcdo greload 
 }
 
 bungee_offline_mode() {
 	[ -f config.yml ] && echo online_mode: false >>config.yml
-
+    mcdo greload
 }
 
 #=================================
-bungee_send() {
-    mcdo viaversion probe
-    export LOG_DELAY=.5
-    mcdo send all $*
-    export LOG_DELAY=.1
-    [ ! -z "$tempver" ] && chmc $tempver
-}
-
-bungee_sendall_send() {
+# bungee_send() {
     # mcdo viaversion probe
-    mcdo sendtoall viaversion probe
+    # export LOG_DELAY=.5
+    # mcdo send all $*
+    # export LOG_DELAY=.1
+    # [ ! -z "$tempver" ] && chmc $tempver
+# }
+
+# bungee_sendall_send() {
+    # mcdo sendtoall viaversion probe
+    # export LOG_DELAY=.5
+    # mcdo sendtoall send $1 $2
+    # export LOG_DELAY=.1
+    # [ ! -z "$tempver" ] && chmc $tempver
+# }
+
+#=================================
+# proxy_list() {
+    # tempver=$mcver 
+    # s65
+    
+    # export LOG_DELAY=.5
+    
+    # ids=$(mcdo serverids | grep -o "IDs:.*" | sed "s/IDs:// g" | sed "s/,//g")
+    # for id in $ids
+    # do
+        # echo -e "= BungeeCord: ${YELLOW}$id ${NC}"
+        # mcdo plist $id showall
+    # done
+    
+    # export LOG_DELAY=.1
+    
+    # [ ! -z "$tempver" ] && chmc $tempver
+# }
+
+#=================================
+bungee_command_pre() {
+    tempver=$mcver 
+    s65
     export LOG_DELAY=.5
-    mcdo sendtoall send $1 $2
+}
+
+#=================================
+bungee_command_post() {
     export LOG_DELAY=.1
     [ ! -z "$tempver" ] && chmc $tempver
 }
 
 #=================================
-alias offline='tempver=$mcver && 68 && mcwo && 65 && bungee_offline_mode && mcdo greload && sleep 10 && online && chmc $tempver'
-alias online='tempver=$mcver && 68 && mcwf && 65 && bungee_online_mode && mcdo greload && chmc $tempver'
+bungee_cmd() {
+    cmdline=$*
+    
+    # echo mcdo $cmdline
+    [ ! -z "$probe_first" ] && mcdo viaversion probe
+    [ ! -z "$probe_all" ] && mcdo sendtoall viaversion probe
+    mcdo $cmdline
+}
 
 #=================================
-# alias probe='tempver=$mcver && 65 && mcdo viaversion probe && chmc $tempver'
-alias probe='tempver=$mcver && 65 && mcdo sendtoall viaversion probe && chmc $tempver'
-alias glist='tempver=$mcver && 65 && export LOG_DELAY=.5 && mcdo glist showall && export LOG_DELAY=.1 && chmc $tempver'
-alias greload='tempver=$mcver && 65 && export LOG_DELAY=.5 && mcdo greload && export LOG_DELAY=.1 && chmc $tempver'
-# alias ghub='tempver=$mcver && 65 && mcdo send all hub && chmc $tempver'
-# alias guhc='tempver=$mcver && 65 && mcdo send all uhc && chmc $tempver'
-alias send='tempver=$mcver && 65 && bungee_send $*'
-alias ssend='tempver=$mcver && 65 && bungee_sendall_send all $*'
-alias ssend1='tempver=$mcver && 65 && bungee_sendall_send $*'
+bungee_command() {
+    bungee_command_pre
+    bungee_cmd $*
+    bungee_command_post
+}
+
+#=================================
+bungee_sendall() {
+    bungee_command_pre
+    bungee_cmd sendtoall $*
+    bungee_command_post
+}
+
+#=================================
+bungee_probe_command() {
+    probe_first=1
+    bungee_command_pre
+    bungee_cmd $*
+    bungee_command_post
+    unset probe_first
+}
+
+#=================================
+bungee_probe_sendall() {
+    probe_all=1
+    bungee_sendall $*
+    unset probe_all
+}
+
+#=================================
+proxy_list() {
+    bungee_command_pre
+    
+    ids=$(mcdo serverids | grep -o "IDs:.*" | sed "s/IDs:// g" | sed "s/,//g")
+    for id in $ids
+    do
+        echo -e "= BungeeCord: ${YELLOW}$id ${NC}"
+        # mcdo plist $id showall
+        bungee_cmd plist $id showall
+    done
+    
+    bungee_command_post
+}
+
+#=================================
+bungee_user_info() {
+    user=$1
+    
+    bungee_command_pre
+    export LOG_DELAY=1
+    if bungee_cmd lastseen $user|grep --quiet 'specify\|never\|last online\|No such player'; then
+        bungee_cmd lastseen $user
+    else
+        export LOG_DELAY=.5
+        bungee_cmd find $user
+        bungee_cmd ip $user
+        bungee_cmd pproxy $user
+    fi
+    bungee_command_post
+}
+
+#=================================
+alias offline='tempver=$mcver && 68 && mcwo && 65 && bungee_offline_mode && sleep 10 && online && chmc $tempver'
+alias online='tempver=$mcver && 68 && mcwf && 65 && bungee_online_mode && chmc $tempver'
+
 #=================================
 # help_add 'bcip.<id>' '找出登入ip'
 # alias bcip='cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -A 3 $*'
+
+#=================================
+alias probe='bungee_command sendtoall viaversion probe'
+alias glist='bungee_command glist showall'
+alias plist='proxy_list'
+alias greload='bungee_command greload'
+alias seen='bungee_user_info $*'
+
+#=================================
+alias send='bungee_probe_command send all $*'
+alias send1='bungee_probe_command send $*'
+alias ssend='bungee_probe_sendall send all $*'
+alias ssend1='bungee_probe_sendall send $*'
