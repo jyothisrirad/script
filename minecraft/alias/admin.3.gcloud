@@ -112,6 +112,13 @@ dnsctl() {
 }
 
 #=================================
+dns_remove() {
+    file=/home/sita/script/minecraft/gcloud/$1
+    [ -f "$file" ] && echo -e ${GREEN}=== Running $file ${YELLOW}$2 ${NC} && $file $2
+    [ ! -f "$file" ] && echo -e ${RED}$file not found${NC}
+}
+
+#=================================
 alias gkey='[ ! -d /home/sita/.gcloud ] && mkdir /home/sita/.gcloud || rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/*.json /home/sita/.gcloud/ '
 # alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 # alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
@@ -136,6 +143,8 @@ help_add 'dns.<hostname>' 'DNS設定'
 alias dns='dnssetup $*'
 help_add 'dnst.[start|commit|abort]' 'DNS設定交易控制'
 alias dnst='dnsctl'
+help_add 'removeip' '移除DNS設定'
+alias removeip='dns_remove'
 
 #=================================
 help_add 'lb.<start|stop>' '負載平衡器1開始|結束'
