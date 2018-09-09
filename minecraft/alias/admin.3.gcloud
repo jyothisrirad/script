@@ -114,7 +114,8 @@ dnsctl() {
 #=================================
 dns_remove() {
     file=/home/sita/script/minecraft/gcloud/$1
-    [ -f "$file" ] && echo -e ${GREEN}=== Running $file ${YELLOW}$2 ${NC} && $file $2
+    action=stop
+    [ -f "$file" ] && echo -e ${GREEN}=== Running $file ${YELLOW}$action ${NC} && $file $action
     [ ! -f "$file" ] && echo -e ${RED}$file not found${NC}
 }
 
