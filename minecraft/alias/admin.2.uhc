@@ -52,6 +52,18 @@ playertaglist() {
 }
 
 #=================================
+duplicate_player_scores() {
+    p1=$1
+    p2=$2
+    mcdo scoreboard players reset $p2
+    scores=$(mcdo scoreboard players list $p1 | egrep -o "\(.*\)" | tr '()' ' ')
+    for score in $scores
+    do
+        mcdo scoreboard players add $p2 $score 0
+    done
+}
+
+#=================================
 # aqua() { 
 	# echo A 
 # }
@@ -745,6 +757,8 @@ alias ruleotg='otglist'
 #=================================
 help_hline2 '記分板'
 
+help_add 'sb' '記分板'
+alias sb='mcdo scoreboard $*'
 help_add 'teams.[team]' '列出隊伍名稱/隊伍內玩家'
 alias teams='mcdo scoreboard teams list'
 help_add 'obj' '列出變數'
@@ -753,6 +767,8 @@ help_add 'players.[player]' '列出玩家/玩家目標'
 alias players='mcdo scoreboard players list'
 help_add 'tag.<player>' '列出玩家標籤'
 alias tag='playertaglist $*'
+help_add 'dup.<p1>.<p2>' '複製p1計分表到p2'
+alias dup='duplicate_player_scores $*'
 
 #=================================
 help_hline1 '隊伍/UHC分隊'
