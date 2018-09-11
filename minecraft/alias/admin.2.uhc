@@ -52,6 +52,10 @@ playertaglist() {
 }
 
 #=================================
+# teams join <team> <id>
+# gamemode 2 <id>
+# spawnpoint <id>
+# dup <tid> <id>
 duplicate_player_scores() {
     p1=$1
     p2=$2

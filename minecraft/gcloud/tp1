@@ -171,7 +171,7 @@ start() {
         
         # A wiki.creeper.tw 1min
         echo -e ${GREEN}== Updating ${YELLOW}wiki.creeper.tw ${GREEN}1min to ${YELLOW}3hour IN A ... ${NC}
-        $dnsupdate A creeper-tw wiki creeper.tw 1min 3hour     
+        $dnsupdate A creeper-tw wiki creeper.tw 1min 3hour       
         
         # A r53.creeper.tw 3hour
         # echo -e ${GREEN}=== Appending A r53.creeper.tw 3hour ${NC}
@@ -271,7 +271,10 @@ creeper_start() {
     $creeper set gem $ip
 	
     echo -e ${GREEN}== Set ${YELLOW}wiki.creeper.tw IN A "$ip" ... ${NC}
-    $creeper set wiki $ip
+    $creeper set wiki $ip  
+        
+    echo -e ${GREEN}== Set ${YELLOW}rec01.creeper.tw IN A "$ip" ... ${NC}
+    $creeper set rec01 $ip  
 	
     echo -e ${GREEN}== Set ${YELLOW}db.creeper.tw IN A "$ip" ... ${NC}
     $creeper set db $ip
