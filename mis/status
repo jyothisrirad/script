@@ -309,7 +309,7 @@ tinker_info() {
     echo =================================
     lsblk
     sysbench --test=fileio --file-total-size=1G prepare
-    sysbench --test=fileio --file-total-size=1G --file--test-mode=rndrw --init-rng=on --max-time=300 --max-requests=0 run
+    sysbench --test=fileio --file-total-size=1G --file-test-mode=rndrw --init-rng=on --max-time=300 --max-requests=0 run
     
     echo =================================
     echo usb_info
@@ -413,7 +413,7 @@ case "$1" in
         tinker_info
 		;;
   *)
-		echo "Usage: /etc/init.d/$0 {install|uninstall|info|mb|gpu|net|disk|smart|os|maillog|watch|benchmark}"
+		echo "Usage: /etc/init.d/$0 {install|uninstall|info|mb|gpu|net|disk|smart|os|maillog|watch|benchmark|tinker}"
 		exit 1
 		;;
 esac
