@@ -287,32 +287,49 @@ postfix_fix() {
 }
 
 tinker_info() {
-    # cpu_info
+    echo =================================
+    echo cpu_info
+    echo =================================
     lscpu
-    cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
-    cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    sysbench –test=cpu –cpu-max-prime=2000 run
-    # cpu_temp
+    sudo cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    sudo cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    sysbench -test=cpu -cpu-max-prime=2000 run
+    
+    echo =================================
+    echo cpu_temp
+    echo =================================
     # Full CPU
     # sysbench --test=cpu --cpu-max-prime=100000 --num-threads=4 run
     cat /sys/class/thermal/thermal_zone1/temp
     # mb_info
     # ram_info
-    sysbench –test=memory –memory-block-size=8K –memory-total-size=1G –memory-oper=read run
+    sysbench -test=memory -memory-block-size=8K -memory-total-size=1G -memory-oper=read run
 
-    sysbench –test=memory –memory-block-size=8K –memory-total-size=1G run
+    sysbench -test=memory -memory-block-size=8K -memory-total-size=1G run
     # network_info
-    # disk_info
+    
+    echo =================================
+    echo disk_info
+    echo =================================
     lsblk
-    sysbench –test=fileio –file-total-size=1G prepare
-    sysbench –test=fileio –file-total-size=1G –file-test-mode=rndrw –init-rng=on –max-time=300 –max-requests=0 run
-    # usb_info
+    sysbench -test=fileio -file-total-size=1G prepare
+    sysbench -test=fileio -file-total-size=1G -file-test-mode=rndrw -init-rng=on -max-time=300 -max-requests=0 run
+    
+    echo =================================
+    echo usb_info
+    echo =================================
     lsusb
     # gpu2d_info
     # gpu3d_info
-    # os_info
+    
+    echo =================================
+    echo os_info
+    echo =================================
     lsb_release -a
-    # uptime_info
+    
+    echo =================================
+    echo uptime_info
+    echo =================================
     w
     # benchmark_info
     
