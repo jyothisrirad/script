@@ -14,7 +14,7 @@ sudo chown sita:sita /mnt/runtimes
 [ ! -d /mnt/backup ] && sudo mkdir /mnt/backup
 sudo chown sita:sita /mnt/backup
 
-sudo apt install -y zip dnsutils uni2ascii bc jq
+sudo apt install -y zip dnsutils uni2ascii bc jq rsync screen
 
 export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s`
 echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list
@@ -24,7 +24,8 @@ echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | sudo t
 echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 sudo apt update
-sudo apt install -y --allow-unauthenticated oracle-java8-installer gcsfuse
+sudo apt install -y --allow-unauthenticated oracle-java8-installer
+sudo apt install gcsfuse
 
 [ -d "/home/sita/.gcloud" ] && mkdir /home/sita/.gcloud && rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/
 # gcloud iam service-accounts keys create /home/sita/script/minecraft/gcloud/key.json --iam-account=594227564613-compute@developer.gserviceaccount.com
