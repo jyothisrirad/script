@@ -321,7 +321,7 @@ tinker_info() {
     echo =================================
     echo os_info
     echo =================================
-    lsb_release -a
+    lsb_release -idrc
     
     echo =================================
     echo uptime_info
@@ -334,7 +334,7 @@ tinker_info() {
     echo =================================
     # Full CPU
     # sysbench ---test=cpu --cpu-max-prime=100000 --num-threads=4 run
-    cat /sys/class/thermal/thermal_zone1/temp
+    cat /sys/class/thermal/thermal_zone?/temp
     
 }
 
