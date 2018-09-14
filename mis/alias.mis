@@ -287,3 +287,4 @@ alias scan='nmap -v -A -Pn $*'
 alias days='days_calc $*'
 alias weeks='weeks_calc $*'
 
+alias temp='cat /sys/class/thermal/thermal_zone?/temp'

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 crontab_status() {
 	# user=$(whoami)
@@ -308,8 +308,11 @@ tinker_info() {
     echo disk_info
     echo =================================
     lsblk
+    [ ! -d ~/test_file ] && mkdir ~/test_file
+    pushd ~/test_file
     sysbench --test=fileio --file-total-size=1G prepare
     sysbench --test=fileio --file-total-size=1G --file-test-mode=rndrw --init-rng=on --max-time=300 --max-requests=0 run
+    popd
     
     echo =================================
     echo usb_info
