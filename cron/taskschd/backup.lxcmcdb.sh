@@ -5,7 +5,8 @@
 ### 
 id="sita@changen.com.tw"
 gstorage="creeper-tw2"
-localpath="/mnt/$gstorage/$(hostname)"
+localpath="/mnt/$gstorage"
+localpath2="/mnt/$gstorage/$(hostname)"
 keyfile="/home/sita/.gcloud/$id.json"
 # gameid=s65
 myfile="/home/sita/.my.cnf"
@@ -38,6 +39,8 @@ back_log() {
 		# DP0=$(dirname "$DIR")
 		
 		gs_mount
+        
+        [ ! -d "$localpath2" ] && sudo mkdir $localpath2 && sudo chown sita:sita $localpath2
 		
 		# archive=/tmp/$(date '+%Y%m%d_%H%M')-$(my_ip_address)-$(hostname)-proxy.log.0.tar.gz
 		# pushd $DP0
@@ -61,7 +64,7 @@ back_log() {
 		
 		archive=/tmp/$(date '+%Y%m%d_%H%M')-$(hostname)-alltable.sql.gz
 		mysqldump --defaults-extra-file=$myfile -h localhost --single-transaction --quick --lock-tables=false --all-databases | gzip -9 > $archive
-		mv $archive $localpath
+		mv $archive $localpath2
 
 	# fi
 }
