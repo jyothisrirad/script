@@ -5,7 +5,8 @@
 
 # dns_external=tw3
 dns_external=
-dns_updates=($dns_external bc)
+# dns_updates=($dns_external bc)
+dns_updates=(bcgroups)
 servers=(s65)
 servers2=
 autostart=1
