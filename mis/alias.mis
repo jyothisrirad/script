@@ -59,9 +59,9 @@ pidinfo() {
 #=================================
 pid_tree() {
 	# ps -eo ppid,pid,cmd | awk '{p[$1]=p[$1]","$3}END{ for(i in p) print i, p[i]}'
-	pstree
+	#pstree
 	# pstree -s $$
-	# pstree -p
+	pstree -p
 }
 
 #=================================
