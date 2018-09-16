@@ -24,12 +24,16 @@ listfile() {
 
 	echo -e "${GREEN}===== Content of $ZIPDIR =====${NC}"
 
-	cnt=0
-	for zip in ${ZIPLIST[@]}
-	do
-		echo $cnt: $(basename $zip)
-		cnt=$((cnt + 1))
+	# cnt=0
+	# for zip in ${ZIPLIST[@]}
+	# do
+		# echo $cnt: $(basename $zip)
+		# cnt=$((cnt + 1))
+	# done
+	for ((i=${#ZIPLIST[@]}-1; i>=0; i--)); do
+	  echo $i: $(basename ${ZIPLIST[$i]})
 	done
+
 
 	echo -e "${GREEN}=====${NC}"
 }

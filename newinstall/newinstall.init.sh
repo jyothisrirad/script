@@ -40,7 +40,7 @@ BASEDIR=$(dirname $0)
 
 #-------------------------------------------------
 sudo apt update
-sudo apt-get install -y git ntpdate samba tmux at libnss-winbind screen nfs-common htop
+sudo apt-get install -y git ntpdate samba tmux at libnss-winbind rsync cron screen nfs-common htop
 
 #-------------------------------------------------
 sh ${BASEDIR}/../gitconf.sh
