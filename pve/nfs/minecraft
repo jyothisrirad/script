@@ -14,5 +14,5 @@ nfs_enable() {
 	alias $1="\"cd /mnt/$1\""
 }
 
-nfs_enable $HOST /tank/Shares/Users/yoz/minecraft /mnt
-# nfs_enable $HOST /mnt/backup /mnt/backup
+# nfs_enable $HOST /tank/Shares/Users/yoz/minecraft /mnt
+nfs_enable $HOST/tank/Shares/Users/yoz/minecraft/backup /mnt/backup
