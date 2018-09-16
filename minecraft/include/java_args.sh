@@ -6,10 +6,16 @@ json_encoding() {
     unset IFS
 }
 
+is_largepage_supported() {
+    cat /proc/meminfo | grep -F --quiet Huge
+    return $?
+}
+
 JARFILE="spigot-1.12.2.jar"
 OPTMEM="-Xmx1G"
 OPTGC="-XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=45 -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=50 -XX:+AggressiveOpts"
-OPTPAGE="-XX:LargePageSizeInBytes=2M -XX:+UseLargePages -XX:+UseLargePagesInMetaspace"
+is_largepage_supported && OPTPAGE="-XX:LargePageSizeInBytes=2M -XX:+UseLargePages -XX:+UseLargePagesInMetaspace"
+# echo OPTPAGE=$OPTPAGE
 [ ! -z $mc_debug_mode ] && OPTLOG="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=9 -XX:GCLogFileSize=1M -Xloggc:logs/memory.log"
 
 # [ $(date +%A) == 'Saturday' ] && 
