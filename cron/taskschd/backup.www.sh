@@ -29,10 +29,6 @@ gs_mount() {
 	[ -z "$gsmounted" ] && gcsfuse --key-file $keyfile $gstorage $localpath
 }
 
-nas_mount() {
-	[ ! -d "$localpath" ] && exit
-}
-
 # my_ip_address() {
     # curl -s4 http://me.gandi.net
 # }
@@ -42,10 +38,9 @@ back_log() {
 		# DIR=$(readlink -e "$0")
 		# DP0=$(dirname "$DIR")
 		
-		# gs_mount
-        nas_mount
+		gs_mount
         
-		[ ! -d "$localpath2" ] && sudo mkdir $localpath2 && sudo chown sita:sita $localpath2
+        [ ! -d "$localpath2" ] && sudo mkdir $localpath2 && sudo chown sita:sita $localpath2
 		
 		# archive=/tmp/$(date '+%Y%m%d_%H%M')-$(my_ip_address)-$(hostname)-proxy.log.0.tar.gz
 		# pushd $DP0

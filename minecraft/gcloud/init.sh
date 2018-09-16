@@ -25,7 +25,7 @@ echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | su
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 sudo apt update
 sudo apt install -y --allow-unauthenticated oracle-java8-installer
-sudo apt install gcsfuse
+sudo apt install -y gcsfuse
 
 [ -d "/home/sita/.gcloud" ] && mkdir /home/sita/.gcloud && rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/chsliu@gmail.com.json /home/sita/.gcloud/
 # gcloud iam service-accounts keys create /home/sita/script/minecraft/gcloud/key.json --iam-account=594227564613-compute@developer.gserviceaccount.com
