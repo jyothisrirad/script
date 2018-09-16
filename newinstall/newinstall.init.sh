@@ -40,7 +40,7 @@ BASEDIR=$(dirname $0)
 
 #-------------------------------------------------
 sudo apt update
-sudo apt-get install -y git ntpdate samba tmux at libnss-winbind htop
+sudo apt-get install -y git ntpdate samba tmux at libnss-winbind screen nfs-common htop
 
 #-------------------------------------------------
 sh ${BASEDIR}/../gitconf.sh
@@ -102,7 +102,8 @@ addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 echo ===========================================
 echo For workstation, add this line to /etc/fstab
 echo ===========================================
-echo tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
+addto_fstab \#For workstation, uncomment the line on /var/log
+addto_fstab \#tmpfs /var/log tmpfs defaults,noatime,mode=0755 0 0
 
 #-------------------------------------------------
 # generate the missing locale

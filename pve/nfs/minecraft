@@ -1,6 +1,9 @@
 #!/bin/bash
+# localpc -> nfs
+# localvm -> host nfs
+# cloudpc -> gcsfuse
 
-HOST=$(basename $0)
+HOST=pve5
 
 nfs_enable() {
 	[ -d $3 ] || sudo mkdir $3
@@ -11,4 +14,5 @@ nfs_enable() {
 	alias $1="\"cd /mnt/$1\""
 }
 
-nfs_enable $HOST /tank/Shares /mnt/$HOST
+nfs_enable $HOST /tank/Shares/Users/yoz/minecraft /mnt
+# nfs_enable $HOST /mnt/backup /mnt/backup

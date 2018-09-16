@@ -1,6 +1,6 @@
 ###basic setup for new system
-root#>	adduser username
-root#>	apt install -y git sudo ca-certificates
+root#>	sudo adduser username
+root#>	sudo apt install -y git sudo ca-certificates
 user$>	git clone https://github.com/chsliu/script.git
 root#> 	newinstall.sudo.sh
 user$>	newinstall.init.sh <hostname>

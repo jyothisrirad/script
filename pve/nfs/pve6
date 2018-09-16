@@ -8,7 +8,7 @@ nfs_enable() {
 	sudo umount $3 &>/dev/null
 	sudo mount -t nfs -o nosuid,noexec,nodev,bg,soft $1:$2 $3
 	
-	echo alias $1="\"cd /mnt/$1\""
+	alias $1="\"cd /mnt/$1\""
 }
 
 nfs_enable $HOST /tank/Shares /mnt/$HOST
