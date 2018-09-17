@@ -23,7 +23,7 @@ fstabe_enable() {
 	# alias $1="\"cd /mnt/$1\""
 	file=/etc/fstab
 	line="$1:$2 $3 nfs nosuid,noexec,nodev,bg,soft,rw,udp 0 0"
-	[ -f $file ] && sudo sed -i "/^$line/d" $file
+	[ -f $file ] && sudo sed -i "\;^$line;d" $file
 	[ -f $file ] && sudo sed -i "\$a$line" $file
 	
 	sudo mount -a
