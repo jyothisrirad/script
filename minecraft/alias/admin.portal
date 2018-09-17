@@ -31,6 +31,23 @@ maxplayers() {
 }
 
 #=================================
+append_line() {
+	file=$1
+	shift 1
+	line=$*
+	[ -f $file ] && sed -i "/$line/d" $file
+	# [ -f $file ] && echo "$file: $line" && sed -i "/^EOM/a $line" $file
+	[ -f $file ] && echo "$file: $line" && sed -e "\$a$line" $file
+}
+
+#=================================
+make_standalone_server() {
+	setmcport 25565
+	append_line config.sh 'echo settings:>>spigot.yml'
+	append_line config.sh 'echo "  bungeecord: false">>spigot.yml'
+}
+
+#=================================
 alias ppclear='clearmcport'
 alias pp0='setmcport 20402'
 alias pp1='setmcport 20403'
@@ -44,3 +61,7 @@ alias pp7='setmcport 20609'
 #=================================
 help_add 'p' '查詢/設定人數上限'
 alias p='maxplayers'
+
+#=================================
+help_add 'mkalone' '設定為獨立伺服器'
+alias mkalone='make_standalone_server'
