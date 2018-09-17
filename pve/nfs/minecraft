@@ -14,5 +14,21 @@ nfs_enable() {
 	alias $1="\"cd /mnt/$1\""
 }
 
+fstabe_enable() {
+	[ -d $3 ] || sudo mkdir $3
+
+	# sudo umount $3 &>/dev/null
+	# sudo mount -t nfs -o nosuid,noexec,nodev,bg,soft $1:$2 $3
+	
+	# alias $1="\"cd /mnt/$1\""
+	file=/etc/fstab
+	line="$1:$2 $3 nfs nosuid,noexec,nodev,bg,soft,rw,udp 0 0"
+	[ -f $file ] && sudo sed -i "/^$line/d" $file
+	[ -f $file ] && sudo sed -i "\$a$line" $file
+	
+	sudo mount -a
+}
+
 [ ! -d /mnt/runtimes ] && sudo mkdir /mnt/runtimes
-nfs_enable $HOST /tank/Shares/Users/yoz/minecraft/backup /mnt/backup
+# nfs_enable $HOST /tank/Shares/Users/yoz/minecraft/backup /mnt/backup
+fstabe_enable $HOST /tank/Shares/Users/yoz/minecraft/backup /mnt/backup
