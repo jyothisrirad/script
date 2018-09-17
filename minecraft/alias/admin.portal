@@ -6,6 +6,7 @@ help_hline3 '伺服器設定調整(portal)'
 #=================================
 setmcport() {
     # [ -f config.sh ] && echo "server-port=$1" && echo "echo server-port=$1>>server.properties">>config.sh
+    [ -f config.sh ] &&  sed -i "/^server-port=$1/d" config.sh
     [ -f config.sh ] && echo "server-port=$1" && sed -i "/^EOM/i server-port=$1" config.sh
 }
 
@@ -35,9 +36,9 @@ append_line() {
 	file=$1
 	shift 1
 	line=$*
-	[ -f $file ] && sed -i "/$line/d" $file
+	[ -f $file ] && sed -i "/^$line/d" $file
 	# [ -f $file ] && echo "$file: $line" && sed -i "/^EOM/a $line" $file
-	[ -f $file ] && echo "$file: $line" && sed -e "\$a$line" $file
+	[ -f $file ] && echo "$file: $line" && sed -i "\$a$line" $file
 }
 
 #=================================
