@@ -137,8 +137,10 @@ bungee_user_info() {
 }
 
 #=================================
-alias offline='tempver=$mcver && 68 && mcwo && 65 && bungee_offline_mode && sleep 10 && online && chmc $tempver'
-alias online='tempver=$mcver && 68 && mcwf && 65 && bungee_online_mode && chmc $tempver'
+# alias offline='tempver=$mcver && 68 && mcwo && 65 && bungee_offline_mode && sleep 10 && online && chmc $tempver'
+alias offline='tempver=$mcver && chmc $s68 && mcwo && chmc $s65 && bungee_offline_mode && sleep 10 && online && chmc $tempver'
+# alias online='tempver=$mcver && 68 && mcwf && 65 && bungee_online_mode && chmc $tempver'
+alias online='tempver=$mcver && chmc $s68 && mcwf && chmc $s65 && bungee_online_mode && chmc $tempver'
 
 #=================================
 # help_add 'bcip.<id>' '找出登入ip'

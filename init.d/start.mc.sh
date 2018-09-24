@@ -21,7 +21,7 @@ mcstart_nocheck() {
     
 	for srv in ${servers[*]}
 	do
-		$srv
+		chmc ${!srv}
         [ ! -z $rematch ] && echo -e "${GREEN}=== Restoring $mcver ${NC}" && mcserver pre_restore && mcserver restore
 		[ -n "$(type -t custom_function)" ] && [ "$(type -t custom_function)" = function ] && echo -e "${GREEN}=== $mcver custom_function ${NC}" && custom_function
         [ -f update.sh ] && echo -e "${GREEN}=== $mcver/update.sh ${NC}" && as_user "./update.sh"
@@ -81,14 +81,14 @@ stop() {
     
 	for srv in ${servers[*]}
 	do
-		$srv && mcserver halt
+		chmc ${!srv} && mcserver halt
 	done
 }
 
 stop2() {
 	for srv in ${servers2[*]}
 	do
-		$srv && mcserver halt
+		chmc ${!srv} && mcserver halt
 	done
 }
 
@@ -96,7 +96,7 @@ checklag() {
 	for srv in ${servers[*]}
 	do
 		echo -e ${YELLOW}mcver=$mcver${NC}
-		$srv && logs | grep.lag
+		chmc ${!srv} && logs | grep.lag
 	done
 }
 
@@ -104,7 +104,7 @@ checkclag() {
 	for srv in ${servers[*]}
 	do
 		echo -e ${YELLOW}mcver=$mcver${NC}
-		$srv && logs | grep '服務器'
+		chmc ${!srv} && logs | grep '服務器'
 	done
 }
 
