@@ -6,8 +6,8 @@
 dns_external=tp1
 #dns_updates=($dns_external uhc)
 dns_updates=($dns_external)
-servers=(s65 s68 s32 s91 s33 s34)
-servers2=(s32 s91 s33 s34)
+servers=(s65 s68 s32 s33 s34 s35)
+servers2=(s32 s33 s34 s35)
 # autostart=1
 # rematch_hour=19
 

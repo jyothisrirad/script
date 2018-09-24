@@ -53,7 +53,8 @@ bungee_offline_mode() {
 #=================================
 bungee_command_pre() {
     tempver=$mcver 
-    s65
+    # s65
+    chmc $s65
     export LOG_DELAY=.5
 }
 
