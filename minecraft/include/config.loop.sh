@@ -32,7 +32,7 @@ pre_game_setup() {
 	
     # rm -rf $DP0/crash-reports
     rm -rf $DP0/timings
-    rm -rf $DP0/world*
+    [ -d $DP0/GameWorld ] && rm -rf $DP0/world*
     [ -d $DP0/GameWorld ] && cp -rf $DP0/GameWorld $DP0/world
 	echo [pre_game_setup][end]
 }

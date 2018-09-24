@@ -4,9 +4,24 @@
 help_hline3 '作弊(cheats)'
 
 #=================================
+weather_toggle() {
+    if [ -z "$weather_rain" ]; then
+        weather_rain=1; export weather_rain
+        echo -e ${YELLOW}=== Make it rain!${NC}
+		mcserver do weather rain
+    else
+        unset weather_rain
+        echo -e ${GREEN}=== Stop the rain.${NC}
+		mcserver do weather clear
+    fi
+}
+
+#=================================
 alias day='mcserver do time set day'
 alias night='mcserver do time set night'
-alias rain='mcserver do toggledownfall'
+help_add 'rain' '下雨切換'
+# alias rain='mcserver do toggledownfall'
+alias rain='weather_toggle'
 alias nomob='mcdo difficulty 0 && mcdo difficulty 1'
 alias peace='mcdo difficulty 0'
 

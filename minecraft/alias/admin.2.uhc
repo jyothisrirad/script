@@ -721,6 +721,11 @@ log_parse_uhc() {
 }
 
 log_parse_uhcV2() {
+    echo 歡迎投稿比賽截圖，\\\\
+    echo 請在明天前把你的截圖貼在下方留言，\\\\
+    echo 我們會選出最特別的當作本次比賽紀錄的附圖。\\\\
+    echo 每人限投1張圖，多投以第1張為準。\\\\
+    echo \\\\
 	uhctitle_byfile $*
     echo 感言:\\\\
     echo 生物群系:\\\\
