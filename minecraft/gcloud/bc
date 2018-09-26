@@ -51,7 +51,10 @@ gandi_remove() {
 }
 
 gandi_stop() {
-    echo Gandi Stopping $(basename $0) ...
+    # echo Gandi Stopping $(basename $0) ...
+    ip=$(my_ip_address)
+    echo -e ${GREEN}== Removing ${YELLOW}$HOST.creeper.tw IN A "$ip" ... ${NC}
+    $gandi remove $HOST $ip
 }
 
 ###
