@@ -82,6 +82,15 @@ bungee_command() {
 }
 
 #=================================
+bungee_command_noecho() {
+    bungee_command_pre
+    export mcecho_off=1
+    bungee_cmd $*
+    export mcecho_off=
+    bungee_command_post
+}
+
+#=================================
 bungee_sendall() {
     bungee_command_pre
     bungee_cmd sendtoall $*
@@ -98,6 +107,16 @@ bungee_probe_command() {
 }
 
 #=================================
+bungee_probe_command_noecho() {
+    probe_first=1
+    # bungee_command_pre
+    # bungee_cmd $*
+    # bungee_command_post
+    bungee_command_noecho $*
+    unset probe_first
+}
+
+#=================================
 bungee_probe_sendall() {
     probe_all=1
     bungee_sendall $*
@@ -105,9 +124,19 @@ bungee_probe_sendall() {
 }
 
 #=================================
+bungee_probe_sendall_noecho() {
+    probe_all=1
+    export mcecho_off=1
+    bungee_sendall $*
+    export mcecho_off=
+    unset probe_all
+}
+
+#=================================
 proxy_list() {
     bungee_command_pre
     
+    export mcecho_off=1
     ids=$(mcdo serverids | grep -o "IDs:.*" | sed "s/IDs:// g" | sed "s/,//g")
     for id in $ids
     do
@@ -115,6 +144,7 @@ proxy_list() {
         # mcdo plist $id showall
         bungee_cmd plist $id showall
     done
+    export mcecho_off=
     
     bungee_command_post
 }
@@ -125,6 +155,7 @@ bungee_user_info() {
     
     bungee_command_pre
     export LOG_DELAY=1
+    export mcecho_off=1
     if bungee_cmd lastseen $user|grep --quiet 'specify\|never\|last online\|No such player'; then
         bungee_cmd lastseen $user
     else
@@ -133,6 +164,7 @@ bungee_user_info() {
         bungee_cmd ip $user
         bungee_cmd pproxy $user
     fi
+    export mcecho_off=
     bungee_command_post
 }
 
@@ -147,14 +179,14 @@ alias online='tempver=$mcver && chmc $s68 && mcwf && chmc $s65 && bungee_online_
 # alias bcip='cat /mnt/runtimes/65-bungeeCord-azure/proxy.log.0 | grep -A 3 $*'
 
 #=================================
-alias probe='bungee_command sendtoall viaversion probe'
-alias glist='bungee_command glist showall'
+alias probe='bungee_command_noecho sendtoall viaversion probe'
+alias glist='bungee_command_noecho glist showall'
 alias plist='proxy_list'
 alias greload='bungee_command greload'
 alias seen='bungee_user_info $*'
 
 #=================================
-alias send='bungee_probe_command send all $*'
-alias send1='bungee_probe_command send $*'
-alias ssend='bungee_probe_sendall send all $*'
-alias ssend1='bungee_probe_sendall send $*'
+alias send='bungee_probe_command_noecho send all $*'
+alias send1='bungee_probe_command_noecho send $*'
+alias ssend='bungee_probe_sendall_noecho send all $*'
+alias ssend1='bungee_probe_sendall_noecho send $*'

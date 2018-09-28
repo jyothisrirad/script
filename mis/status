@@ -124,6 +124,7 @@ sudo dmidecode -t memory | grep -P "\tType:"
 sudo dmidecode -t memory | grep -P "\tSpeed"
 sudo dmidecode -t memory | grep Clock
 sudo dmidecode -t memory | grep 'Configured voltage'
+free -h
 }
 
 gpu2d_info() {
