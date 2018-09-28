@@ -160,6 +160,7 @@ cheat_report() {
 mc_start_with_whitelist() {
     # mcprep
     server.prep
+    export mcecho_off=1
     mcserver start
     # mcw on && 
     mcdo whitelist on
@@ -167,12 +168,14 @@ mc_start_with_whitelist() {
     # sleep 1 && 
     # mclog && 
     server.post
+    export mcecho_off=
 }
 
 #=================================
 mc_start_without_whitelist() {
 	server.prep
 	# echo $mcver
+    export mcecho_off=1
 	mcserver start
 	# mcw off
     mcdo whitelist off
@@ -180,6 +183,7 @@ mc_start_without_whitelist() {
     mcdo gamerule logAdminCommands false
 	# mcserver do seed
 	server.post
+    export mcecho_off=
 }
 
 #=================================
@@ -188,6 +192,13 @@ mc_reload() {
 	server.prep
 	mcserver start
 	server.post
+}
+
+#=================================
+mc_halt() {
+    export mcecho_off=1
+    mcserver halt
+    export mcecho_off=
 }
 
 #=================================
@@ -225,7 +236,7 @@ alias mcrestore='mcserver restore $*'
 # alias mckill='mcserver kill'
 # alias mchalt='mcdo end && mcserver halt && swp'
 #alias mchalt='mcdo end && mcserver halt'
-alias mchalt='mcserver halt'
+alias mchalt='mc_halt'
 # alias mcreload='mchalt && mcprep && mcserver start && mcpost'
 alias mcreload='mc_reload'
 

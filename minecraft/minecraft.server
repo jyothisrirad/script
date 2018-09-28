@@ -33,7 +33,8 @@ USERNAME=sita
 # BACKUPPATH="/vagrant/backup"
 WORLD=world
 # LOG="$MCPATH/logs/latest.log"
-RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak --exclude=plugins.tried"
+[ $mcecho_off ] || RSYNCOPT="-rtv --progress --delete --exclude=$WORLD.bak --exclude=plugins.tried"
+[ -z $mcecho_off ] && RSYNCOPT="-rt --delete --exclude=$WORLD.bak --exclude=plugins.tried"
 ME=`whoami`
 DIRTYBIT="$MCPATH/logs/mc_playeronline"
 [ $LOG_DELAY ] || LOG_DELAY=.1
