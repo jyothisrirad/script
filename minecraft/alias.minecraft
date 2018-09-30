@@ -169,6 +169,21 @@ ping_accept_onoff() {
 }
 
 #=================================
+center_string() {
+    totalcnt=60
+    str="$*"
+    len1=${#str}
+    # echo $len1
+    len2=$(echo $str|wc -c)
+    # echo $len2
+    len=$(echo "($len2-1+$len1)/2"|bc)
+    # echo $len
+    cnt=$(echo \($totalcnt-$len\)/2 | bc)
+    # echo $cnt
+    echo "$(printf "%${cnt}s")$str"
+}
+
+#=================================
 alias_reload() {
     . ~/script/mis/alias.mis
     . ~/script/minecraft/alias.minecraft
@@ -222,3 +237,8 @@ alias ggl='game_list_maxplayer /mnt/runtimes'
 
 # help_add 'ppp' 'ping回應On/Off'
 # alias ppp='ping_accept_onoff'
+
+#=================================
+help_add 'center.<str>' '置中str'
+alias center='center_string $*'
+
