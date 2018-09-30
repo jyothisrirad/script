@@ -53,6 +53,7 @@ lscpu | grep Virtualization
 lscpu | grep cache
 cat /proc/cpuinfo | grep -m 1 flags
 sudo dmidecode -t processor
+sysbench --test=cpu --cpu-max-prime=20000 run
 }
 
 mb_info() {
@@ -347,7 +348,7 @@ tinker_info() {
 #Start-Stop here
 case "$1" in
   install)
-		sudo apt -y install dstat ethtool lshw lm-sensors smartmontools heirloom-mailx
+		sudo apt -y install dstat ethtool lshw lm-sensors smartmontools heirloom-mailx sysbench
 
 		echo =================================
 		echo Run the following:
@@ -356,7 +357,7 @@ case "$1" in
 		echo =================================
 		
         addto_root_crontab "# $(basename $0): weekly disk smart info logging"
-        addto_root_crontab "0 1 * * 7 $(readlink -e $0) log smart"
+        addto_root_crontab "0 1 * * 7 $(readlink -e $0) maillog smart"
         ;;
   uninstall)
         delfrom_root_crontab "# $(basename $0): weekly disk smart info logging"

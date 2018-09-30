@@ -736,6 +736,7 @@ log_parse_uhcV2() {
     echo \\\\
     echo 本次賽後賽:\\\\
     echo 下次賽後賽:\\\\
+    echo 賽後賽遊戲目錄: https://goo.gl/etUoHH\\\\
     echo \\\\
     echo 影片:\\\\
     echo 參賽名單:
