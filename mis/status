@@ -1,5 +1,12 @@
 #!/bin/bash
 
+path_dmidecode=$(sudo which dmidecode)
+path_lspci=$(sudo which lspci)
+path_hdparm=$(sudo which hdparm)
+path_aticonfig=$(sudo which aticonfig)
+path_nvclock=$(sudo which nvclock)
+path_pveperf=$(sudo which pveperf)
+
 crontab_status() {
 	# user=$(whoami)
 	user=root
@@ -52,7 +59,7 @@ lscpu | grep BogoMIPS
 lscpu | grep Virtualization
 lscpu | grep cache
 cat /proc/cpuinfo | grep -m 1 flags
-sudo dmidecode -t processor
+[ -x "$path_dmidecode" ] && sudo dmidecode -t processor
 sysbench --test=cpu --cpu-max-prime=20000 run
 }
 
@@ -60,24 +67,24 @@ mb_info() {
 echo =================================
 echo MB Info
 echo =================================
-sudo lspci
-echo --- dmidecode -t baseboard
-sudo dmidecode -t 2 | grep Manufacturer
-sudo dmidecode -t 2 | grep Name
-echo --- dmidecode -t bios
-sudo dmidecode -t bios | grep Vendor
-sudo dmidecode -t bios | grep Date
-sudo dmidecode -t bios | grep UEFI
+[ -x "$path_lspci" ] && sudo lspci
+[ -x "$path_dmidecode" ] && echo --- dmidecode -t baseboard
+[ -x "$path_dmidecode" ] && sudo dmidecode -t 2 | grep Manufacturer
+[ -x "$path_dmidecode" ] && sudo dmidecode -t 2 | grep Name
+[ -x "$path_dmidecode" ] && echo --- dmidecode -t bios
+[ -x "$path_dmidecode" ] && sudo dmidecode -t bios | grep Vendor
+[ -x "$path_dmidecode" ] && sudo dmidecode -t bios | grep Date
+[ -x "$path_dmidecode" ] && sudo dmidecode -t bios | grep UEFI
 # lspci
-echo --- dmidecode -t slot
-sudo dmidecode -t slot | grep Type
+[ -x "$path_dmidecode" ] && echo --- dmidecode -t slot
+[ -x "$path_dmidecode" ] && sudo dmidecode -t slot | grep Type
 }
 
 usb_info() {
 echo =================================
 echo USB Info
 echo =================================
-sudo lspci -v -s $(lspci | grep -m 1 USB | cut -d" " -f 1)
+[ -x "$path_lspci" ] && sudo lspci -v -s $(lspci | grep -m 1 USB | cut -d" " -f 1)
 
 lsusb | cut -d" " -f 6 | while read line; do
 	echo ----------------------------------
@@ -100,9 +107,9 @@ network_info() {
 echo =================================
 echo NETWORK Info
 echo =================================
-# sudo lspci -v -s $(lspci | grep Ethernet | cut -d" " -f 1)
-lspci | grep Ethernet | cut -d" " -f 1 | while read line; do
-	sudo lspci -v -s "$line"
+# [ -x "$path_lspci" ] && sudo lspci -v -s $(lspci | grep Ethernet | cut -d" " -f 1)
+[ -x "$path_lspci" ] && sudo lspci | grep Ethernet | cut -d" " -f 1 | while read line; do
+	[ -x "$path_lspci" ] && sudo lspci -v -s "$line"
 done
 dmesg | grep eth0 | grep up
 sudo mii-tool -v eth0 | grep status
@@ -119,20 +126,21 @@ echo RAM Info
 echo =================================
 sudo lshw -short -C memory
 # sudo lshw -class memory
-sudo dmidecode -t memory | grep Size
-sudo dmidecode -t memory | grep Bank
-sudo dmidecode -t memory | grep -P "\tType:"
-sudo dmidecode -t memory | grep -P "\tSpeed"
-sudo dmidecode -t memory | grep Clock
-sudo dmidecode -t memory | grep 'Configured voltage'
+[ -x "$path_dmidecode" ] && sudo dmidecode -t memory | grep Size
+[ -x "$path_dmidecode" ] && sudo dmidecode -t memory | grep Bank
+[ -x "$path_dmidecode" ] && sudo dmidecode -t memory | grep -P "\tType:"
+[ -x "$path_dmidecode" ] && sudo dmidecode -t memory | grep -P "\tSpeed"
+[ -x "$path_dmidecode" ] && sudo dmidecode -t memory | grep Clock
+[ -x "$path_dmidecode" ] && sudo dmidecode -t memory | grep 'Configured voltage'
 free -h
+sysbench --test=memory --max-time=120 run
 }
 
 gpu2d_info() {
 echo =================================
 echo GPU 2D Info
 echo =================================
-sudo lspci -v -s $(lspci | grep VGA | cut -d" " -f 1)
+[ -x "$path_lspci" ] && sudo lspci -v -s $(lspci | grep VGA | cut -d" " -f 1)
 }
 
 gpu3d_info() {
@@ -140,22 +148,22 @@ echo =================================
 echo GPU 3D Info
 echo =================================
 glxinfo
-aticonfig --odgc
-nvclock
+[ -x "$path_aticonfig" ] && aticonfig --odgc
+[ -x "$path_nvclock" ] && nvclock
 }
 
 disk_info() {
 echo =================================
 echo DISK Info
 echo =================================
-sudo lspci -v -s $(lspci | grep SATA | cut -d" " -f 1)
+[ -x "$path_lspci" ] && sudo lspci -v -s $(lspci | grep SATA | cut -d" " -f 1)
 # sudo lshw -class disk -class storage
 sudo lshw -short -C disk
 
 lsblk | grep -P ^sd | cut -d" " -f 1 | while read line; do
 	echo ----------------------------------
 	tempfile=/tmp/tempfile
-	sudo hdparm -I /dev/"$line" > $tempfile
+	[ -x "$path_hdparm" ] && sudo hdparm -I /dev/"$line" > $tempfile
 	cat $tempfile | grep /dev/sd
 	cat $tempfile | grep Model
 	cat $tempfile | grep 'Serial Number'
@@ -259,7 +267,7 @@ benchmark_info() {
 echo =================================
 echo BENCHMARK Info
 echo =================================
-sudo pveperf
+[ -x "$path_pveperf" ] && sudo pveperf
 }
 
 mailreport() {
