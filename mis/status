@@ -163,6 +163,7 @@ sudo lshw -short -C disk
 lsblk | grep -P ^sd | cut -d" " -f 1 | while read line; do
 	echo ----------------------------------
 	tempfile=/tmp/tempfile
+	touch $tempfile
 	[ -x "$path_hdparm" ] && sudo hdparm -I /dev/"$line" > $tempfile
 	cat $tempfile | grep /dev/sd
 	cat $tempfile | grep Model
@@ -258,7 +259,8 @@ uptime_info() {
 echo =================================
 echo UPTIME Info
 echo =================================
-sudo tune2fs -l $(df / | tail -1 | cut -d" " -f 1) | grep 'Filesystem created:'
+disk=$(df / | tail -1 | cut -d" " -f 1)
+[ -f "$disk" ] && sudo tune2fs -l $disk | grep 'Filesystem created:'
 # uptime
 w
 }
