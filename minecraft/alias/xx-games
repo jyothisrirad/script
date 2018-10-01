@@ -66,6 +66,7 @@ s32=32-dragonproxy
 s33=33-ColorControl
 s34=34-float
 s35=35-CaptureKings
+s36=36-SuperHole
 
 s41=41-Captive
 s42=42-CaptiveII
@@ -145,6 +146,7 @@ alias 32='chmc $s32'
 alias 33='chmc $s33'
 alias 34='chmc $s34'
 alias 35='chmc $s35'
+alias 36='chmc $s36'
 
 alias 41='chmc $s41'
 alias 42='chmc $s42'
