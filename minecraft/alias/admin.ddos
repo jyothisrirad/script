@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#=================================
+help_hline3 '抓ddos(ddos)'
+
+#=================================
+dump_synproxy() {
+    dir=$1
+    # zcat "$dir"/*-kern.log.tar.gz | grep -a rule11_synproxy | sort -u > "$dir.synproxy.txt"
+    zcat "$dir"/*-kern.log.tar.gz | grep -a rule | grep -v rule11_drop_invalid_fix | sort -u > "$dir.synproxy.txt"
+    cat "$dir.synproxy.txt" | grep -aoE "SRC=\S*" | grep -aoE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq -c | sort -nr > "$dir.synproxy.ip.txt"
+}
+
+#=================================
+dump_nf_conntrack() {
+    dir=$1
+    zcat "$dir"/*-nf_conntrack.log.gz | grep -a TIME_WAIT | sort -u > "$dir.nf_conntrack.txt"
+    cat "$dir.nf_conntrack.txt" | awk '{print $7}' | grep -aoE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq -c | sort -nr > "$dir.nf_conntrack.ip.txt"
+}
+
+#=================================
+dump_proxy() {
+    dir=$1
+    # zcat "$dir"/proxy.log.0-*.tar.gz | grep -a 'WARN\|SEVERE' | grep -v 'seconds behind' | sort -u > "$dir.proxy.txt"
+    zcat "$dir"/*-proxy.log.0.tar.gz | grep -a 'WARN\|SEVERE' | grep -v 'seconds behind' | sort -u > "$dir.proxy.txt"
+    cat "$dir.proxy.txt" | grep -aoE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq -c | sort -nr > "$dir.proxy.ip.txt"
+}
+
+#=================================
+dump_netstat() {
+    dir=$1
+    zcat "$dir"/*-netstat.log.gz | awk '$2>0||$3>0 {print $0; }' | grep -v 'seconds behind' | sort -u > "$dir.netstat.txt"
+    cat "$dir.netstat.txt" | sort -k2 -rn | awk '$2>0 {print $0; }' > "$dir.netstat.top.recv.txt"
+    cat "$dir.netstat.txt" | sort -k3 -rn | awk '$3>0 {print $0; }' > "$dir.netstat.top.send.txt"
+}
+
+#=================================
+help_add 'dumpsyn.<dir>' '分析synproxy'
+alias dumpsyn='dump_synproxy'
+help_add 'dumpcon.<dir>' '分析nf_conntrack'
+alias dumpcon='dump_nf_conntrack'
+help_add 'dumpproxy.<dir>' '分析proxy.log'
+alias dumpproxy='dump_proxy'
+help_add 'dumpnet.<dir>' '分析netstat.log'
+alias dumpnet='dump_netstat'
+
+
