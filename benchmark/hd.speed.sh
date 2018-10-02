@@ -9,7 +9,7 @@ isroot() {
 
 diskflush() {
 
-free -h
+# free -h
 
 echo Flushing Disk Cache
 sudo sync
@@ -40,7 +40,7 @@ echo Free the page cache, dentries and the inodes:
 # echo 3 > /proc/sys/vm/drop_caches
 sudo sysctl -w vm.drop_caches=3
 
-free -h
+# free -h
 }
 
 benchmark() {

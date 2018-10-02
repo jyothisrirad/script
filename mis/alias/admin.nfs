@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#=================================
+# . ~/script/minecraft/alias/admin.1.help
+help_hline3 'nfs'
+
+#=================================
+nfs_share() {
+    file=$1
+    [ ! -d /etc/exports.d ] && echo NFS exports path not existed, quitting && return
+    [ ! -d /tank/Shares/$file ] && echo shared path not existed, quitting && return
+    echo /tank/Shares/$file 192.168.1.0/255.255.255.0\(rw,no_subtree_check,no_root_squash\) | sudo tee /etc/exports.d/$file.exports
+}
+
+#=================================
+nfs_connect() {
+    # does not work under lxc
+	[ -d $3 ] || sudo mkdir $3
+
+	sudo umount $3 &>/dev/null
+    sudo mount -t nfs -o nosuid,noexec,nodev,bg,soft $1:$2 $3
+}
+
+#=================================
+help_add 'nfsinstall' 'nfs安裝'
+alias nfsinstall='sudo apt install nfs-common'
+
+#=================================
+help_add 'nfsshare' 'nfs分享'
+alias nfsshare='nfs_share $1'
+help_add 'nfslist' 'nfs分享list'
+alias nfslist='exportfs'
+alias nfsetab='tail /var/lib/nfs/etab'
+
+#=================================
+help_add 'nfsconnect.<host>.<hostpath>.<mountpath>' 'nfs連接'
+alias nfsconnect='nfs_connect $1 $2 $3'
+help_add 'nfsshow.<host>' 'nfs分享'
+alias nfsshow='sudo showmount -e $1'
+help_add 'nfsshowconn.<host>' 'nfs分享客戶端'
+alias nfsshowconn='sudo showmount -a $1'
+
