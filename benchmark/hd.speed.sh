@@ -70,14 +70,13 @@ test_suite() {
 tpath=$1
 echo ====================================
 echo Computer: $(hostname) 
-echo /$tpath: No compression
 echo $(sudo zfs get compression $tpath | tail -n 1)
 echo ====================================
-echo benchmark /$tpath/zerofile.tmp
+benchmark /$tpath/zerofile.tmp
 echo ====================================
-echo benchmark /$tpath/zerofile.tmp
+benchmark /$tpath/zerofile.tmp
 echo ====================================
-echo benchmark /$tpath/zerofile.tmp
+benchmark /$tpath/zerofile.tmp
 echo ====================================
 }
 
