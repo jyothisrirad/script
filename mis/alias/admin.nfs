@@ -36,6 +36,12 @@ nfs_connect() {
 }
 
 #=================================
+nfs_disconnect() {
+	[ -d $1 ] && sudo umount $1
+	# [ -d $1 ] && sudo rm -rf $1
+}
+
+#=================================
 help_add 'nfsinstall' 'nfs安裝'
 alias nfsinstall='sudo apt install nfs-common'
 
@@ -50,6 +56,7 @@ alias nfsetab='tail /var/lib/nfs/etab'
 #=================================
 help_add 'nfsconnect.<host>.<hostpath>.<mountpath>' 'nfs連接'
 alias nfsconnect='nfs_connect $1 $2 $3'
+alias nfsdisconnect='nfs_disconnect $1'
 help_add 'nfsshow.<host>' 'nfs分享'
 alias nfsshow='sudo showmount -e $1'
 help_add 'nfsshowconn.<host>' 'nfs分享客戶端'
