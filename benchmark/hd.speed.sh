@@ -48,7 +48,7 @@ diskflush
 
 # testfile=zerofile.tmp
 testfile=$1
-result=$(dd if=/dev/zero of=$testfile bs=$blocksize count=$loop 2>&1)
+result=$(sudo dd if=/dev/zero of=$testfile bs=$blocksize count=$loop 2>&1)
 rm $testfile
 
 
@@ -69,6 +69,7 @@ echo IOPS: $iops
 # echo Flushing Disk Cache
 # diskflush
 
+sudo zpool status
 echo Testing IOPS with 150GB, $loop of $blocksize writes
 echo ====================================
 echo Computer: $(hostname) 
