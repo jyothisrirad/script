@@ -6,10 +6,22 @@ help_hline3 'nfs'
 
 #=================================
 nfs_share() {
-    file=$1
+    sharepath=$1
+    IFS='/' read -r -a array <<< "$sharepath"
+    # echo ${array[-1]}
+    # return
     [ ! -d /etc/exports.d ] && echo NFS exports path not existed, quitting && return
-    [ ! -d /tank/Shares/$file ] && echo shared path not existed, quitting && return
-    echo /tank/Shares/$file 192.168.1.0/255.255.255.0\(rw,no_subtree_check,no_root_squash\) | sudo tee /etc/exports.d/$file.exports
+    [ ! -d "$sharepath" ] && echo shared path not existed, quitting && return
+    echo $sharepath 192.168.1.0/255.255.255.0\(rw,no_subtree_check,no_root_squash\) | sudo tee /etc/exports.d/${array[-1]}.exports
+}
+
+#=================================
+nfs_unshare() {
+    # file=$1
+    # sudo rm /etc/exports.d/$file
+    sharepath=$1
+    IFS='/' read -r -a array <<< "$sharepath"
+    sudo rm /etc/exports.d/${array[-1]}.exports
 }
 
 #=================================
@@ -28,8 +40,9 @@ alias nfsinstall='sudo apt install nfs-common'
 #=================================
 help_add 'nfsshare' 'nfs分享'
 alias nfsshare='nfs_share $1'
+alias nfsunshare='nfs_unshare $1'
 help_add 'nfslist' 'nfs分享list'
-alias nfslist='exportfs'
+alias nfslist='sudo exportfs'
 alias nfsetab='tail /var/lib/nfs/etab'
 
 #=================================
