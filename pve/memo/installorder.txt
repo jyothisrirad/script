@@ -23,10 +23,11 @@ alias a0        scsi-36848f690e856b10018cdf39854055206
 
 
 ###create zpool
-$>			sudo mis/disksec.query.sh
+# $>			sudo mis/disksec.query.sh
 #for 4k disk use ashift=12
-$>			sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <disk4> ...
-
+# $>			sudo zpool create -o ashift=12 tank mirror <disk1> <disk2> mirror <disk3> <disk4> ...
+user$>	zcreate512 tank disk1
+user$>	zcreate tank disk4k
 
 ###disable usbstick swap and create zfs shares
 usbstick.prep

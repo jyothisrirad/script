@@ -18,43 +18,47 @@ hline() {
 
 #=================================
 help_hline1() {
-    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    [ -z "$helpArgs" ] && helpArgs=()
+    [ -z "$helpLines" ] && helpLines=()
     len1=${#1}
     len2=$(echo $1|wc -c)
     len=$(echo "($len2-1+$len1)/2"|bc)
     cnt=$(echo \($totalcnt-$len\)/2 | bc)
     (( $len & 1 )) && extra='' || extra='.'
     helpArgs+=("$(hline $cnt \.)""$1""$(hline $cnt \.)""$extra")
-    helpLines+=('') 
+    helpLines+=(' ') 
 }
 
 #=================================
 help_hline2() {
-    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    [ -z "$helpArgs" ] && helpArgs=()
+    [ -z "$helpLines" ] && helpLines=()
     len1=${#1}
     len2=$(echo $1|wc -c)
     len=$(echo "($len2-1+$len1)/2"|bc)
     cnt=$(echo \($totalcnt-$len\)/2 | bc)
     (( $len & 1 )) && extra='' || extra='-'
     helpArgs+=("$(hline $cnt -)""$1""$(hline $cnt -)""$extra")
-    helpLines+=('') 
+    helpLines+=(' ') 
 }
 
 #=================================
 help_hline3() {
-    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    [ -z "$helpArgs" ] && helpArgs=()
+    [ -z "$helpLines" ] && helpLines=()
     len1=${#1}
     len2=$(echo $1|wc -c)
     len=$(echo "($len2-1+$len1)/2"|bc)
     cnt=$(echo \($totalcnt-$len\)/2 | bc)
     (( $len & 1 )) && extra='' || extra='='
     helpArgs+=("$(hline $cnt =)""$1""$(hline $cnt =)""$extra")
-    helpLines+=('') 
+    helpLines+=(' ') 
 }
 
 #=================================
 help_add() {
-    [ -z "$helpArgs" ] && helpArgs=() && helpLines=()
+    [ -z "$helpArgs" ] && helpArgs=()
+    [ -z "$helpLines" ] && helpLines=()
     [ ! -z "$1" ] && helpArgs+=(${1}) || helpArgs+=("")
     [ ! -z "$2" ] && helpLines+=(${2}) || helpLines+=("")
 }

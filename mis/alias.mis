@@ -220,11 +220,11 @@ days_calc() {
 }
 
 #=================================
+. ~/script/minecraft/alias/admin.1.help
 load_alias
 
 #=================================
-. ~/script/minecraft/alias/admin.1.help
-# help_hline3 '基本(mis)'
+help_hline3 '基本(mis)'
 
 #=================================
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #=================================
-. ~/script/minecraft/alias/admin.1.help
+# . ~/script/minecraft/alias/admin.1.help
 help_hline3 'zfs'
 
 #=================================
@@ -22,5 +22,5 @@ help_add 'zadd_real.<tank>.<disk3>' 'Disk3.擴充zpool'
 alias zadd_real='sudo zpool add$*'
 
 # - replace disk with larger one      zpool replace tank diska diska2 
-help_add 'zreplace.<tank>.<disk_old>.<disk_new>' 'DiskNew.更換zpool磁碟'
+help_add 'zreplace.<tank>.<disk_o>.<disk_n>' 'DiskNew.更換zpool磁碟'
 alias zreplace='sudo zpool replace $*'
