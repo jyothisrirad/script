@@ -1,13 +1,26 @@
 #!/bin/bash
 
 #=================================
-# - create pool                       zpool create -o ashift=12 diska
-alias zcreate='zpool create $*'
-alias zcreate4k='zpool create -o ashift=12 $*'
+. ~/script/minecraft/alias/admin.1.help
+help_hline3 'zfs'
+
+#=================================
+# - create pool                       zpool create -o ashift=12 tank diska
+help_add 'zcreate512.<tank>.<disk1>' 'Disk1.zpool創建512Byte'
+alias zcreate512='sudo zpool create $*'
+help_add 'zcreate.<tank>.<disk1>' 'Disk1.創建zpool'
+alias zcreate='sudo zpool create -o ashift=12 $*'
+
 # - attach disk to form a mirror      zpool attach tank diska diskb
-alias zattach='zpool attach $*'
+help_add 'zattach.<tank>.<disk1>.<disk2>' 'Disk2.創建Mirror'
+alias zattach='sudo zpool attach $*'
+
 # - expand pool with another disk     zpool add -n tank mirror diskc diskd
-alias zadd='zpool add -n $*'
-alias zadd_real='zpool add$*'
+help_add 'zadd.<tank>.<disk3>' 'Disk3.擴充zpool測試'
+alias zadd='sudo zpool add -n $*'
+help_add 'zadd_real.<tank>.<disk3>' 'Disk3.擴充zpool'
+alias zadd_real='sudo zpool add$*'
+
 # - replace disk with larger one      zpool replace tank diska diska2 
-alias zreplace='zpool replace $*'
+help_add 'zreplace.<tank>.<disk_old>.<disk_new>' 'DiskNew.更換zpool磁碟'
+alias zreplace='sudo zpool replace $*'
