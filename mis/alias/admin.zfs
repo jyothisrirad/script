@@ -24,3 +24,8 @@ alias zadd_real='sudo zpool add$*'
 # - replace disk with larger one      zpool replace tank diska diska2 
 help_add 'zreplace.<tank>.<disk_o>.<disk_n>' 'DiskNew.更換zpool磁碟'
 alias zreplace='sudo zpool replace $*'
+
+#=================================
+alias zstatus='sudo zpool status'
+alias zfslist='sudo zfs list'
+alias zfscreate='sudo zfs create -o xattr=sa -o compression=lz4 $*'

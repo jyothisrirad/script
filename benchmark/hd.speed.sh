@@ -9,6 +9,8 @@ isroot() {
 
 diskflush() {
 
+free -h
+
 echo Flushing Disk Cache
 sudo sync
 sudo sync
@@ -38,12 +40,14 @@ echo Free the page cache, dentries and the inodes:
 # echo 3 > /proc/sys/vm/drop_caches
 sudo sysctl -w vm.drop_caches=3
 
+free -h
 }
 
 benchmark() {
 diskflush
 
-testfile=zerofile.tmp
+# testfile=zerofile.tmp
+testfile=$1
 result=$(dd if=/dev/zero of=$testfile bs=$blocksize count=$loop 2>&1)
 rm $testfile
 
@@ -67,11 +71,20 @@ echo IOPS: $iops
 
 echo Testing IOPS with 150GB, $loop of $blocksize writes
 echo ====================================
-echo Computer: $(hostname)
+echo Computer: $(hostname) 
+echo /tank: No compression
 echo ====================================
-benchmark
+benchmark /tank/zerofile.tmp
 echo ====================================
-benchmark
+benchmark /tank/zerofile.tmp
 echo ====================================
-benchmark
-
+benchmark /tank/zerofile.tmp
+echo ====================================
+echo Computer: $(hostname) 
+echo /tank/Shares: lz4 compression
+echo ====================================
+benchmark /tank/Shares/zerofile.tmp
+echo ====================================
+benchmark /tank/Shares/zerofile.tmp
+echo ====================================
+benchmark /tank/Shares/zerofile.tmp
