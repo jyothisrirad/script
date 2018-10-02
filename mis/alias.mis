@@ -1,6 +1,15 @@
 #!/bin/bash
 
 #=================================
+load_alias() {
+
+	for f in /home/sita/script/mis/alias/*; do  # or wget-*.sh instead of *.sh
+		# . "$f" -H || break # if needed 
+		[ ! -f "$f" ] || . "$f" -H
+	done
+}
+
+#=================================
 localip() {
     sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
 }
@@ -209,6 +218,9 @@ weeks_calc() {
 days_calc() {
 	date --date "$(date) -$1 days"
 }
+
+#=================================
+load_alias
 
 #=================================
 . ~/script/minecraft/alias/admin.1.help

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#=================================
+# - create pool                       zpool create -o ashift=12 diska
+alias zcreate='zpool create $*'
+alias zcreate4k='zpool create -o ashift=12 $*'
+# - attach disk to form a mirror      zpool attach tank diska diskb
+alias zattach='zpool attach $*'
+# - expand pool with another disk     zpool add -n tank mirror diskc diskd
+alias zadd='zpool add -n $*'
+alias zadd_real='zpool add$*'
+# - replace disk with larger one      zpool replace tank diska diska2 
+alias zreplace='zpool replace $*'

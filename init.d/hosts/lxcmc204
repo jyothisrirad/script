@@ -5,7 +5,7 @@
 
 dns_external=tp1
 dns_updates=
-servers=(s30 s84 s91 s98)
-servers2=(s30 s84 s91 s98)
+servers=(s36 s84 s91 s98)
+servers2=(s36 s84 s91 s98)
 
 run $*
