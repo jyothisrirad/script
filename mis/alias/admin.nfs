@@ -13,6 +13,7 @@ nfs_share() {
     [ ! -d /etc/exports.d ] && echo NFS exports path not existed, quitting && return
     [ ! -d "$sharepath" ] && echo shared path not existed, quitting && return
     echo $sharepath 192.168.1.0/255.255.255.0\(rw,no_subtree_check,no_root_squash\) | sudo tee /etc/exports.d/${array[-1]}.exports
+    sudo exportfs -arv
 }
 
 #=================================
@@ -21,7 +22,8 @@ nfs_unshare() {
     # sudo rm /etc/exports.d/$file
     sharepath=$1
     IFS='/' read -r -a array <<< "$sharepath"
-    sudo rm /etc/exports.d/${array[-1]}.exports
+    [ -f /etc/exports.d/${array[-1]}.exports ] && sudo rm /etc/exports.d/${array[-1]}.exports
+    sudo exportfs -arv
 }
 
 #=================================
