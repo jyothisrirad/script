@@ -66,26 +66,43 @@ echo Write: $speed $unit
 echo IOPS: $iops
 }
 
+test_suite() {
+tpath=$1
+echo ====================================
+echo Computer: $(hostname) 
+echo /$tpath: No compression
+echo $(sudo zfs get compression $tpath)
+echo ====================================
+echo benchmark /$tpath/zerofile.tmp
+echo ====================================
+echo benchmark /$tpath/zerofile.tmp
+echo ====================================
+echo benchmark /$tpath/zerofile.tmp
+echo ====================================
+}
+
 # echo Flushing Disk Cache
 # diskflush
 
 sudo zpool status
 echo Testing IOPS with 150GB, $loop of $blocksize writes
-echo ====================================
-echo Computer: $(hostname) 
-echo /tank: No compression
-echo ====================================
-benchmark /tank/zerofile.tmp
-echo ====================================
-benchmark /tank/zerofile.tmp
-echo ====================================
-benchmark /tank/zerofile.tmp
-echo ====================================
-echo Computer: $(hostname) 
-echo /tank/Shares: lz4 compression
-echo ====================================
-benchmark /tank/Shares/zerofile.tmp
-echo ====================================
-benchmark /tank/Shares/zerofile.tmp
-echo ====================================
-benchmark /tank/Shares/zerofile.tmp
+# echo ====================================
+# echo Computer: $(hostname) 
+# echo /tank: No compression
+# echo ====================================
+# benchmark /tank/zerofile.tmp
+# echo ====================================
+# benchmark /tank/zerofile.tmp
+# echo ====================================
+# benchmark /tank/zerofile.tmp
+# echo ====================================
+# echo Computer: $(hostname) 
+# echo /tank/Shares: lz4 compression
+# echo ====================================
+# benchmark /tank/Shares/zerofile.tmp
+# echo ====================================
+# benchmark /tank/Shares/zerofile.tmp
+# echo ====================================
+# benchmark /tank/Shares/zerofile.tmp
+test_suite tank
+test_suite tank/Shares
