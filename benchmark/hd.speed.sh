@@ -49,7 +49,7 @@ diskflush
 # testfile=zerofile.tmp
 testfile=$1
 result=$(sudo dd if=/dev/zero of=$testfile bs=$blocksize count=$loop 2>&1)
-rm $testfile
+sudo rm $testfile
 
 
 result=$(echo $result | sed "s/dd: error writing $(echo -ne '\u2018')zerofile.tmp$(echo -ne '\u2019'): No space left on device//")
