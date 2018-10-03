@@ -200,16 +200,6 @@ deflect_reset() {
 }
 
 #=================================
-speed_test() {
-	iperf -c $1 -p $2
-}
-
-#=================================
-speed_host() {
-	iperf -s
-}
-
-#=================================
 weeks_calc() {
 	date --date "$(date) $1 weeks"
 }
@@ -284,8 +274,6 @@ alias ws='watch -d -n1 cat /proc/net/stat/synproxy'
 alias ws2='watch -d -n1 netstat -s'
 help_add 'iplog' '檢查iptables紀錄'
 alias iplog='tail -f /var/log/kern.log'
-help_add 'speed' '網路測速'
-alias speed='speed_test $*'
 
 #=================================
 # 封鎖

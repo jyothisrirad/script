@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#=================================
+# help_hline3 'speedtest'
+
+#=================================
+speed_host() {
+	iperf -s
+}
+
+#=================================
+speed_test() {
+	iperf -c $1 -p $2
+}
+
+#=================================
+help_add 'speedtestinstall' 'speedtest安裝'
+alias speedtestinstall='sudo apt install iperf'
+
+#=================================
+alias speedhost='speed_host'
+help_add 'speed' '網路測速'
+alias speed='speed_test $*'
