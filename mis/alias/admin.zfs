@@ -5,28 +5,48 @@
 help_hline3 'zfs'
 
 #=================================
+###### 危險指令，請確定再下 ######
+#=================================
 # - create pool                       zpool create -o ashift=12 tank diska
-help_add 'zcreate512.<tank>.<disk1>' 'Disk1.zpool創建512Byte'
-alias zcreate512='sudo zpool create $*'
-help_add 'zcreate.<tank>.<disk1>' 'Disk1.創建zpool'
-alias zcreate='sudo zpool create -o ashift=12 $*'
+help_add 'zpcreate512.<tank>.<disk1>' 'Disk1.zpool創建512Byte'
+alias zpcreate512='sudo zpool create $*'
+help_add 'zpcreate.<tank>.<disk1>' 'Disk1.創建zpool'
+alias zpcreate='sudo zpool create -o ashift=12 $*'
 
 # - attach disk to form a mirror      zpool attach tank diska diskb
-help_add 'zattach.<tank>.<disk1>.<disk2>' 'Disk2.創建Mirror'
-alias zattach='sudo zpool attach $*'
+help_add 'zpattach.<tank>.<disk1>.<disk2>' 'Disk2.創建Mirror'
+alias zpattach='sudo zpool attach $*'
 
 # - expand pool with another disk     zpool add -n tank mirror diskc diskd
-help_add 'zadd.<tank>.<disk3>' 'Disk3.擴充zpool測試'
-alias zadd='sudo zpool add -n $*'
-help_add 'zadd_real.<tank>.<disk3>' 'Disk3.擴充zpool'
-alias zadd_real='sudo zpool add$*'
+help_add 'zpadd.<tank>.<disk3>' 'Disk3.擴充zpool測試'
+alias zpadd='sudo zpool add -n $*'
+help_add 'zpadd_real.<tank>.<disk3>' 'Disk3.擴充zpool'
+alias zpadd_real='sudo zpool add$*'
 
 # - replace disk with larger one      zpool replace tank diska diska2 
-help_add 'zreplace.<tank>.<disk_o>.<disk_n>' 'DiskNew.更換zpool磁碟'
-alias zreplace='sudo zpool replace $*'
+help_add 'zpreplace.<tank>.<disk_o>.<disk_n>' 'DiskNew.更換zpool磁碟'
+alias zpreplace='sudo zpool replace $*'
+
+alias zpauto='sudo zpool set autoexpand=on $*'
+
+# zpool attach, 
+# zpool offline/
+# zpool online 跟 
+# zpool replace 的 cli 很重要. 
 
 #=================================
-alias zstatus='sudo zpool status'
+###### 極危險指令，無法逆轉 ######
+#=================================
+alias zfsdestroy='sudo zfs destroy $*'
+alias zpdestroy='sudo zpool destroy $*'
+
+# zpool destroy, 
+# zpool clearlabel, 
+# zpool detach
+
+#=================================
+alias zpstatus='sudo zpool status'
 alias zfslist='sudo zfs list'
 alias zfscreate='sudo zfs create -o xattr=sa -o compression=lz4 $*'
 alias zfscreate_nocomp='sudo zfs create -o xattr=sa $*'
+
