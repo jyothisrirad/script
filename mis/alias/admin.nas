@@ -26,7 +26,9 @@ make_filelist() {
 	echo ======= >>$file
 	echo Network >>$file
 	echo ======= >>$file
-	dmesg | grep $interface | grep up >>$file
+	dmesg | grep -i duplex >>$file
+	[ $(sudo which ethtool) ] && sudo ethtool $interface | grep Speed >>$file
+	[ $(sudo which mii-tool) ] && sudo mii-tool -v $interface >>$file
 	echo >>$file
 	
 	echo ==== >>$file
