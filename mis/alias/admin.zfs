@@ -51,6 +51,7 @@ alias zpdisk='ls /dev/disk/by-vdev/'
 
 #=================================
 alias zpstatus='sudo zpool status'
+alias zplist='sudo zpool status'
 alias zfslist='sudo zfs list'
 alias zfscreate='sudo zfs create -o xattr=sa -o compression=lz4 $*'
 alias zfscreate_nocomp='sudo zfs create -o xattr=sa $*'
