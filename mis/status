@@ -6,7 +6,7 @@ path_hdparm=$(sudo which hdparm)
 path_aticonfig=$(sudo which aticonfig)
 path_nvclock=$(sudo which nvclock)
 path_pveperf=$(sudo which pveperf)
-path_mii-tool=$(sudo which mii-tool)
+path_mii_tool=$(sudo which mii-tool)
 path_ifconfig=$(sudo which ifconfig)
 path_glxinfo=$(sudo which glxinfo)
 
@@ -116,7 +116,7 @@ interface=$(ip link show | grep 2: | awk '{print $2}' | sed s/://)
 	[ -x "$path_lspci" ] && sudo lspci -v -s "$line"
 done
 dmesg | grep $interface | grep up
-[ -x "$path_mii-tool" ] && sudo mii-tool -v $interface | grep status
+[ -x "$path_mii_tool" ] && sudo mii-tool -v $interface | grep status
 sudo ethtool $interface | grep Speed
 [ -x "$path_ifconfig" ] && sudo ifconfig $interface | grep HWaddr
 [ -x "$path_ifconfig" ] && sudo ifconfig $interface | grep addr:
