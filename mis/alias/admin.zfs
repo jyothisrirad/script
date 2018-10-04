@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #=================================
+# https://www.freebsd.org/cgi/man.cgi?zpool(8)
+
+#=================================
 # . ~/script/minecraft/alias/admin.1.help
 help_hline3 'zfs'
 
@@ -27,22 +30,22 @@ alias zpadd_real='sudo zpool add$*'
 help_add 'zpreplace.<tank>.<disk_o>.<disk_n>' 'DiskNew.更換zpool磁碟'
 alias zpreplace='sudo zpool replace $*'
 
-alias zpauto='sudo zpool set autoexpand=on $*'
-
-# zpool attach, 
-# zpool offline/
-# zpool online 跟 
-# zpool replace 的 cli 很重要. 
+help_add 'zpoffline.<tank>.<disk>' '離線zpool磁碟'
+alias zpoffline='sudo zpool offline $*'
+help_add 'zponline.<tank>.<disk>' '上線zpool磁碟'
+alias zponline='sudo zpool online $*'
 
 #=================================
 ###### 極危險指令，無法逆轉 ######
 #=================================
 alias zfsdestroy='sudo zfs destroy $*'
 alias zpdestroy='sudo zpool destroy $*'
+alias zplabelclear='sudo zpool labelclear $*'
+alias zpdetach='sudo zpool detach $*'
 
-# zpool destroy, 
-# zpool clearlabel, 
-# zpool detach
+#=================================
+help_add 'zpauto.<tank>' '自動擴充zpool'
+alias zpauto='sudo zpool set autoexpand=on $*'
 
 #=================================
 alias zpstatus='sudo zpool status'
