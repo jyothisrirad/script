@@ -6,7 +6,7 @@
 #=================================
 make_filelist() {
     [ ! -d /tank ] && echo /tank does not exist && return
-    ls -shR /tank >~/$(hostname).filelist.txt
+    sudo ls -shR /tank >~/$(hostname).filelist.txt
 }
 
 #=================================
