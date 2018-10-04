@@ -25,7 +25,7 @@ make_filelist() {
 	echo >>$file
 	
     # interface=$(ip link show | grep 2: | head -n 1 | awk '{print $2}' | sed s/://)
-    interface=$(ip link show | grep BROADCAST | head -n 1 | awk '{print $2}' | sed s/://)
+    interface=$(ip link show | grep BROADCAST | head -n 1 | awk '{print $2}' | sed s/:// | tr "@" "\n" | head -n 1)
 	echo ======= >>$file
 	echo Network >>$file
 	echo ======= >>$file
