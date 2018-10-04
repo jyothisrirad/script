@@ -24,7 +24,8 @@ make_filelist() {
 	cat /proc/meminfo | grep MemTotal >>$file
 	echo >>$file
 	
-    interface=$(ip link show | grep 2: | head -n 1 | awk '{print $2}' | sed s/://)
+    # interface=$(ip link show | grep 2: | head -n 1 | awk '{print $2}' | sed s/://)
+    interface=$(ip link show | grep BROADCAST | head -n 1 | awk '{print $2}' | sed s/://)
 	echo ======= >>$file
 	echo Network >>$file
 	echo ======= >>$file
@@ -39,17 +40,17 @@ make_filelist() {
 	lsblk >>$file
 	echo >>$file
 	
-	echo ============ >>$file
-	echo zpool status >>$file
-	echo ============ >>$file
-	sudo zpool status >>$file
-	echo >>$file
+	[ $(sudo which zpool) ] && echo ============ >>$file
+	[ $(sudo which zpool) ] && echo zpool status >>$file
+	[ $(sudo which zpool) ] && echo ============ >>$file
+	[ $(sudo which zpool) ] && sudo zpool status >>$file
+	[ $(sudo which zpool) ] && echo >>$file
 	
-	echo ======== >>$file
-	echo zfs list >>$file
-	echo ======== >>$file
-	sudo zfs list >>$file
-	echo >>$file
+	[ $(sudo which zfs) ] && echo ======== >>$file
+	[ $(sudo which zfs) ] && echo zfs list >>$file
+	[ $(sudo which zfs) ] && echo ======== >>$file
+	[ $(sudo which zfs) ] && sudo zfs list >>$file
+	[ $(sudo which zfs) ] && echo >>$file
 
 	# echo ============= >>$file
 	# echo ls -shR /$tank >>$file
