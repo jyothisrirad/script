@@ -168,7 +168,7 @@ lsblk | grep -P ^sd | cut -d" " -f 1 | while read line; do
 	echo ----------------------------------
 	tempfile=/tmp/tempfile
 	touch $tempfile
-	[ -x "$path_hdparm" ] && sudo hdparm -I /dev/"$line" > $tempfile
+	[ -x "$path_hdparm" ] && sudo hdparm -I /dev/"$line" > $tempfile 2>/dev/null
 	cat $tempfile | grep /dev/sd
 	cat $tempfile | grep Model
 	cat $tempfile | grep 'Serial Number'
