@@ -6,6 +6,9 @@ path_hdparm=$(sudo which hdparm)
 path_aticonfig=$(sudo which aticonfig)
 path_nvclock=$(sudo which nvclock)
 path_pveperf=$(sudo which pveperf)
+path_mii-tool=$(sudo which mii-tool)
+path_ifconfig=$(sudo which ifconfig)
+path_glxinfo=$(sudo which glxinfo)
 
 crontab_status() {
 	# user=$(whoami)
@@ -107,17 +110,18 @@ network_info() {
 echo =================================
 echo NETWORK Info
 echo =================================
+interface=$(ip link show | grep 2: | awk '{print $2}' | sed s/://)
 # [ -x "$path_lspci" ] && sudo lspci -v -s $(lspci | grep Ethernet | cut -d" " -f 1)
 [ -x "$path_lspci" ] && sudo lspci | grep Ethernet | cut -d" " -f 1 | while read line; do
 	[ -x "$path_lspci" ] && sudo lspci -v -s "$line"
 done
-dmesg | grep eth0 | grep up
-sudo mii-tool -v eth0 | grep status
-sudo ethtool eth0 | grep Speed
-sudo ifconfig eth0 | grep HWaddr
-sudo ifconfig eth0 | grep addr:
-sudo ifconfig eth0 | grep packets:
-sudo ifconfig eth0 | grep bytes:
+dmesg | grep $interface | grep up
+[ -x "$path_mii-tool" ] && sudo mii-tool -v $interface | grep status
+sudo ethtool $interface | grep Speed
+[ -x "$path_ifconfig" ] && sudo ifconfig $interface | grep HWaddr
+[ -x "$path_ifconfig" ] && sudo ifconfig $interface | grep addr:
+[ -x "$path_ifconfig" ] && sudo ifconfig $interface | grep packets:
+[ -x "$path_ifconfig" ] && sudo ifconfig $interface | grep bytes:
 }
 
 ram_info() {
@@ -147,7 +151,7 @@ gpu3d_info() {
 echo =================================
 echo GPU 3D Info
 echo =================================
-glxinfo
+[ -x "$path_glxinfo" ] && glxinfo
 [ -x "$path_aticonfig" ] && aticonfig --odgc
 [ -x "$path_nvclock" ] && nvclock
 }
