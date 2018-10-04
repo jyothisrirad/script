@@ -6,7 +6,11 @@
 #=================================
 make_filelist() {
     [ ! -d /tank ] && echo /tank does not exist && return
-    sudo ls -shR /tank >~/$(hostname).filelist.txt
+	file=~/$(hostname).filelist.txt
+	[ -f $file ] && rm $file
+	sudo zpool status >>$file
+	sudo zfs list >>$file
+    sudo ls -shR /tank >>$file
 }
 
 #=================================
