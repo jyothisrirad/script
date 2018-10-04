@@ -190,3 +190,4 @@ alias send='bungee_probe_command_noecho send all $*'
 alias send1='bungee_probe_command_noecho send $*'
 alias ssend='bungee_probe_sendall_noecho send all $*'
 alias ssend1='bungee_probe_sendall_noecho send $*'
+

@@ -63,7 +63,7 @@ root@pve2:/home/sita/script/pve# crontab -l
 
 
 ###zfs benchmark
-benchmark> 	~/script/benchmark/hd.speed.sh
+benchmark> 	sudo ~/script/benchmark/hd.speed.sh
 ###benchmark
 #>				smartctl -i /dev/sd?
 #>				zpool status

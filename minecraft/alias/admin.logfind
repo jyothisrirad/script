@@ -162,7 +162,8 @@ for_log() {
 		if [ $mode == "normal" ]; then
 			arg1="$1"
 			# echo normal, $arg1
-			$find "$log" $* | grep 'INFO' | grep -v 'ViaBackwards\|UpstreamBridge\|disconnected\|DiscordSRV\|UUID\|FairPlayMinecraft\|lost\|left\|default' >$tmp
+			# $find "$log" $* | grep 'INFO' | grep -v 'ViaBackwards\|UpstreamBridge\|disconnected\|DiscordSRV\|UUID\|FairPlayMinecraft\|lost\|left\|default' >$tmp
+			$find "$log" $* | grep 'INFO' | grep -v 'ViaBackwards\|DiscordSRV\|UUID\|FairPlayMinecraft\|lost\|default' >$tmp
 			[ -s $tmp ] && echo -e ${YELLOW}============================ $(basename "$log"), $* ============================${NC}
 			[ -s $tmp ] && cat $tmp
 				
@@ -303,3 +304,10 @@ alias lba='log_bungeecord_analyst'
 #=================================
 help_add 'ppcount' '計算遊玩人次'
 alias ppcount='count_players'
+
+#=================================
+help_add 'lfb' '搜尋bungeecord登入紀錄'
+alias lfb='tempver=$mcver && chmc $s65 && lf ServerConnector && chmc $tempver'
+help_add 'lfs' '搜尋登出入紀錄'
+alias lfs='lf "logged\|left" 1'
+
