@@ -22,7 +22,7 @@ make_filelist() {
 	cat /proc/meminfo | grep MemTotal >>$file
 	echo >>$file
 	
-    interface=$(ip link show | grep 2: | awk '{print $2}' | sed s/://)
+    interface=$(ip link show | grep 2: | head -n 1 | awk '{print $2}' | sed s/://)
 	echo ======= >>$file
 	echo Network >>$file
 	echo ======= >>$file
@@ -54,7 +54,7 @@ make_filelist() {
 	# echo >>$file
     
 	echo =========== >>$file
-	echo Directories
+	echo Directories >>$file
 	echo =========== >>$file
     sudo find /tank -type d >>$file
 	echo >>$file
