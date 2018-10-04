@@ -5,7 +5,9 @@
 
 #=================================
 make_filelist() {
-    [ ! -d /tank ] && echo /tank does not exist && return
+    tank="mnt"
+    [ -d /tank ] && tank="tank"
+    [ ! -d /$tank ] && echo /$tank does not exist && return
 	
 	file=~/$(hostname).filelist.txt
 	[ -f $file ] && rm $file
@@ -50,21 +52,21 @@ make_filelist() {
 	echo >>$file
 
 	# echo ============= >>$file
-	# echo ls -shR /tank >>$file
+	# echo ls -shR /$tank >>$file
 	# echo ============= >>$file
-    # sudo ls -shR /tank >>$file
+    # sudo ls -shR /$tank >>$file
 	# echo >>$file
     
 	echo =========== >>$file
 	echo Directories >>$file
 	echo =========== >>$file
-    sudo find /tank -type d >>$file
+    sudo find /$tank -type d >>$file
 	echo >>$file
     
 	echo ===== >>$file
 	echo Files >>$file
 	echo ===== >>$file
-    sudo find /tank -type f >>$file
+    sudo find /$tank -type f >>$file
 	echo >>$file
 }
 
