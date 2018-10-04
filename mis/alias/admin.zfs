@@ -46,6 +46,8 @@ alias zpdetach='sudo zpool detach $*'
 #=================================
 help_add 'zpauto.<tank>' '自動擴充zpool'
 alias zpauto='sudo zpool set autoexpand=on $*'
+help_add 'zpauto.<tank>' '列出zpool磁碟'
+alias zpdisk='ls /dev/disk/by-vdev/'
 
 #=================================
 alias zpstatus='sudo zpool status'
