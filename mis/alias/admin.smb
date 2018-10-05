@@ -44,8 +44,8 @@ smb_share() {
 #=================================
 smb_unshare() {
     [ -z $1 ] && echo Sharename missing && return
-    echo sudo sed -i '/\[$1\]/,+8d' /etc/samba/smb.conf
-    sudo sed -i '/\[$1\]/,+8d' /etc/samba/smb.conf
+    echo sudo sed -i "/\[$1\]/,+8d" /etc/samba/smb.conf
+    sudo sed -i "/\[$1\]/,+8d" /etc/samba/smb.conf
 	sudo /etc/init.d/samba restart
 }
 
