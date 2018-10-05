@@ -121,9 +121,12 @@ playsound() {
 #=================================
 yelling() {
     # t="§a§l§o$*"
-    t="§a§l$*"
-    titles $t
+    t="§a§l$1"
+    s="§a§l$2"
+    titles $t $s
 }
 
 alias npc.rides='npcrides $*'
 alias yell='yelling $*'
+alias yellrc='yelling 只接受RC會員申請名為「${gold}${bold}麥塊ID\(自己暱稱\)${green}${bold}」 ${white}${bold}RC:${green}${bold}27685743'
+
