@@ -23,11 +23,14 @@ smb_newuser() {
 
 #=================================
 smb_share() {
-	if ! grep -Fxq "[$1]" /etc/samba/smb.conf; then
+    sharename=$(basename "$1")
+    fullpath=$(readlink -e $1)
+    [ ! -d $fullpath ] && Shared directory missing && return
+	if ! grep -Fxq "[$sharename]" /etc/samba/smb.conf; then
 		echo Adding Samba Share: $1
 		
-		echo [$1] 			| sudo tee -a /etc/samba/smb.conf
-		echo path = /$rpool/Shares/$1	| sudo tee -a /etc/samba/smb.conf
+		echo [$sharename] 			| sudo tee -a /etc/samba/smb.conf
+		echo path = $fullpath       | sudo tee -a /etc/samba/smb.conf
 		echo force group = users	| sudo tee -a /etc/samba/smb.conf
 		echo read only = No		| sudo tee -a /etc/samba/smb.conf
 		echo create mask = 0775	       	| sudo tee -a /etc/samba/smb.conf
@@ -43,9 +46,10 @@ smb_share() {
 
 #=================================
 smb_unshare() {
-    [ -z $1 ] && echo Sharename missing && return
+    sharename=$(basename "$1")
+    [ -z $sharename ] && echo Sharename missing && return
     # echo sudo sed -i "/\[$1\]/,+8d" /etc/samba/smb.conf
-    sudo sed -i "/\[$1\]/,+8d" /etc/samba/smb.conf
+    sudo sed -i "/\[$sharename\]/,+8d" /etc/samba/smb.conf
 	sudo /etc/init.d/samba restart
 }
 
