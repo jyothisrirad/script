@@ -5,7 +5,7 @@
 
 #=================================
 smb_newuser() {
-    [ -z $1 ] && echo Username required && return
+    [ -z $1 ] && echo Username missing && return
     
 	sudo adduser $1
 	sudo addgroup $1
@@ -43,7 +43,8 @@ smb_share() {
 
 #=================================
 smb_unshare() {
-    [ -z $1 ] && echo Sharename required && return
+    [ -z $1 ] && echo Sharename missing && return
+    echo sudo sed -i '/\[$1\]/,+8d' /etc/samba/smb.conf
     sudo sed -i '/\[$1\]/,+8d' /etc/samba/smb.conf
 	sudo /etc/init.d/samba restart
 }
