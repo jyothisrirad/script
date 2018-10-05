@@ -4,6 +4,53 @@
 # help_hline3 'speedtest'
 
 #=================================
+smb_newuser() {
+    [ -z $1 ] && echo Username required && return
+    
+	sudo adduser $1
+	sudo addgroup $1
+	sudo adduser $1 $1 
+	sudo adduser $1 users
+
+	sudo sed -i '0,/read only/s/read only = yes/read only = no/' /etc/samba/smb.conf
+	
+	sudo smbpasswd -a $1
+	sudo pdbedit -w -L
+	sudo /etc/init.d/samba restart
+
+	# smbclient -L //localhost -U $1
+}
+
+#=================================
+smb_share() {
+	if ! grep -Fxq "[$1]" /etc/samba/smb.conf; then
+		echo Adding Samba Share: $1
+		
+		echo [$1] 			| sudo tee -a /etc/samba/smb.conf
+		echo path = /$rpool/Shares/$1	| sudo tee -a /etc/samba/smb.conf
+		echo force group = users	| sudo tee -a /etc/samba/smb.conf
+		echo read only = No		| sudo tee -a /etc/samba/smb.conf
+		echo create mask = 0775	       	| sudo tee -a /etc/samba/smb.conf
+		echo force create mode = 0775 	| sudo tee -a /etc/samba/smb.conf
+		echo directory mask = 0775      | sudo tee -a /etc/samba/smb.conf
+		echo force directory mode = 0775| sudo tee -a /etc/samba/smb.conf
+		echo guest ok = Yes		| sudo tee -a /etc/samba/smb.conf
+        echo | sudo tee -a /etc/samba/smb.conf
+		
+		sudo /etc/init.d/samba restart
+	fi	
+}
+
+#=================================
+smb_unshare() {
+    [ -z $1 ] && echo Sharename required && return
+    sudo sed -i '/\[$1\]/,+8d' /etc/samba/smb.conf
+}
+
+#=================================
 help_add 'smblist' 'smb分享list'
 alias smblist='smbclient -L //localhost -U $(whoami)'
+alias smbnewuser='smb_newuser $*'
+alias smbshare='smb_share $*'
+alias smbunshare='smb_unshare $*'
 
