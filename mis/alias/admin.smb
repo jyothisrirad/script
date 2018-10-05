@@ -27,7 +27,7 @@ smb_share() {
     fullpath=$(readlink -e $1)
     [ ! -d $fullpath ] && Shared directory missing && return
 	if ! grep -Fxq "[$sharename]" /etc/samba/smb.conf; then
-		echo Adding Samba Share: $1
+		echo Adding Samba Share: $sharename on $fullpath
 		
 		echo [$sharename] 			| sudo tee -a /etc/samba/smb.conf
 		echo path = $fullpath       | sudo tee -a /etc/samba/smb.conf
