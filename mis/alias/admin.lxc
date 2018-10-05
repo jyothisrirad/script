@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#=================================
+# https://www.facebook.com/groups/pve.tw/permalink/706276702874227/
+# https://forum.proxmox.com/threads/openmediavault-installation-in-lxc-with-attached-hw-block-device.29918/
+# https://becoder.org/openmediavault4-on-lxc-in-proxmox-ve-5/q
+
+#=================================
+# help_hline3 'speedtest'
+
+#=================================
+# help_add 'plxc' 'lxc路徑'
+alias plxc='cd /var/lib/lxc'
+alias ppve='cd /etc/pve/lxc'
+
+alias omvshare='sudo ln -s /mnt/Download Download'
+alias debugrun='sudo lxc-start -n 120 --logpriority=WARN --logfile ~/120.log'
+

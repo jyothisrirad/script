@@ -129,6 +129,7 @@ zfs_create $rpool/Shares/VM -o recordsize=4k -o sync=disabled
 zfs_create $rpool/Shares/Download -o recordsize=16KB
 # sudo zfs set compression=off $rpool/Shares/Download
 
-addto_sources deb http://download.proxmox.com/debian jessie pve-no-subscription
+# addto_sources deb http://download.proxmox.com/debian jessie pve-no-subscription
+addto_sources deb http://download.proxmox.com/debian $(lsb_release -c -s) pve-no-subscription
 sudo apt update
 sudo apt install -y openvswitch-switch zfs-zed

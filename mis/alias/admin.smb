@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#=================================
+# help_hline3 'speedtest'
+
+#=================================
+help_add 'smblist' 'smb分享list'
+alias smblist='smbclient -L //localhost -U $(whoami)'
+
