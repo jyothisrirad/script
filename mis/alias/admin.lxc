@@ -13,6 +13,11 @@
 alias plxc='cd /var/lib/lxc'
 alias ppve='cd /etc/pve/lxc'
 
-alias omvshareprep='sudo ln -s /mnt/Download Download'
-alias debugrun='sudo lxc-start -n 120 --logpriority=WARN --logfile ~/120.log'
+alias omvshareprep='sudo ln -s /mnt/$1 $1'
+# DEBUG 
+# ERROR 
+# FATAL 
+# INFO 
+# WARN 
+alias debugrun='sudo lxc-start -n $1 --logpriority=DEBUG --logfile ~/$1.log'
 
