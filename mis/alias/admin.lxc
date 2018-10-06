@@ -31,4 +31,6 @@ alias ppve='cd /etc/pve/lxc'
 
 alias omvshareprep='omv_share_prep $1'
 alias lxcrun='lxc_run $1'
+alias lxcmount='sudo pct mount $1'
+alias lxcunmount='sudo pct unmount  $1'
 
