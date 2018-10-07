@@ -29,7 +29,7 @@ team_display_names = {
 }
 preset_teams = {}
 presets = {
-	# 0: ['qqua630512'],
+	0: ['qqua630512'],
 	# 1: ['Willwill01'],
 	# 2: ['Frs_yoyogood'],
 	# 0: ['ZK_KY'],
@@ -37,7 +37,7 @@ presets = {
 	# 2: ['DY_speaker'],
 	# 0: ['yozTW','AhYuan_OuO','qqua630512'],
 	# 0: ['yozTW','KPB_power8080','qqua630512'],
-	0: ['yozTW','AhYuan_OuO'],
+	# 0: ['yozTW','AhYuan_OuO'],
 }
 
 

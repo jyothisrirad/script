@@ -50,6 +50,10 @@ server.post() {
     #apply extra_ops.txt for extra ops
     OPS=/mnt/runtimes/$mcver/extra_ops.txt
     [ -f $OPS ] && echo -e ${YELLOW}== $mcver/extra_ops.txt ${NC} && op_append $OPS
+    
+    #apply extra_ops.txt for extra ops
+    OPS=/mnt/runtimes/$mcver/extra_youtuber.txt
+    [ -f $OPS ] && echo -e ${YELLOW}== $mcver/extra_youtuber.txt ${NC} && op_append $OPS
 }
 
 #=================================
