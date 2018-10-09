@@ -1,0 +1,51 @@
+#!/bin/bash
+
+#=================================
+help_hline3 'ps'
+
+#=================================
+pidinfo() {
+    pid=$1
+    ps aux | grep -v "grep" | grep $pid
+    sudo cat /proc/$pid/environ | tr '\0' '\n' | grep "PWD"
+}
+
+#=================================
+pid_tree() {
+	# ps -eo ppid,pid,cmd | awk '{p[$1]=p[$1]","$3}END{ for(i in p) print i, p[i]}'
+	#pstree
+	# pstree -s $$
+	pstree -p
+}
+
+#=================================
+pid_max() {
+    pidmax=$(cat /proc/sys/kernel/pid_max)
+    pidcount=$(ps -eLf | wc -l)
+    threadmax=$(cat /proc/sys/kernel/threads-max)
+    
+    echo pid    current: $pidcount  max: $pidmax
+    echo thread current: 0          max: $threadmax
+}
+
+#=================================
+# RSS : is the Resident Set Size and is used to show how much memory is allocated to that process and is in RAM. It does not include memory that is swapped out. It does include memory from shared libraries as long as the pages from those libraries are actually in memory. It does include all stack and heap memory.
+# VSZ : is the Virtual Memory Size. It includes all memory that the process can access, including memory that is swapped out, memory that is allocated, but not used, and memory that is from shared libraries.
+# min_flt : Number of minor page faults. A minor fault occurs due to page allocation.
+# maj_flt : Number of major page faults. A major fault occurs when disk access required. For example, start an app called Firefox. The Linux kernel will search in the physical memory and CPU cache. If data do not exist, the Linux issues a major page fault.
+process_heap() {
+    ps --sort -rss -eo comm,pmem,rss,vsz,maj_flt,min_flt,pid | head | numfmt --header --from-unit=1024 --to=iec --field 3 | numfmt --header --from-unit=1024 --to=iec --field 4 | numfmt --header --to=iec --field 5 | numfmt --header --to=iec --field 6 | column -t
+}
+
+#=================================
+help_add 'pid.<pid>' '檢查pid'
+alias pid='pidinfo $*'
+help_add 'pidtree.<pid>' '檢查pid執行關係'
+alias pidtree='pid_tree $*'
+
+help_add 'heap' 'heap排序'
+alias heap='process_heap'
+alias heap2='ps --sort -rss -eo comm,pmem,rss,vsz,maj_flt,min_flt,pid | head | column -t'
+
+alias pidmax='pid_max | column -t'
+
