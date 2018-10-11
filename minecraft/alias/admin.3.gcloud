@@ -97,16 +97,16 @@ gumount() {
 }
 
 #=================================
-dnssetup() {
+dns_setup() {
     # echo Runngin $1 $2
     file=/home/sita/script/minecraft/gcloud/$1
     # [ ! -z "$1" ] && . /home/sita/script/minecraft/gcloud/$1
-    [ -f "$file" ] && echo -e ${GREEN}=== Running $file ${YELLOW}$2 ${NC} && $file $2
+    [ -f "$file" ] && echo -e ${GREEN}=== Running $file ${YELLOW}$2 $3 ${NC} && $file $2 $3
     [ ! -f "$file" ] && echo -e ${RED}$file not found${NC}
 }
 
 #=================================
-dnsctl() {
+dns_control() {
     # [ ! -z "$1" ] && /home/sita/script/mis/gcloud.dns.update.sh "$1" creeper-196707 creeper-tw
     [ ! -z "$1" ] && /home/sita/script/mis/gcloud.dns.update.sh "$1" creeper-199909 creeper-tw
 }
@@ -141,9 +141,9 @@ alias gauth='gcloud auth login'
 # alias dns.tp1='/home/sita/script/minecraft/gcloud/tp1'
 # alias dns.uhc='/home/sita/script/minecraft/gcloud/uhc'
 help_add 'dns.<hostname>' 'DNS設定'
-alias dns='dnssetup $*'
+alias dns='dns_setup $*'
 help_add 'dnst.[start|commit|abort]' 'DNS設定交易控制'
-alias dnst='dnsctl'
+alias dnst='dns_control'
 help_add 'removeip' '移除DNS設定'
 alias removeip='dns_remove'
 

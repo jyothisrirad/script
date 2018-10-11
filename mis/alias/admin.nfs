@@ -6,7 +6,8 @@ help_hline3 'nfs'
 
 #=================================
 nfs_share() {
-    sharepath=$1
+    # sharepath=$1
+    sharepath=$(readlink -e "$1")
     IFS='/' read -r -a array <<< "$sharepath"
     # echo ${array[-1]}
     # return
@@ -46,7 +47,7 @@ help_add 'nfsinstall' 'nfs安裝'
 alias nfsinstall='sudo apt install nfs-common'
 
 #=================================
-help_add 'nfsshare' 'nfs分享'
+help_add 'nfsshare.<fullpath>' 'nfs分享'
 alias nfsshare='nfs_share $1'
 alias nfsunshare='nfs_unshare $1'
 help_add 'nfslist' 'nfs分享list'
