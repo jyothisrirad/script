@@ -25,11 +25,14 @@ install_hugepage() {
     
     sudo sysctl --system
     
+    echo -e ${YELLOW}=== Checking Huge Pages variables${NC}
     sudo sysctl kernel.shmmax
     sudo sysctl vm.nr_hugepages
     cat /proc/meminfo | grep -i Hugepagesize
     sudo sysctl vm.hugetlb_shm_group
     cat /etc/security/limits.conf | grep memlock
+    echo -e ${YELLOW}=== Huge Pages${NC}
+    cat /proc/meminfo | grep -i huge
 }
 
 #=================================
