@@ -39,13 +39,13 @@ start_bc() {
     gcloud --account "sita@changen.com.tw" --project "creeper-199909" compute instances start bungeecord-tw2
     
     # echo $bc3 start $1
-    $bc3 start $1
+    # $bc3 start $1
 }
 
 #=================================
 stop_bc() {
     # echo $bc3 stop $1
-    $bc3 stop $1
+    # $bc3 stop $1
     
     gcloud --account "sita@changen.com.tw" --project "creeper-199909" compute instances stop bungeecord-tw2
     # 0.6 GB
@@ -86,6 +86,21 @@ update_dns() {
 dns_stop() {
     echo DNS Groups: $(basename $0)
 	
+	echo -e Collecting ip: ${GREEN}"bc.creeper.tw"${NC}
+	bcip+=$(lookup_dns_ip bc.creeper.tw)
+	bcip+=" "
+	
+	echo -e Collecting ip: ${GREEN}"gem.creeper.tw"${NC}
+	bcip+=$(lookup_dns_ip gem.creeper.tw)
+	bcip+=" "
+
+	$gandi set $RECORD $bcip
+}
+
+#=================================
+dns_stop2() {
+    echo DNS Groups: $(basename $0)
+	
 	echo -e Collecting ip: ${GREEN}"gem.creeper.tw"${NC}
 	bcip+=$(lookup_dns_ip gem.creeper.tw)
 	bcip+=" "
@@ -107,7 +122,8 @@ case "$1" in
     ;;
   start)
     $0 install
-    start_bc $2
+    start_bc
+	$bc3 start $2 $2
     update_dns
     exit
     ;;
@@ -117,9 +133,14 @@ case "$1" in
     ;;
   stop)
     $0 remove
-    stop_bc $2
-    stop
+	$bc3 stop
+    dns_stop
     exit
+    ;;
+  stop2)
+    stop_bc
+	$0 stop
+	dns_stop2
     ;;
   *)
     update_dns

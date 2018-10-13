@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#=================================
+# help_hline3 'hugepage'
+
+#=================================
+install_hugepage() {
+	# install Kernel system variables for Huge Pages
+	sudo cp ~/script/init.d/sysctl/local.hugepage.conf /etc/sysctl.d/
+    
+    totalram=$(free -b | grep Mem: | awk '{print $2}')
+    totalrampage=$(echo "${totalram}/1024/1024/2"|bc)
+    gid=$(id -g $(whoami))
+    
+    file=/etc/sysctl.d/local.hugepage.conf
+    sudo sed -i "s/^kernel.shmmax = .*/kernel.shmmax = $totalram/g" $file
+    sudo sed -i "s/^vm.nr_hugepages = .*/vm.nr_hugepages = $totalrampage/g" $file
+    sudo sed -i "s/^vm.hugetlb_shm_group = .*/vm.hugetlb_shm_group = $gid/g" $file
+}
+
+#=================================
+help_add 'ihuge' '啟用HugePages'
+alias ihuge='install_hugepage'
+
+

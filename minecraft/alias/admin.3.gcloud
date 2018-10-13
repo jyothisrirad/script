@@ -120,6 +120,13 @@ dns_remove() {
 }
 
 #=================================
+vm_list() {
+    gcloud --account "chsliu@gmail.com" --project "creeper-196707" compute instances list | grep RUNNING | column -t
+    gcloud --account "sita@changen.com.tw" --project "creeper-199909" compute instances list | grep RUNNING | column -t
+    gcloud --account "creeper.workshop@gmail.com" --project "creeperworkshop-web" compute instances list | grep RUNNING | column -t
+}
+
+#=================================
 alias gkey='[ ! -d /home/sita/.gcloud ] && mkdir /home/sita/.gcloud || rsync -az rsync://home.changen.com.tw/NetBackup/rsync/gcloud/*.json /home/sita/.gcloud/ '
 # alias gmnt='gcsfuse creeper-tw-backup /mnt/backup'
 # alias gmnt='gcsfuse --key-file /home/sita/.gcloud/chsliu@gmail.com.json creeper-tw-backup /mnt/backup'
@@ -156,3 +163,10 @@ help_add 'bc2.<start|stop>' '執行個體群組bc2開始|結束'
 alias bc2='/home/sita/script/minecraft/gcloud/igroup.sh $*'
 help_add 'bc3.<start|stop>' '執行個體群組bc3開始|結束'
 alias bc3='/home/sita/script/minecraft/gcloud/igroup3.sh $*'
+help_add 'bctemp.<start|<[pre]stop[2]>.[num]' '執行個體群組bctemp開始|結束'
+alias bctemp='/home/sita/script/minecraft/gcloud/bctemp $*'
+
+#=================================
+help_add 'vmlist' '列出vm位址'
+alias vmlist='vm_list'
+

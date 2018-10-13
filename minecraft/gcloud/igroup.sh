@@ -121,6 +121,7 @@ case "$1" in
     ;;
   start)
     [ ! -z "$2" ] && instances_count_min=$2
+    [ ! -z "$3" ] && instances_count_max=$3
     start
     exit
     ;;
