@@ -16,6 +16,20 @@ install_hugepage() {
     sudo sed -i "s/^kernel.shmmax = .*/kernel.shmmax = $totalram/g" $file
     sudo sed -i "s/^vm.nr_hugepages = .*/vm.nr_hugepages = $totalrampage/g" $file
     sudo sed -i "s/^vm.hugetlb_shm_group = .*/vm.hugetlb_shm_group = $gid/g" $file
+    
+    file=/etc/security/limits.conf
+    #  $(whoami) soft memlock n
+    #  $(whoami) hard memlock n
+    grep -q "^$(whoami) soft memlock" $file || echo "$(whoami) soft memlock $totalrampage" | sudo tee -a $file
+    grep -q "^$(whoami) hard memlock" $file || echo "$(whoami) hard memlock $totalrampage" | sudo tee -a $file
+    
+    sudo sysctl --system
+    
+    sudo sysctl kernel.shmmax
+    sudo sysctl vm.nr_hugepages
+    cat /proc/meminfo | grep -i Hugepagesize
+    sudo sysctl vm.hugetlb_shm_group
+    cat /etc/security/limits.conf | grep memlock
 }
 
 #=================================
