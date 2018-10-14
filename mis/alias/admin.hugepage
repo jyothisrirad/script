@@ -48,7 +48,7 @@ hugepage_query() {
     totalram=$(free -b | grep Mem: | awk '{print $2}')
     totalrampage=$(echo "${totalram}/1024/1024/2"|bc)
     totalhugepage=$(echo "${totalrampage}/2"|bc)
-    echo max hugepages: $totalhugepage
+    echo Max possible hugepages: $totalhugepage
 }
 
 #=================================
