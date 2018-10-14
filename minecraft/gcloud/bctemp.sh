@@ -8,7 +8,8 @@ gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
 RECORD=r53
 
 #=================================
-setmachine=/home/sita/script/minecraft/gcloud/setmachine.sh
+# setmachine=/home/sita/script/minecraft/gcloud/setmachine.sh
+bc1=/home/sita/script/minecraft/gcloud/bungeecord.sh
 bc3=/home/sita/script/minecraft/gcloud/igroup3.sh
 
 #=================================
@@ -33,24 +34,24 @@ my_ip_address() {
 }
 
 #=================================
-start_bc() {
+# start_bc() {
     # 1.7 GB
-    $setmachine sita@changen.com.tw bungeecord-tw2 g1-small
-    gcloud --account "sita@changen.com.tw" --project "creeper-199909" compute instances start bungeecord-tw2
+    # $setmachine sita@changen.com.tw bungeecord-tw2 g1-small
+    # gcloud --account "sita@changen.com.tw" --project "creeper-199909" compute instances start bungeecord-tw2
     
     # echo $bc3 start $1
     # $bc3 start $1
-}
+# }
 
 #=================================
-stop_bc() {
+# stop_bc() {
     # echo $bc3 stop $1
     # $bc3 stop $1
     
-    gcloud --account "sita@changen.com.tw" --project "creeper-199909" compute instances stop bungeecord-tw2
+    # gcloud --account "sita@changen.com.tw" --project "creeper-199909" compute instances stop bungeecord-tw2
     # 0.6 GB
-    $setmachine sita@changen.com.tw bungeecord-tw2 f1-micro
-}
+    # $setmachine sita@changen.com.tw bungeecord-tw2 f1-micro
+# }
 
 #=================================
 update_dns() {
@@ -122,7 +123,8 @@ case "$1" in
     ;;
   start)
     $0 install
-    start_bc
+    # start_bc
+    bc1 start small
 	$bc3 start $2 $2
     update_dns
     exit
@@ -138,7 +140,8 @@ case "$1" in
     exit
     ;;
   stop2)
-    stop_bc
+    # stop_bc
+    bc1 stop
 	$0 stop
 	dns_stop2
     ;;

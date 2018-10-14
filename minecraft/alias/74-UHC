@@ -15,6 +15,6 @@ s74() {
 	chmc $s74
 }
 
-alias v11uc=s74
+# alias v11uc=s74
 alias 74=s74
-alias uhc=s74
+# alias uhc=s74

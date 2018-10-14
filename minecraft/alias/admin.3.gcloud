@@ -169,6 +169,8 @@ help_add 'bctemp.<start|<[pre]stop[2]>.[num]' '執行個體群組bctemp開始|�
 alias bctemp='/home/sita/script/minecraft/gcloud/bctemp.sh $*'
 help_add 'bc1.<start|stop>.<type>' '執行bc1開始[類型]|結束'
 alias bc1='/home/sita/script/minecraft/gcloud/bungeecord.sh $*'
+help_add 'uhc.<start|stop>.<type>' '執行uhc開始[類型]|結束'
+alias uhc='/home/sita/script/minecraft/gcloud/uhc.sh $*'
 
 #=================================
 help_add 'vmlist' '列出vm位址'

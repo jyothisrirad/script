@@ -17,15 +17,15 @@ set_machine_type() {
     
     case "$type" in
       "micro")
-        echo Set $instances Machine Type to f1-micro
+        echo == Set $instances Machine Type to f1-micro
         gcloud compute instances set-machine-type $instances --machine-type "f1-micro"
         ;;
       "small")
-        echo Set $instances Machine Type to g1-small
+        echo == Set $instances Machine Type to g1-small
         gcloud compute instances set-machine-type $instances --machine-type "g1-small"
         ;;
       *)
-        echo Set $instances Machine Type to $type
+        echo == Set $instances Machine Type to $type
         gcloud compute instances set-machine-type $instances --machine-type $type
     esac
     
@@ -33,12 +33,12 @@ set_machine_type() {
 }
 
 start_machine() {
-    echo Start Machine $instances
+    echo == Start Machine $instances
     gcloud --account $gcloud_account --project $project compute instances start $instances
 }
 
 stop_machine() {
-    echo Stop Machine $instances
+    echo == Stop Machine $instances
     gcloud --account $gcloud_account --project $project compute instances stop $instances
 }
 
