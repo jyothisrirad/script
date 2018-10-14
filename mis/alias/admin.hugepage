@@ -20,8 +20,10 @@ hugepage_install() {
     file=/etc/security/limits.conf
     #  $(whoami) soft memlock n
     #  $(whoami) hard memlock n
-    grep -q "^$(whoami) soft memlock" $file || echo "$(whoami) soft memlock $totalrampage" | sudo tee -a $file
-    grep -q "^$(whoami) hard memlock" $file || echo "$(whoami) hard memlock $totalrampage" | sudo tee -a $file
+    # grep -q "^$(whoami) soft memlock" $file || echo "$(whoami) soft memlock $totalrampage" | sudo tee -a $file
+    # grep -q "^$(whoami) hard memlock" $file || echo "$(whoami) hard memlock $totalrampage" | sudo tee -a $file
+    grep -q "^* soft memlock" $file || echo "* soft memlock $totalrampage" | sudo tee -a $file
+    grep -q "^* hard memlock" $file || echo "* hard memlock $totalrampage" | sudo tee -a $file
     
     sudo sysctl --system
     
@@ -35,7 +37,8 @@ hugepage_query() {
     sudo sysctl vm.nr_hugepages
     cat /proc/meminfo | grep -i Hugepagesize
     sudo sysctl vm.hugetlb_shm_group
-    cat /etc/security/limits.conf | grep memlock
+    # cat /etc/security/limits.conf | grep memlock
+    echo ulimit: $(ulimit -l)
     echo -e ${YELLOW}=== Huge Pages${NC}
     cat /proc/meminfo | grep -i huge
 }

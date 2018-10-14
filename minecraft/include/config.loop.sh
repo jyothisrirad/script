@@ -26,7 +26,8 @@ INVOCATION="$MCPATH/loop.sh"
 
 #
 pre_game_setup() {
-	echo [pre_game_setup]
+	echo VVVVV pre_game_setup VVVVV
+	
 	server.prep
     [ ! -z $HOUSEKEEP ] && [ -f $HOUSEKEEP ] && $HOUSEKEEP install
 	
@@ -34,14 +35,17 @@ pre_game_setup() {
     rm -rf $DP0/timings
     [ -d $DP0/GameWorld ] && rm -rf $DP0/world*
     [ -d $DP0/GameWorld ] && cp -rf $DP0/GameWorld $DP0/world
-	echo [pre_game_setup][end]
+	
+	echo ^^^^^^^^^^^^^^^^^^^^^^^^^^
 }
 
 post_game_setup() {
-	echo [post_game_setup]
+	echo VVVVV post_game_setup VVVVV
+	
     [ ! -z $HOUSEKEEP ] && [ -f $HOUSEKEEP ] && $HOUSEKEEP remove
 	server.post
-	echo [post_game_setup][end]
+	
+	echo ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }
 
 # op-permission-level=4

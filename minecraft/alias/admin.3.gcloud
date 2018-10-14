@@ -168,5 +168,5 @@ alias bctemp='/home/sita/script/minecraft/gcloud/bctemp $*'
 
 #=================================
 help_add 'vmlist' '列出vm位址'
-alias vmlist='vm_list'
+alias vmlist='vm_list | sort'
 
