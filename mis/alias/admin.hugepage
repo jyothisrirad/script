@@ -58,8 +58,8 @@ hugepage_set() {
 }
 
 #=================================
-help_add 'hi' '啟用HugePages'
-alias hi='hugepage_install'
+help_add 'hinst' '啟用HugePages'
+alias hinst='hugepage_install'
 help_add 'hq' '查詢HugePages'
 alias hq='hugepage_query'
 help_add 'ht' '測試HugePages'
