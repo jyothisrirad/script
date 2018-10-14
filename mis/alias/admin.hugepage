@@ -32,6 +32,7 @@ hugepage_install() {
 
 #=================================
 hugepage_query() {
+    ipcs -l
     echo -e ${YELLOW}=== Checking Huge Pages variables${NC}
     sudo sysctl kernel.shmmax
     sudo sysctl vm.nr_hugepages
@@ -46,6 +47,8 @@ hugepage_query() {
 #=================================
 help_add 'ihuge' '啟用HugePages'
 alias ihuge='hugepage_install'
+help_add 'ihq' '查詢HugePages'
 alias ihq='hugepage_query'
-
+help_add 'iht' '測試HugePages'
+alias iht='java -XX:+UseLargePages'
 
