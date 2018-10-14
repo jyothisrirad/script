@@ -46,11 +46,11 @@ hugepage_query() {
 }
 
 #=================================
-help_add 'ihuge' '啟用HugePages'
+help_add 'hi' '啟用HugePages'
 alias hi='hugepage_install'
-help_add 'ihq' '查詢HugePages'
+help_add 'hq' '查詢HugePages'
 alias hq='hugepage_query'
-help_add 'iht' '測試HugePages'
+help_add 'ht' '測試HugePages'
 alias ht='java -XX:+UseLargePages'
 help_add 'hset.<num>' '設定HugePages'
 alias hset='sudo sysctl -w vm.nr_hugepages=$*'
