@@ -46,6 +46,12 @@ hugepage_query() {
 }
 
 #=================================
+hugepage_set() {
+    pages=$1
+    sudo sysctl -w vm.nr_hugepages=$pages
+}
+
+#=================================
 help_add 'hi' '啟用HugePages'
 alias hi='hugepage_install'
 help_add 'hq' '查詢HugePages'
@@ -53,5 +59,5 @@ alias hq='hugepage_query'
 help_add 'ht' '測試HugePages'
 alias ht='java -XX:+UseLargePages'
 help_add 'hset.<num>' '設定HugePages'
-alias hset='sudo sysctl -w vm.nr_hugepages=$*'
+alias hset='hugepage_set $*'
 
