@@ -155,16 +155,20 @@ help_add 'removeip' '移除DNS設定'
 alias removeip='dns_remove'
 
 #=================================
-help_add 'lb.<start|stop>' '負載平衡器1開始|結束'
+# help_add 'lb.<start|stop>' '負載平衡器1開始|結束'
 alias lb='/home/sita/script/minecraft/gcloud/loadbalancer.sh'
-help_add 'lb3.<start|stop>' '負載平衡器3開始|結束'
+# help_add 'lb3.<start|stop>' '負載平衡器3開始|結束'
 alias lb3='/home/sita/script/minecraft/gcloud/loadbalancer3.sh'
-help_add 'bc2.<start|stop>' '執行個體群組bc2開始|結束'
+
+#=================================
+# help_add 'bc2.<start|stop>' '執行個體群組bc2開始|結束'
 alias bc2='/home/sita/script/minecraft/gcloud/igroup.sh $*'
-help_add 'bc3.<start|stop>' '執行個體群組bc3開始|結束'
+# help_add 'bc3.<start|stop>' '執行個體群組bc3開始|結束'
 alias bc3='/home/sita/script/minecraft/gcloud/igroup3.sh $*'
 help_add 'bctemp.<start|<[pre]stop[2]>.[num]' '執行個體群組bctemp開始|結束'
-alias bctemp='/home/sita/script/minecraft/gcloud/bctemp $*'
+alias bctemp='/home/sita/script/minecraft/gcloud/bctemp.sh $*'
+help_add 'bc1.<start|stop>.<type>' '執行bc1開始[類型]|結束'
+alias bc1='/home/sita/script/minecraft/gcloud/bungeecord.sh $*'
 
 #=================================
 help_add 'vmlist' '列出vm位址'
