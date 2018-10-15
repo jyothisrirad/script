@@ -1,9 +1,15 @@
 #!/bin/bash
 
+#=================================
 . /home/sita/script/include/common_helper
 . /home/sita/script/include/console.color
 . /home/sita/script/include/gcloud_helper
 
+#=================================
+gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
+RECORD=r53
+
+#=================================
 [ -z "$gcloud_account" ] && gcloud_account="sita@changen.com.tw"
 [ -z "$project" ] && project="creeper-199909"
 [ -z "$instances" ] && instances="bungeecord-tw2"
@@ -48,6 +54,11 @@ start_machine() {
 stop_machine() {
     echo == Stop Machine $instances
     gcloud --account $gcloud_account --project $project compute instances stop $instances
+}
+
+#=================================
+lookup_dns_ip() {
+  host "$1" | sed -rn 's@^.* has address @@p'
 }
 
 #=================================

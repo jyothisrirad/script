@@ -117,6 +117,13 @@ usernamelocate_bc() {
 }
 
 #=================================
+log_backup_all_find_general() {
+	mode=$1
+	shift 1
+	for_all_backup_logs $mode find_general "$1" "$2"
+	for_all_logs $mode find_general "$1" "$2"
+}
+
 log_all_find_general() {
 	mode=$1
 	shift 1
@@ -221,6 +228,23 @@ for_all_logs() {
 }
 
 #=================================
+for_all_backup_logs() {
+	tmp=/tmp/logfind.tmp
+	tmp2=/tmp/logfind.2.tmp
+	logs=/mnt/backup/$mcver/logs/proxy.log.*
+	is_files_existed $logs || logs=/mnt/backup/$mcver/logs/*.log*
+	
+	mode=$1
+	# find=$1
+	# arg1="$2"
+	shift 1
+	
+	for log in $logs; do
+		for_log $mode "$log" $*
+	done
+}
+
+#=================================
 find_general() {
 	file="$1"
 	arg1="$2"
@@ -296,6 +320,10 @@ help_add 'lfa.<keyword>' '搜尋全部紀錄ip/username/keyword'
 alias lfa='log_all_find_general "normal"'
 alias lfak='log_all_find_general "keyword"'
 alias lfaip='log_all_find_general "ip"'
+help_add 'llfa.<keyword>' '搜尋全部備份+紀錄ip/username/keyword'
+alias llfa='log_backup_all_find_general "normal"'
+alias llfak='log_backup_all_find_general "keyword"'
+alias llfaip='log_backup_all_find_general "ip"'
 
 #=================================
 help_add 'lba.<proxy.log>' '分析bclog'

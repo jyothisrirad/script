@@ -10,7 +10,7 @@ BACKUPPATH="/mnt/backup"
 JARFILE=$(basename $(find . -maxdepth 1 -name '*.jar' | head -n 1) 2>/dev/null)
 LOG="$MCPATH/logs/latest.log"
 OPTMEM="-Xmx2G"
-JAVAARGS="$OPTMEM $OPTGC $OPTLOG"
+JAVAARGS="$OPTMEM $OPTPAGE $OPTGC $OPTLOG"
 
 #
 NEWJAR=$BACKUPPATH/server/$JARFILE
