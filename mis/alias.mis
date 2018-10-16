@@ -37,7 +37,7 @@ hd_temp() {
         # tempfile=/tmp/tempfile
         # smart $line $tempfile
         [ $(sudo which smartctl) ] && echo smartctl -x /dev/$line
-        [ $(sudo which smartctl) ] && sudo smartctl -x /dev/$line | grep 'Current Temperature:'
+        [ $(sudo which smartctl) ] && sudo smartctl -x /dev/$line | grep 'Serial Number:\|Current Temperature:'
     done
 }
 
