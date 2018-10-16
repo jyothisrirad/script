@@ -67,3 +67,5 @@ alias ht='java -XX:+UseLargePages'
 help_add 'hset.<num>' '設定HugePages'
 alias hset='hugepage_set $*'
 
+alias userlimit='ulimit -a'
+

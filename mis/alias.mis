@@ -31,6 +31,16 @@ days_calc() {
 }
 
 #=================================
+hd_temp() {
+    # sudo smartctl -x /dev/sdb | grep 'Current Temperature:'
+    lsblk | grep -P ^sd | cut -d" " -f 1 | while read line; do
+        # tempfile=/tmp/tempfile
+        # smart $line $tempfile
+        echo smartctl -a /dev/$line
+    done
+}
+
+#=================================
 . ~/script/minecraft/alias/admin.1.help
 load_alias
 
@@ -75,4 +85,7 @@ alias ver='check_version'
 alias days='days_calc $*'
 alias weeks='weeks_calc $*'
 
+#=================================
 alias temp='cat /sys/class/thermal/thermal_zone?/temp'
+alias hdtemp='hd_temp'
+
