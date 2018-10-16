@@ -1,0 +1,91 @@
+#!/bin/bash
+
+#=================================
+# help_hline3 'speedtest'
+
+#=================================
+list_file_column() {
+    csv=$1
+    col=$2
+    # echo \$$col
+    # echo awk -F ',' "{print \$$col}"
+    cat $csv | awk -F ',' "{print \$$col}"
+    # cat $csv | awk -F ',' "{print \$$col}" | tail -n +2
+}
+
+#=================================
+sum_file_column() {
+    csv=$1
+    col=$2
+    cols=$(list_file_column $csv $col)
+    for col in $cols
+    do
+        [ -z $sum ] && sum=0
+        # echo $col
+        # echo "$sum+$col"
+        sum=$(echo "$sum+$col"|bc 2>/dev/null)
+        # echo sum=$sum
+    done
+    echo $sum
+}
+
+#=================================
+sum_csv_files_column() {
+    csvfiles=*.csv*
+	
+	for csv in $csvfiles; do
+		sum=$(sum_file_column $csv $*)
+        # echo $sum
+        echo $csv $sum | column -t
+	done
+}
+
+#=================================
+path_to_csv() {
+    mon=$1
+    tw=$2
+    case "$tw" in
+      "tw1")
+        tw="creeper-tw"
+        ;;
+      "tw2")
+        tw="creeper-tw2"
+        ;;
+      "tw3")
+        tw="creeper-tw3"
+        ;;
+      *)
+    esac
+    
+    cd "/mnt/backup/$tw/2018-$mon"
+}
+
+#=================================
+sum_month() {
+    mon=$1
+    path_to_csv $1 tw1
+    sum_csv_files_column 9 | grep -v 'usage'
+    echo ===================================
+    path_to_csv $1 tw2
+    sum_csv_files_column 12 | grep -v 'usage'
+    echo ===================================
+    path_to_csv $1 tw3
+    sum_csv_files_column 12 | grep -v 'usage'
+}
+
+#=================================
+# alias sumfilecolumn='list_file_column'
+help_add 'sumfilecolumn.<file>.<col>' 'sumfilecolumn'
+alias sumfilecolumn='sum_file_column'
+help_add 'sumfilescolumn.<file>.<col>' 'sumfilescolumn'
+# Col I => 9
+# Col L => 12
+# Col O => 15
+alias sumcsv='sum_csv_files_column'
+help_add 'summ.<mon>' '月費用總計'
+alias summ='sum_month'
+
+#=================================
+help_add 'pcsv.<month>.<tw>' '切換到csv目錄'
+alias pcsv='path_to_csv $*'
+
