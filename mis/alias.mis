@@ -36,8 +36,8 @@ hd_temp() {
     lsblk | grep -P ^sd | cut -d" " -f 1 | while read line; do
         # tempfile=/tmp/tempfile
         # smart $line $tempfile
-        echo smartctl -x /dev/$line
-        sudo smartctl -x /dev/$line | grep 'Current Temperature:'
+        [ $(which smartctl) ] && echo smartctl -x /dev/$line
+        [ $(which smartctl) ] && sudo smartctl -x /dev/$line | grep 'Current Temperature:'
     done
 }
 
