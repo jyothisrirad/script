@@ -33,7 +33,7 @@ days_calc() {
 #=================================
 hd_temp() {
     # sudo smartctl -x /dev/sdb | grep 'Current Temperature:'
-    lsblk | grep -P ^sd | cut -d" " -f 1 | while read line; do
+    lsblk 2>/dev/null | grep -P ^sd | cut -d" " -f 1 | while read line; do
         # tempfile=/tmp/tempfile
         # smart $line $tempfile
         [ $(sudo which smartctl) ] && echo smartctl -x /dev/$line
