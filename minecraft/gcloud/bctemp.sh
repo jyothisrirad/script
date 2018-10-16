@@ -124,7 +124,7 @@ case "$1" in
   start)
     $0 install
     # start_bc
-    bc1 start small
+    $bc1 start small
 	$bc3 start $2 $2
     update_dns
     exit
@@ -141,7 +141,7 @@ case "$1" in
     ;;
   stop2)
     # stop_bc
-    bc1 stop
+    $bc1 stop
 	$0 stop
 	dns_stop2
     ;;
