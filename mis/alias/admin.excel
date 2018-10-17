@@ -82,8 +82,8 @@ help_add 'sumfilescolumn.<file>.<col>' 'sumfilescolumn'
 # Col L => 12
 # Col O => 15
 alias sumcsv='sum_csv_files_column'
-help_add 'summ.<mon>' '月費用總計'
-alias summ='sum_month'
+help_add 'sumc.<mon>' '月費用總計'
+alias sumc='sum_month'
 
 #=================================
 help_add 'pcsv.<month>.<tw>' '切換到csv目錄'
