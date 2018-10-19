@@ -35,6 +35,8 @@ $DP0/smbshare.enable NetBackup lz4
 
 sudo cp $DP0/etc/init.d/rsync /etc/init.d/rsync
 sudo cp $DP0/etc/rsyncd.conf /etc/rsyncd.conf
+sudo cp $DP0/etc/rsyncd.d/netbackup.conf /etc/rsyncd.d/netbackup.conf
+# sudo cp $DP0/etc/rsyncd.d/minecraft.conf /etc/rsyncd.d/minecraft.conf
 
 sudo update-rc.d rsync start 20 2 3 4 . start 30 5 .
 sudo update-rc.d rsync enable
