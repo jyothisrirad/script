@@ -40,7 +40,7 @@ BASEDIR=$(dirname $0)
 
 #-------------------------------------------------
 sudo apt update
-sudo apt-get install -y git ntpdate samba tmux at libnss-winbind rsync cron screen nfs-common htop
+sudo apt-get install -y git ntpdate samba tmux at libnss-winbind rsync cron screen nfs-common htop bc
 
 #-------------------------------------------------
 sh ${BASEDIR}/../gitconf.sh
@@ -144,3 +144,6 @@ echo =====================
 echo set password for root
 echo =====================
 sudo passwd root
+
+#-------------------------------------------------
+sudo sed -i 's/ftp.debian.org/ftp.tw.debian.org/g' /etc/apt/sources.list

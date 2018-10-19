@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#=================================
+# help_hline3 'speedtest'
+
+#=================================
+hd_temp() {
+    # sudo smartctl -x /dev/sdb | grep 'Current Temperature:'
+    lsblk 2>/dev/null | grep -P ^sd | cut -d" " -f 1 | while read line; do
+        # tempfile=/tmp/tempfile
+        # smart $line $tempfile
+        [ $(sudo which smartctl) ] && echo smartctl -x /dev/$line
+        [ $(sudo which smartctl) ] && sudo smartctl -x /dev/$line | grep 'Serial Number:\|Current Temperature:'
+    done
+}
+
+#=================================
+hd_info() {
+    # sudo smartctl -x /dev/sdb | grep 'Current Temperature:'
+    lsblk 2>/dev/null | grep -P ^sd | cut -d" " -f 1 | while read line; do
+        # tempfile=/tmp/tempfile
+        # smart $line $tempfile
+        [ $(sudo which smartctl) ] && echo smartctl -i /dev/$line
+        [ $(sudo which smartctl) ] && sudo smartctl -i /dev/$line | grep 'SATA Version'
+    done
+}
+
+#=================================
+hd_speed() {
+    disk=$1
+    [ $(sudo which hdparm) ] && echo hdparm -Tt /dev/$disk
+    [ $(sudo which hdparm) ] && sudo hdparm -Tt /dev/$disk
+}
+
+#=================================
+help_add 'hdtemp' '硬碟溫度'
+alias hdtemp='hd_temp'
+alias hdinfo='hd_info'
+alias hdspeed='hd_speed'
+
