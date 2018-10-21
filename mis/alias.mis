@@ -77,4 +77,4 @@ alias weeks='weeks_calc $*'
 
 #=================================
 alias temp='cat /sys/class/thermal/thermal_zone?/temp'
-
+alias chmodexe='find . -type f \( -name "*.sh" -or -name "*.bat" \) -exec chmod +x {} \;'

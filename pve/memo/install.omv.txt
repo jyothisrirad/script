@@ -1,0 +1,50 @@
+=====
+lsblk
+=====
+  ├─pve-swap       253:0    0  1.8G  0 lvm
+  ├─pve-root       253:1    0  3.5G  0 lvm  /
+  ├─pve-data_tmeta 253:2    0    1G  0 lvm
+  │ └─pve-data     253:4    0  5.1G  0 lvm
+  └─pve-data_tdata 253:3    0  5.1G  0 lvm
+    └─pve-data     253:4    0  5.1G  0 lvm
+    
+brw-rw---- 1 root disk 253, 0 Oct 19 16:53 /dev/dm-0
+brw-rw---- 1 root disk 253, 1 Oct 19 16:53 /dev/dm-1
+brw-rw---- 1 root disk 253, 2 Oct 19 16:53 /dev/dm-2
+brw-rw---- 1 root disk 253, 3 Oct 19 16:53 /dev/dm-3
+brw-rw---- 1 root disk 253, 4 Oct 19 16:53 /dev/dm-4
+
+============
+/mnt$ ls -la
+============
+lrwxrwxrwx  1 root root   13 Oct 19 17:04 Download -> /mnt/Download
+lrwxrwxrwx  1 root root   14 Oct 19 17:04 NetBackup -> /mnt/NetBackup
+
+=====================
+/etc/pve/lxc/171.conf
+=====================
+lxc.apparmor.profile: unconfined
+lxc.mount.auto: cgroup:rw
+lxc.mount.auto: proc:rw
+lxc.mount.auto: sys:rw
+lxc.cgroup.devices.allow: b 253:0 rwm
+lxc.cgroup.devices.allow: b 253:1 rwm
+lxc.cgroup.devices.allow: b 253:2 rwm
+lxc.cgroup.devices.allow: b 253:3 rwm
+lxc.cgroup.devices.allow: b 253:4 rwm
+lxc.autodev: 1
+lxc.hook.autodev: /var/lib/lxc/171/mount-hook.sh
+mp0: /tank/Shares/Download,mp=/mnt/Download
+mp1: /tank/Shares/NetBackup,mp=/mnt/NetBackup
+
+==============================
+/var/lib/lxc/171/mount-hook.sh
+==============================
+#!/bin/sh
+
+mknod -m 777 ${LXC_ROOTFS_MOUNT}/dev/dm-0 b 253 0
+mknod -m 777 ${LXC_ROOTFS_MOUNT}/dev/dm-1 b 253 1
+mknod -m 777 ${LXC_ROOTFS_MOUNT}/dev/dm-2 b 253 2
+mknod -m 777 ${LXC_ROOTFS_MOUNT}/dev/dm-3 b 253 3
+mknod -m 777 ${LXC_ROOTFS_MOUNT}/dev/dm-4 b 253 4
+

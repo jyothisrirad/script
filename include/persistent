@@ -16,3 +16,10 @@ dbsave() {
 	shift 1
     echo "$*" >$dbfile
 }
+
+#=================================
+string_hash() {
+	str=$1
+	n=$(md5sum <<< "$str")
+	echo $((0x${n%% *}))
+}

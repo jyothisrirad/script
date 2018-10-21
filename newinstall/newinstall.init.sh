@@ -147,3 +147,9 @@ sudo passwd root
 
 #-------------------------------------------------
 sudo sed -i 's/ftp.debian.org/ftp.tw.debian.org/g' /etc/apt/sources.list
+
+#-------------------------------------------------
+echo ==================
+echo install BBR, 1,3,8
+echo ==================
+wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && sudo ./tcp.sh

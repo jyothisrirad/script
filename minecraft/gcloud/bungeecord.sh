@@ -80,7 +80,7 @@ case "$1" in
     ;;
   stop)
     stop_machine
-    [ $instances -eq "bungeecord-tw2" ] && dns_stop2
+    [ "$instances" == "bungeecord-tw2" ] && dns_stop2
     ;;
   set)
     [ ! -z "$2" ] && set_machine_type $2 $3 $4
