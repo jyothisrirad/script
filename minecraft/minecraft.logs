@@ -129,6 +129,26 @@ grep.player() {
 	done
 }
 
+grep_player_without_team0() {
+	inputlog=`cat`
+	linecnt=$(echo "${inputlog[*]}" | wc -l)
+	if [ $linecnt -lt 2 ]; then return; fi
+
+    team0=$(mcdo scoreboard teams list 0 | grep -A 4 'Showing' | tail -n +2 | remove_ansi_color | sed 's/\[[ ^]]*\]//g' | sed "s/[a-zA-Z]*://g" | sed 's/,//g' | grep -Eo '[a-zA-Z0-9_-]{3,16}')
+    
+	players=$(echo "${inputlog[*]}" | grep -A 4 'players online\|玩家在線' | tail -n +2 | remove_ansi_color | sed 's/\[[^]]*\]//g' | sed "s/[a-zA-Z]*://g" | sed 's/,//g' | grep -Eo '[a-zA-Z0-9_-]{3,16}')
+    
+    for exclude in $team0
+    do
+        players=`echo $players | sed "s/\b$exclude\b//g"`
+    done
+    
+	for player in $players
+	do
+		echo $player
+	done
+}
+
 grep.logged() {
 	grep logged | awk '{ printf ("%s %s\n", $4, $5) }' | sed 's/\[[^]]*\]//g' | sort | uniq
 }
