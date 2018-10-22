@@ -187,7 +187,8 @@ uhctitle_byfile() {
 #=================================
 uhcteamcreate() {
 	tmpscrpit=/tmp/uhccreate
-	mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select $1 >$tmpscrpit
+	# mcdo list | grep.player | /home/sita/script/minecraft/uhc.team.select $1 >$tmpscrpit
+	mcdo list | grep_player_without_team0 | /home/sita/script/minecraft/uhc.team.select $1 >$tmpscrpit
 	echo "=== $tmpscrpit"
 	cat $tmpscrpit
 	mcdo gamerule sendCommandFeedback false

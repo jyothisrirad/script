@@ -1,8 +1,10 @@
 #!/bin/bash
 
+#=================================
 . /home/sita/script/minecraft/alias.minecraft
 . /home/sita/script/init.d/start.mc.sh
 
+#=================================
 # dns_external=tw2
 dns_external=
 # dns_updates=($dns_external bc)
@@ -13,4 +15,10 @@ servers=(s65)
 autostart=1
 antiddos=1
 
+#=================================
+custom_function() {
+    sudo service google-fluentd stop
+}
+
+#=================================
 run $*
