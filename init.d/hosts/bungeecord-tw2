@@ -18,6 +18,7 @@ antiddos=1
 #=================================
 custom_function() {
     sudo service google-fluentd stop
+    sudo service google-fluentd configtest
 }
 
 #=================================
