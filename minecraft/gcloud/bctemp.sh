@@ -16,7 +16,8 @@ RECORD=r53
 bc1=/home/sita/script/minecraft/gcloud/bungeecord.sh
 bc3=/home/sita/script/minecraft/gcloud/igroup3.sh
 ppl_per_bc=10
-ppl_to_start_bc=15
+# ppl_to_start_bc=15
+[ $(date +%u) -lt '5' ] && ppl_to_start_bc=10 || ppl_to_start_bc=15
 bctw="bungeecord-tw2"
 bctw_prestop_time="2255"
 bctw_stop_time="2300"
@@ -181,11 +182,12 @@ bctw_stop_check() {
 	echo == bctw_stop_check
     
 	lock $lockfile
-	pcounts=$(proxy_list | grep $bctw | grep -E "(-[0-9a-z]{4})" | awk '{print $3}')
+	pcounts=$(proxy_list | grep "proxy $bctw" | awk '{print $3}')
 	unlock $lockfile
     
     echo -e Online Players on $bctw: ${GREEN}$pcounts ${NC}
-    [ ! -z "$pcounts" ] && [ "$pcounts" == '0' ] && echo -e == bctw_stop_check: ${GREEN}bc1 stop${NC} && $bc1 stop
+    [ -z "$pcounts" ] && return
+    [ "$pcounts" == '0' ] && echo -e == bctw_stop_check: ${GREEN}bc1 stop${NC} && $bc1 stop && redis_remove_heartbeats
 }
 
 #=================================
@@ -269,7 +271,7 @@ ppl_more() {
 	# [ ! -z "${!ppl_more[*]}" ] && dbsave "ppl_more" "$(declare -p ppl_more)"
     
 	[ -z "$ppl_count" ] && return
-    [ "$ppl_count" -lt "$ppl_to_start_bc" ] && return
+    [ "$ppl_count" -le "$ppl_to_start_bc" ] && return
 	ppl_count=$(echo $ppl_count-$ppl_per_bc|bc)
 	
 	bcount=$(num_bcgroup_on)
@@ -334,6 +336,9 @@ case "$1" in
     ;;
   less)
     ppl_less
+    ;;
+  logrotate)
+    logrotate
     ;;
   *)
     watch_player_count

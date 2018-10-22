@@ -36,3 +36,34 @@ as_user() {
     su - $USERNAME -c "$1"
   fi
 }
+
+### 
+logconf=/etc/logrotate.d/$(basename $0).logrotate
+
+logrotate_conf() {
+    logfile=/tmp/log/$(basename $0).log
+    templogconf=/tmp/$(basename $0).logrotate
+    
+    echo "# $logfile"                    >$templogconf
+    echo "# sudo chown root $logconf"   >>$templogconf
+    echo "# sudo logrotate -d $logconf" >>$templogconf
+    echo /tmp/log/$(basename $0).log {  >>$templogconf
+    echo   daily                        >>$templogconf
+    echo   dateext                      >>$templogconf
+    echo   missingok                    >>$templogconf
+    echo   rotate 7                     >>$templogconf
+    echo   compress                     >>$templogconf
+    echo   delaycompress                >>$templogconf
+    echo   notifempty                   >>$templogconf
+    echo   copytruncate                 >>$templogconf
+    echo }                              >>$templogconf
+    
+    sudo chown root $templogconf
+    sudo mv $templogconf /etc/logrotate.d/
+}
+
+logrotate() {
+    [ ! -f $logconf ] && logrotate_conf
+    sudo logrotate -f $logconf
+}
+
