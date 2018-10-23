@@ -156,8 +156,8 @@ num_player_or_exit() {
 update_dns() {
 	echo == update_dns
     ppl_count=$(num_player_or_exit)
-	echo -e Online Players: ${GREEN}$ppl_count${NC}
 	[ -z "$ppl_count" ] && return
+	echo -e Online Players: ${GREEN}$ppl_count${NC}
     [ "$ppl_count" -gt "$ppl_to_start_bc" ] && update_dns_bcgroups && return
     [ $(date +%H%M) -lt "$bctw_prestop_time" ] && update_dns_bchome && return
     update_dns_home
@@ -185,8 +185,8 @@ bctw_stop_check() {
 	pcounts=$(proxy_list | grep "proxy $bctw" | awk '{print $3}')
 	unlock $lockfile
     
-    echo -e Online Players on $bctw: ${GREEN}$pcounts ${NC}
     [ -z "$pcounts" ] && return
+    echo -e Online Players on $bctw: ${GREEN}$pcounts ${NC}
     [ "$pcounts" == '0' ] && echo -e == bctw_stop_check: ${GREEN}bc1 stop${NC} && $bc1 stop && redis_remove_heartbeats
 }
 
@@ -217,11 +217,11 @@ redis_remove_heartbeats() {
 
 #=================================
 ppl_less() {
+    key="bc_ppl_count"
     [ $(num_bcgroup_on) == '0' ] && return
     
 	eval "$(dbload 'ppl_less')"
     
-    key="bc_ppl_count"
     keyhash=$(string_hash $key)
     [ -z "${ppl_less[keyhash]}" ] && ppl_less[keyhash]=0
     
@@ -261,8 +261,9 @@ ppl_more() {
     # [ -z "${ppl_more[keyhash]}" ] && ppl_more[keyhash]=0
     
     # ppl_count_last=${ppl_more[keyhash]}
-    ppl_count=$(num_player_or_exit)
     echo == ppl_more
+    ppl_count=$(num_player_or_exit)
+	[ -z "$ppl_count" ] && return
     # echo -e Online Players last time: ${YELLOW}$ppl_count_last ${NC}
 	echo -e Online Players: ${GREEN}$ppl_count ${NC}
 	
@@ -270,7 +271,6 @@ ppl_more() {
         
 	# [ ! -z "${!ppl_more[*]}" ] && dbsave "ppl_more" "$(declare -p ppl_more)"
     
-	[ -z "$ppl_count" ] && return
     [ "$ppl_count" -le "$ppl_to_start_bc" ] && return
 	ppl_count=$(echo $ppl_count-$ppl_per_bc|bc)
 	
@@ -339,6 +339,9 @@ case "$1" in
     ;;
   logrotate)
     logrotate
+    ;;
+  redis)
+    redis_remove_heartbeats
     ;;
   *)
     watch_player_count

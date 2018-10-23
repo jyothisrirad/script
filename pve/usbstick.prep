@@ -129,6 +129,8 @@ zfs_create $rpool/Shares/VM -o recordsize=4k -o sync=disabled
 zfs_create $rpool/Shares/Download -o recordsize=16KB
 # sudo zfs set compression=off $rpool/Shares/Download
 
+# zfs set acltype="posixacl" $rpool/Shares/Download
+
 # omv fake hd
 sudo zfs create -s -V 1024G -o compression=on $rpool/omv_sda
 
