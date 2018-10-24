@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#=================================
+# help_hline3 'speedtest'
+
+#=================================
+# omv_share_prep() {
+    # sudo ln -s /mnt/$1 $1
+# }
+
+#=================================
+# help_add 'plxc' 'lxc路徑'
+# alias plxc='cd /var/lib/lxc'
+
+# sudo vi /etc/default/grub
+
+# sudo update-grub
+
+# GRUB_TIMEOUT=1
+# GRUB_CMDLINE_LINUX_DEFAULT="rootdelay=10 quiet"
