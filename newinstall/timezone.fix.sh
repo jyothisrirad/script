@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sudo dpkg-reconfigure tzdata
 
 sudo cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
