@@ -129,4 +129,5 @@ yelling() {
 alias npc.rides='npcrides $*'
 alias yell='yelling $*'
 alias yellrc='yelling 只接受RC會員申請名為「${gold}${bold}麥塊ID\(自己暱稱\)${green}${bold}」 ${white}${bold}RC:${green}${bold}27685743'
+alias yellhub='yelling "§b§l/hub§6§l回到大廳"'
 

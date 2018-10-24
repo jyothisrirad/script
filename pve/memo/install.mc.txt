@@ -1,0 +1,37 @@
+In pve webgui, Storage
+======================
+install samba
+
+remove  local-vm
+remove  vm
+
+add nfs 
+vz
+pve6 
+/tank/var/lib/vz
+images,backup,vztmpl,iso
+options vers=3,soft
+
+add nfs 
+vmpool
+pve6 
+/tank/Shares/VM
+rootdir,images
+options vers=3,soft
+
+add nfs 
+minecraft
+pve6 
+/tank/Shares/Users/yoz/minecraft
+images
+options vers=3,soft
+
+sudo cat /etc/pve/storage.cfg
+
+=====
+lxcmc
+=====
+mp0: /mnt/pve/minecraft,mp=/mnt
+=====
+
+~/script/minecraft/gcloud/init.sh

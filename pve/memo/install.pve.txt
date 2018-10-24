@@ -1,0 +1,14 @@
+In pve webgui, Storage
+======================
+install samba
+
+remove local-vm
+
+add zfs vm
+
+add nfs vz 
+pve6 /tank/var/lib/vz 
+images,backup,vztmpl,iso
+options vers=3,soft
+
+sudo cat /etc/pve/storage.cfg

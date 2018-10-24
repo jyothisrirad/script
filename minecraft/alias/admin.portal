@@ -11,16 +11,26 @@ setmcport() {
 }
 
 #=================================
+set_mcport() {
+    num=$1
+    ipnum=$(ip addr show | grep 192 | awk '{print $2}' | awk -F '.' '{print $4}' | awk -F '/' '{print $1}')
+    # echo setmcport ${ipnum}0${num}
+    setmcport ${ipnum}0${num}
+}
+
+#=================================
 clearmcport() {
     [ -f config.sh ] && sed -i "/^.*server\.properties$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20402$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20403$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20404$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20405$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20606$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20607$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20608$/d" config.sh
-    [ -f config.sh ] && sed -i "/^server-port=20609$/d" config.sh
+    ipnum=$(ip addr show | grep 192 | awk '{print $2}' | awk -F '.' '{print $4}' | awk -F '/' '{print $1}')
+    # [ -f config.sh ] && sed -i "/^server-port=20402$/d" config.sh
+    # [ -f config.sh ] && sed -i "/^server-port=20403$/d" config.sh
+    # [ -f config.sh ] && sed -i "/^server-port=20404$/d" config.sh
+    # [ -f config.sh ] && sed -i "/^server-port=20405$/d" config.sh
+    # [ -f config.sh ] && sed -i "/^server-port=20606$/d" config.sh
+    # [ -f config.sh ] && sed -i "/^server-port=20607$/d" config.sh
+    # [ -f config.sh ] && sed -i "/^server-port=20608$/d" config.sh
+    # [ -f config.sh ] && sed -i "/^server-port=20609$/d" config.sh
+    [ -f config.sh ] && sed -i "/^server-port=${ipnum}0[0-9]$/d" config.sh
 }
 
 #=================================
@@ -58,6 +68,10 @@ alias pp4='setmcport 20606'
 alias pp5='setmcport 20607'
 alias pp6='setmcport 20608'
 alias pp7='setmcport 20609'
+
+#=================================
+help_add 'ppp.<num>' '設定遊戲port'
+alias ppp='set_mcport $*'
 
 #=================================
 help_add 'p' '查詢/設定人數上限'
