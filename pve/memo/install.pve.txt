@@ -12,3 +12,11 @@ images,backup,vztmpl,iso
 options vers=3,soft
 
 sudo cat /etc/pve/storage.cfg
+
+backup job
+start time: 05:00
+select mode: all
+send email to: chsliu@gmail.com
+email notification: on failure only
+comrepssion: gzip
+mode: snapshot

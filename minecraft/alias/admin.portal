@@ -70,8 +70,8 @@ alias pp6='setmcport 20608'
 alias pp7='setmcport 20609'
 
 #=================================
-help_add 'ppp.<num>' '設定遊戲port'
-alias ppp='set_mcport $*'
+help_add 'pp.<num>' '設定遊戲port'
+alias pp='set_mcport $*'
 
 #=================================
 help_add 'p' '查詢/設定人數上限'

@@ -16,7 +16,7 @@ speed_test() {
 
 #=================================
 help_add 'speedtestinstall' 'speedtest安裝'
-alias speedtestinstall='sudo apt install iperf'
+alias speedinst='sudo apt install iperf'
 
 #=================================
 alias speedhost='speed_host'

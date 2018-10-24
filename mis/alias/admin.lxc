@@ -26,6 +26,7 @@ lxc_run() {
 #=================================
 # help_add 'plxc' 'lxc路徑'
 alias plxc='cd /var/lib/lxc'
+alias ppv='cd ~/script/pve'
 alias ppve='cd /etc/pve/lxc'
 
 alias omvshareprep='omv_share_prep $1'
