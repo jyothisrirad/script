@@ -75,8 +75,8 @@ swap_server() {
 }
 
 #=================================
-help_add 'swapcheck' '檢查swap'
-alias swapcheck='swap_check'
+help_add 'si' '檢查swap'
+alias si='swap_check'
 help_add 'swapmake' '設定/swapfile'
 alias swapmake='swap_file_make'
 help_add 'swapdesktop' '設定swap伺服器參數'
