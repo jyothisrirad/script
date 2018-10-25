@@ -1,0 +1,93 @@
+#!/bin/bash
+
+#=================================
+# . /home/sita/script/include/common_helper
+
+#=================================
+help_hline3 'swap'
+
+#=================================
+swap_check() {
+    for szFile in /proc/*/status ; do 
+
+      awk '/VmSwap|Name/{printf $2 "\t" $3}END{ print "" }' $szFile 
+
+    done | sort --key 2 --numeric | uniq
+
+    echo =====================================
+    sudo swapon --show
+
+    echo =====================================
+    echo swappiness
+    cat /proc/sys/vm/swappiness
+    echo vfs_cache_pressure
+    cat /proc/sys/vm/vfs_cache_pressure
+}
+
+#=================================
+swap_file_make() {
+    swapsize=$(grep MemTotal /proc/meminfo | awk '{print $2 }' | xargs -I {} echo "1+sqrt({}/1024^2)" | bc)G
+    swapfile=/swapfile
+
+    sudo swapon --show
+    
+    [ -f $swapfile ] && echo === Swapfile $swapfile already existed && return
+    
+    sudo swapoff -a
+    #delete swap from fstab
+    delfrom_fstab swap
+    echo sudo fallocate -l $swapsize $swapfile
+    sudo fallocate -l $swapsize $swapfile
+    sudo chmod 600 $swapfile
+    sudo mkswap $swapfile
+    sudo swapon $swapfile
+    # echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+    addto_fstab $swapfile none swap sw 0 0
+    sudo swapon --show
+}
+
+#=================================
+swap_desktop() {
+    #desktop
+    echo swappiness
+    cat /proc/sys/vm/swappiness
+
+    echo vfs_cache_pressure
+    cat /proc/sys/vm/vfs_cache_pressure
+
+    # echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+    delfrom_sysctl vm.vfs_cache_pressure
+    addto_sysctl vm.vfs_cache_pressure=50
+    sudo sysctl vm.vfs_cache_pressure=50
+}
+
+#=================================
+swap_server() {
+    #server
+    echo swappiness
+    cat /proc/sys/vm/swappiness
+
+    echo vfs_cache_pressure
+    cat /proc/sys/vm/vfs_cache_pressure
+
+    # echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+    delfrom_sysctl vm.swappiness
+    addto_sysctl vm.swappiness=10
+    sudo sysctl vm.swappiness=10
+
+    # echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+    delfrom_sysctl vm.vfs_cache_pressure
+    addto_sysctl vm.vfs_cache_pressure=50
+    sudo sysctl vm.vfs_cache_pressure=50
+}
+
+#=================================
+help_add 'swapcheck' '檢查swap'
+alias swapcheck='swap_check'
+help_add 'swapmake' '設定/swapfile'
+alias swapmake='swap_file_make'
+help_add 'swapdesktop' '設定swap伺服器參數'
+alias swapdesktop='swap_desktop'
+help_add 'swapserver' '設定swap工作站參數'
+alias swapserver='swap_server'
+

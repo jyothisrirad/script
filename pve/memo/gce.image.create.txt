@@ -1,0 +1,14 @@
+/mnt/runtimes/65-bungeeCord-azure/vm.prep.sh
+
+==========
+check swap
+==========
+cat /etc/fstab
+free -h
+swapcheck
+
+===============
+create swapfile
+===============
+swapmake
+swapserver

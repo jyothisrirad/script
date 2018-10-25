@@ -112,35 +112,11 @@ addto_sources() {
 	fi
 }
 
-# echo Create Swap of size $swapsize
-# swap_prep tank $swapsize
 default_swap_off
-
-# zfs_create $rpool/var
-# move_path_zfs var/log $rpool
-# move_path_zfs var/cache $rpool
-# zfs_create $rpool/var/lib
-# move_path_zfs var/lib/vz $rpool
 
 addto_fstab tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0
 #addto_fstab tmpfs /var/spool tmpfs defaults,noatime,mode=1777 0 0
 addto_fstab tmpfs /var/tmp tmpfs defaults,noatime,mode=1777 0 0
 
-# zfs_create $rpool/USBROOT
-# addto_crontab "# $(basename $0): weekly usbstick backup"
-# addto_crontab "0 6 * * 0 /usr/bin/batch < /home/$(whoami)/script/pve/usbbackup"
-
-# zfs_create $rpool/Shares
-# zfs_create $rpool/Shares/VM -o recordsize=4k -o sync=disabled
-# zfs_create $rpool/Shares/Download -o recordsize=16KB
-# sudo zfs set compression=off $rpool/Shares/Download
-
-# zfs set acltype="posixacl" $rpool/Shares/Download
-
-# omv fake hd
-# sudo zfs create -s -V 1024G -o compression=on $rpool/omv_sda
-
-# addto_sources deb http://download.proxmox.com/debian jessie pve-no-subscription
 addto_sources deb http://download.proxmox.com/debian $(lsb_release -c -s) pve-no-subscription
 sudo apt update
-# sudo apt install -y openvswitch-switch zfs-zed

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 wget http://apt.openattic.org/A7D3EAFA.txt -q -O - | apt-key add -
 echo  "deb     http://apt.openattic.org/ jessie   main" >> /etc/apt/sources.list

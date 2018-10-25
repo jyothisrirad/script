@@ -10,6 +10,9 @@ gandi=/home/sita/script/mis/dns.gandi.creeper.tw.sh
 RECORD=r53
 
 #=================================
+bc=/home/sita/script/minecraft/gcloud/bc
+
+#=================================
 [ -z "$gcloud_account" ] && gcloud_account="sita@changen.com.tw"
 [ -z "$project" ] && project="creeper-199909"
 [ -z "$instances" ] && instances="bungeecord-tw2"
@@ -62,7 +65,12 @@ lookup_dns_ip() {
 }
 
 #=================================
-dns_stop2() {
+dns_bctw_remove() {
+    $bc stop
+}
+
+#=================================
+dns_home() {
     echo DNS Groups: $(basename $0)
 	
 	echo -e Collecting ip: ${GREEN}"gem.creeper.tw"${NC}
@@ -80,7 +88,8 @@ case "$1" in
     ;;
   stop)
     stop_machine
-    [ "$instances" == "bungeecord-tw2" ] && dns_stop2
+    [ "$instances" == "bungeecord-tw2" ] && dns_bctw_remove
+    [ "$instances" == "bungeecord-tw2" ] && dns_home
     ;;
   set)
     [ ! -z "$2" ] && set_machine_type $2 $3 $4

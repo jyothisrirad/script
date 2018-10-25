@@ -20,3 +20,18 @@ send email to: chsliu@gmail.com
 email notification: on failure only
 comrepssion: gzip
 mode: snapshot
+
+
+change vm id
+============
+/etc/pve/lxc/<old id>.conf  -> <new id>.conf
+
+rootfs: vm:subvol-<old id>-disk-1,size=8G
+rootfs: vm:subvol-<new id>-disk-1,size=8G
+
+zfs rename tank/Shares/VM/subvol-<old id>-disk-1 tank/Shares /VM/subvol-<new id>-disk-1
+
+/var/lib/lxc/<old id>       -> <new id>
+Network ip <old ip>         -> <new ip>
+
+

@@ -60,14 +60,14 @@ make_standalone_server() {
 
 #=================================
 alias ppclear='clearmcport'
-alias pp0='setmcport 20402'
-alias pp1='setmcport 20403'
-alias pp2='setmcport 20404'
-alias pp3='setmcport 20405'
-alias pp4='setmcport 20606'
-alias pp5='setmcport 20607'
-alias pp6='setmcport 20608'
-alias pp7='setmcport 20609'
+# alias pp0='setmcport 20402'
+# alias pp1='setmcport 20403'
+# alias pp2='setmcport 20404'
+# alias pp3='setmcport 20405'
+# alias pp4='setmcport 20606'
+# alias pp5='setmcport 20607'
+# alias pp6='setmcport 20608'
+# alias pp7='setmcport 20609'
 
 #=================================
 help_add 'pp.<num>' '設定遊戲port'

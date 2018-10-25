@@ -176,3 +176,7 @@ alias uhc='/home/sita/script/minecraft/gcloud/uhc.sh $*'
 help_add 'vmlist' '列出vm位址'
 alias vmlist='vm_list | sort'
 
+#=================================
+help_add 'wake.<pc>' '喚醒電腦'
+alias wake='/home/sita/script/minecraft/gcloud/wakeup.sh $*'
+
