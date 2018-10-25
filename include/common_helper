@@ -1,6 +1,9 @@
 #!/bin/bash
 
 ###
+. /home/sita/script/include/file_helper
+
+###
 [ ! -d /tmp/log ] && mkdir /tmp/log && sudo chown sita:sita /tmp/log
 exec > >(tee -a -i /tmp/log/$(basename $0).log)
 exec 2>&1
@@ -16,84 +19,6 @@ runscreen=/home/sita/script/mis/run_in_screen.sh
 ### 
 USERNAME=sita
 ME=`whoami`
-
-#=================================
-add_uniq_to_file() {
-	file=$1
-	shift
-	
-	if [ ! -e $file ]; then
-		sudo touch $file
-	fi
-	
-	if ! sudo grep -Fxq "$@" $file; then
-		echo "$@" | sudo tee -a $file
-	fi
-}
-
-#=================================
-del_uniq_in_file() {
-	file=$1
-	shift
-	
-	line=$@
-	line=$(echo "$line" | sed 's/\//\\\//g')
-	sudo sed -i "/$line/d" $file
-}
-
-#=================================
-addto_fstab() {
-	fsfile=/etc/fstab
-
-	if ! sudo grep -Fxq "$*" $fsfile; then
-		echo $* | sudo tee -a $fsfile
-	fi
-}
-
-#=================================
-delfrom_fstab() {
-	sudo sed -i "/$1/d" /etc/fstab
-}
-
-#=================================
-addto_sources() {
-	sources=/etc/apt/sources.list
-
-	if ! sudo grep -Fxq "$*" $sources; then
-		echo $* | sudo tee -a $sources
-	fi
-}
-
-#=================================
-addto_crontab() {
-	(crontab -l; echo "$*") | crontab -
-}
-
-#=================================
-delfrom_crontab() {
-	line=$*
-	line=$(echo "$line" | sed 's/\//\\\//g')
-	crontab -l | sed "/$line/d" | crontab -
-}
-
-#=================================
-addto_root_crontab() {
-	! sudo crontab -l | grep -Fxq "$*" && su - root -c "(crontab -l; echo \"$*\") | crontab -"
-}
-
-#=================================
-addto_sysctl() {
-	fsfile=/etc/sysctl.conf
-
-	if ! sudo grep -Fxq "$*" $fsfile; then
-		echo $* | sudo tee -a $fsfile
-	fi
-}
-
-#=================================
-delfrom_sysctl() {
-	sudo sed -i "/$1/d" /etc/sysctl.conf
-}
 
 ### 
 as_user() {

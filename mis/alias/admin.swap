@@ -2,6 +2,7 @@
 
 #=================================
 # . /home/sita/script/include/common_helper
+. /home/sita/script/include/file_helper
 
 #=================================
 help_hline3 'swap'
@@ -26,8 +27,6 @@ swap_check() {
 
 #=================================
 swap_file_make() {
-    . /home/sita/script/include/common_helper
-
     swapsize=$(grep MemTotal /proc/meminfo | awk '{print $2 }' | xargs -I {} echo "1+sqrt({}/1024^2)" | bc)G
     swapfile=/swapfile
 
@@ -50,8 +49,6 @@ swap_file_make() {
 
 #=================================
 swap_desktop() {
-    . /home/sita/script/include/common_helper
-    
     #desktop
     echo swappiness
     cat /proc/sys/vm/swappiness
@@ -67,8 +64,6 @@ swap_desktop() {
 
 #=================================
 swap_server() {
-    . /home/sita/script/include/common_helper
-    
     #server
     echo swappiness
     cat /proc/sys/vm/swappiness
