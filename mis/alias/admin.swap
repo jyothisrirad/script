@@ -13,16 +13,14 @@ swap_check() {
 
       awk '/VmSwap|Name/{printf $2 "\t" $3}END{ print "" }' $szFile 
 
-    done | sort --key 2 --numeric | uniq
+    done | sort --key 2 --numeric | uniq | column -t
 
     echo =====================================
     sudo swapon --show
 
     echo =====================================
-    echo swappiness
-    cat /proc/sys/vm/swappiness
-    echo vfs_cache_pressure
-    cat /proc/sys/vm/vfs_cache_pressure
+    echo swappiness=$(cat /proc/sys/vm/swappiness)
+    echo vfs_cache_pressure=$(cat /proc/sys/vm/vfs_cache_pressure)
 }
 
 #=================================
@@ -50,11 +48,8 @@ swap_file_make() {
 #=================================
 swap_desktop() {
     #desktop
-    echo swappiness
-    cat /proc/sys/vm/swappiness
-
-    echo vfs_cache_pressure
-    cat /proc/sys/vm/vfs_cache_pressure
+    echo swappiness=$(cat /proc/sys/vm/swappiness)
+    echo vfs_cache_pressure=$(cat /proc/sys/vm/vfs_cache_pressure)
 
     # echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
     delfrom_sysctl vm.vfs_cache_pressure
@@ -65,11 +60,8 @@ swap_desktop() {
 #=================================
 swap_server() {
     #server
-    echo swappiness
-    cat /proc/sys/vm/swappiness
-
-    echo vfs_cache_pressure
-    cat /proc/sys/vm/vfs_cache_pressure
+    echo swappiness=$(cat /proc/sys/vm/swappiness)
+    echo vfs_cache_pressure=$(cat /proc/sys/vm/vfs_cache_pressure)
 
     # echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
     delfrom_sysctl vm.swappiness
